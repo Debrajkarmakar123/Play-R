@@ -166,27 +166,52 @@ h1{margin-top:14px;font-size:58px;line-height:1;letter-spacing:-3.2px;}
 .action.orange{color:#ffb28d;border-color:#4a2c1c;}
 .action.orange:hover{background:#2a1a10;color:#fff;}
 
-/* ============ SLIDER BUTTON ============ */
-.action.slider{
+/* HERO BUTTON */
+.action.hero{
     color:#ffd9a0;
     border-color:#6a4a1f;
     background:#241a0e;
 }
 
-.action.slider:hover{
+.action.hero:hover{
     background:#332211;
     color:#fff;
     border-color:#8a6330;
 }
 
-.action.slider.active{
+.action.hero.active{
     background:linear-gradient(135deg,#ff9a63,#ff4926);
     color:#fff;
     border-color:#ff7a45;
     box-shadow:0 6px 20px rgba(255,113,62,.35);
 }
 
-/* ============ ORIGINAL BUTTON ============ */
+/* SLIDER TOGGLE */
+.action.slider-off{
+    color:#ffb0b0;
+    border-color:#5a2525;
+    background:#241010;
+}
+
+.action.slider-off:hover{
+    background:#331414;
+    color:#fff;
+    border-color:#7a3535;
+}
+
+.action.slider-on{
+    color:#a8e9b8;
+    border-color:#2a4a34;
+    background:#0f1f16;
+}
+
+.action.slider-on:hover{
+    background:#152a1d;
+    color:#fff;
+    border-color:#3a6a44;
+}
+
+/* ORIGINAL BUTTON */
 .action.original{
     color:#ffd9a0;
     border-color:#7a4a1f;
@@ -421,14 +446,16 @@ h1{margin-top:14px;font-size:58px;line-height:1;letter-spacing:-3.2px;}
     <div>
         <div class="eyebrow">Control Center</div>
         <h1>Game management</h1>
-        <p>Feature, pin, freeze, add to hero slider, mark as original or takedown.</p>
+        <p>Make hero, remove from slider, feature, pin, freeze, mark original or takedown.</p>
     </div>
 </section>
 <section class="panel">
 <div class="toolbar">
     <div class="chip-row" style="margin:0;">
         <button class="chip active" data-gamefilter="all">ALL</button>
-        <button class="chip" data-gamefilter="slider">SLIDER</button>
+        <button class="chip" data-gamefilter="slider">IN SLIDER</button>
+        <button class="chip" data-gamefilter="hidden-slider">REMOVED FROM SLIDER</button>
+        <button class="chip" data-gamefilter="hero">HERO</button>
         <button class="chip" data-gamefilter="original">ORIGINAL</button>
         <button class="chip" data-gamefilter="featured">FEATURED</button>
         <button class="chip" data-gamefilter="pinned">PINNED</button>
@@ -506,12 +533,13 @@ h1{margin-top:14px;font-size:58px;line-height:1;letter-spacing:-3.2px;}
 <section class="panel">
 <div class="form-block">
     <h3>Hero game</h3>
-    <div class="hint">Game shown at the top of the homepage slider (top priority).</div>
+    <div class="hint">Game shown as the main featured game on the homepage slider.</div>
     <div class="grid-2">
         <div class="field"><label>Hero game ID</label><input id="heroGameId" placeholder="game doc id"></div>
         <div class="field"><label>Hero tagline</label><input id="heroTagline" placeholder="Short tagline"></div>
     </div>
     <button class="action orange" id="saveHeroBtn">Save hero</button>
+    <button class="action delete" id="clearHeroBtn">Clear hero</button>
 </div>
 <div class="form-block">
     <h3>Announcement bar</h3>
@@ -733,6 +761,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
+
+let currentHeroGameId = "";
 
 /* SUBMISSIONS */
 
@@ -1102,7 +1132,16 @@ let gameSearchTerm = "";
 async function loadGames(){
     const box = document.getElementById("gamesList");
     box.innerHTML = `<div class="loading">Loading games...</div>`;
+
     try{
+        /* Load current hero */
+        try{
+            const settingsSnap = await getDoc(doc(db, "site_settings", "global"));
+            if(settingsSnap.exists()){
+                currentHeroGameId = settingsSnap.data().heroGameId || "";
+            }
+        }catch(e){ console.warn("hero load failed", e); }
+
         const snap = await getDocs(collection(db, "game_submissions"));
         allGames = snap.docs.map(d => ({ id:d.id, ...d.data() }))
                             .filter(g => g.status === "approved" || g.status === "takedown");
@@ -1112,10 +1151,21 @@ async function loadGames(){
     }
 }
 
+/* Helper: is game currently in slider? */
+function isInSlider(g){
+    if(g.hideFromSlider === true) return false;
+    if(g.frozen === true) return false;
+    /* Hero, pinned, featured, or normal (auto-fill) — sab slider mein */
+    return true;
+}
+
 function renderGames(){
     const box = document.getElementById("gamesList");
+
     const filtered = allGames.filter(g => {
-        if(gameFilter === "slider" && !g.heroSlider) return false;
+        if(gameFilter === "slider" && !isInSlider(g)) return false;
+        if(gameFilter === "hidden-slider" && g.hideFromSlider !== true) return false;
+        if(gameFilter === "hero" && g.id !== currentHeroGameId) return false;
         if(gameFilter === "original" && !g.isOriginal) return false;
         if(gameFilter === "featured" && !g.featured) return false;
         if(gameFilter === "pinned" && !g.pinned) return false;
@@ -1134,7 +1184,12 @@ function renderGames(){
         return;
     }
 
-    box.innerHTML = filtered.map(g => `
+    box.innerHTML = filtered.map(g => {
+        const isHero = g.id === currentHeroGameId;
+        const inSlider = isInSlider(g);
+        const hidden = g.hideFromSlider === true;
+
+        return `
         <div class="row-card">
             <div class="main">
                 <h4>${escapeHTML(g.gameName || "Untitled")}</h4>
@@ -1142,7 +1197,9 @@ function renderGames(){
                     ${escapeHTML(g.category || "No category")} · ${escapeHTML(g.developer || g.developerName || "Unknown")}
                 </div>
                 <div class="chip-row" style="margin-top:14px;margin-bottom:0;">
-                    ${g.heroSlider ? `<span class="badge gold">In Slider</span>` : ""}
+                    ${isHero ? `<span class="badge gold">👑 Hero Game</span>` : ""}
+                    ${inSlider && !isHero ? `<span class="badge green">In Slider</span>` : ""}
+                    ${hidden ? `<span class="badge red">Hidden from Slider</span>` : ""}
                     ${g.isOriginal ? `<span class="badge orange">Original</span>` : ""}
                     ${g.featured ? `<span class="badge orange">Featured</span>` : ""}
                     ${g.pinned ? `<span class="badge green">Pinned</span>` : ""}
@@ -1151,11 +1208,14 @@ function renderGames(){
                 </div>
             </div>
             <div class="side">
-                <button class="action slider ${g.heroSlider?"active":""}" data-gact="slider" data-id="${safe(g.id)}">
-                    ${g.heroSlider ? "⭐ In Slider" : "⭐ Add to Slider"}
+                <button class="action hero ${isHero?"active":""}" data-gact="hero" data-id="${safe(g.id)}">
+                    ${isHero ? "👑 Current Hero" : "👑 Make Hero"}
+                </button>
+                <button class="action ${hidden?'slider-on':'slider-off'}" data-gact="sliderToggle" data-id="${safe(g.id)}">
+                    ${hidden ? "➕ Add to Slider" : "❌ Remove from Slider"}
                 </button>
                 <button class="action original ${g.isOriginal?"active":""}" data-gact="original" data-id="${safe(g.id)}">
-                    ${g.isOriginal ? "👑 Original" : "👑 Make Original"}
+                    ${g.isOriginal ? "👑 Original" : "⭐ Make Original"}
                 </button>
                 <button class="action orange" data-gact="feature" data-id="${safe(g.id)}">${g.featured?"Unfeature":"Feature"}</button>
                 <button class="action" data-gact="pin" data-id="${safe(g.id)}">${g.pinned?"Unpin":"Pin"}</button>
@@ -1164,7 +1224,8 @@ function renderGames(){
                 <button class="action" data-gact="edit" data-id="${safe(g.id)}">Edit</button>
             </div>
         </div>
-    `).join("");
+        `;
+    }).join("");
 }
 
 document.querySelectorAll("[data-gamefilter]").forEach(chip => {
@@ -1191,16 +1252,50 @@ document.getElementById("gamesList").addEventListener("click", async e => {
     if(!game) return;
 
     try{
-        /* ============ SLIDER (only heroSlider) ============ */
-        if(act === "slider"){
-            const v = !game.heroSlider;
-            await updateDoc(doc(db, "game_submissions", id), { heroSlider: v });
-            game.heroSlider = v;
-            logAudit(v?"add_to_slider":"remove_from_slider","game_submissions",id);
-            toast(v?"Added to Hero Slider":"Removed from Hero Slider", v?"success":"warn");
+        /* ============ MAKE HERO ============ */
+        if(act === "hero"){
+            if(currentHeroGameId === id){
+                if(!confirm(`Remove "${game.gameName}" as hero game?`)) return;
+                await setDoc(doc(db, "site_settings", "global"), {
+                    heroGameId: "", heroTagline: "", updatedAt: serverTimestamp()
+                }, { merge:true });
+                currentHeroGameId = "";
+                logAudit("clear_hero_game","site_settings","global");
+                toast("Hero game removed", "warn");
+            } else {
+                if(!confirm(`Make "${game.gameName}" the hero game?`)) return;
+                await setDoc(doc(db, "site_settings", "global"), {
+                    heroGameId: id,
+                    heroTagline: game.description || (game.category ? game.category + " game" : ""),
+                    updatedAt: serverTimestamp()
+                }, { merge:true });
+                currentHeroGameId = id;
+                logAudit("set_hero_game","site_settings","global",{ gameId: id, name: game.gameName });
+                toast(`"${game.gameName}" is now the Hero Game`, "success");
+            }
         }
 
-        /* ============ ORIGINAL (only isOriginal) ============ */
+        /* ============ SLIDER TOGGLE (remove / add back) ============ */
+        if(act === "sliderToggle"){
+            const hidden = game.hideFromSlider === true;
+
+            if(!hidden){
+                /* Remove from slider */
+                if(!confirm(`Remove "${game.gameName}" from slider?\n\nGame will still appear in the games list, just not in the hero slider.`)) return;
+                await updateDoc(doc(db, "game_submissions", id), { hideFromSlider: true });
+                game.hideFromSlider = true;
+                logAudit("remove_from_slider","game_submissions",id,{ name: game.gameName });
+                toast(`Removed from slider: "${game.gameName}"`, "warn");
+            } else {
+                /* Add back */
+                await updateDoc(doc(db, "game_submissions", id), { hideFromSlider: false });
+                game.hideFromSlider = false;
+                logAudit("add_back_to_slider","game_submissions",id,{ name: game.gameName });
+                toast(`Added back to slider: "${game.gameName}"`, "success");
+            }
+        }
+
+        /* ============ ORIGINAL ============ */
         if(act === "original"){
             const v = !game.isOriginal;
             await updateDoc(doc(db, "game_submissions", id), { isOriginal: v });
@@ -1506,8 +1601,26 @@ document.getElementById("saveHeroBtn").addEventListener("click", async () => {
         await setDoc(doc(db, "site_settings", "global"), {
             heroGameId, heroTagline, updatedAt: serverTimestamp()
         }, { merge:true });
+        currentHeroGameId = heroGameId;
         logAudit("set_hero","site_settings","global",{ heroGameId });
         toast("Hero saved","success");
+        if(!document.getElementById("view-games").classList.contains("hidden")){
+            renderGames();
+        }
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("clearHeroBtn").addEventListener("click", async () => {
+    if(!confirm("Remove hero game?")) return;
+    try{
+        await setDoc(doc(db, "site_settings", "global"), {
+            heroGameId: "", heroTagline: "", updatedAt: serverTimestamp()
+        }, { merge:true });
+        currentHeroGameId = "";
+        document.getElementById("heroGameId").value = "";
+        document.getElementById("heroTagline").value = "";
+        logAudit("clear_hero","site_settings","global");
+        toast("Hero cleared","success");
     }catch(err){ toast(err.message,"error"); }
 });
 
