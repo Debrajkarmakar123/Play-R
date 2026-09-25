@@ -1,1 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Privacy Policy — PLAYR</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='12' y='12' width='40' height='40' rx='10' fill='%23ff5a2d' transform='rotate(45 32 32)'/%3E%3Crect x='26' y='26' width='12' height='12' rx='2.5' fill='%23070707'/%3E%3C/svg%3E">
+<script>(function(){try{var t=localStorage.getItem("playr_theme")||"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
+<script src="theme.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 
+:root,[data-theme="dark"]{
+    --bg:#070707;--bg-card:#101010;--bg-card2:#141414;--bg-elev:#191919;
+    --border:#292929;--border-strong:#3a3a3a;--text:#f7f7f5;--text-soft:#aaa;--text-muted:#777;--text-faint:#555;
+    --accent:#ff6b35;--accent-soft:#ff7845;--grad-1:#202020;
+}
+[data-theme="light"]{
+    --bg:#f4f4f1;--bg-card:#fff;--bg-card2:#f9f9f7;--bg-elev:#f0f0ed;
+    --border:#e3e3e0;--border-strong:#c8c8c5;--text:#0a0a08;--text-soft:#3a3a38;--text-muted:#777;--text-faint:#999;
+    --accent:#ff5a1f;--accent-soft:#ff7a45;--grad-1:#fff;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{
+    background:radial-gradient(circle at 50% -10%,var(--grad-1) 0,transparent 32%),var(--bg);
+    color:var(--text);font-family:Inter,sans-serif;min-height:100vh;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;transition:background .3s,color .3s;
+}
+a{color:var(--accent-soft);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.topbar{
+    height:70px;display:flex;align-items:center;gap:14px;
+    padding:0 24px;padding-left:calc(24px + env(safe-area-inset-left,0px));
+    padding-right:calc(24px + env(safe-area-inset-right,0px));
+    background:var(--bg);border-bottom:1px solid var(--border);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    position:sticky;top:0;z-index:50;
+}
+.back-btn{
+    display:flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;
+    border:1px solid var(--border);background:var(--bg-card);color:var(--text-soft);
+    font-size:13px;font-weight:700;text-decoration:none;transition:.2s;
+}
+.back-btn:hover{background:var(--bg-elev);border-color:var(--border-strong);color:var(--text);}
+.logo{
+    display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;
+    font-family:"Space Grotesk";font-weight:700;font-size:22px;letter-spacing:-1px;margin-left:auto;
+}
+.logo-mark{
+    width:24px;height:24px;border-radius:6px;
+    background:linear-gradient(135deg,#ff914d,#ff4f2d);
+    transform:rotate(45deg);box-shadow:0 0 20px rgba(255,100,50,.3);
+    position:relative;flex:0 0 24px;
+}
+.logo-mark:after{content:"";position:absolute;width:7px;height:7px;background:var(--bg);border-radius:2px;left:8px;top:8px;}
+
+.container{width:min(820px,94%);margin:44px auto 100px;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);}
+.page-header{margin-bottom:36px;}
+.eyebrow{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:2.4px;text-transform:uppercase;}
+h1{margin-top:12px;font-family:"Space Grotesk";font-size:44px;line-height:1;letter-spacing:-2.4px;}
+.updated{margin-top:14px;color:var(--text-muted);font-size:13px;font-style:italic;}
+
+.doc{
+    background:var(--bg-card);border:1px solid var(--border);border-radius:16px;
+    padding:36px;
+}
+.doc section{margin-bottom:32px;}
+.doc section:last-child{margin-bottom:0;}
+.doc h2{
+    font-family:"Space Grotesk";font-size:20px;font-weight:700;letter-spacing:-.5px;
+    margin-bottom:12px;color:var(--text);display:flex;align-items:baseline;gap:10px;
+}
+.doc h2 .num{color:var(--accent);font-size:14px;font-weight:900;font-family:Inter;letter-spacing:0;}
+.doc p{color:var(--text-soft);font-size:14px;line-height:1.8;margin-bottom:12px;}
+.doc ul{margin:12px 0 12px 22px;color:var(--text-soft);font-size:14px;line-height:1.8;}
+.doc li{margin-bottom:6px;}
+.doc strong{color:var(--text);font-weight:700;}
+
+.highlight-box{
+    padding:16px 20px;border-radius:12px;
+    background:linear-gradient(135deg,rgba(255,107,53,.08),rgba(255,79,45,.02));
+    border:1px solid rgba(255,107,53,.25);
+    margin:20px 0;
+}
+.highlight-box p{margin:0;color:var(--text);font-size:13px;line-height:1.7;}
+
+@media(max-width:600px){
+    .topbar{height:62px;gap:10px;padding:0 14px;}
+    .back-btn{padding:9px 13px;font-size:12px;}
+    .logo{font-size:19px;}
+    .logo-mark{width:22px;height:22px;flex:0 0 22px;}
+    .container{margin-top:28px;margin-bottom:60px;}
+    h1{font-size:32px;letter-spacing:-1.6px;}
+    .doc{padding:22px 18px;border-radius:14px;}
+    .doc h2{font-size:17px;}
+    .doc p,.doc ul{font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-btn">← Back</a>
+    <a href="index.html" class="logo">PLAYR<span class="logo-mark"></span></a>
+</header>
+
+<main class="container">
+    <div class="page-header">
+        <div class="eyebrow">Privacy</div>
+        <h1>Privacy Policy</h1>
+        <div class="updated">Last updated: January 2026</div>
+    </div>
+
+    <div class="doc">
+
+        <div class="highlight-box">
+            <p>🔒 <strong>Short version:</strong> We collect the minimum data needed to run PLAYR. We don't sell your data. Ever.</p>
+        </div>
+
+        <section>
+            <h2><span class="num">01</span> Information We Collect</h2>
+            <p>When you use PLAYR, we may collect:</p>
+            <ul>
+                <li><strong>Account info:</strong> Email, display name, profile photo</li>
+                <li><strong>Game submissions:</strong> Content, links, and metadata you submit</li>
+                <li><strong>Usage data:</strong> Pages viewed, games played, preferences</li>
+                <li><strong>Device info:</strong> Browser type, screen size, OS (anonymized)</li>
+                <li><strong>Cookies:</strong> For theme preferences and login sessions</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="num">02</span> How We Use Your Information</h2>
+            <p>We use collected data to:</p>
+            <ul>
+                <li>Provide and improve the PLAYR platform</li>
+                <li>Review and publish game submissions</li>
+                <li>Send notifications you've opted into</li>
+                <li>Prevent abuse and enforce our Terms</li>
+                <li>Analyze usage to improve user experience</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="num">03</span> Data Sharing</h2>
+            <p>We <strong>do not sell</strong> your personal data. We may share data with:</p>
+            <ul>
+                <li><strong>Firebase (Google):</strong> For authentication, database, and hosting</li>
+                <li><strong>Legal requirements:</strong> If required by law or valid legal process</li>
+                <li><strong>Safety:</strong> To prevent harm, fraud, or abuse</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2><span class="num">04</span> Cookies & Local Storage</h2>
+            <p>We use browser storage to:</p>
+            <ul>
+                <li>Remember your theme preference (dark/light)</li>
+                <li>Keep you logged in across sessions</li>
+                <li>Cache site settings for faster loading</li>
+            </ul>
+            <p>You can clear this data anytime in your browser settings.</p>
+        </section>
+
+        <section>
+            <h2><span class="num">05</span> Data Security</h2>
+            <p>We use industry-standard security measures including encryption and Firebase's secure infrastructure. However, no online service is 100% secure. Please use a strong, unique password.</p>
+        </section>
+
+        <section>
+            <h2><span class="num">06</span> Your Rights</h2>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access your personal data</li>
+                <li>Correct inaccurate information</li>
+                <li>Delete your account and data</li>
+                <li>Export your data</li>
+                <li>Opt out of non-essential notifications</li>
+            </ul>
+            <p>To delete your account, use the <strong>Settings</strong> page or contact us.</p>
+        </section>
+
+        <section>
+            <h2><span class="num">07</span> Children's Privacy</h2>
+            <p>PLAYR is not intended for children under 13. We do not knowingly collect data from children under 13. If you believe a child has provided us data, please contact us immediately.</p>
+        </section>
+
+        <section>
+            <h2><span class="num">08</span> Data Retention</h2>
+            <p>We retain your data as long as your account is active. When you delete your account, we remove your personal data within 30 days, except where legally required to keep it longer.</p>
+        </section>
+
+        <section>
+            <h2><span class="num">09</span> Third-Party Services</h2>
+            <p>PLAYR uses Google Firebase for authentication and storage. Please review <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase's Privacy Policy</a> for details.</p>
+        </section>
+
+        <section>
+            <h2><span class="num">10</span> Changes to This Policy</h2>
+            <p>We may update this Privacy Policy periodically. We'll notify you of significant changes via email or an in-app announcement.</p>
+        </section>
+
+        <section>
+            <h2><span class="num">11</span> Contact Us</h2>
+            <p>Questions about privacy? Email us at <a href="mailto:privacy@playr.app">privacy@playr.app</a> or visit our <a href="contact.html">Contact page</a>.</p>
+        </section>
+
+    </div>
+</main>
+
+</body>
+</html>
