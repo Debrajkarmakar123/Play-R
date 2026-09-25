@@ -8,13 +8,10 @@
 
 <title>PLAYR</title>
 
-<!-- ============ FAVICON (browser tab logo) ============ -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='12' y='12' width='40' height='40' rx='10' fill='%23ff5a2d' transform='rotate(45 32 32)'/%3E%3Crect x='26' y='26' width='12' height='12' rx='2.5' fill='%23070707'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='12' y='12' width='40' height='40' rx='10' fill='%23ff5a2d' transform='rotate(45 32 32)'/%3E%3Crect x='26' y='26' width='12' height='12' rx='2.5' fill='%23070707'/%3E%3C/svg%3E">
 
-<!-- ============ THEME LOADER ============ -->
 <script>
-/* Inline theme loader — agar theme.js file na ho toh bhi kaam kare */
 (function(){
     try{
         var saved = localStorage.getItem("playr_theme") || "dark";
@@ -29,8 +26,6 @@
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
-
-/* ============ THEME VARIABLES ============ */
 
 :root,
 [data-theme="dark"]{
@@ -92,10 +87,67 @@ body{
 }
 
 img{max-width:100%;display:block;}
-
 button{font-family:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer;}
-
 input,textarea,select{font-family:inherit;}
+
+/* ============ BANNED SCREEN ============ */
+
+.banned-screen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:radial-gradient(circle at 50% -10%,#202020 0,transparent 32%),#070707;
+    color:#fff;
+    font-family:Inter,sans-serif;
+    padding:24px;
+    text-align:center;
+}
+
+.banned-box{max-width:480px;}
+
+.banned-icon{
+    font-size:72px;
+    margin-bottom:28px;
+    filter:drop-shadow(0 0 40px rgba(255,50,50,.5));
+    animation:bannedPulse 2s ease-in-out infinite;
+}
+
+@keyframes bannedPulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.06);}
+}
+
+.banned-box h1{
+    font-family:"Space Grotesk";
+    font-size:34px;
+    margin-bottom:18px;
+    letter-spacing:-1.5px;
+}
+
+.banned-box p{
+    color:#888;
+    font-size:15px;
+    line-height:1.7;
+    margin-bottom:28px;
+}
+
+.banned-box a{
+    display:inline-block;
+    padding:13px 26px;
+    background:linear-gradient(135deg,#ff7a45,#ff542f);
+    color:#fff;
+    text-decoration:none;
+    border-radius:9px;
+    font-weight:700;
+    font-size:14px;
+}
+
+@media(max-width:600px){
+    .banned-box h1{font-size:26px;}
+    .banned-icon{font-size:56px;}
+    .banned-box p{font-size:13px;}
+}
 
 /* ============ MAINTENANCE ============ */
 
@@ -202,7 +254,6 @@ input,textarea,select{font-family:inherit;}
     transition:background .3s, border-color .3s;
 }
 
-/* 🔥 HAMBURGER — ALWAYS VISIBLE (changed from display:none) */
 .menu-btn{
     display:flex;
     align-items:center;
@@ -375,6 +426,23 @@ input,textarea,select{font-family:inherit;}
 
 .account-user strong{display:block;color:var(--text);font-size:13px;overflow:hidden;text-overflow:ellipsis;}
 .account-user span{display:block;color:var(--text-muted);font-size:11px;margin-top:5px;overflow:hidden;text-overflow:ellipsis;}
+
+.role-badge{
+    display:inline-block;
+    margin-top:8px;
+    padding:3px 8px;
+    border-radius:5px;
+    background:rgba(255,107,53,.15);
+    color:#ff8754;
+    font-size:10px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.role-badge.admin{background:rgba(255,120,69,.25);color:#ffb28d;}
+.role-badge.developer{background:rgba(120,214,139,.15);color:#78d68b;}
+.role-badge.moderator{background:rgba(255,217,160,.15);color:#ffd9a0;}
 
 .account-menu button{
     width:100%;
@@ -1189,7 +1257,6 @@ footer{
     .banner{width:300px;height:150px;}
 }
 
-/* Desktop — NO MORE hiding menu-btn */
 @media(min-width:1025px){
     .submit-btn .long-text{display:inline;}
     .submit-btn .short-text{display:none;}
@@ -1232,7 +1299,6 @@ body.is-touch .category.active{color:var(--text);background:var(--bg-elev);borde
 </div>
 
 <script>
-/* ============ AUTO DEVICE DETECTION ============ */
 (function(){
     var body = document.body || document.documentElement;
     var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
@@ -1259,7 +1325,6 @@ body.is-touch .category.active{color:var(--text);background:var(--bg-elev);borde
     });
 })();
 
-/* Maintenance cache */
 (function(){
     try{
         var raw = localStorage.getItem("playr_maintenance_state");
@@ -1348,12 +1413,12 @@ body.is-touch .category.active{color:var(--text);background:var(--bg-elev);borde
         <a class="menu-link" href="how-to-upload.html" id="howToUploadLink">How to Upload</a>
     </div>
     <div class="menu-section">
-    <div class="menu-title">HELP &amp; INFORMATION</div>
-    <a class="menu-link" href="faq.html">FAQ</a>
-    <a class="menu-link" href="contact.html">Contact / Support</a>
-    <a class="menu-link" href="terms.html">Terms of Service</a>
-    <a class="menu-link" href="privacy.html">Privacy Policy</a>
-</div>
+        <div class="menu-title">HELP &amp; INFORMATION</div>
+        <a class="menu-link" href="faq.html">FAQ</a>
+        <a class="menu-link" href="contact.html">Contact / Support</a>
+        <a class="menu-link" href="terms.html">Terms of Service</a>
+        <a class="menu-link" href="privacy.html">Privacy Policy</a>
+    </div>
     <button class="menu-logout" id="menuLogout" type="button">Logout</button>
 </aside>
 
@@ -1507,6 +1572,7 @@ let siteSettings = {};
 let currentHeroGameId = "";
 window.__submissionsDisabled = false;
 window.__heroGame = null;
+window.__userRole = "player";
 
 const MAINT_KEY = "playr_maintenance_state";
 
@@ -1547,13 +1613,31 @@ function hideMaintenance(){
     }catch(e){}
 })();
 
+/* ============ BAN SCREEN ============ */
+
+function showBannedScreen(){
+    document.body.innerHTML = `
+        <div class="banned-screen">
+            <div class="banned-box">
+                <div class="banned-icon">🚫</div>
+                <h1>Account Suspended</h1>
+                <p>Your account has been suspended by PLAYR administrators.<br>If you believe this is a mistake, please contact support.</p>
+                <a href="contact.html">Contact Support</a>
+            </div>
+        </div>
+    `;
+}
+
+/* ============ USER PROFILE ============ */
+
 window.getCurrentPLAYRUser = function(){ return currentUser; };
 
-async function createUserProfile(user) {
+async function createUserProfile(user){
     if(!user) return;
     const userRef = doc(db, "users", user.uid);
-    const userSnap = await getDoc(userRef);
-    if(userSnap.exists()) return;
+    const snap = await getDoc(userRef);
+
+    if(snap.exists()) return;
 
     const name = user.displayName || user.email?.split("@")[0] || "PLAYR User";
 
@@ -1562,6 +1646,8 @@ async function createUserProfile(user) {
         email: user.email || "",
         displayName: name,
         photoURL: user.photoURL || "",
+        role: "player",
+        banned: false,
         bio: "",
         gamesSubmitted: 0,
         gamesPlayed: 0,
@@ -1574,18 +1660,74 @@ async function createUserProfile(user) {
     });
 }
 
+/* ============ AUTH STATE — BAN + ROLE CHECK ============ */
+
 onAuthStateChanged(auth, async function(user){
     currentUser = user || null;
+
     if(user){
         try { await createUserProfile(user); }
         catch(e){ console.error("profile create failed", e); }
+
+        /* BAN + ROLE CHECK */
+        try{
+            const userSnap = await getDoc(doc(db, "users", user.uid));
+
+            if(userSnap.exists()){
+                const data = userSnap.data();
+
+                /* Banned → force logout + blocked screen */
+                if(data.banned === true){
+                    console.warn("🚫 User is banned — forcing logout");
+                    await signOut(auth);
+                    showBannedScreen();
+                    return;
+                }
+
+                window.__userRole = data.role || "player";
+
+                /* REAL-TIME ban listener — agar admin baad mein ban kare */
+                onSnapshot(doc(db, "users", user.uid), (snap) => {
+                    if(!snap.exists()) return;
+                    const fresh = snap.data();
+
+                    if(fresh.banned === true){
+                        console.warn("🚫 Banned in real-time — logout");
+                        signOut(auth).then(() => showBannedScreen());
+                        return;
+                    }
+
+                    window.__userRole = fresh.role || "player";
+
+                    /* Role badla → UI update */
+                    if(typeof updateAccountUI === "function"){
+                        updateAccountUI();
+                    }
+                });
+            } else {
+                /* Doc missing → create default */
+                await setDoc(doc(db, "users", user.uid), {
+                    uid: user.uid,
+                    email: user.email || "",
+                    displayName: user.displayName || user.email?.split("@")[0] || "PLAYR User",
+                    role: "player",
+                    banned: false,
+                    createdAt: serverTimestamp()
+                }, { merge: true });
+                window.__userRole = "player";
+            }
+        }catch(e){
+            console.warn("ban check failed", e);
+        }
     }
+
     updateAccountUI();
 });
 
-/* Avatar click → account menu khulega (dropdown) */
+/* ============ PROFILE ============ */
+
 window.handleProfileClick = function(){
-    var menu = document.getElementById("accountMenu");
+    const menu = document.getElementById("accountMenu");
     if(menu) menu.classList.toggle("show");
 };
 
@@ -1607,6 +1749,7 @@ function updateAccountUI(){
     if(currentUser){
         const name = currentUser.displayName || currentUser.email?.split("@")[0] || "PLAYR User";
         const photoURL = currentUser.photoURL;
+        const role = window.__userRole || "player";
 
         if(photoURL){
             avatarButton.innerHTML = `<img src="${escapeAttribute(photoURL)}" alt="User" referrerpolicy="no-referrer">`;
@@ -1614,7 +1757,11 @@ function updateAccountUI(){
             avatarButton.textContent = name.charAt(0).toUpperCase();
         }
 
-        accountUser.innerHTML = `<strong>${escapeHTML(name)}</strong><span>${escapeHTML(currentUser.email || "")}</span>`;
+        accountUser.innerHTML = `
+            <strong>${escapeHTML(name)}</strong>
+            <span>${escapeHTML(currentUser.email || "")}</span>
+            <span class="role-badge ${role}">${escapeHTML(role)}</span>
+        `;
         accountAction.textContent = "Logout";
         if(profileBtn) profileBtn.style.display = "block";
     }
@@ -1627,12 +1774,13 @@ function updateAccountUI(){
 }
 
 window.toggleAccountMenu = function(){
-    document.getElementById("accountMenu").classList.toggle("show");
+    const menu = document.getElementById("accountMenu");
+    if(menu) menu.classList.toggle("show");
 };
 
 window.handleAccountAction = function(){
     const menu = document.getElementById("accountMenu");
-    menu.classList.remove("show");
+    if(menu) menu.classList.remove("show");
     if(currentUser){ logout(); } else { openLogin(); }
 };
 
@@ -1744,14 +1892,26 @@ function clearLoginError(){
     box.style.display = "none";
 }
 
+/* ============ SUBMIT GAME — ROLE GATE ============ */
+
 window.handleSubmitGame = function(){
     if(window.__submissionsDisabled){
         alert("New game submissions are temporarily paused. Please check back soon.");
         return;
     }
     if(!currentUser){ openLogin(); return; }
+
+    const role = window.__userRole || "player";
+
+    if(role !== "developer" && role !== "admin" && role !== "moderator"){
+        alert("You need a Developer account to submit games.\n\nContact support to request developer access.");
+        return;
+    }
+
     window.location.href = "submit.html";
 };
+
+/* ============ GAMES ============ */
 
 let allGames = [];
 let currentCategory = "all";
@@ -1870,6 +2030,8 @@ function renderQuickPicks(){
         `;
     }).join("");
 }
+
+/* ============ HERO SLIDER ============ */
 
 let slideGames = [];
 let slideIndex = 0;
@@ -2018,6 +2180,8 @@ if(featureEl){
     }, { passive:true });
 }
 
+/* ============ ORIGINAL OVERLAY ============ */
+
 function showPlayrOriginalOverlay(callback){
     const overlay = document.getElementById("playrOriginalOverlay");
     if(!overlay){ callback(); return; }
@@ -2098,6 +2262,8 @@ window.filterCategory = function(category, button){
 
 window.searchGames = function(){ renderGames(); };
 
+/* ============ SITE SETTINGS ============ */
+
 function listenToSiteSettings(){
     try{
         const ref = doc(db, "site_settings", "global");
@@ -2147,6 +2313,8 @@ async function applySiteSettings(d){
     }
 }
 
+/* ============ ORIGINALS ============ */
+
 async function loadOriginals(){
     const section = document.getElementById("originalsSection");
     const grid = document.getElementById("originalsGrid");
@@ -2191,6 +2359,8 @@ async function loadOriginals(){
     }
 }
 
+/* ============ BANNERS ============ */
+
 async function loadBanners(){
     const strip = document.getElementById("bannerStrip");
     if(!strip) return;
@@ -2226,6 +2396,8 @@ window.handleBannerClick = function(link){
     else { window.location.href = link; }
 };
 
+/* ============ ESCAPERS ============ */
+
 function escapeHTML(value){
     if(value === null || value === undefined) return "";
     return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
@@ -2238,6 +2410,8 @@ function escapeAttribute(value){
 function escapeJS(value){
     return String(value || "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;").replace(/\n/g,"\\n").replace(/\r/g,"\\r");
 }
+
+/* ============ UI EVENTS ============ */
 
 document.addEventListener("click", function(event){
     const menu = document.getElementById("accountMenu");
@@ -2294,6 +2468,8 @@ const howToUploadLink = document.getElementById("howToUploadLink");
 if(howToUploadLink){
     howToUploadLink.addEventListener("click", closeSideMenu);
 }
+
+/* ============ START ============ */
 
 listenToSiteSettings();
 listenToGames();
