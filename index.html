@@ -44,7 +44,7 @@ body{
     height:76px;
     display:flex;
     align-items:center;
-    gap:30px;
+    gap:20px;
     padding:0 34px;
     background:rgba(7,7,7,.9);
     border-bottom:1px solid #222;
@@ -1143,8 +1143,162 @@ footer{
 
 }
 
+/* ================================
+   SIDE MENU / HAMBURGER STYLES (FIXED)
+================================ */
+.menu-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border:1px solid #292929;
+    border-radius:9px;
+    background:#111;
+    color:#ddd;
+    font-size:22px;
+    cursor:pointer;
+    flex:none;
+    order:-1; /* Logo se pehle aayega */
+}
 
-.menu-btn{display:none;width:40px;height:40px;border:1px solid #292929;border-radius:9px;background:#111;color:#ddd;font-size:22px;cursor:pointer;flex:none}.menu-btn:hover{background:#1b1b1b;border-color:#444;color:white}.side-menu{position:fixed;top:0;left:-350px;width:330px;height:100vh;overflow-y:auto;padding:20px;background:#0d0d0d;border-right:1px solid #292929;box-shadow:25px 0 80px rgba(0,0,0,.45);z-index:300;transition:left .25s ease}.side-menu.open{left:0}.menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);opacity:0;visibility:hidden;z-index:250;transition:.25s}.menu-overlay.open{opacity:1;visibility:visible}.menu-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid #242424}.menu-header strong{font-family:"Space Grotesk";font-size:21px}.menu-close{width:34px;height:34px;border:1px solid #292929;border-radius:8px;background:#181818;color:#aaa;font-size:22px;cursor:pointer}.menu-close:hover{color:white;background:#222}.menu-section{padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid #202020}.menu-title{color:#ff7845;font-size:9px;font-weight:800;letter-spacing:1.5px;margin-bottom:8px}.menu-subtitle{color:#555;font-size:9px;margin:13px 8px 5px;text-transform:uppercase;letter-spacing:1px}.menu-link{display:block;padding:9px 10px;border-radius:7px;color:#8a8a8a;text-decoration:none;font-size:11px;transition:.15s}.menu-link:hover{background:#181818;color:white}.menu-link.highlight{color:#ff9a72}.menu-link.highlight:hover{color:#fff;background:#24130e}.menu-logout{width:100%;padding:10px;border:1px solid #382020;border-radius:7px;background:#151010;color:#ff9999;font-size:10px;cursor:pointer}@media(max-width:1150px){.menu-btn{display:block;order:-1}}@media(max-width:600px){.side-menu{width:min(330px,88vw)}.menu-btn{width:38px;height:38px}}
+.menu-btn:hover{
+    background:#1b1b1b;
+    border-color:#444;
+    color:white;
+}
+
+.side-menu{
+    position:fixed;
+    top:0;
+    left:-350px;
+    width:330px;
+    height:100vh;
+    overflow-y:auto;
+    padding:20px;
+    background:#0d0d0d;
+    border-right:1px solid #292929;
+    box-shadow:25px 0 80px rgba(0,0,0,.45);
+    z-index:300;
+    transition:left .25s ease;
+}
+
+.side-menu.open{
+    left:0;
+}
+
+.menu-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(3px);
+    opacity:0;
+    visibility:hidden;
+    z-index:250;
+    transition:.25s;
+}
+
+.menu-overlay.open{
+    opacity:1;
+    visibility:visible;
+}
+
+.menu-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-bottom:18px;
+    margin-bottom:18px;
+    border-bottom:1px solid #242424;
+}
+
+.menu-header strong{
+    font-family:"Space Grotesk";
+    font-size:21px;
+}
+
+.menu-close{
+    width:34px;
+    height:34px;
+    border:1px solid #292929;
+    border-radius:8px;
+    background:#181818;
+    color:#aaa;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.menu-close:hover{
+    color:white;
+    background:#222;
+}
+
+.menu-section{
+    padding-bottom:18px;
+    margin-bottom:18px;
+    border-bottom:1px solid #202020;
+}
+
+.menu-title{
+    color:#ff7845;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    margin-bottom:8px;
+}
+
+.menu-subtitle{
+    color:#555;
+    font-size:9px;
+    margin:13px 8px 5px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.menu-link{
+    display:block;
+    padding:9px 10px;
+    border-radius:7px;
+    color:#8a8a8a;
+    text-decoration:none;
+    font-size:11px;
+    transition:.15s;
+}
+
+.menu-link:hover{
+    background:#181818;
+    color:white;
+}
+
+.menu-link.highlight{
+    color:#ff9a72;
+}
+
+.menu-link.highlight:hover{
+    color:#fff;
+    background:#24130e;
+}
+
+.menu-logout{
+    width:100%;
+    padding:10px;
+    border:1px solid #382020;
+    border-radius:7px;
+    background:#151010;
+    color:#ff9999;
+    font-size:10px;
+    cursor:pointer;
+}
+
+@media(max-width:600px){
+    .side-menu{
+        width:min(330px,88vw);
+    }
+    .menu-btn{
+        width:38px;
+        height:38px;
+    }
+}
 </style>
 
 </head>
@@ -1804,6 +1958,7 @@ const auth =
 
 const googleProvider =
     new GoogleAuthProvider();
+
 async function createUserProfile(user) {
     if (!user) return;
 
@@ -1825,14 +1980,14 @@ async function createUserProfile(user) {
         displayName: name,
         photoURL: user.photoURL || "",
         bio: "",
-       gamesSubmitted: 0,
-gamesPlayed: 0,
-wins: 0,
-favorites: 0,
-level: 1,
-followers: 0,
-following: 0,
-createdAt: serverTimestamp()
+        gamesSubmitted: 0,
+        gamesPlayed: 0,
+        wins: 0,
+        favorites: 0,
+        level: 1,
+        followers: 0,
+        following: 0,
+        createdAt: serverTimestamp()
     });
 }
 
