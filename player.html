@@ -1,0 +1,6163 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PLAYR — Loading Game</title>
+
+<meta
+    name="description"
+    id="metaDescription"
+    content="Play games on PLAYR. Discover new browser games, ratings, reviews and more."
+>
+
+<meta
+    name="keywords"
+    content="online games, browser games, free games, PLAYR, web games, HTML5 games"
+>
+
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:title" id="ogTitle" content="PLAYR — Game">
+<meta property="og:description" id="ogDescription" content="Play this game on PLAYR.">
+<meta property="og:url" id="ogUrl" content="">
+<meta property="og:image" id="ogImage" content="">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" id="twitterTitle" content="PLAYR — Game">
+<meta name="twitter:description" id="twitterDescription" content="Play this game on PLAYR.">
+<meta name="twitter:image" id="twitterImage" content="">
+
+<link rel="canonical" id="canonicalUrl" href="">
+
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#070707;
+    --panel:#101010;
+    --panel2:#141414;
+    --border:#292929;
+    --border2:#343434;
+    --text:#f7f7f5;
+    --muted:#777;
+    --muted2:#999;
+    --accent:#ff6b35;
+    --accent2:#ff914d;
+    --green:#8ed89d;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            #21130e 0,
+            transparent 32%
+        ),
+        #070707;
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
+}
+
+
+/* =========================
+   TOPBAR
+========================= */
+
+.topbar{
+    height:66px;
+    padding:0 28px;
+
+    display:flex;
+    align-items:center;
+    gap:25px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    background:rgba(7,7,7,.92);
+    border-bottom:1px solid #242424;
+
+    backdrop-filter:blur(18px);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    color:white;
+    text-decoration:none;
+
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:-.8px;
+}
+
+.logo-mark{
+    width:23px;
+    height:23px;
+
+    border-radius:6px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff9a63,
+            #ff4926
+        );
+
+    transform:rotate(45deg);
+
+    box-shadow:
+        0 0 22px rgba(255,100,50,.22);
+}
+
+.nav{
+    display:flex;
+    gap:4px;
+}
+
+.nav a{
+    color:#777;
+    text-decoration:none;
+
+    padding:9px 13px;
+
+    border-radius:7px;
+
+    font-size:11px;
+    font-weight:600;
+}
+
+.nav a:hover{
+    color:#fff;
+    background:#181818;
+}
+
+.back{
+    margin-left:auto;
+
+    padding:9px 14px;
+
+    border:1px solid #303030;
+    border-radius:7px;
+
+    background:#151515;
+    color:#aaa;
+
+    text-decoration:none;
+
+    font-size:10px;
+    font-weight:800;
+}
+
+.back:hover{
+    color:#fff;
+    background:#202020;
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.page{
+    width:min(1400px,95%);
+    margin:0 auto;
+    padding:22px 0 70px;
+}
+
+
+/* =========================
+   GAME HEADER
+========================= */
+
+.game-header{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+
+    margin-bottom:17px;
+}
+
+.game-cover{
+    width:74px;
+    height:74px;
+
+    flex:none;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #432417,
+            #15100e
+        );
+
+    border:1px solid var(--border);
+}
+
+.game-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:none;
+}
+
+.cover-letter{
+    width:100%;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:25px;
+    font-weight:900;
+
+    color:#ff9a63;
+}
+
+.game-heading{
+    min-width:0;
+}
+
+.game-heading h1{
+    font-size:26px;
+    line-height:1.1;
+
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.game-subtitle{
+    color:#777;
+    font-size:11px;
+    margin-top:7px;
+}
+
+.header-rating{
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    margin-top:9px;
+}
+
+.stars{
+    display:flex;
+    gap:2px;
+
+    color:#ffb35c;
+
+    font-size:15px;
+}
+
+.rating-number{
+    color:#bbb;
+    font-size:11px;
+    font-weight:700;
+}
+
+.rating-count{
+    color:#666;
+    font-size:10px;
+}
+
+
+/* =========================
+   GAME PLAYER
+========================= */
+
+.game-container{
+    width:100%;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:1px solid var(--border);
+    border-radius:14px;
+
+    background:#000;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.35);
+}
+
+#gameFrame{
+    display:none;
+
+    width:100%;
+    height:78vh;
+
+    min-height:600px;
+
+    border:0;
+
+    background:#000;
+}
+
+.loading{
+    min-height:650px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-direction:column;
+    gap:13px;
+
+    color:#777;
+
+    font-size:12px;
+}
+
+.spinner{
+    width:30px;
+    height:30px;
+
+    border:3px solid #292929;
+    border-top-color:var(--accent);
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.player-controls{
+    height:52px;
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    padding:0 12px;
+
+    background:#101010;
+    border-top:1px solid #222;
+}
+
+.control-btn{
+    border:1px solid #2d2d2d;
+
+    background:#171717;
+    color:#aaa;
+
+    border-radius:7px;
+
+    padding:8px 12px;
+
+    cursor:pointer;
+
+    font-size:10px;
+    font-weight:800;
+}
+
+.control-btn:hover{
+    color:white;
+    background:#222;
+    border-color:#444;
+}
+
+.control-spacer{
+    flex:1;
+}
+
+.player-status{
+    color:#666;
+    font-size:9px;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+    min-height:650px;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:30px;
+}
+
+.error-box{
+    max-width:650px;
+
+    padding:30px;
+
+    border:1px solid #442121;
+    border-radius:12px;
+
+    background:#160b0b;
+
+    text-align:center;
+}
+
+.error-title{
+    color:#ff8c8c;
+
+    font-size:18px;
+    font-weight:900;
+
+    margin-bottom:10px;
+}
+
+.error-text{
+    color:#888;
+
+    font-size:11px;
+    line-height:1.7;
+}
+
+.error-url{
+    margin-top:15px;
+
+    padding:10px;
+
+    background:#0b0b0b;
+
+    border:1px solid #292929;
+    border-radius:6px;
+
+    color:#666;
+
+    font-size:9px;
+
+    word-break:break-all;
+}
+
+
+/* =========================
+   MAIN CONTENT GRID
+========================= */
+
+.content-grid{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        320px;
+
+    gap:20px;
+
+    margin-top:22px;
+}
+
+
+/* =========================
+   PANELS
+========================= */
+
+.panel{
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    overflow:hidden;
+}
+
+.panel-head{
+    padding:17px 18px;
+
+    border-bottom:1px solid #242424;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.panel-head h2{
+    font-size:15px;
+    font-weight:800;
+}
+
+.panel-body{
+    padding:18px;
+}
+
+
+/* =========================
+   GAME DESCRIPTION
+========================= */
+
+.description{
+    color:#999;
+
+    font-size:12px;
+
+    line-height:1.8;
+
+    white-space:pre-line;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+
+    margin-top:17px;
+}
+
+.tag{
+    padding:7px 10px;
+
+    border:1px solid #292929;
+    border-radius:6px;
+
+    color:#888;
+
+    background:#0c0c0c;
+
+    font-size:9px;
+}
+
+
+/* =========================
+   GAME INFO
+========================= */
+
+.info-list{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:1px;
+
+    background:#262626;
+
+    border:1px solid #262626;
+    border-radius:8px;
+
+    overflow:hidden;
+}
+
+.info-item{
+    padding:13px;
+
+    background:#111;
+}
+
+.info-label{
+    color:#666;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.8px;
+}
+
+.info-value{
+    color:#ddd;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    margin-top:5px;
+
+    word-break:break-word;
+}
+
+
+/* =========================
+   DEVELOPER
+========================= */
+
+.developer-box{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.developer-avatar{
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #272727,
+            #111
+        );
+
+    border:1px solid #333;
+
+    color:#ff8d5d;
+
+    font-weight:900;
+}
+
+.developer-name{
+    font-size:12px;
+    font-weight:800;
+}
+
+.developer-email{
+    color:#666;
+
+    font-size:9px;
+
+    margin-top:4px;
+}
+
+
+/* =========================
+   RATING
+========================= */
+
+.rating-summary{
+    display:grid;
+
+    grid-template-columns:115px 1fr;
+
+    gap:20px;
+
+    align-items:center;
+}
+
+.big-rating{
+    text-align:center;
+
+    padding-right:20px;
+
+    border-right:1px solid #282828;
+}
+
+.big-rating-number{
+    font-size:38px;
+
+    font-weight:900;
+
+    letter-spacing:-2px;
+}
+
+.big-stars{
+    color:#ffb35c;
+
+    font-size:17px;
+
+    margin-top:4px;
+}
+
+.big-rating-text{
+    color:#666;
+
+    font-size:9px;
+
+    margin-top:4px;
+}
+
+.rating-bars{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.rating-row{
+    display:grid;
+
+    grid-template-columns:35px 1fr 30px;
+
+    align-items:center;
+
+    gap:7px;
+}
+
+.rating-row span{
+    color:#777;
+    font-size:9px;
+}
+
+.bar{
+    height:6px;
+
+    border-radius:10px;
+
+    background:#242424;
+
+    overflow:hidden;
+}
+
+.bar-fill{
+    height:100%;
+
+    width:0%;
+
+    background:#ff9b51;
+
+    border-radius:10px;
+
+    transition:width .3s;
+}
+
+
+/* =========================
+   REVIEW
+========================= */
+
+.review-form{
+    margin-top:20px;
+
+    padding-top:20px;
+
+    border-top:1px solid #252525;
+}
+
+.review-form h3{
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.star-picker{
+    display:flex;
+    gap:4px;
+
+    margin-bottom:12px;
+}
+
+.star-picker button{
+    border:0;
+    background:transparent;
+
+    color:#444;
+
+    font-size:25px;
+
+    cursor:pointer;
+
+    padding:0;
+}
+
+.star-picker button.active{
+    color:#ffb35c;
+}
+
+.review-input{
+    width:100%;
+
+    min-height:90px;
+
+    resize:vertical;
+
+    background:#090909;
+
+    border:1px solid #292929;
+
+    border-radius:8px;
+
+    color:white;
+
+    outline:none;
+
+    padding:12px;
+
+    font-family:inherit;
+
+    font-size:11px;
+}
+
+.review-input:focus{
+    border-color:#444;
+}
+
+.review-submit{
+    margin-top:9px;
+
+    padding:10px 15px;
+
+    border:0;
+
+    border-radius:7px;
+
+    background:linear-gradient(
+        135deg,
+        #ff7b45,
+        #ff512f
+    );
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+.review-list{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:1px;
+
+    background:#252525;
+
+    border:1px solid #252525;
+
+    border-radius:8px;
+
+    overflow:hidden;
+}
+
+.review{
+    padding:15px;
+
+    background:#111;
+}
+
+.review-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.reviewer{
+    font-size:11px;
+    font-weight:800;
+}
+
+.review-date{
+    color:#555;
+    font-size:8px;
+}
+
+.review-stars{
+    color:#ffb35c;
+    font-size:12px;
+
+    margin-top:5px;
+}
+
+.review-text{
+    color:#888;
+
+    font-size:10px;
+
+    line-height:1.6;
+
+    margin-top:7px;
+}
+
+.no-reviews{
+    padding:25px;
+
+    color:#666;
+
+    text-align:center;
+
+    font-size:10px;
+}
+
+
+/* =========================
+   COMMENTS
+========================= */
+
+.comment-form{
+    display:flex;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.comment-input{
+    flex:1;
+
+    height:40px;
+
+    background:#090909;
+
+    border:1px solid #292929;
+
+    border-radius:7px;
+
+    padding:0 11px;
+
+    color:white;
+
+    outline:none;
+
+    font-size:10px;
+}
+
+.comment-btn{
+    border:0;
+
+    border-radius:7px;
+
+    padding:0 14px;
+
+    background:#eee;
+
+    color:#090909;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.comments{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+
+    background:#252525;
+
+    border:1px solid #252525;
+
+    border-radius:8px;
+
+    overflow:hidden;
+}
+
+.comment{
+    padding:13px;
+
+    background:#111;
+}
+
+.comment-user{
+    color:#ddd;
+
+    font-size:10px;
+    font-weight:800;
+}
+
+.comment-text{
+    color:#777;
+
+    font-size:10px;
+
+    line-height:1.5;
+
+    margin-top:5px;
+}
+
+.comment-date{
+    color:#4f4f4f;
+
+    font-size:8px;
+
+    margin-top:6px;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.side-title{
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:13px;
+}
+
+.share-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:7px;
+}
+
+.share-btn{
+    padding:9px;
+
+    border:1px solid #292929;
+
+    border-radius:7px;
+
+    background:#111;
+
+    color:#aaa;
+
+    cursor:pointer;
+
+    font-size:9px;
+    font-weight:700;
+}
+
+.share-btn:hover{
+    color:#fff;
+    background:#1b1b1b;
+}
+
+
+/* =========================
+   RELATED
+========================= */
+
+.related-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.related-card{
+    display:flex;
+
+    gap:10px;
+
+    padding:8px;
+
+    border:1px solid #272727;
+
+    border-radius:8px;
+
+    background:#0e0e0e;
+
+    cursor:pointer;
+}
+
+.related-card:hover{
+    background:#171717;
+    border-color:#3b3b3b;
+}
+
+.related-cover{
+    width:52px;
+    height:52px;
+
+    flex:none;
+
+    border-radius:6px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #432417,
+            #17110e
+        );
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#ff9865;
+
+    font-size:17px;
+    font-weight:900;
+}
+
+.related-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.related-name{
+    font-size:10px;
+    font-weight:800;
+
+    margin-top:4px;
+}
+
+.related-category{
+    color:#666;
+
+    font-size:8px;
+
+    margin-top:5px;
+}
+
+
+/* =========================
+   SEO
+========================= */
+
+.seo-text{
+    color:#777;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    margin-top:55px;
+
+    padding:25px 2%;
+
+    border-top:1px solid #202020;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#555;
+
+    font-size:9px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+
+    .content-grid{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        display:grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+@media(max-width:700px){
+
+    .topbar{
+        height:60px;
+        padding:0 13px;
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .page{
+        width:100%;
+        padding-top:12px;
+    }
+
+    .game-header{
+        padding:0 12px;
+    }
+
+    .game-cover{
+        width:58px;
+        height:58px;
+    }
+
+    .game-heading h1{
+        font-size:20px;
+    }
+
+    .game-container{
+        border-radius:0;
+        border-left:0;
+        border-right:0;
+    }
+
+    #gameFrame{
+        height:70vh;
+        min-height:480px;
+    }
+
+    .content-grid{
+        padding:0 12px;
+    }
+
+    .sidebar{
+        display:flex;
+    }
+
+    .rating-summary{
+        grid-template-columns:90px 1fr;
+        gap:12px;
+    }
+
+    .big-rating{
+        padding-right:12px;
+    }
+
+    .big-rating-number{
+        font-size:30px;
+    }
+
+    .info-list{
+        grid-template-columns:1fr;
+    }
+
+    footer{
+        margin-left:12px;
+        margin-right:12px;
+
+        flex-direction:column;
+        gap:8px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header class="topbar">
+
+    <a href="index.html" class="logo">
+
+        <span class="logo-mark"></span>
+
+        PLAYR
+
+    </a>
+
+
+    <nav class="nav">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="index.html#games">
+            Games
+        </a>
+
+        <a href="submit.html">
+            Submit Game
+        </a>
+
+    </nav>
+
+
+    <a href="index.html" class="back">
+        ← BACK
+    </a>
+
+</header>
+
+
+
+<main class="page">
+
+
+<!-- =========================
+     GAME HEADER
+========================= -->
+
+<section class="game-header">
+
+    <div class="game-cover">
+
+        <img
+            id="gameCoverImage"
+            alt="Game thumbnail"
+        >
+
+        <div
+            class="cover-letter"
+            id="coverLetter"
+        >
+            ?
+        </div>
+
+    </div>
+
+
+    <div class="game-heading">
+
+        <h1 id="gameTitle">
+            Loading game...
+        </h1>
+
+
+        <div
+            class="game-subtitle"
+            id="gameSubtitle"
+        >
+            Finding game information...
+        </div>
+
+
+        <div class="header-rating">
+
+            <div
+                class="stars"
+                id="headerStars"
+            >
+                ★★★★★
+            </div>
+
+
+            <span
+                class="rating-number"
+                id="headerRating"
+            >
+                0.0
+            </span>
+
+
+            <span
+                class="rating-count"
+                id="headerReviewCount"
+            >
+                0 reviews
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     PLAYER
+========================= -->
+
+<section
+    class="game-container"
+    id="gameContainer"
+>
+
+    <div
+        class="loading"
+        id="loading"
+    >
+
+        <div class="spinner"></div>
+
+        <div id="loadingText">
+            Finding game...
+        </div>
+
+    </div>
+
+
+    <iframe
+        id="gameFrame"
+        allowfullscreen
+        allow="fullscreen; autoplay; gamepad; pointer-lock"
+        tabindex="0"
+    ></iframe>
+
+
+    <div
+        class="error"
+        id="error"
+    >
+
+        <div class="error-box">
+
+            <div class="error-title">
+                Unable to load game
+            </div>
+
+
+            <div
+                class="error-text"
+                id="errorText"
+            ></div>
+
+
+            <div
+                class="error-url"
+                id="errorUrl"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="player-controls">
+
+        <button
+            class="control-btn"
+            id="fullscreenBtn"
+        >
+            ⛶ FULLSCREEN
+        </button>
+
+
+        <button
+            class="control-btn"
+            id="reloadBtn"
+        >
+            ↻ RELOAD
+        </button>
+
+
+        <div class="control-spacer"></div>
+
+
+        <span
+            class="player-status"
+            id="playerStatus"
+        >
+            READY
+        </span>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CONTENT
+========================= -->
+
+<div class="content-grid">
+
+
+<div>
+
+
+<!-- ABOUT -->
+
+<section class="panel">
+
+    <div class="panel-head">
+
+        <h2>
+            About this game
+        </h2>
+
+    </div>
+
+
+    <div class="panel-body">
+
+        <div
+            class="description"
+            id="gameDescription"
+        >
+            Loading game description...
+        </div>
+
+
+        <div
+            class="tags"
+            id="gameTags"
+        ></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- GAME INFORMATION -->
+
+<section
+    class="panel"
+    style="margin-top:15px;"
+>
+
+    <div class="panel-head">
+
+        <h2>
+            Game Information
+        </h2>
+
+    </div>
+
+
+    <div class="panel-body">
+
+        <div class="info-list">
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Category
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoCategory"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Developer
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoDeveloper"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Device
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoDevice"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Orientation
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoOrientation"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Language
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoLanguage"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Status
+                </div>
+
+                <div
+                    class="info-value"
+                    id="infoStatus"
+                >
+                    Approved
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- CONTROLS -->
+
+<section
+    class="panel"
+    style="margin-top:15px;"
+>
+
+    <div class="panel-head">
+
+        <h2>
+            How to play
+        </h2>
+
+    </div>
+
+
+    <div class="panel-body">
+
+        <div
+            class="description"
+            id="gameControls"
+        >
+            Game controls will appear here.
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- RATING -->
+
+<section
+    class="panel"
+    style="margin-top:15px;"
+>
+
+    <div class="panel-head">
+
+        <h2>
+            Ratings & Reviews
+        </h2>
+
+
+        <span
+            class="rating-count"
+            id="reviewCountTop"
+        >
+            0 reviews
+        </span>
+
+    </div>
+
+
+    <div class="panel-body">
+
+
+        <div class="rating-summary">
+
+
+            <div class="big-rating">
+
+                <div
+                    class="big-rating-number"
+                    id="bigRating"
+                >
+                    0.0
+                </div>
+
+
+                <div
+                    class="big-stars"
+                    id="bigStars"
+                >
+                    ★★★★★
+                </div>
+
+
+                <div class="big-rating-text">
+                    Overall rating
+                </div>
+
+            </div>
+
+
+            <div class="rating-bars">
+
+
+                <div class="rating-row">
+
+                    <span>
+                        5 ★
+                    </span>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="bar5"
+                        ></div>
+
+                    </div>
+
+                    <span id="count5">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="rating-row">
+
+                    <span>
+                        4 ★
+                    </span>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="bar4"
+                        ></div>
+
+                    </div>
+
+                    <span id="count4">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="rating-row">
+
+                    <span>
+                        3 ★
+                    </span>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="bar3"
+                        ></div>
+
+                    </div>
+
+                    <span id="count3">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="rating-row">
+
+                    <span>
+                        2 ★
+                    </span>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="bar2"
+                        ></div>
+
+                    </div>
+
+                    <span id="count2">
+                        0
+                    </span>
+
+                </div>
+
+
+                <div class="rating-row">
+
+                    <span>
+                        1 ★
+                    </span>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            id="bar1"
+                        ></div>
+
+                    </div>
+
+                    <span id="count1">
+                        0
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="review-form">
+
+            <h3>
+                Rate this game
+            </h3>
+
+
+            <div
+                class="star-picker"
+                id="starPicker"
+            >
+
+                <button data-rating="1">
+                    ★
+                </button>
+
+                <button data-rating="2">
+                    ★
+                </button>
+
+                <button data-rating="3">
+                    ★
+                </button>
+
+                <button data-rating="4">
+                    ★
+                </button>
+
+                <button data-rating="5">
+                    ★
+                </button>
+
+            </div>
+
+
+            <textarea
+                class="review-input"
+                id="reviewText"
+                placeholder="Write your review..."
+                maxlength="1000"
+            ></textarea>
+
+
+            <button
+                class="review-submit"
+                id="reviewSubmit"
+            >
+                SUBMIT REVIEW
+            </button>
+
+        </div>
+
+
+        <div
+            class="review-list"
+            id="reviewList"
+            style="margin-top:18px;"
+        >
+
+            <div class="no-reviews">
+                No reviews yet.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- COMMENTS -->
+
+<section
+    class="panel"
+    style="margin-top:15px;"
+>
+
+    <div class="panel-head">
+
+        <h2>
+            Comments
+        </h2>
+
+    </div>
+
+
+    <div class="panel-body">
+
+        <div class="comment-form">
+
+            <input
+                class="comment-input"
+                id="commentInput"
+                maxlength="500"
+                placeholder="Write a comment..."
+            >
+
+
+            <button
+                class="comment-btn"
+                id="commentBtn"
+            >
+                POST
+            </button>
+
+        </div>
+
+
+        <div
+            class="comments"
+            id="comments"
+        >
+
+            <div class="no-reviews">
+                No comments yet.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar">
+
+
+<section class="panel">
+
+    <div class="panel-head">
+
+        <h2>
+            Developer
+        </h2>
+
+    </div>
+
+
+    <div class="panel-body">
+
+        <div class="developer-box">
+
+            <div
+                class="developer-avatar"
+                id="developerAvatar"
+            >
+                D
+            </div>
+
+
+            <div>
+
+                <div
+                    class="developer-name"
+                    id="developerName"
+                >
+                    Developer
+                </div>
+
+
+                <div
+                    class="developer-email"
+                    id="developerEmail"
+                >
+                    —
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="panel">
+
+    <div class="panel-body">
+
+        <div class="side-title">
+            Share this game
+        </div>
+
+
+        <div class="share-buttons">
+
+            <button
+                class="share-btn"
+                id="copyLink"
+            >
+                🔗 Copy Link
+            </button>
+
+
+            <button
+                class="share-btn"
+                id="nativeShare"
+            >
+                ↗ Share
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="panel">
+
+    <div class="panel-body">
+
+        <div class="side-title">
+            More Games
+        </div>
+
+
+        <div
+            class="related-list"
+            id="relatedGames"
+        >
+
+            <div class="no-reviews">
+                Loading...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="panel">
+
+    <div class="panel-body">
+
+        <div class="side-title">
+            About PLAYR
+        </div>
+
+
+        <div
+            class="seo-text"
+            id="seoText"
+        >
+            Discover browser games on PLAYR.
+        </div>
+
+    </div>
+
+</section>
+
+
+</aside>
+
+</div>
+
+</main>
+
+
+
+<footer>
+
+    <span>
+        © 2026 PLAYR
+    </span>
+
+    <span>
+        Games worth playing.
+    </span>
+
+</footer>
+
+
+
+<script type="module">
+
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    collection,
+    getDocs,
+    addDoc,
+    query,
+    where,
+    orderBy,
+    limit,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2qY6fhz8",
+
+    authDomain:
+        "playr-bebbf.firebaseapp.com",
+
+    databaseURL:
+        "https://playr-bebbf-default-rtdb.firebaseio.com",
+
+    projectId:
+        "playr-bebbf",
+
+    storageBucket:
+        "playr-bebbf.firebasestorage.app",
+
+    messagingSenderId:
+        "35506561862",
+
+    appId:
+        "1:35506561862:web:f7b27c1191637cf36abb47"
+
+};
+
+
+const app =
+    initializeApp(
+        firebaseConfig
+    );
+
+
+const db =
+    getFirestore(app);
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const loading =
+    document.getElementById(
+        "loading"
+    );
+
+const loadingText =
+    document.getElementById(
+        "loadingText"
+    );
+
+const frame =
+    document.getElementById(
+        "gameFrame"
+    );
+
+const gameContainer =
+    document.getElementById(
+        "gameContainer"
+    );
+
+const error =
+    document.getElementById(
+        "error"
+    );
+
+const errorText =
+    document.getElementById(
+        "errorText"
+    );
+
+const errorUrl =
+    document.getElementById(
+        "errorUrl"
+    );
+
+const playerStatus =
+    document.getElementById(
+        "playerStatus"
+    );
+
+
+
+/* =====================================================
+   URL PARAMETERS
+===================================================== */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const gameId =
+    params.get("id");
+
+
+const directUrl =
+    params.get("url");
+
+
+const directName =
+    params.get("name");
+
+
+
+console.log(
+    "PLAYR → gameId:",
+    gameId
+);
+
+console.log(
+    "PLAYR → directUrl:",
+    directUrl
+);
+
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let currentGame = null;
+
+let selectedRating = 0;
+
+let reviews = [];
+
+let comments = [];
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+startPlayer();
+
+
+
+/* =====================================================
+   START PLAYER
+===================================================== */
+
+async function startPlayer(){
+
+    try{
+
+        let game = null;
+
+
+        /*
+         * =================================================
+         * MODE 1
+         * player.html?id=FIRESTORE_DOCUMENT_ID
+         * =================================================
+         */
+
+        if(gameId){
+
+            loadingText.textContent =
+                "Loading game information...";
+
+
+            game =
+                await getGameById(
+                    gameId
+                );
+
+        }
+
+
+        /*
+         * =================================================
+         * MODE 2
+         * player.html?url=GITHUB_URL&name=...
+         *
+         * IMPORTANT FIX:
+         *
+         * Search Firestore using githubUrl so that
+         * category/developer/device/etc are loaded.
+         * =================================================
+         */
+
+        if(
+            !game &&
+            directUrl
+        ){
+
+            loadingText.textContent =
+                "Finding submitted game...";
+
+
+            game =
+                await getGameByGitHubUrl(
+                    directUrl
+                );
+
+
+            /*
+             * If Firestore does not contain a matching
+             * submission, still allow direct playback.
+             */
+
+            if(!game){
+
+                game = {
+
+                    id:null,
+
+                    name:
+                        directName ||
+                        "Game",
+
+                    gameName:
+                        directName ||
+                        "Game",
+
+                    title:
+                        directName ||
+                        "Game",
+
+                    developer:
+                        "Unknown Developer",
+
+                    category:
+                        "Game",
+
+                    description:
+                        "No description has been added for this game yet.",
+
+                    controls:
+                        "No controls information has been added yet.",
+
+                    supportedDevices:
+                        "—",
+
+                    orientation:
+                        "—",
+
+                    language:
+                        "—",
+
+                    status:
+                        "approved",
+
+                    githubUrl:
+                        directUrl,
+
+                    gameUrl:
+                        "",
+
+                    thumbnailUrl:
+                        ""
+
+                };
+
+            }
+
+        }
+
+
+        /*
+         * =================================================
+         * NOTHING FOUND
+         * =================================================
+         */
+
+        if(!game){
+
+            showError(
+                gameId
+                ?
+                `Game with id "${gameId}" was not found in Firestore.`
+                :
+                "No game id or GitHub URL was provided."
+            );
+
+            return;
+
+        }
+
+
+        currentGame =
+            game;
+
+
+        console.log(
+            "PLAYR FINAL GAME DATA:",
+            currentGame
+        );
+
+
+        /*
+         * =================================================
+         * RENDER METADATA FIRST
+         * =================================================
+         */
+
+        renderGameInformation(
+            game
+        );
+
+
+        setupSEO(
+            game
+        );
+
+
+        /*
+         * =================================================
+         * REVIEWS / COMMENTS
+         * =================================================
+         */
+
+        if(game.id){
+
+            loadReviews(
+                game.id
+            );
+
+            loadComments(
+                game.id
+            );
+
+        }
+
+
+        /*
+         * =================================================
+         * RELATED
+         * =================================================
+         */
+
+        loadRelatedGames(
+            game
+        );
+
+
+        /*
+         * =================================================
+         * FIND GAME REPOSITORY
+         * =================================================
+         */
+
+        const repository =
+            firstValue(
+                game.githubUrl,
+                game.repositoryUrl,
+                game.repoUrl,
+                game.gameUrl,
+                game.url,
+                ""
+            );
+
+
+        if(!repository){
+
+            showError(
+                "This game does not have a GitHub repository or playable URL."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * =================================================
+         * DIRECT WEB URL
+         * =================================================
+         */
+
+        if(
+            isPlayableWebUrl(
+                repository
+            )
+        ){
+
+            loadGame(
+                repository
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * =================================================
+         * GITHUB
+         * =================================================
+         */
+
+        const repo =
+            parseGitHubRepository(
+                repository
+            );
+
+
+        if(!repo){
+
+            showError(
+                "Invalid GitHub repository URL."
+            );
+
+            return;
+
+        }
+
+
+        await findGitHubGame(
+            repo.owner,
+            repo.name
+        );
+
+    }
+    catch(err){
+
+        console.error(
+            "PLAYER LOAD ERROR:",
+            err
+        );
+
+
+        showError(
+            "Something went wrong while loading this game. Open F12 → Console to see the exact error."
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   GET GAME BY ID
+===================================================== */
+
+async function getGameById(
+    id
+){
+
+    /*
+     * Primary collection:
+     * game_submissions
+     */
+
+    try{
+
+        const ref =
+            doc(
+                db,
+                "game_submissions",
+                id
+            );
+
+
+        const snapshot =
+            await getDoc(
+                ref
+            );
+
+
+        if(
+            snapshot.exists()
+        ){
+
+            const data =
+                snapshot.data();
+
+
+            console.log(
+                "PLAYR game_submissions:",
+                data
+            );
+
+
+            return normalizeGame(
+                id,
+                data
+            );
+
+        }
+
+    }
+    catch(err){
+
+        console.error(
+            "game_submissions ID error:",
+            err
+        );
+
+    }
+
+
+    /*
+     * Old games collection fallback.
+     */
+
+    try{
+
+        const ref =
+            doc(
+                db,
+                "games",
+                id
+            );
+
+
+        const snapshot =
+            await getDoc(
+                ref
+            );
+
+
+        if(
+            snapshot.exists()
+        ){
+
+            return normalizeGame(
+                id,
+                snapshot.data()
+            );
+
+        }
+
+    }
+    catch(err){
+
+        console.error(
+            "games ID error:",
+            err
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+
+/* =====================================================
+   GET GAME BY GITHUB URL
+===================================================== */
+
+async function getGameByGitHubUrl(
+    githubUrl
+){
+
+    const normalized =
+        normalizeGitHubUrl(
+            githubUrl
+        );
+
+
+    if(!normalized){
+
+        return null;
+
+    }
+
+
+    console.log(
+        "PLAYR searching Firestore githubUrl:",
+        normalized
+    );
+
+
+    /*
+     * Exact githubUrl query.
+     */
+
+    try{
+
+        const q =
+            query(
+                collection(
+                    db,
+                    "game_submissions"
+                ),
+                where(
+                    "githubUrl",
+                    "==",
+                    normalized
+                ),
+                limit(1)
+            );
+
+
+        const snapshot =
+            await getDocs(
+                q
+            );
+
+
+        if(
+            !snapshot.empty
+        ){
+
+            const gameDoc =
+                snapshot.docs[0];
+
+
+            console.log(
+                "PLAYR metadata found:",
+                gameDoc.data()
+            );
+
+
+            return normalizeGame(
+                gameDoc.id,
+                gameDoc.data()
+            );
+
+        }
+
+    }
+    catch(err){
+
+        console.error(
+            "Exact githubUrl query failed:",
+            err
+        );
+
+    }
+
+
+    /*
+     * If exact query fails because old submissions
+     * contain trailing slashes / .git, load approved
+     * submissions and compare normalized URLs.
+     */
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "game_submissions"
+                )
+            );
+
+
+        for(
+            const gameDoc
+            of snapshot.docs
+        ){
+
+            const data =
+                gameDoc.data();
+
+
+            const savedUrl =
+                normalizeGitHubUrl(
+                    data.githubUrl ||
+                    data.githubURL ||
+                    data.github ||
+                    ""
+                );
+
+
+            if(
+                savedUrl &&
+                savedUrl === normalized
+            ){
+
+                const status =
+                    String(
+                        data.status ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                /*
+                 * Only use approved submission
+                 * for public player page.
+                 */
+
+                if(
+                    !status ||
+                    status === "approved"
+                ){
+
+                    return normalizeGame(
+                        gameDoc.id,
+                        data
+                    );
+
+                }
+
+            }
+
+        }
+
+    }
+    catch(err){
+
+        console.error(
+            "Fallback metadata search failed:",
+            err
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+
+/* =====================================================
+   NORMALIZE GITHUB URL
+===================================================== */
+
+function normalizeGitHubUrl(
+    url
+){
+
+    try{
+
+        const parsed =
+            new URL(
+                String(url).trim()
+            );
+
+
+        if(
+            parsed.hostname
+                .toLowerCase()
+                !==
+            "github.com"
+        ){
+
+            return "";
+
+        }
+
+
+        const parts =
+            parsed.pathname
+                .split("/")
+                .filter(Boolean);
+
+
+        if(
+            parts.length < 2
+        ){
+
+            return "";
+
+        }
+
+
+        const owner =
+            parts[0];
+
+
+        const repo =
+            parts[1]
+                .replace(
+                    /\.git$/,
+                    ""
+                );
+
+
+        return (
+            "https://github.com/" +
+            owner +
+            "/" +
+            repo
+        );
+
+    }
+    catch{
+
+        return "";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   NORMALIZE GAME DATA
+===================================================== */
+
+function normalizeGame(
+    id,
+    data
+){
+
+    const game = {
+
+        id:id,
+
+
+        name:
+            firstValue(
+                data.gameName,
+                data.name,
+                data.title,
+                "Untitled Game"
+            ),
+
+
+        gameName:
+            firstValue(
+                data.gameName,
+                data.name,
+                data.title,
+                "Untitled Game"
+            ),
+
+
+        title:
+            firstValue(
+                data.gameName,
+                data.name,
+                data.title,
+                "Untitled Game"
+            ),
+
+
+        developer:
+            firstValue(
+                data.developer,
+                data.developerName,
+                data.studio,
+                data.studioName,
+                "Unknown Developer"
+            ),
+
+
+        email:
+            firstValue(
+                data.email,
+                data.developerEmail,
+                ""
+            ),
+
+
+        country:
+            firstValue(
+                data.country,
+                ""
+            ),
+
+
+        developerType:
+            firstValue(
+                data.developerType,
+                ""
+            ),
+
+
+        category:
+            firstValue(
+                data.category,
+                data.genre,
+                "Game"
+            ),
+
+
+        description:
+            firstValue(
+                data.description,
+                data.gameDescription,
+                data.about,
+                "No description has been added for this game yet."
+            ),
+
+
+        controls:
+            firstValue(
+                data.controls,
+                data.instructions,
+                data.controlInstructions,
+                data.howToPlay,
+                "No controls information has been added yet."
+            ),
+
+
+        supportedDevices:
+            firstValue(
+                data.supportedDevices,
+                data.device,
+                data.devices,
+                data.platform,
+                "—"
+            ),
+
+
+        orientation:
+            firstValue(
+                data.orientation,
+                data.gameOrientation,
+                "—"
+            ),
+
+
+        language:
+            firstValue(
+                data.language,
+                data.gameLanguage,
+                "—"
+            ),
+
+
+        status:
+            firstValue(
+                data.status,
+                "approved"
+            ),
+
+
+        githubUrl:
+            firstValue(
+                data.githubUrl,
+                data.githubURL,
+                data.github,
+                data.repositoryUrl,
+                data.repoUrl,
+                ""
+            ),
+
+
+        gameUrl:
+            firstValue(
+                data.gameUrl,
+                data.playableUrl,
+                data.playUrl,
+                data.url,
+                ""
+            ),
+
+
+        repositoryUrl:
+            firstValue(
+                data.repositoryUrl,
+                data.githubUrl,
+                ""
+            ),
+
+
+        thumbnailUrl:
+            firstValue(
+                data.thumbnailUrl,
+                data.thumbnail,
+                data.imageUrl,
+                data.coverUrl,
+                ""
+            ),
+
+
+        thumbnail:
+            firstValue(
+                data.thumbnailUrl,
+                data.thumbnail,
+                data.imageUrl,
+                data.coverUrl,
+                ""
+            ),
+
+
+        thumbnailPath:
+            data.thumbnailPath || "",
+
+
+        createdAt:
+            data.createdAt || null,
+
+
+        reviewedAt:
+            data.reviewedAt || null,
+
+
+        rejectionReason:
+            data.rejectionReason || "",
+
+
+        rightsConfirmed:
+            data.rightsConfirmed ?? false,
+
+
+        assetsConfirmed:
+            data.assetsConfirmed ?? false,
+
+
+        rulesAccepted:
+            data.rulesAccepted ?? false
+
+    };
+
+
+    /*
+     * Preserve original Firestore fields.
+     */
+
+    return {
+        ...data,
+        ...game
+    };
+
+}
+
+
+
+/* =====================================================
+   FIRST VALUE
+===================================================== */
+
+function firstValue(
+    ...values
+){
+
+    for(
+        const value
+        of values
+    ){
+
+        if(
+            value !== undefined &&
+            value !== null &&
+            String(value).trim() !== ""
+        ){
+
+            return value;
+
+        }
+
+    }
+
+
+    return "";
+
+}
+
+
+
+/* =====================================================
+   RENDER GAME INFORMATION
+===================================================== */
+
+function renderGameInformation(
+    game
+){
+
+    const name =
+        firstValue(
+            game.name,
+            game.gameName,
+            game.title,
+            "Untitled Game"
+        );
+
+
+    const developer =
+        firstValue(
+            game.developer,
+            "Unknown Developer"
+        );
+
+
+    const category =
+        firstValue(
+            game.category,
+            "Game"
+        );
+
+
+    const description =
+        firstValue(
+            game.description,
+            "No description has been added for this game yet."
+        );
+
+
+    const controls =
+        firstValue(
+            game.controls,
+            "No controls information has been added yet."
+        );
+
+
+    const device =
+        firstValue(
+            game.supportedDevices,
+            "—"
+        );
+
+
+    const orientation =
+        firstValue(
+            game.orientation,
+            "—"
+        );
+
+
+    const language =
+        firstValue(
+            game.language,
+            "—"
+        );
+
+
+    const status =
+        firstValue(
+            game.status,
+            "approved"
+        );
+
+
+    const thumbnail =
+        firstValue(
+            game.thumbnailUrl,
+            game.thumbnail,
+            ""
+        );
+
+
+    document.title =
+        `${name} — Play on PLAYR`;
+
+
+    setText(
+        "gameTitle",
+        name
+    );
+
+
+    setText(
+        "gameSubtitle",
+        `${category} · ${developer}`
+    );
+
+
+    setText(
+        "gameDescription",
+        description
+    );
+
+
+    setText(
+        "gameControls",
+        controls
+    );
+
+
+    setText(
+        "infoCategory",
+        category
+    );
+
+
+    setText(
+        "infoDeveloper",
+        developer
+    );
+
+
+    setText(
+        "infoDevice",
+        device
+    );
+
+
+    setText(
+        "infoOrientation",
+        orientation
+    );
+
+
+    setText(
+        "infoLanguage",
+        language
+    );
+
+
+    setText(
+        "infoStatus",
+        status
+    );
+
+
+    setText(
+        "developerName",
+        developer
+    );
+
+
+    setText(
+        "developerEmail",
+        game.email ||
+        "PLAYR Developer"
+    );
+
+
+    setText(
+        "developerAvatar",
+        getInitials(
+            developer
+        )
+    );
+
+
+    /*
+     * Thumbnail
+     */
+
+    const image =
+        document.getElementById(
+            "gameCoverImage"
+        );
+
+
+    const coverLetter =
+        document.getElementById(
+            "coverLetter"
+        );
+
+
+    if(
+        image &&
+        thumbnail
+    ){
+
+        image.src =
+            thumbnail;
+
+
+        image.style.display =
+            "block";
+
+
+        if(coverLetter){
+
+            coverLetter.style.display =
+                "none";
+
+        }
+
+
+        image.onerror =
+            function(){
+
+                image.style.display =
+                    "none";
+
+
+                if(coverLetter){
+
+                    coverLetter.style.display =
+                        "flex";
+
+                    coverLetter.textContent =
+                        getInitials(
+                            name
+                        );
+
+                }
+
+            };
+
+    }
+    else{
+
+        if(coverLetter){
+
+            coverLetter.style.display =
+                "flex";
+
+            coverLetter.textContent =
+                getInitials(
+                    name
+                );
+
+        }
+
+    }
+
+
+    /*
+     * Tags
+     */
+
+    const tags =
+        document.getElementById(
+            "gameTags"
+        );
+
+
+    if(tags){
+
+        tags.innerHTML =
+            "";
+
+
+        [
+            category,
+            device,
+            orientation,
+            language
+        ]
+        .filter(
+            value =>
+                value &&
+                value !== "—"
+        )
+        .forEach(
+            value => {
+
+                const element =
+                    document.createElement(
+                        "span"
+                    );
+
+
+                element.className =
+                    "tag";
+
+
+                element.textContent =
+                    value;
+
+
+                tags.appendChild(
+                    element
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SAFE TEXT
+===================================================== */
+
+function setText(
+    id,
+    value
+){
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if(element){
+
+        element.textContent =
+            value ?? "";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SEO
+===================================================== */
+
+function setupSEO(
+    game
+){
+
+    const name =
+        firstValue(
+            game.name,
+            game.gameName,
+            game.title,
+            "Game"
+        );
+
+
+    const category =
+        firstValue(
+            game.category,
+            "browser game"
+        );
+
+
+    const description =
+        firstValue(
+            game.description,
+            `Play ${name} online on PLAYR.`
+        );
+
+
+    const shortDescription =
+        String(
+            description
+        )
+        .replace(
+            /\s+/g,
+            " "
+        )
+        .slice(
+            0,
+            155
+        );
+
+
+    const pageUrl =
+        window.location.href;
+
+
+    const image =
+        firstValue(
+            game.thumbnailUrl,
+            game.thumbnail,
+            ""
+        );
+
+
+    setMeta(
+        "metaDescription",
+        "content",
+        shortDescription
+    );
+
+
+    setMeta(
+        "ogTitle",
+        "content",
+        `${name} — PLAYR`
+    );
+
+
+    setMeta(
+        "ogDescription",
+        "content",
+        shortDescription
+    );
+
+
+    setMeta(
+        "ogUrl",
+        "content",
+        pageUrl
+    );
+
+
+    setMeta(
+        "ogImage",
+        "content",
+        image
+    );
+
+
+    setMeta(
+        "twitterTitle",
+        "content",
+        `${name} — PLAYR`
+    );
+
+
+    setMeta(
+        "twitterDescription",
+        "content",
+        shortDescription
+    );
+
+
+    setMeta(
+        "twitterImage",
+        "content",
+        image
+    );
+
+
+    const canonical =
+        document.getElementById(
+            "canonicalUrl"
+        );
+
+
+    if(canonical){
+
+        canonical.href =
+            pageUrl;
+
+    }
+
+
+    setText(
+        "seoText",
+        `Play ${name} online on PLAYR. Explore this ${category} game, read player reviews, check game information and discover more games worth playing.`
+    );
+
+}
+
+
+
+function setMeta(
+    id,
+    attribute,
+    value
+){
+
+    const element =
+        document.getElementById(
+            id
+        );
+
+
+    if(element){
+
+        element.setAttribute(
+            attribute,
+            value || ""
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   PARSE GITHUB
+===================================================== */
+
+function parseGitHubRepository(
+    url
+){
+
+    try{
+
+        const parsed =
+            new URL(
+                url
+            );
+
+
+        const hostname =
+            parsed.hostname
+                .toLowerCase();
+
+
+        if(
+            hostname !==
+            "github.com" &&
+            hostname !==
+            "www.github.com"
+        ){
+
+            return null;
+
+        }
+
+
+        const parts =
+            parsed.pathname
+                .split("/")
+                .filter(Boolean);
+
+
+        if(
+            parts.length < 2
+        ){
+
+            return null;
+
+        }
+
+
+        return {
+
+            owner:
+                parts[0],
+
+            name:
+                parts[1]
+                    .replace(
+                        /\.git$/,
+                        ""
+                    )
+
+        };
+
+    }
+    catch{
+
+        return null;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   GITHUB API FETCH
+===================================================== */
+
+async function githubFetch(
+    url
+){
+
+    const response =
+        await fetch(
+            url,
+            {
+                headers:{
+                    "Accept":
+                        "application/vnd.github+json"
+                }
+            }
+        );
+
+
+    if(
+        !response.ok
+    ){
+
+        throw new Error(
+            `GitHub API ${response.status}`
+        );
+
+    }
+
+
+    return response.json();
+
+}
+
+
+
+/* =====================================================
+   FIND GITHUB GAME
+===================================================== */
+
+async function findGitHubGame(
+    owner,
+    repo
+){
+
+    loading.style.display =
+        "flex";
+
+
+    frame.style.display =
+        "none";
+
+
+    error.style.display =
+        "none";
+
+
+    loadingText.textContent =
+        "Checking GitHub repository...";
+
+
+    try{
+
+        /*
+         * FIRST:
+         * Get repository information.
+         *
+         * This tells us the real default branch.
+         */
+
+        const repository =
+            await githubFetch(
+                `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`
+            );
+
+
+        const defaultBranch =
+            repository.default_branch ||
+            "main";
+
+
+        console.log(
+            "PLAYR GitHub default branch:",
+            defaultBranch
+        );
+
+
+        /*
+         * Try default branch first.
+         */
+
+        let branch =
+            defaultBranch;
+
+
+        let files =
+            [];
+
+
+        try{
+
+            files =
+                await getGitTree(
+                    owner,
+                    repo,
+                    branch
+                );
+
+        }
+        catch(err){
+
+            console.warn(
+                "Default branch tree failed:",
+                err
+            );
+
+        }
+
+
+        /*
+         * Fallback branches.
+         */
+
+        if(
+            !files.length &&
+            branch !== "main"
+        ){
+
+            try{
+
+                branch =
+                    "main";
+
+
+                files =
+                    await getGitTree(
+                        owner,
+                        repo,
+                        branch
+                    );
+
+            }
+            catch{}
+
+        }
+
+
+        if(
+            !files.length &&
+            branch !== "master"
+        ){
+
+            try{
+
+                branch =
+                    "master";
+
+
+                files =
+                    await getGitTree(
+                        owner,
+                        repo,
+                        branch
+                    );
+
+            }
+            catch{}
+
+        }
+
+
+        /*
+         * If tree API didn't work,
+         * use Contents API recursively.
+         */
+
+        if(
+            !files.length
+        ){
+
+            loadingText.textContent =
+                "Reading repository files...";
+
+
+            files =
+                await getRepositoryFiles(
+                    owner,
+                    repo,
+                    branch
+                );
+
+        }
+
+
+        if(
+            !files.length
+        ){
+
+            showError(
+                "Could not read this GitHub repository. Make sure the repository is public and contains the game files."
+            );
+
+            return;
+
+        }
+
+
+        console.log(
+            "PLAYR GitHub files:",
+            files
+        );
+
+
+        /*
+         * Find HTML files.
+         */
+
+        const htmlFiles =
+            files
+            .filter(
+                file => {
+
+                    const path =
+                        typeof file === "string"
+                        ? file
+                        : file.path;
+
+                    return (
+                        path &&
+                        path
+                            .toLowerCase()
+                            .endsWith(
+                                ".html"
+                            )
+                    );
+
+                }
+            )
+            .map(
+                file =>
+                    typeof file === "string"
+                    ? file
+                    : file.path
+            );
+
+
+        if(
+            !htmlFiles.length
+        ){
+
+            showError(
+                "No HTML game file was found in this GitHub repository."
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Preferred files.
+         */
+
+        const possibleFiles = [
+
+            "index.html",
+
+            "game.html",
+
+            "play.html",
+
+            "main.html",
+
+            "dist/index.html",
+
+            "build/index.html",
+
+            "public/index.html",
+
+            "src/index.html"
+
+        ];
+
+
+        let selected =
+            null;
+
+
+        /*
+         * Exact preferred path.
+         */
+
+        for(
+            const preferred
+            of possibleFiles
+        ){
+
+            selected =
+                htmlFiles.find(
+                    file =>
+                        file.toLowerCase() ===
+                        preferred.toLowerCase()
+                );
+
+
+            if(selected){
+
+                break;
+
+            }
+
+        }
+
+
+        /*
+         * Any index.html.
+         */
+
+        if(!selected){
+
+            selected =
+                htmlFiles.find(
+                    file =>
+                        file
+                            .split("/")
+                            .pop()
+                            .toLowerCase() ===
+                        "index.html"
+                );
+
+        }
+
+
+        /*
+         * Last fallback:
+         * first HTML file.
+         */
+
+        if(!selected){
+
+            selected =
+                htmlFiles[0];
+
+        }
+
+
+        console.log(
+            "PLAYR selected game file:",
+            selected
+        );
+
+
+        /*
+         * Build URLs.
+         */
+
+        const pagesUrl =
+            `https://${owner}.github.io/${repo}/${selected}`;
+
+
+        const rawUrl =
+            `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${selected}`;
+
+
+        const githackUrl =
+            `https://raw.githack.com/${owner}/${repo}/${encodeURIComponent(branch)}/${selected}`;
+
+
+        /*
+         * IMPORTANT:
+         *
+         * GitHub Pages may not exist.
+         * raw.githack is used as another fallback.
+         */
+
+        loadGameWithFallbacks(
+            [
+                pagesUrl,
+                githackUrl,
+                rawUrl
+            ]
+        );
+
+    }
+    catch(err){
+
+        console.error(
+            "GitHub repository error:",
+            err
+        );
+
+
+        /*
+         * Last direct raw URL fallback.
+         */
+
+        try{
+
+            const branch =
+                "main";
+
+
+            const rawUrl =
+                `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/index.html`;
+
+
+            loadGame(
+                rawUrl
+            );
+
+
+        }
+        catch{
+
+            showError(
+                "Could not read this GitHub repository. Make sure the repository is public."
+            );
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   GET GIT TREE
+===================================================== */
+
+async function getGitTree(
+    owner,
+    repo,
+    branch
+){
+
+    const data =
+        await githubFetch(
+            `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/git/trees/${encodeURIComponent(branch)}?recursive=1`
+        );
+
+
+    if(
+        !Array.isArray(
+            data.tree
+        )
+    ){
+
+        return [];
+
+    }
+
+
+    return data.tree
+        .filter(
+            item =>
+                item.type ===
+                "blob"
+        )
+        .map(
+            item =>
+                item.path
+        );
+
+}
+
+
+
+/* =====================================================
+   REPOSITORY CONTENTS FALLBACK
+===================================================== */
+
+async function getRepositoryFiles(
+    owner,
+    repo,
+    branch
+){
+
+    const result =
+        [];
+
+
+    async function walk(
+        path
+    ){
+
+        const url =
+            path
+            ?
+            `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}?ref=${encodeURIComponent(branch)}`
+            :
+            `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents?ref=${encodeURIComponent(branch)}`;
+
+
+        const data =
+            await githubFetch(
+                url
+            );
+
+
+        if(
+            !Array.isArray(data)
+        ){
+
+            return;
+
+        }
+
+
+        for(
+            const item
+            of data
+        ){
+
+            if(
+                item.type ===
+                "file"
+            ){
+
+                result.push(
+                    item.path
+                );
+
+            }
+
+
+            if(
+                item.type ===
+                "dir"
+            ){
+
+                await walk(
+                    item.path
+                );
+
+            }
+
+        }
+
+    }
+
+
+    try{
+
+        await walk(
+            ""
+        );
+
+    }
+    catch(err){
+
+        console.error(
+            "Contents API error:",
+            err
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+
+/* =====================================================
+   LOAD GAME WITH MULTIPLE FALLBACKS
+===================================================== */
+
+function loadGameWithFallbacks(
+    urls
+){
+
+    const validUrls =
+        urls.filter(
+            Boolean
+        );
+
+
+    if(
+        !validUrls.length
+    ){
+
+        showError(
+            "No playable game URL was found."
+        );
+
+        return;
+
+    }
+
+
+    let index = 0;
+
+
+    function tryNext(){
+
+        if(
+            index >=
+            validUrls.length
+        ){
+
+            showError(
+                "The repository was found, but the game could not be loaded. The game may require GitHub Pages or another web hosting service."
+            );
+
+            return;
+
+        }
+
+
+        const url =
+            validUrls[index++];
+
+
+        console.log(
+            "PLAYR trying game URL:",
+            url
+        );
+
+
+        loadingText.textContent =
+            `Loading game... (${index}/${validUrls.length})`;
+
+
+        loadGame(
+            url,
+            function(){
+
+                if(
+                    index <
+                    validUrls.length
+                ){
+
+                    console.warn(
+                        "Trying next game URL..."
+                    );
+
+
+                    tryNext();
+
+                }
+                else{
+
+                    showError(
+                        "The game could not be loaded from the repository."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    tryNext();
+
+}
+
+
+
+/* =====================================================
+   LOAD GAME
+===================================================== */
+
+function loadGame(
+    url,
+    onFailure = null
+){
+
+    loading.style.display =
+        "none";
+
+
+    error.style.display =
+        "none";
+
+
+    frame.style.display =
+        "block";
+
+
+    playerStatus.textContent =
+        "LOADING";
+
+
+    frame.src =
+        url;
+
+
+    let loaded =
+        false;
+
+
+    let finished =
+        false;
+
+
+    frame.onload =
+        function(){
+
+            if(finished){
+
+                return;
+
+            }
+
+
+            loaded =
+                true;
+
+
+            finished =
+                true;
+
+
+            playerStatus.textContent =
+                "PLAYING";
+
+
+            focusGameFrame();
+
+        };
+
+
+    /*
+     * Cross-origin iframe failures cannot always
+     * be detected with onerror.
+     *
+     * Give the page time to load.
+     */
+
+    setTimeout(
+        function(){
+
+            if(
+                !loaded &&
+                !finished
+            ){
+
+                finished =
+                    true;
+
+
+                frame.style.display =
+                    "none";
+
+
+                if(onFailure){
+
+                    onFailure();
+
+                }
+                else{
+
+                    showError(
+                        "The game page could not be loaded."
+                    );
+
+                }
+
+            }
+
+        },
+        7000
+    );
+
+}
+
+
+
+/* =====================================================
+   PLAYABLE WEB URL
+===================================================== */
+
+function isPlayableWebUrl(
+    url
+){
+
+    try{
+
+        const parsed =
+            new URL(
+                url
+            );
+
+
+        const hostname =
+            parsed.hostname
+                .toLowerCase();
+
+
+        return (
+            (
+                parsed.protocol ===
+                "http:" ||
+
+                parsed.protocol ===
+                "https:"
+            )
+            &&
+            hostname !==
+            "github.com"
+            &&
+            hostname !==
+            "www.github.com"
+        );
+
+    }
+    catch{
+
+        return false;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+function focusGameFrame(){
+
+    if(
+        frame &&
+        frame.style.display !==
+        "none"
+    ){
+
+        try{
+
+            frame.focus();
+
+
+            if(
+                frame.contentWindow
+            ){
+
+                frame.contentWindow.focus();
+
+            }
+
+        }
+        catch{}
+
+    }
+
+}
+
+
+gameContainer.addEventListener(
+    "click",
+    focusGameFrame
+);
+
+
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+document
+.getElementById(
+    "fullscreenBtn"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            if(
+                !document.fullscreenElement
+            ){
+
+                await gameContainer
+                    .requestFullscreen();
+
+            }
+            else{
+
+                await document
+                    .exitFullscreen();
+
+            }
+
+
+            setTimeout(
+                focusGameFrame,
+                150
+            );
+
+        }
+        catch(err){
+
+            console.error(
+                err
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   RELOAD
+===================================================== */
+
+document
+.getElementById(
+    "reloadBtn"
+)
+.addEventListener(
+    "click",
+    function(){
+
+        if(
+            frame.src
+        ){
+
+            frame.src =
+                frame.src;
+
+
+            playerStatus.textContent =
+                "RELOADING";
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   REVIEWS
+===================================================== */
+
+async function loadReviews(
+    id
+){
+
+    if(!id){
+
+        return;
+
+    }
+
+
+    try{
+
+        const reviewQuery =
+            query(
+                collection(
+                    db,
+                    "reviews"
+                ),
+
+                where(
+                    "gameId",
+                    "==",
+                    id
+                ),
+
+                orderBy(
+                    "createdAt",
+                    "desc"
+                ),
+
+                limit(50)
+            );
+
+
+        const snapshot =
+            await getDocs(
+                reviewQuery
+            );
+
+
+        reviews =
+            [];
+
+
+        snapshot.forEach(
+            reviewDoc => {
+
+                reviews.push({
+
+                    id:
+                        reviewDoc.id,
+
+                    ...reviewDoc.data()
+
+                });
+
+            }
+        );
+
+
+        renderReviews();
+
+    }
+    catch(err){
+
+        console.error(
+            "Review query error:",
+            err
+        );
+
+
+        try{
+
+            const fallback =
+                query(
+                    collection(
+                        db,
+                        "reviews"
+                    ),
+
+                    where(
+                        "gameId",
+                        "==",
+                        id
+                    ),
+
+                    limit(50)
+                );
+
+
+            const snapshot =
+                await getDocs(
+                    fallback
+                );
+
+
+            reviews =
+                [];
+
+
+            snapshot.forEach(
+                reviewDoc => {
+
+                    reviews.push({
+
+                        id:
+                            reviewDoc.id,
+
+                        ...reviewDoc.data()
+
+                    });
+
+                }
+            );
+
+
+            renderReviews();
+
+        }
+        catch(error){
+
+            console.error(
+                "Review fallback error:",
+                error
+            );
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RENDER REVIEWS
+===================================================== */
+
+function renderReviews(){
+
+    const list =
+        document.getElementById(
+            "reviewList"
+        );
+
+
+    const total =
+        reviews.length;
+
+
+    setText(
+        "headerReviewCount",
+        `${total} reviews`
+    );
+
+
+    setText(
+        "reviewCountTop",
+        `${total} reviews`
+    );
+
+
+    if(!total){
+
+        list.innerHTML =
+            `
+            <div class="no-reviews">
+                No reviews yet. Be the first to review this game.
+            </div>
+            `;
+
+
+        updateRating(
+            []
+        );
+
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        reviews
+        .map(
+            review => {
+
+                const rating =
+                    Math.max(
+                        0,
+                        Math.min(
+                            5,
+                            Number(
+                                review.rating ||
+                                0
+                            )
+                        )
+                    );
+
+
+                const stars =
+                    "★".repeat(
+                        rating
+                    )
+                    +
+                    "☆".repeat(
+                        5 - rating
+                    );
+
+
+                const text =
+                    escapeHTML(
+                        review.text ||
+                        review.review ||
+                        ""
+                    );
+
+
+                const user =
+                    escapeHTML(
+                        review.userName ||
+                        review.username ||
+                        "PLAYR Player"
+                    );
+
+
+                return `
+                <div class="review">
+
+                    <div class="review-top">
+
+                        <div class="reviewer">
+                            ${user}
+                        </div>
+
+                        <div class="review-date">
+                            ${formatDate(
+                                review.createdAt
+                            )}
+                        </div>
+
+                    </div>
+
+                    <div class="review-stars">
+                        ${stars}
+                    </div>
+
+                    <div class="review-text">
+                        ${text}
+                    </div>
+
+                </div>
+                `;
+
+            }
+        )
+        .join("");
+
+
+    updateRating(
+        reviews
+    );
+
+}
+
+
+
+/* =====================================================
+   RATING
+===================================================== */
+
+function updateRating(
+    items
+){
+
+    if(
+        !items.length
+    ){
+
+        setRatingUI(
+            0,
+            0,
+            [0,0,0,0,0]
+        );
+
+
+        return;
+
+    }
+
+
+    const counts =
+        [0,0,0,0,0];
+
+
+    let total =
+        0;
+
+
+    items.forEach(
+        review => {
+
+            const rating =
+                Math.max(
+                    1,
+                    Math.min(
+                        5,
+                        Number(
+                            review.rating ||
+                            0
+                        )
+                    )
+                );
+
+
+            counts[
+                rating - 1
+            ]++;
+
+
+            total +=
+                rating;
+
+        }
+    );
+
+
+    const average =
+        total /
+        items.length;
+
+
+    setRatingUI(
+        average,
+        items.length,
+        counts
+    );
+
+}
+
+
+
+/* =====================================================
+   RATING UI
+===================================================== */
+
+function setRatingUI(
+    average,
+    total,
+    counts
+){
+
+    const rounded =
+        Number(
+            average.toFixed(
+                1
+            )
+        );
+
+
+    setText(
+        "headerRating",
+        rounded.toFixed(
+            1
+        )
+    );
+
+
+    setText(
+        "bigRating",
+        rounded.toFixed(
+            1
+        )
+    );
+
+
+    const stars =
+        getStars(
+            average
+        );
+
+
+    setText(
+        "headerStars",
+        stars
+    );
+
+
+    setText(
+        "bigStars",
+        stars
+    );
+
+
+    for(
+        let i = 1;
+        i <= 5;
+        i++
+    ){
+
+        const count =
+            counts[
+                i - 1
+            ] || 0;
+
+
+        const percent =
+            total
+            ?
+            (
+                count /
+                total
+            ) * 100
+            :
+            0;
+
+
+        const bar =
+            document.getElementById(
+                `bar${i}`
+            );
+
+
+        const countElement =
+            document.getElementById(
+                `count${i}`
+            );
+
+
+        if(bar){
+
+            bar.style.width =
+                `${percent}%`;
+
+        }
+
+
+        if(countElement){
+
+            countElement.textContent =
+                count;
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   STAR PICKER
+===================================================== */
+
+document
+.querySelectorAll(
+    "#starPicker button"
+)
+.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                selectedRating =
+                    Number(
+                        this.dataset.rating
+                    );
+
+
+                document
+                .querySelectorAll(
+                    "#starPicker button"
+                )
+                .forEach(
+                    item => {
+
+                        item.classList.toggle(
+                            "active",
+                            Number(
+                                item.dataset.rating
+                            )
+                            <=
+                            selectedRating
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   SUBMIT REVIEW
+===================================================== */
+
+document
+.getElementById(
+    "reviewSubmit"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            !currentGame
+        ){
+
+            alert(
+                "Game is still loading."
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !selectedRating
+        ){
+
+            alert(
+                "Please select a star rating."
+            );
+
+            return;
+
+        }
+
+
+        const input =
+            document.getElementById(
+                "reviewText"
+            );
+
+
+        const text =
+            input.value.trim();
+
+
+        if(!text){
+
+            alert(
+                "Please write a review."
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !currentGame.id
+        ){
+
+            alert(
+                "Reviews are available for published PLAYR games."
+            );
+
+            return;
+
+        }
+
+
+        const button =
+            this;
+
+
+        button.disabled =
+            true;
+
+
+        button.textContent =
+            "POSTING...";
+
+
+        try{
+
+            await addDoc(
+                collection(
+                    db,
+                    "reviews"
+                ),
+                {
+
+                    gameId:
+                        currentGame.id,
+
+                    gameName:
+                        currentGame.name ||
+                        "Game",
+
+                    rating:
+                        selectedRating,
+
+                    text:
+                        text,
+
+                    userName:
+                        "PLAYR Player",
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            input.value =
+                "";
+
+
+            selectedRating =
+                0;
+
+
+            document
+            .querySelectorAll(
+                "#starPicker button"
+            )
+            .forEach(
+                item =>
+                    item.classList.remove(
+                        "active"
+                    )
+            );
+
+
+            await loadReviews(
+                currentGame.id
+            );
+
+
+            alert(
+                "Review submitted successfully."
+            );
+
+        }
+        catch(err){
+
+            console.error(
+                err
+            );
+
+
+            alert(
+                "Unable to submit review. Check your Firestore rules."
+            );
+
+        }
+        finally{
+
+            button.disabled =
+                false;
+
+
+            button.textContent =
+                "SUBMIT REVIEW";
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   COMMENTS
+===================================================== */
+
+async function loadComments(
+    id
+){
+
+    if(!id){
+
+        return;
+
+    }
+
+
+    try{
+
+        const commentQuery =
+            query(
+                collection(
+                    db,
+                    "comments"
+                ),
+
+                where(
+                    "gameId",
+                    "==",
+                    id
+                ),
+
+                limit(50)
+            );
+
+
+        const snapshot =
+            await getDocs(
+                commentQuery
+            );
+
+
+        comments =
+            [];
+
+
+        snapshot.forEach(
+            commentDoc => {
+
+                comments.push({
+
+                    id:
+                        commentDoc.id,
+
+                    ...commentDoc.data()
+
+                });
+
+            }
+        );
+
+
+        comments.sort(
+            (a,b) =>
+                getTimestamp(
+                    b.createdAt
+                )
+                -
+                getTimestamp(
+                    a.createdAt
+                )
+        );
+
+
+        renderComments();
+
+    }
+    catch(err){
+
+        console.error(
+            "Comments error:",
+            err
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RENDER COMMENTS
+===================================================== */
+
+function renderComments(){
+
+    const container =
+        document.getElementById(
+            "comments"
+        );
+
+
+    if(
+        !comments.length
+    ){
+
+        container.innerHTML =
+            `
+            <div class="no-reviews">
+                No comments yet.
+            </div>
+            `;
+
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        comments
+        .map(
+            comment => {
+
+                return `
+                <div class="comment">
+
+                    <div class="comment-user">
+                        ${escapeHTML(
+                            comment.userName ||
+                            "PLAYR Player"
+                        )}
+                    </div>
+
+                    <div class="comment-text">
+                        ${escapeHTML(
+                            comment.text ||
+                            ""
+                        )}
+                    </div>
+
+                    <div class="comment-date">
+                        ${formatDate(
+                            comment.createdAt
+                        )}
+                    </div>
+
+                </div>
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+
+/* =====================================================
+   POST COMMENT
+===================================================== */
+
+document
+.getElementById(
+    "commentBtn"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            !currentGame ||
+            !currentGame.id
+        ){
+
+            alert(
+                "Comments are available for published PLAYR games."
+            );
+
+            return;
+
+        }
+
+
+        const input =
+            document.getElementById(
+                "commentInput"
+            );
+
+
+        const text =
+            input.value.trim();
+
+
+        if(!text){
+
+            return;
+
+        }
+
+
+        this.disabled =
+            true;
+
+
+        try{
+
+            await addDoc(
+                collection(
+                    db,
+                    "comments"
+                ),
+                {
+
+                    gameId:
+                        currentGame.id,
+
+                    gameName:
+                        currentGame.name ||
+                        "Game",
+
+                    text:
+                        text,
+
+                    userName:
+                        "PLAYR Player",
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            input.value =
+                "";
+
+
+            await loadComments(
+                currentGame.id
+            );
+
+        }
+        catch(err){
+
+            console.error(
+                err
+            );
+
+
+            alert(
+                "Unable to post comment. Check your Firestore rules."
+            );
+
+        }
+        finally{
+
+            this.disabled =
+                false;
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   RELATED GAMES
+===================================================== */
+
+async function loadRelatedGames(
+    game
+){
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "game_submissions"
+                )
+            );
+
+
+        const games =
+            [];
+
+
+        snapshot.forEach(
+            gameDoc => {
+
+                const data =
+                    gameDoc.data();
+
+
+                const status =
+                    String(
+                        data.status ||
+                        ""
+                    )
+                    .toLowerCase();
+
+
+                if(
+                    gameDoc.id !==
+                    game.id &&
+                    status ===
+                    "approved"
+                ){
+
+                    games.push(
+                        normalizeGame(
+                            gameDoc.id,
+                            data
+                        )
+                    );
+
+                }
+
+            }
+        );
+
+
+        renderRelatedGames(
+            games.slice(
+                0,
+                6
+            )
+        );
+
+    }
+    catch(err){
+
+        console.error(
+            "Related games error:",
+            err
+        );
+
+
+        const related =
+            document.getElementById(
+                "relatedGames"
+            );
+
+
+        if(related){
+
+            related.innerHTML =
+                `
+                <div class="no-reviews">
+                    No other games found.
+                </div>
+                `;
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RENDER RELATED
+===================================================== */
+
+function renderRelatedGames(
+    games
+){
+
+    const container =
+        document.getElementById(
+            "relatedGames"
+        );
+
+
+    if(
+        !games.length
+    ){
+
+        container.innerHTML =
+            `
+            <div class="no-reviews">
+                No other games found.
+            </div>
+            `;
+
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        games
+        .map(
+            game => {
+
+                const name =
+                    game.name ||
+                    "Untitled";
+
+
+                const category =
+                    game.category ||
+                    "Game";
+
+
+                const thumbnail =
+                    game.thumbnailUrl ||
+                    "";
+
+
+                const initials =
+                    getInitials(
+                        name
+                    );
+
+
+                return `
+
+                <div
+                    class="related-card"
+                    onclick="openRelatedGame('${escapeJS(game.id)}')"
+                >
+
+                    <div class="related-cover">
+
+                        ${
+                            thumbnail
+                            ?
+                            `<img
+                                src="${escapeHTML(thumbnail)}"
+                                alt="${escapeHTML(name)}"
+                            >`
+                            :
+                            escapeHTML(
+                                initials
+                            )
+                        }
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="related-name">
+                            ${escapeHTML(name)}
+                        </div>
+
+                        <div class="related-category">
+                            ${escapeHTML(category)}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+
+window.openRelatedGame =
+function(
+    id
+){
+
+    window.location.href =
+        `player.html?id=${encodeURIComponent(id)}`;
+
+};
+
+
+
+/* =====================================================
+   SHARE
+===================================================== */
+
+document
+.getElementById(
+    "copyLink"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            await navigator.clipboard.writeText(
+                window.location.href
+            );
+
+
+            this.textContent =
+                "✓ Copied";
+
+
+            setTimeout(
+                () => {
+
+                    this.textContent =
+                        "🔗 Copy Link";
+
+                },
+                1500
+            );
+
+        }
+        catch{
+
+            alert(
+                window.location.href
+            );
+
+        }
+
+    }
+);
+
+
+
+document
+.getElementById(
+    "nativeShare"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+        if(
+            navigator.share
+        ){
+
+            try{
+
+                await navigator.share({
+
+                    title:
+                        document.title,
+
+                    text:
+                        `Play ${currentGame?.name || "this game"} on PLAYR.`,
+
+                    url:
+                        window.location.href
+
+                });
+
+            }
+            catch{}
+
+        }
+        else{
+
+            document
+            .getElementById(
+                "copyLink"
+            )
+            .click();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function getStars(
+    number
+){
+
+    const rounded =
+        Math.round(
+            Number(
+                number ||
+                0
+            )
+        );
+
+
+    const safe =
+        Math.max(
+            0,
+            Math.min(
+                5,
+                rounded
+            )
+        );
+
+
+    return (
+        "★".repeat(
+            safe
+        )
+        +
+        "☆".repeat(
+            5 - safe
+        )
+    );
+
+}
+
+
+
+function getInitials(
+    name
+){
+
+    return String(
+        name ||
+        "?"
+    )
+    .split(
+        /\s+/
+    )
+    .filter(
+        Boolean
+    )
+    .slice(
+        0,
+        2
+    )
+    .map(
+        word =>
+            word.charAt(
+                0
+            )
+    )
+    .join("")
+    .toUpperCase()
+    ||
+    "?";
+
+}
+
+
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+function escapeJS(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
+    )
+    .replace(
+        /\n/g,
+        "\\n"
+    )
+    .replace(
+        /\r/g,
+        "\\r"
+    );
+
+}
+
+
+
+function getTimestamp(
+    timestamp
+){
+
+    if(
+        timestamp &&
+        typeof timestamp.toMillis ===
+        "function"
+    ){
+
+        return timestamp.toMillis();
+
+    }
+
+
+    return 0;
+
+}
+
+
+
+function formatDate(
+    timestamp
+){
+
+    if(
+        !timestamp ||
+        typeof timestamp.toDate !==
+        "function"
+    ){
+
+        return "Recently";
+
+    }
+
+
+    try{
+
+        return timestamp
+            .toDate()
+            .toLocaleDateString();
+
+    }
+    catch{
+
+        return "Recently";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(
+    message
+){
+
+    loading.style.display =
+        "none";
+
+
+    frame.style.display =
+        "none";
+
+
+    error.style.display =
+        "flex";
+
+
+    playerStatus.textContent =
+        "ERROR";
+
+
+    errorText.textContent =
+        message;
+
+
+    errorUrl.textContent =
+        window.location.href;
+
+}
+
+</script>
+
+</body>
+</html>
+```

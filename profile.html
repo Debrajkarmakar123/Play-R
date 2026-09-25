@@ -1,0 +1,2431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>PLAYR — Profile</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#050505;
+    --border:rgba(255,255,255,.105);
+    --border-soft:rgba(255,255,255,.065);
+    --white:#f7f7f5;
+    --muted:#858585;
+    --orange:#ff6938;
+    --green:#6ee7a0;
+    --red:#ff4d4d;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    color:var(--white);
+    font-family:Inter,Arial,sans-serif;
+
+    background:
+        radial-gradient(
+            700px 420px at 15% -10%,
+            rgba(255,90,40,.13),
+            transparent 65%
+        ),
+        radial-gradient(
+            650px 500px at 95% 30%,
+            rgba(110,70,255,.10),
+            transparent 65%
+        ),
+        radial-gradient(
+            500px 400px at 50% 110%,
+            rgba(255,90,40,.055),
+            transparent 70%
+        ),
+        #050505;
+
+    overflow-x:hidden;
+}
+
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.25;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.018) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    mask-image:linear-gradient(
+        to bottom,
+        black,
+        transparent 85%
+    );
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.topbar{
+    height:70px;
+    position:sticky;
+    top:0;
+    z-index:100;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 32px;
+
+    background:rgba(5,5,5,.62);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+
+    border-bottom:1px solid rgba(255,255,255,.065);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+
+    color:white;
+    text-decoration:none;
+
+    font-family:"Space Grotesk",sans-serif;
+    font-size:21px;
+    font-weight:700;
+    letter-spacing:-1px;
+}
+
+.logo-mark{
+    width:23px;
+    height:23px;
+    position:relative;
+
+    border-radius:7px;
+    transform:rotate(45deg);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffad82,
+            #ff4927
+        );
+
+    box-shadow:
+        0 0 22px rgba(255,88,42,.3);
+}
+
+.logo-mark:after{
+    content:"";
+    position:absolute;
+    inset:6px;
+
+    border-radius:2px;
+    background:#090909;
+}
+
+.nav-back{
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    padding:10px 15px;
+
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:10px;
+
+    background:rgba(255,255,255,.045);
+
+    color:#999;
+    text-decoration:none;
+
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.4px;
+
+    transition:.25s ease;
+}
+
+.nav-back:hover{
+    color:white;
+    border-color:rgba(255,255,255,.17);
+    background:rgba(255,255,255,.08);
+    transform:translateY(-1px);
+}
+
+
+/* =========================
+   PAGE
+========================= */
+
+.page{
+    width:min(1080px,92%);
+    margin:62px auto 110px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.page-header{
+    margin-bottom:27px;
+    animation:fadeUp .65s ease both;
+}
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    color:#ff855b;
+
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:2.2px;
+    text-transform:uppercase;
+}
+
+.eyebrow:before{
+    content:"";
+    width:18px;
+    height:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--orange)
+        );
+}
+
+.page-header h1{
+    margin-top:10px;
+
+    font-family:"Space Grotesk",sans-serif;
+    font-size:48px;
+    line-height:1;
+    letter-spacing:-2.8px;
+}
+
+.page-header p{
+    margin-top:11px;
+
+    color:#686868;
+    font-size:11px;
+}
+
+
+/* =========================
+   PROFILE CARD
+========================= */
+
+.profile-card{
+    position:relative;
+    overflow:hidden;
+
+    border:1px solid var(--border);
+    border-radius:26px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025) 45%,
+            rgba(255,255,255,.015)
+        );
+
+    box-shadow:
+        0 45px 120px rgba(0,0,0,.48),
+        inset 0 1px 0 rgba(255,255,255,.045);
+
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
+
+    animation:fadeUp .75s .08s ease both;
+}
+
+.profile-card:before{
+    content:"";
+
+    position:absolute;
+
+    width:430px;
+    height:430px;
+
+    right:-150px;
+    top:-245px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,99,48,.18),
+            transparent 68%
+        );
+
+    filter:blur(25px);
+    pointer-events:none;
+}
+
+.profile-card:after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            115deg,
+            transparent 25%,
+            rgba(255,255,255,.025) 50%,
+            transparent 72%
+        );
+}
+
+
+/* =========================
+   PROFILE TOP
+========================= */
+
+.profile-top{
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    align-items:center;
+    gap:25px;
+
+    padding:34px;
+
+    border-bottom:1px solid var(--border-soft);
+}
+
+
+/* =========================
+   AVATAR
+========================= */
+
+.avatar-wrap{
+    position:relative;
+    flex:none;
+}
+
+.avatar{
+    width:112px;
+    height:112px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    border-radius:31px;
+    border:1px solid rgba(255,255,255,.15);
+
+    background:
+        radial-gradient(
+            circle at 30% 20%,
+            rgba(255,255,255,.12),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #292929,
+            #0d0d0d
+        );
+
+    box-shadow:
+        0 22px 55px rgba(0,0,0,.46),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    font-family:"Space Grotesk",sans-serif;
+    font-size:34px;
+    font-weight:700;
+    color:#777;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.online{
+    position:absolute;
+
+    right:5px;
+    bottom:5px;
+
+    width:16px;
+    height:16px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    border:4px solid #111;
+
+    box-shadow:
+        0 0 0 3px rgba(110,231,160,.08),
+        0 0 18px rgba(110,231,160,.48);
+}
+
+
+/* =========================
+   USER INFO
+========================= */
+
+.user-info{
+    min-width:0;
+}
+
+.user-info h2{
+    font-family:"Space Grotesk",sans-serif;
+
+    font-size:30px;
+    line-height:1;
+
+    letter-spacing:-1.2px;
+}
+
+.username{
+    margin-top:7px;
+
+    color:#686868;
+    font-size:11px;
+}
+
+.user-bio{
+    max-width:590px;
+
+    margin-top:13px;
+
+    color:#999;
+
+    font-size:11px;
+    line-height:1.65;
+}
+
+.member{
+    display:inline-flex;
+    align-items:center;
+
+    margin-top:14px;
+    padding:7px 10px;
+
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:8px;
+
+    background:rgba(255,255,255,.035);
+
+    color:#777;
+
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+}
+
+.member:before{
+    content:"";
+
+    width:5px;
+    height:5px;
+
+    margin-right:7px;
+
+    border-radius:50%;
+
+    background:var(--orange);
+
+    box-shadow:
+        0 0 9px rgba(255,105,56,.6);
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.profile-actions{
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    flex:none;
+}
+
+.edit-btn,
+.logout-btn{
+    padding:12px 17px;
+
+    border-radius:11px;
+
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.4px;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+.edit-btn{
+    border:1px solid rgba(255,255,255,.105);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.085),
+            rgba(255,255,255,.035)
+        );
+
+    color:#ddd;
+}
+
+.edit-btn:hover{
+    color:white;
+    border-color:rgba(255,255,255,.19);
+    background:rgba(255,255,255,.09);
+
+    transform:translateY(-2px);
+}
+
+.logout-btn{
+    border:1px solid rgba(255,77,77,.25);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,77,77,.18),
+            rgba(255,77,77,.06)
+        );
+
+    color:#ff8888;
+}
+
+.logout-btn:hover{
+    color:#fff;
+
+    border-color:rgba(255,77,77,.5);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,77,77,.35),
+            rgba(255,77,77,.15)
+        );
+
+    transform:translateY(-2px);
+}
+
+.logout-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+    transform:none;
+}
+
+
+/* =========================
+   DETAILS
+========================= */
+
+.details{
+    position:relative;
+    z-index:2;
+
+    padding:31px 34px;
+}
+
+.details-title{
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    margin-bottom:18px;
+
+    font-family:"Space Grotesk",sans-serif;
+
+    font-size:17px;
+    font-weight:600;
+
+    letter-spacing:-.4px;
+}
+
+.details-title:after{
+    content:"";
+
+    height:1px;
+    flex:1;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.09),
+            transparent
+        );
+}
+
+.details-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:13px;
+}
+
+.detail{
+    position:relative;
+
+    min-height:73px;
+
+    padding:16px 17px;
+
+    border:1px solid rgba(255,255,255,.065);
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.018)
+        );
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.025);
+
+    transition:.25s ease;
+}
+
+.detail:hover{
+    border-color:rgba(255,255,255,.11);
+
+    background:rgba(255,255,255,.055);
+
+    transform:translateY(-1px);
+}
+
+.detail-label{
+    color:#505050;
+
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:1.1px;
+
+    text-transform:uppercase;
+}
+
+.detail-value{
+    margin-top:8px;
+
+    color:#d0d0d0;
+
+    font-size:11px;
+    line-height:1.5;
+
+    word-break:break-word;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    margin-top:0;
+
+    padding:6px 9px;
+
+    border:1px solid rgba(110,231,160,.16);
+    border-radius:7px;
+
+    background:rgba(110,231,160,.06);
+
+    color:#8ff0b6;
+
+    font-size:8px;
+    font-weight:800;
+
+    letter-spacing:.8px;
+    text-transform:uppercase;
+}
+
+.status-badge:before{
+    content:"";
+
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 10px rgba(110,231,160,.6);
+}
+
+
+/* =========================
+   EDIT PANEL
+========================= */
+
+.edit-panel{
+    display:none;
+
+    position:relative;
+    z-index:5;
+
+    padding:31px 34px;
+
+    border-top:1px solid var(--border-soft);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,0,0,.28),
+            rgba(255,255,255,.015)
+        );
+}
+
+.edit-panel.show{
+    display:block;
+
+    animation:
+        panelIn .3s ease both;
+}
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:14px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+}
+
+.field.full{
+    grid-column:1 / -1;
+}
+
+.field label{
+    margin-bottom:8px;
+
+    color:#686868;
+
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.field input,
+.field textarea{
+    width:100%;
+
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:11px;
+
+    outline:none;
+
+    background:rgba(0,0,0,.34);
+
+    color:white;
+
+    padding:13px 14px;
+
+    font-family:Inter,sans-serif;
+    font-size:10px;
+
+    transition:.22s ease;
+}
+
+.field input::placeholder,
+.field textarea::placeholder{
+    color:#444;
+}
+
+.field textarea{
+    min-height:95px;
+    resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus{
+    border-color:rgba(255,105,56,.48);
+
+    background:rgba(0,0,0,.45);
+
+    box-shadow:
+        0 0 0 3px rgba(255,100,50,.055),
+        0 8px 30px rgba(0,0,0,.18);
+}
+
+.form-actions{
+    display:flex;
+    gap:9px;
+
+    margin-top:17px;
+}
+
+.save-btn,
+.cancel-btn{
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.3px;
+
+    cursor:pointer;
+
+    transition:.22s ease;
+}
+
+.save-btn{
+    border:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #dcdcdc
+        );
+
+    color:#080808;
+}
+
+.save-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(255,255,255,.10);
+}
+
+.save-btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.cancel-btn{
+    border:1px solid rgba(255,255,255,.09);
+
+    background:rgba(255,255,255,.04);
+
+    color:#999;
+}
+
+.cancel-btn:hover{
+    color:white;
+    background:rgba(255,255,255,.075);
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.loading{
+    min-height:70vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    flex-direction:column;
+    gap:14px;
+
+    color:#555;
+    font-size:10px;
+}
+
+.loader{
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    border:2px solid #252525;
+    border-top-color:var(--orange);
+
+    box-shadow:
+        0 0 20px rgba(255,105,56,.15);
+
+    animation:
+        spin .8s linear infinite;
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+.error{
+    width:min(500px,92%);
+
+    margin:80px auto;
+    padding:26px;
+
+    border:1px solid rgba(255,80,80,.18);
+    border-radius:15px;
+
+    background:rgba(40,10,10,.55);
+
+    color:#ff9b9b;
+
+    font-size:10px;
+    line-height:1.7;
+
+    text-align:center;
+
+    backdrop-filter:blur(20px);
+}
+
+.retry-btn{
+    margin-top:18px;
+
+    padding:10px 16px;
+
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:9px;
+
+    background:rgba(255,255,255,.06);
+
+    color:#fff;
+
+    font-size:9px;
+    font-weight:800;
+
+    cursor:pointer;
+}
+
+.retry-btn:hover{
+    background:rgba(255,255,255,.1);
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes panelIn{
+    from{
+        opacity:0;
+        transform:translateY(-5px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .topbar{
+        height:64px;
+        padding:0 16px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .nav-back{
+        padding:9px 11px;
+        font-size:8px;
+    }
+
+    .page{
+        width:94%;
+        margin-top:37px;
+    }
+
+    .page-header{
+        margin-bottom:21px;
+    }
+
+    .page-header h1{
+        font-size:35px;
+        letter-spacing:-2px;
+    }
+
+    .profile-card{
+        border-radius:21px;
+    }
+
+    .profile-top{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:23px;
+    }
+
+    .avatar{
+        width:92px;
+        height:92px;
+        border-radius:25px;
+        font-size:29px;
+    }
+
+    .online{
+        width:14px;
+        height:14px;
+        right:4px;
+        bottom:4px;
+        border-width:3px;
+    }
+
+    .user-info{
+        width:100%;
+    }
+
+    .user-info h2{
+        font-size:25px;
+    }
+
+    .user-bio{
+        max-width:none;
+    }
+
+    .profile-actions{
+        margin-left:0;
+        width:100%;
+        flex-direction:column;
+    }
+
+    .edit-btn,
+    .logout-btn{
+        width:100%;
+    }
+
+    .details{
+        padding:25px 21px;
+    }
+
+    .details-grid{
+        grid-template-columns:1fr;
+    }
+
+    .edit-panel{
+        padding:25px 21px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .form-actions{
+        flex-direction:column;
+    }
+
+    .save-btn,
+    .cancel-btn{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<header class="topbar">
+
+    <a href="index.html" class="logo">
+        <span class="logo-mark"></span>
+        PLAYR
+    </a>
+
+    <a
+        href="index.html"
+        class="nav-back"
+    >
+        ← BACK TO PLAYR
+    </a>
+
+</header>
+
+
+<main id="app">
+
+    <div class="loading">
+
+        <div class="loader"></div>
+
+        Loading profile...
+
+    </div>
+
+</main>
+
+
+<script type="module">
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+
+/* =========================
+   FIREBASE
+========================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2q6Yfhz8",
+
+    authDomain:
+        "playr-bebbf.firebaseapp.com",
+
+    databaseURL:
+        "https://playr-bebbf-default-rtdb.firebaseio.com",
+
+    projectId:
+        "playr-bebbf",
+
+    storageBucket:
+        "playr-bebbf.firebasestorage.app",
+
+    messagingSenderId:
+        "35506561862",
+
+    appId:
+        "1:35506561862:web:f7b27c1191637cf36abb47"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+const root =
+    document.getElementById("app");
+
+
+/* =========================
+   AUTH
+========================= */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        if(!user){
+
+            showLoggedOutState();
+
+            return;
+
+        }
+
+        await loadProfile(user);
+
+    }
+);
+
+
+/* =========================
+   LOAD PROFILE
+========================= */
+
+async function loadProfile(user){
+
+    showLoading();
+
+    try{
+
+        const userRef =
+            doc(
+                db,
+                "users",
+                user.uid
+            );
+
+
+        const snapshot =
+            await getDoc(userRef);
+
+
+        const profile =
+            snapshot.exists()
+            ? snapshot.data()
+            : {};
+
+
+        const email =
+            user.email || "";
+
+
+        const displayName =
+            profile.displayName ||
+            user.displayName ||
+            (
+                email
+                ? email.split("@")[0]
+                : "PLAYR User"
+            );
+
+
+        const username =
+            profile.username ||
+            (
+                displayName
+                .toLowerCase()
+                .replace(/[^a-z0-9]/g,"")
+                .slice(0,20)
+                || "player"
+            );
+
+
+        const bio =
+            profile.bio ||
+            "No bio yet.";
+
+
+        const avatar =
+            profile.avatar ||
+            user.photoURL ||
+            "";
+
+
+        const joined =
+            getJoinedDate(
+                profile.createdAt,
+                user
+            );
+
+
+        const accountStatus =
+            user
+            ? "Active"
+            : "Inactive";
+
+
+        root.innerHTML =
+            createProfileHTML({
+
+                user,
+                email,
+                displayName,
+                username,
+                bio,
+                avatar,
+                joined,
+                accountStatus
+
+            });
+
+
+        setupProfileEvents(
+            user,
+            {
+                displayName,
+                username,
+                avatar,
+                bio,
+                email
+            }
+        );
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Profile Load Error:",
+            error
+        );
+
+        showErrorState();
+
+    }
+
+}
+
+
+/* =========================
+   JOINED DATE
+========================= */
+
+function getJoinedDate(
+    createdAt,
+    user
+){
+
+    let date = null;
+
+
+    if(createdAt){
+
+        if(
+            typeof createdAt.toDate ===
+            "function"
+        ){
+
+            date =
+                createdAt.toDate();
+
+        }
+
+        else if(
+            createdAt instanceof Date
+        ){
+
+            date =
+                createdAt;
+
+        }
+
+        else if(
+            typeof createdAt === "string" ||
+            typeof createdAt === "number"
+        ){
+
+            const parsed =
+                new Date(createdAt);
+
+            if(
+                !isNaN(parsed.getTime())
+            ){
+
+                date = parsed;
+
+            }
+
+        }
+
+    }
+
+
+    if(!date && user?.metadata?.creationTime){
+
+        const parsed =
+            new Date(
+                user.metadata.creationTime
+            );
+
+        if(
+            !isNaN(parsed.getTime())
+        ){
+
+            date = parsed;
+
+        }
+
+    }
+
+
+    if(!date){
+
+        return "Not available";
+
+    }
+
+
+    return new Intl.DateTimeFormat(
+        "en-GB",
+        {
+            day:"2-digit",
+            month:"short",
+            year:"numeric"
+        }
+    ).format(date);
+
+}
+
+
+/* =========================
+   PROFILE HTML
+========================= */
+
+function createProfileHTML(data){
+
+    const initials =
+        getInitials(
+            data.displayName
+        );
+
+
+    const avatarHTML =
+        data.avatar
+        ?
+        `
+        <img
+            src="${safe(data.avatar)}"
+            alt="Profile"
+            onerror="
+                this.style.display='none';
+                this.parentElement
+                    .querySelector('.avatar-text')
+                    .style.display='block';
+            "
+        >
+        `
+        :
+        "";
+
+
+    return `
+
+    <section class="page">
+
+        <div class="page-header">
+
+            <div class="eyebrow">
+                PLAYER PROFILE
+            </div>
+
+            <h1>
+                Your profile
+            </h1>
+
+            <p>
+                Manage your PLAYR identity and account details.
+            </p>
+
+        </div>
+
+
+        <section class="profile-card">
+
+
+            <div class="profile-top">
+
+
+                <div class="avatar-wrap">
+
+                    <div class="avatar">
+
+                        ${avatarHTML}
+
+                        <span
+                            class="avatar-text"
+                            style="
+                                ${
+                                    data.avatar
+                                    ? "display:none;"
+                                    : ""
+                                }
+                            "
+                        >
+                            ${escapeHTML(initials)}
+                        </span>
+
+                    </div>
+
+                    <span class="online"></span>
+
+                </div>
+
+
+                <div class="user-info">
+
+                    <h2>
+                        ${escapeHTML(
+                            data.displayName
+                        )}
+                    </h2>
+
+
+                    <div class="username">
+
+                        @${escapeHTML(
+                            data.username
+                        )}
+
+                    </div>
+
+
+                    <div class="user-bio">
+
+                        ${escapeHTML(
+                            data.bio
+                        )}
+
+                    </div>
+
+
+                    <div class="member">
+
+                        PLAYR PLAYER
+
+                    </div>
+
+                </div>
+
+
+                <div class="profile-actions">
+
+                    <button
+                        class="edit-btn"
+                        id="editButton"
+                    >
+                        EDIT PROFILE
+                    </button>
+
+
+                    <button
+                        class="logout-btn"
+                        id="logoutButton"
+                    >
+                        LOG OUT
+                    </button>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="details">
+
+                <div class="details-title">
+                    Account details
+                </div>
+
+
+                <div class="details-grid">
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Email
+                        </div>
+
+                        <div class="detail-value">
+
+                            ${
+                                escapeHTML(
+                                    data.email ||
+                                    "Not available"
+                                )
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Username
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="displayUsername"
+                        >
+
+                            @${escapeHTML(
+                                data.username
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Display name
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="displayNameValue"
+                        >
+
+                            ${escapeHTML(
+                                data.displayName
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Bio
+                        </div>
+
+                        <div
+                            class="detail-value"
+                            id="displayBio"
+                        >
+
+                            ${escapeHTML(
+                                data.bio
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Joined
+                        </div>
+
+                        <div class="detail-value">
+
+                            ${escapeHTML(
+                                data.joined
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Account status
+                        </div>
+
+                        <div class="detail-value">
+
+                            <span class="status-badge">
+
+                                ${escapeHTML(
+                                    data.accountStatus
+                                )}
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="edit-panel"
+                id="editPanel"
+            >
+
+                <div class="details-title">
+                    Edit profile
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <div class="field">
+
+                        <label>
+                            DISPLAY NAME
+                        </label>
+
+                        <input
+                            id="displayNameInput"
+                            type="text"
+                            maxlength="40"
+                            value="${safe(
+                                data.displayName
+                            )}"
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            USERNAME
+                        </label>
+
+                        <input
+                            id="usernameInput"
+                            type="text"
+                            maxlength="20"
+                            value="${safe(
+                                data.username
+                            )}"
+                        >
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label>
+                            AVATAR URL
+                        </label>
+
+                        <input
+                            id="avatarInput"
+                            type="url"
+                            placeholder="https://..."
+                            value="${safe(
+                                data.avatar
+                            )}"
+                        >
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label>
+                            BIO
+                        </label>
+
+                        <textarea
+                            id="bioInput"
+                            maxlength="160"
+                            placeholder="Tell other players about yourself..."
+                        >${escapeHTML(
+                            data.bio === "No bio yet."
+                            ? ""
+                            : data.bio
+                        )}</textarea>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        class="save-btn"
+                        id="saveButton"
+                        type="button"
+                    >
+                        SAVE CHANGES
+                    </button>
+
+
+                    <button
+                        class="cancel-btn"
+                        id="cancelButton"
+                        type="button"
+                    >
+                        CANCEL
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </section>
+
+    `;
+
+}
+
+
+/* =========================
+   EVENTS
+========================= */
+
+function setupProfileEvents(
+    user,
+    currentData
+){
+
+    const editButton =
+        document.getElementById(
+            "editButton"
+        );
+
+
+    const editPanel =
+        document.getElementById(
+            "editPanel"
+        );
+
+
+    const cancelButton =
+        document.getElementById(
+            "cancelButton"
+        );
+
+
+    const saveButton =
+        document.getElementById(
+            "saveButton"
+        );
+
+
+    const logoutButton =
+        document.getElementById(
+            "logoutButton"
+        );
+
+
+    editButton.addEventListener(
+        "click",
+        () => {
+
+            editPanel.classList.toggle(
+                "show"
+            );
+
+
+            editButton.textContent =
+                editPanel.classList.contains(
+                    "show"
+                )
+                ? "CLOSE EDITOR"
+                : "EDIT PROFILE";
+
+        }
+    );
+
+
+    cancelButton.addEventListener(
+        "click",
+        () => {
+
+            editPanel.classList.remove(
+                "show"
+            );
+
+            editButton.textContent =
+                "EDIT PROFILE";
+
+        }
+    );
+
+
+    saveButton.addEventListener(
+        "click",
+        async () => {
+
+            await saveProfile(
+                user,
+                saveButton
+            );
+
+        }
+    );
+
+
+    logoutButton.addEventListener(
+        "click",
+        async () => {
+
+            await handleLogout(
+                user,
+                logoutButton,
+                currentData
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+async function handleLogout(
+    user,
+    button,
+    currentData
+){
+
+    button.disabled = true;
+
+    button.textContent =
+        "LOGGING OUT...";
+
+
+    try{
+
+        const displayName =
+            document
+            .getElementById(
+                "displayNameInput"
+            )
+            ?.value
+            .trim()
+            ||
+            currentData.displayName;
+
+
+        const username =
+            document
+            .getElementById(
+                "usernameInput"
+            )
+            ?.value
+            .trim()
+            .toLowerCase()
+            .replace(
+                /[^a-z0-9_]/g,
+                ""
+            )
+            ||
+            currentData.username;
+
+
+        const avatar =
+            document
+            .getElementById(
+                "avatarInput"
+            )
+            ?.value
+            .trim()
+            ||
+            currentData.avatar;
+
+
+        const bio =
+            document
+            .getElementById(
+                "bioInput"
+            )
+            ?.value
+            .trim()
+            ||
+            currentData.bio;
+
+
+        await setDoc(
+
+            doc(
+                db,
+                "users",
+                user.uid
+            ),
+
+            {
+
+                displayName,
+
+                username,
+
+                avatar,
+
+                bio,
+
+                email:
+                    user.email || "",
+
+                lastLogoutAt:
+                    serverTimestamp(),
+
+                updatedAt:
+                    serverTimestamp()
+
+            },
+
+            {
+                merge:true
+            }
+
+        );
+
+
+        await signOut(auth);
+
+
+        window.location.href =
+            "index.html";
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Logout Error:",
+            error
+        );
+
+        alert(
+            "Logout attempt failed. Please try again."
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+            "LOG OUT";
+
+    }
+
+}
+
+
+/* =========================
+   SAVE PROFILE
+========================= */
+
+async function saveProfile(
+    user,
+    button
+){
+
+    const displayName =
+        document
+        .getElementById(
+            "displayNameInput"
+        )
+        .value
+        .trim();
+
+
+    const username =
+        document
+        .getElementById(
+            "usernameInput"
+        )
+        .value
+        .trim()
+        .toLowerCase()
+        .replace(
+            /[^a-z0-9_]/g,
+            ""
+        );
+
+
+    const avatar =
+        document
+        .getElementById(
+            "avatarInput"
+        )
+        .value
+        .trim();
+
+
+    const bio =
+        document
+        .getElementById(
+            "bioInput"
+        )
+        .value
+        .trim();
+
+
+    if(!displayName){
+
+        alert(
+            "Please enter a display name."
+        );
+
+        return;
+
+    }
+
+
+    if(!username){
+
+        alert(
+            "Please enter a username."
+        );
+
+        return;
+
+    }
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "SAVING...";
+
+
+    try{
+
+        /*
+         IMPORTANT:
+         createdAt is NOT written here.
+         Existing createdAt stays untouched.
+        */
+
+        await setDoc(
+
+            doc(
+                db,
+                "users",
+                user.uid
+            ),
+
+            {
+
+                displayName,
+
+                username,
+
+                avatar,
+
+                bio,
+
+                email:
+                    user.email || "",
+
+                updatedAt:
+                    serverTimestamp()
+
+            },
+
+            {
+                merge:true
+            }
+
+        );
+
+
+        await loadProfile(user);
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Save Profile Error:",
+            error
+        );
+
+        alert(
+            "Could not save your profile. Please try again."
+        );
+
+        button.disabled = false;
+
+        button.textContent =
+            "SAVE CHANGES";
+
+    }
+
+}
+
+
+/* =========================
+   LOGGED OUT STATE
+========================= */
+
+function showLoggedOutState(){
+
+    root.innerHTML = `
+
+        <div class="error">
+
+            <strong>
+                You are not logged in.
+            </strong>
+
+            <br><br>
+
+            Please go back to PLAYR
+            and login first.
+
+            <br><br>
+
+            <a
+                href="index.html"
+                style="
+                    color:#ff8755;
+                    text-decoration:none;
+                    font-weight:700;
+                "
+            >
+                ← Go to PLAYR
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   LOADING STATE
+========================= */
+
+function showLoading(){
+
+    root.innerHTML = `
+
+        <div class="loading">
+
+            <div class="loader"></div>
+
+            Loading profile...
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   ERROR STATE
+========================= */
+
+function showErrorState(){
+
+    root.innerHTML = `
+
+        <div class="error">
+
+            <strong>
+                We couldn't load your profile right now.
+            </strong>
+
+            <br><br>
+
+            Please check your connection
+            and try again.
+
+            <br>
+
+            <button
+                class="retry-btn"
+                id="retryButton"
+                type="button"
+            >
+                TRY AGAIN
+            </button>
+
+        </div>
+
+    `;
+
+
+    const retryButton =
+        document.getElementById(
+            "retryButton"
+        );
+
+
+    retryButton.addEventListener(
+        "click",
+        () => {
+
+            const user =
+                auth.currentUser;
+
+            if(user){
+
+                loadProfile(user);
+
+            }
+            else{
+
+                showLoggedOutState();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function getInitials(name){
+
+    const words =
+        String(
+            name || "P"
+        )
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+
+
+    if(words.length === 1){
+
+        return words[0]
+            .slice(0,2)
+            .toUpperCase();
+
+    }
+
+
+    return (
+
+        words[0][0] +
+        words[words.length - 1][0]
+
+    ).toUpperCase();
+
+}
+
+
+function escapeHTML(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+function safe(value){
+
+    return escapeHTML(value);
+
+}
+
+</script>
+
+</body>
+</html>

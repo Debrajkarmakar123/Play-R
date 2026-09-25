@@ -1,0 +1,3163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PLAYR</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root{
+    --bg:#070707;
+    --card:#101010;
+    --border:#292929;
+    --white:#f7f7f5;
+    --muted:#777;
+    --accent:#ff6b35;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:
+        radial-gradient(circle at 50% -10%,#202020 0,transparent 32%),
+        #070707;
+    color:var(--white);
+    font-family:Inter,sans-serif;
+    min-height:100vh;
+}
+
+/* ================================
+   NAV
+================================ */
+
+.topbar{
+    height:76px;
+    display:flex;
+    align-items:center;
+    gap:30px;
+    padding:0 34px;
+    background:rgba(7,7,7,.9);
+    border-bottom:1px solid #222;
+    backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:50;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    color:white;
+    text-decoration:none;
+    font-family:"Space Grotesk";
+    font-weight:700;
+    font-size:24px;
+    letter-spacing:-1px;
+}
+
+.logo-mark{
+    width:26px;
+    height:26px;
+    border-radius:7px;
+    background:linear-gradient(
+        135deg,
+        #ff914d,
+        #ff4f2d
+    );
+    transform:rotate(45deg);
+    box-shadow:
+        0 0 25px rgba(255,100,50,.25);
+    position:relative;
+}
+
+.logo-mark:after{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#080808;
+    border-radius:2px;
+    left:9px;
+    top:9px;
+}
+
+.nav{
+    display:flex;
+    gap:5px;
+}
+
+.nav button{
+    border:0;
+    background:transparent;
+    color:#777;
+    padding:11px 15px;
+    border-radius:8px;
+    font-size:12px;
+    cursor:pointer;
+}
+
+.nav button:hover,
+.nav button.active{
+    background:#191919;
+    color:white;
+}
+
+/* ================================
+   SUBMIT BUTTON
+================================ */
+
+.submit-btn{
+    text-decoration:none;
+    padding:11px 17px;
+    border-radius:8px;
+    background:linear-gradient(
+        135deg,
+        #ff7a45,
+        #ff542f
+    );
+    color:white;
+    font-size:12px;
+    font-weight:700;
+    box-shadow:
+        0 7px 25px rgba(255,90,45,.16);
+    transition:.2s;
+    margin-left:auto;
+    cursor:pointer;
+    border:0;
+}
+
+.submit-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(255,90,45,.25);
+}
+
+/* ================================
+   SEARCH
+================================ */
+
+.search{
+    width:270px;
+    position:relative;
+}
+
+.search input{
+    width:100%;
+    height:42px;
+    background:#111;
+    border:1px solid #292929;
+    border-radius:9px;
+    outline:none;
+    color:white;
+    padding:0 14px 0 38px;
+    font-size:12px;
+}
+
+.search input:focus{
+    border-color:#444;
+}
+
+.search-icon{
+    position:absolute;
+    left:13px;
+    top:10px;
+    color:#777;
+    font-size:17px;
+}
+
+/* ================================
+   USER BUTTON (ATTRACTIVE AVATAR)
+================================ */
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    border:1px solid #292929;
+    background:#141414;
+    color:#aaa;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:700;
+    transition:.2s;
+    padding:0;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.avatar:hover{
+    background:#1c1c1c;
+    border-color:#ff6b35;
+    color:white;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.avatar svg{
+    width:20px;
+    height:20px;
+    fill:currentColor;
+}
+
+/* ================================
+   ACCOUNT MENU
+================================ */
+
+.account-menu{
+    position:fixed;
+    top:68px;
+    right:25px;
+    width:240px;
+    background:#111;
+    border:1px solid #303030;
+    border-radius:12px;
+    padding:15px;
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.6);
+    z-index:100;
+    display:none;
+}
+
+.account-menu.show{
+    display:block;
+}
+
+.account-user{
+    padding:4px 4px 13px;
+    border-bottom:1px solid #242424;
+    margin-bottom:12px;
+}
+
+.account-user strong{
+    display:block;
+    color:white;
+    font-size:12px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.account-user span{
+    display:block;
+    color:#666;
+    font-size:9px;
+    margin-top:5px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.account-menu button{
+    width:100%;
+    border:0;
+    background:#181818;
+    color:#aaa;
+    padding:10px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:10px;
+    text-align:left;
+    margin-bottom:6px;
+}
+
+.account-menu button:last-child{
+    margin-bottom:0;
+}
+
+.account-menu button:hover{
+    background:#222;
+    color:white;
+}
+
+/* ================================
+   LOGIN MODAL
+================================ */
+
+.login-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(10px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:200;
+    padding:20px;
+}
+
+.login-overlay.show{
+    display:flex;
+}
+
+.login-box{
+    width:min(400px,100%);
+    background:#111;
+    border:1px solid #303030;
+    border-radius:15px;
+    padding:26px;
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.7);
+}
+
+.login-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+}
+
+.login-header h2{
+    font-family:"Space Grotesk";
+    font-size:25px;
+    letter-spacing:-1px;
+}
+
+.login-header p{
+    color:#666;
+    font-size:10px;
+    line-height:1.5;
+    margin-top:7px;
+}
+
+.close-login{
+    width:30px;
+    height:30px;
+    border:1px solid #292929;
+    background:#181818;
+    color:#888;
+    border-radius:7px;
+    cursor:pointer;
+}
+
+.close-login:hover{
+    color:white;
+    background:#222;
+}
+
+.login-form{
+    margin-top:23px;
+}
+
+.login-field{
+    margin-bottom:14px;
+}
+
+.login-field label{
+    display:block;
+    color:#aaa;
+    font-size:10px;
+    margin-bottom:7px;
+}
+
+.login-field input{
+    width:100%;
+    height:43px;
+    background:#090909;
+    border:1px solid #292929;
+    border-radius:7px;
+    outline:none;
+    color:white;
+    padding:0 12px;
+    font-size:11px;
+}
+
+.login-field input:focus{
+    border-color:#555;
+}
+
+.login-main-btn{
+    width:100%;
+    height:43px;
+    border:0;
+    border-radius:7px;
+    background:linear-gradient(
+        135deg,
+        #fff,
+        #ddd
+    );
+    color:#090909;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.login-main-btn:hover{
+    transform:translateY(-1px);
+}
+
+.google-btn{
+    width:100%;
+    height:43px;
+    border:1px solid #303030;
+    border-radius:7px;
+    background:#181818;
+    color:#ddd;
+    font-size:11px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.google-btn:hover{
+    background:#222;
+    color:white;
+}
+
+.google-btn svg{
+    width: 16px;
+    height: 16px;
+}
+
+.login-divider{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#555;
+    font-size:9px;
+    margin:16px 0;
+}
+
+.login-divider:before,
+.login-divider:after{
+    content:"";
+    height:1px;
+    background:#292929;
+    flex:1;
+}
+
+.login-switch{
+    text-align:center;
+    color:#666;
+    font-size:9px;
+    margin-top:17px;
+}
+
+.login-switch button{
+    border:0;
+    background:none;
+    color:#ff8754;
+    cursor:pointer;
+    font-size:9px;
+}
+
+.login-error{
+    display:none;
+    margin-top:12px;
+    padding:10px;
+    background:#1b100e;
+    border:1px solid #48231c;
+    color:#e99a88;
+    border-radius:7px;
+    font-size:9px;
+    line-height:1.5;
+}
+
+/* ================================
+   MAIN
+================================ */
+
+.container{
+    width:min(1420px,94%);
+    margin:auto;
+}
+
+/* ================================
+   FEATURE
+================================ */
+
+.feature{
+    height:310px;
+    margin-top:25px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid #292929;
+    border-radius:16px;
+    background:
+        linear-gradient(
+            100deg,
+            #171310 0%,
+            #111 43%,
+            #171313 100%
+        );
+}
+
+.feature:before{
+    content:"";
+    position:absolute;
+    width:450px;
+    height:450px;
+    right:70px;
+    top:-180px;
+    border-radius:50%;
+    background:rgba(255,91,43,.13);
+    filter:blur(55px);
+}
+
+.feature:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            115deg,
+            transparent 50%,
+            rgba(255,255,255,.035) 50.2%,
+            transparent 50.7%
+        );
+}
+
+.feature-content{
+    position:absolute;
+    left:40px;
+    bottom:36px;
+    z-index:4;
+}
+
+.feature-label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#ff8a55;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1.8px;
+}
+
+.feature-label span{
+    width:6px;
+    height:6px;
+    background:#ff713e;
+    border-radius:50%;
+    box-shadow:
+        0 0 12px #ff713e;
+}
+
+.feature h1{
+    font-family:"Space Grotesk";
+    font-size:46px;
+    letter-spacing:-2px;
+    margin-top:10px;
+}
+
+.feature p{
+    color:#858585;
+    font-size:13px;
+    margin-top:8px;
+}
+
+.feature-btn{
+    margin-top:19px;
+    padding:12px 20px;
+    border:0;
+    border-radius:7px;
+    background:linear-gradient(
+        135deg,
+        #fff,
+        #ddd
+    );
+    color:#090909;
+    font-size:11px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.feature-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 10px 30px rgba(255,255,255,.1);
+}
+
+/* ================================
+   HERO ART
+================================ */
+
+.hero-art{
+    position:absolute;
+    width:450px;
+    height:240px;
+    right:8%;
+    top:32px;
+}
+
+.hero-glow{
+    position:absolute;
+    width:270px;
+    height:270px;
+    right:40px;
+    top:-5px;
+    border-radius:50%;
+    background:#ff6032;
+    opacity:.10;
+    filter:blur(55px);
+}
+
+.hero-ring{
+    position:absolute;
+    width:310px;
+    height:310px;
+    right:15px;
+    top:-45px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+}
+
+.hero-ring:after{
+    content:"";
+    position:absolute;
+    inset:22px;
+    border:1px solid rgba(255,255,255,.045);
+    border-radius:50%;
+}
+
+.car{
+    position:absolute;
+    width:285px;
+    height:90px;
+    right:60px;
+    top:90px;
+    transform:
+        skew(-10deg)
+        rotate(-5deg);
+}
+
+.car-main{
+    position:absolute;
+    inset:15px 0 0;
+    border-radius:
+        55% 38% 17% 16%;
+    background:
+        linear-gradient(
+            150deg,
+            #ffb18a 0%,
+            #d85b35 48%,
+            #522016 100%
+        );
+    box-shadow:
+        0 28px 40px rgba(0,0,0,.65),
+        inset 0 4px 7px rgba(255,255,255,.18);
+}
+
+.car-top{
+    position:absolute;
+    width:130px;
+    height:50px;
+    left:72px;
+    top:-15px;
+    border-radius:
+        70% 65% 8px 8px;
+    background:
+        linear-gradient(
+            135deg,
+            #252525,
+            #0b0b0b
+        );
+    border:1px solid #555;
+}
+
+.wheel{
+    position:absolute;
+    bottom:-9px;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#050505;
+    border:7px solid #363636;
+}
+
+.wheel.one{
+    left:35px;
+}
+
+.wheel.two{
+    right:30px;
+}
+
+/* ================================
+   SECTION
+================================ */
+
+.section{
+    margin-top:42px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:17px;
+}
+
+.section-head h2{
+    font-family:"Space Grotesk";
+    font-size:23px;
+    letter-spacing:-.8px;
+}
+
+.section-head a{
+    color:#777;
+    text-decoration:none;
+    font-size:11px;
+}
+
+.section-head a:hover{
+    color:white;
+}
+
+/* ================================
+   CATEGORIES
+================================ */
+
+.categories{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category{
+    flex:none;
+    padding:11px 18px;
+    border-radius:8px;
+    background:#101010;
+    border:1px solid #292929;
+    color:#777;
+    font-size:11px;
+    transition:.2s;
+    cursor:pointer;
+}
+
+.category:hover,
+.category.active{
+    color:white;
+    border-color:#454545;
+    background:#1b1b1b;
+}
+
+/* ================================
+   GAMES
+================================ */
+
+.games{
+    display:grid;
+    grid-template-columns:
+        repeat(5,1fr);
+    gap:17px;
+}
+
+.game{
+    background:var(--card);
+    border:1px solid #292929;
+    border-radius:12px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.game:hover{
+    transform:translateY(-6px);
+    border-color:#444;
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.42),
+        0 0 0 1px rgba(255,255,255,.025);
+}
+
+.thumb{
+    height:175px;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 75% 25%,
+            #ffbd75 0 3%,
+            transparent 4%
+        ),
+        linear-gradient(
+            135deg,
+            #422216,
+            #12100e
+        );
+}
+
+.thumb:before{
+    content:"";
+    position:absolute;
+    width:140px;
+    height:140px;
+    right:13px;
+    top:17px;
+    border-radius:30px;
+    transform:rotate(26deg);
+    background:
+        rgba(255,255,255,.065);
+    box-shadow:
+        inset 0 0 25px rgba(255,255,255,.04),
+        0 25px 40px rgba(0,0,0,.35);
+}
+
+.thumb:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 32%,
+            rgba(0,0,0,.72)
+        );
+}
+
+.game-letter{
+    position:absolute;
+    left:16px;
+    bottom:13px;
+    z-index:3;
+    font-family:"Space Grotesk";
+    font-size:27px;
+    font-weight:700;
+    letter-spacing:-1px;
+    text-shadow:
+        0 5px 18px #000;
+}
+
+.play{
+    position:absolute;
+    right:12px;
+    top:12px;
+    z-index:5;
+    width:38px;
+    height:38px;
+    border:0;
+    border-radius:50%;
+    background:white;
+    color:#111;
+    opacity:0;
+    transform:scale(.75);
+    transition:.2s;
+    cursor:pointer;
+}
+
+.game:hover .play{
+    opacity:1;
+    transform:scale(1);
+}
+
+.game-info{
+    padding:14px 14px 16px;
+}
+
+.game-title{
+    font-size:14px;
+    font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.game-meta{
+    display:flex;
+    justify-content:space-between;
+    margin-top:7px;
+    color:#707070;
+    font-size:10px;
+}
+
+/* ================================
+   LOADING
+================================ */
+
+.loading,
+.empty,
+.error{
+    grid-column:1/-1;
+    text-align:center;
+    padding:55px 10px;
+    color:#666;
+    font-size:12px;
+}
+
+.error{
+    color:#ff8a55;
+}
+
+/* ================================
+   QUICK PICKS
+================================ */
+
+.quick{
+    margin-top:52px;
+}
+
+.quick h2{
+    font-family:"Space Grotesk";
+    font-size:21px;
+    margin-bottom:17px;
+}
+
+.quick-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(5,1fr);
+    gap:17px;
+}
+
+.quick-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px;
+    border:1px solid #292929;
+    background:#101010;
+    border-radius:9px;
+    transition:.2s;
+}
+
+.quick-card:hover{
+    background:#181818;
+    border-color:#414141;
+    transform:translateY(-2px);
+}
+
+.quick-cover{
+    width:60px;
+    height:60px;
+    flex:none;
+    border-radius:7px;
+    background:
+        linear-gradient(
+            135deg,
+            #454545,
+            #171717
+        );
+    overflow:hidden;
+    position:relative;
+}
+
+.quick-cover:after{
+    content:"";
+    position:absolute;
+    width:90px;
+    height:22px;
+    background:
+        rgba(255,255,255,.09);
+    transform:rotate(-40deg);
+    top:17px;
+    left:-10px;
+}
+
+.quick-info{
+    min-width:0;
+}
+
+.quick-info strong{
+    display:block;
+    font-size:11px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.quick-info span{
+    display:block;
+    color:#6c6c6c;
+    font-size:9px;
+    margin-top:5px;
+}
+
+/* ================================
+   FOOTER
+================================ */
+
+footer{
+    margin-top:75px;
+    padding:28px 3%;
+    border-top:1px solid #202020;
+    display:flex;
+    justify-content:space-between;
+    color:#5f5f5f;
+    font-size:10px;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media(max-width:1150px){
+
+    .games{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .quick-grid{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .nav{
+        display:none;
+    }
+
+}
+
+@media(max-width:850px){
+
+    .games{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .quick-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .hero-art{
+        right:-30px;
+        opacity:.7;
+    }
+
+    .submit-btn{
+        padding:10px 13px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar{
+        height:64px;
+        padding:0 14px;
+        gap:10px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .submit-btn{
+        font-size:10px;
+        padding:9px 11px;
+    }
+
+    .search{
+        flex:1;
+        width:auto;
+    }
+
+    .feature{
+        height:240px;
+        margin-top:15px;
+    }
+
+    .feature-content{
+        left:22px;
+        bottom:22px;
+    }
+
+    .feature h1{
+        font-size:32px;
+    }
+
+    .feature p{
+        font-size:11px;
+    }
+
+    .hero-art{
+        right:-120px;
+        top:15px;
+        transform:scale(.7);
+    }
+
+    .games{
+        grid-template-columns:
+            repeat(2,1fr);
+        gap:10px;
+    }
+
+    .thumb{
+        height:145px;
+    }
+
+    .game-title{
+        font-size:12px;
+    }
+
+    .quick-grid{
+        grid-template-columns:
+            1fr 1fr;
+        gap:10px;
+    }
+
+    footer{
+        flex-direction:column;
+        gap:9px;
+    }
+
+    .account-menu{
+        right:12px;
+        top:58px;
+    }
+
+}
+
+@media(max-width:380px){
+
+    .games{
+        grid-template-columns:1fr;
+    }
+
+    .thumb{
+        height:175px;
+    }
+
+    .quick-grid{
+        grid-template-columns:1fr;
+    }
+
+    .submit-btn{
+        display:none;
+    }
+
+}
+
+
+.menu-btn{display:none;width:40px;height:40px;border:1px solid #292929;border-radius:9px;background:#111;color:#ddd;font-size:22px;cursor:pointer;flex:none}.menu-btn:hover{background:#1b1b1b;border-color:#444;color:white}.side-menu{position:fixed;top:0;left:-350px;width:330px;height:100vh;overflow-y:auto;padding:20px;background:#0d0d0d;border-right:1px solid #292929;box-shadow:25px 0 80px rgba(0,0,0,.45);z-index:300;transition:left .25s ease}.side-menu.open{left:0}.menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px);opacity:0;visibility:hidden;z-index:250;transition:.25s}.menu-overlay.open{opacity:1;visibility:visible}.menu-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid #242424}.menu-header strong{font-family:"Space Grotesk";font-size:21px}.menu-close{width:34px;height:34px;border:1px solid #292929;border-radius:8px;background:#181818;color:#aaa;font-size:22px;cursor:pointer}.menu-close:hover{color:white;background:#222}.menu-section{padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid #202020}.menu-title{color:#ff7845;font-size:9px;font-weight:800;letter-spacing:1.5px;margin-bottom:8px}.menu-subtitle{color:#555;font-size:9px;margin:13px 8px 5px;text-transform:uppercase;letter-spacing:1px}.menu-link{display:block;padding:9px 10px;border-radius:7px;color:#8a8a8a;text-decoration:none;font-size:11px;transition:.15s}.menu-link:hover{background:#181818;color:white}.menu-link.highlight{color:#ff9a72}.menu-link.highlight:hover{color:#fff;background:#24130e}.menu-logout{width:100%;padding:10px;border:1px solid #382020;border-radius:7px;background:#151010;color:#ff9999;font-size:10px;cursor:pointer}@media(max-width:1150px){.menu-btn{display:block;order:-1}}@media(max-width:600px){.side-menu{width:min(330px,88vw)}.menu-btn{width:38px;height:38px}}
+</style>
+
+</head>
+
+<body>
+
+<!-- ================================
+     NAV
+================================ -->
+
+<header class="topbar">
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open PLAYR menu">☰</button>
+
+    <a class="logo" href="#">
+        <span class="logo-mark"></span>
+        PLAYR
+    </a>
+
+    <nav class="nav">
+
+        <button class="active">
+            Home
+        </button>
+
+        <button>
+            New
+        </button>
+
+        <button>
+            Popular
+        </button>
+
+    </nav>
+
+    <button
+        class="submit-btn"
+        onclick="handleSubmitGame()"
+    >
+        + Submit Game
+    </button>
+
+    <div class="search">
+
+        <span class="search-icon">
+            ⌕
+        </span>
+
+        <input
+            id="search"
+            type="text"
+            placeholder="Search games..."
+            oninput="searchGames()"
+        >
+
+    </div>
+
+    <button
+        class="avatar"
+        id="avatarButton"
+        onclick="handleProfileClick()"
+    >
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    </button>
+
+</header>
+
+
+<!-- ================================
+     ACCOUNT MENU
+================================ -->
+
+<div
+    class="account-menu"
+    id="accountMenu"
+>
+
+    <div
+        class="account-user"
+        id="accountUser"
+    >
+        <strong>Not logged in</strong>
+        <span>Login to your PLAYR account</span>
+    </div>
+
+    <button
+        id="profileBtn"
+        onclick="goToProfile()"
+        style="display:none;"
+    >
+        My Profile
+    </button>
+
+    <button
+        id="accountAction"
+        onclick="handleAccountAction()"
+    >
+        Login
+    </button>
+
+</div>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<aside class="side-menu" id="sideMenu" aria-label="PLAYR menu">
+    <div class="menu-header"><strong>PLAYR</strong><button class="menu-close" id="menuClose" aria-label="Close menu">×</button></div>
+    <div class="menu-section">
+        <div class="menu-title">GAMES</div>
+        <a class="menu-link" href="index.html">Home</a>
+        <a class="menu-link" href="#games">All Games</a>
+        <a class="menu-link" href="#games">New Games</a>
+        <a class="menu-link" href="#games">Popular Games</a>
+        <a class="menu-link" href="#games">Trending Games</a>
+        <div class="menu-subtitle">Categories</div>
+        <a class="menu-link" href="#games" data-menu-category="all">All Categories</a>
+        <a class="menu-link" href="#games" data-menu-category="racing">Racing</a>
+        <a class="menu-link" href="#games" data-menu-category="action">Action</a>
+        <a class="menu-link" href="#games" data-menu-category="shooting">Shooting</a>
+        <a class="menu-link" href="#games" data-menu-category="sports">Sports</a>
+        <a class="menu-link" href="#games" data-menu-category="puzzle">Puzzle</a>
+        <a class="menu-link" href="#games" data-menu-category="strategy">Strategy</a>
+        <a class="menu-link" href="#games">Adventure</a>
+        <a class="menu-link" href="#games">Arcade</a>
+    </div>
+    <div class="menu-section">
+        <div class="menu-title">ACCOUNT</div>
+        <a class="menu-link" href="profile.html">My Profile</a>
+        <a class="menu-link" href="#">Favorites</a>
+        <a class="menu-link" href="#">Recently Played</a>
+        <a class="menu-link" href="#">Achievements</a>
+        <a class="menu-link" href="#">Settings</a>
+    </div>
+    <div class="menu-section">
+        <div class="menu-title">FOR DEVELOPERS</div>
+        <a class="menu-link highlight" href="submit.html">+ Submit Your Game</a>
+        <a class="menu-link" href="submit.html">My Submissions</a>
+        <a class="menu-link" href="#">Submission Status</a>
+        <a class="menu-link" href="how-to-upload.html" id="howToUploadLink">How to Upload</a>
+    </div>
+    <div class="menu-section">
+        <div class="menu-title">HELP &amp; INFORMATION</div>
+        <a class="menu-link" href="#">FAQ</a>
+        <a class="menu-link" href="#">Contact / Support</a>
+        <a class="menu-link" href="#">Game Submission Guidelines</a>
+        <a class="menu-link" href="#">Terms of Service</a>
+        <a class="menu-link" href="#">Privacy Policy</a>
+    </div>
+    <button class="menu-logout" id="menuLogout">Logout</button>
+</aside>
+
+<!-- ================================
+     LOGIN MODAL
+================================ -->
+
+<div
+    class="login-overlay"
+    id="loginOverlay"
+>
+
+    <div class="login-box">
+
+        <div class="login-header">
+
+            <div>
+
+                <h2 id="loginTitle">
+                    Welcome back.
+                </h2>
+
+                <p id="loginSubtitle">
+                    Login to submit games and interact with PLAYR.
+                </p>
+
+            </div>
+
+            <button
+                class="close-login"
+                onclick="closeLogin()"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form
+            class="login-form"
+            id="loginForm"
+        >
+
+            <div class="login-field">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    id="authEmail"
+                    type="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="login-field">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    id="authPassword"
+                    type="password"
+                    placeholder="••••••••"
+                    minlength="6"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                class="login-main-btn"
+                id="loginMainButton"
+                type="submit"
+            >
+                LOGIN
+            </button>
+
+
+            <div class="login-divider">
+                OR
+            </div>
+
+
+            <button
+                type="button"
+                class="google-btn"
+                onclick="loginWithGoogle()"
+            >
+                <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.15C3.26 21.3 7.31 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.28 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.39l3.99-3.15z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.61l3.99 3.15c.95-2.85 3.6-4.96 6.72-4.96z"/>
+                </svg>
+                Continue with Google
+            </button>
+
+
+            <div
+                class="login-error"
+                id="loginError"
+            ></div>
+
+
+            <div class="login-switch">
+
+                <span id="switchText">
+                    Don't have an account?
+                </span>
+
+                <button
+                    type="button"
+                    id="switchButton"
+                    onclick="switchAuthMode()"
+                >
+                    Create account
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<main class="container">
+
+
+<!-- ================================
+     FEATURE
+================================ -->
+
+<section class="feature">
+
+    <div class="feature-content">
+
+        <div class="feature-label">
+
+            <span></span>
+
+            Featured game
+
+        </div>
+
+        <h1>
+            Velocity Rush
+        </h1>
+
+        <p>
+            Race. Drift. Beat the leaderboard.
+        </p>
+
+        <button
+            class="feature-btn"
+            onclick="playGame()"
+        >
+            PLAY NOW
+        </button>
+
+    </div>
+
+
+    <div class="hero-art">
+
+        <div class="hero-glow"></div>
+
+        <div class="hero-ring"></div>
+
+        <div class="car">
+
+            <div class="car-main"></div>
+
+            <div class="car-top"></div>
+
+            <div class="wheel one"></div>
+
+            <div class="wheel two"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     CATEGORIES
+================================ -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2>
+            Browse games
+        </h2>
+
+        <a href="#">
+            View all →
+        </a>
+
+    </div>
+
+
+    <div class="categories">
+
+        <button
+            class="category active"
+            onclick="filterCategory('all',this)"
+        >
+            All
+        </button>
+
+        <button
+            class="category"
+            onclick="filterCategory('racing',this)"
+        >
+            Racing
+        </button>
+
+        <button
+            class="category"
+            onclick="filterCategory('action',this)"
+        >
+            Action
+        </button>
+
+        <button
+            class="category"
+            onclick="filterCategory('shooting',this)"
+        >
+            Shooting
+        </button>
+
+        <button
+            class="category"
+            onclick="filterCategory('sports',this)"
+        >
+            Sports
+        </button>
+
+        <button
+            class="category"
+            onclick="filterCategory('puzzle',this)"
+        >
+            Puzzle
+        </button>
+
+        <button
+            class="category"
+            onclick="filterCategory('strategy',this)"
+        >
+            Strategy
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     APPROVED GAMES
+================================ -->
+
+<section class="section">
+
+    <div class="section-head">
+
+        <h2>
+            Approved Games
+        </h2>
+
+        <a href="#">
+            See more →
+        </a>
+
+    </div>
+
+
+    <div
+        class="games"
+        id="games"
+    >
+
+        <div class="loading">
+            Loading games...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     QUICK PICKS
+================================ -->
+
+<section class="quick">
+
+    <h2>
+        Quick Picks
+    </h2>
+
+    <div class="quick-grid">
+
+        <div class="quick-card">
+
+            <div class="quick-cover"></div>
+
+            <div class="quick-info">
+
+                <strong>
+                    Drift Line
+                </strong>
+
+                <span>
+                    Racing · 4.6 ★
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-card">
+
+            <div class="quick-cover"></div>
+
+            <div class="quick-info">
+
+                <strong>
+                    Pixel Forge
+                </strong>
+
+                <span>
+                    Arcade · 4.7 ★
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-card">
+
+            <div class="quick-cover"></div>
+
+            <div class="quick-info">
+
+                <strong>
+                    Last Stand
+                </strong>
+
+                <span>
+                    Action · 4.8 ★
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-card">
+
+            <div class="quick-cover"></div>
+
+            <div class="quick-info">
+
+                <strong>
+                    Goal Rush
+                </strong>
+
+                <span>
+                    Sports · 4.5 ★
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="quick-card">
+
+            <div class="quick-cover"></div>
+
+            <div class="quick-info">
+
+                <strong>
+                    Block Lab
+                </strong>
+
+                <span>
+                    Puzzle · 4.9 ★
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+</main>
+
+
+<footer>
+
+    <span>
+        © 2026 PLAYR
+    </span>
+
+    <span>
+        Games worth playing.
+    </span>
+
+</footer>
+
+
+<script type="module">
+
+/* =================================
+   FIREBASE IMPORTS
+================================= */
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    getDoc,
+    setDoc,
+    serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signInWithPopup,
+    GoogleAuthProvider,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+
+/* =================================
+   FIREBASE CONFIG
+================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2q6Yfhz8",
+
+    authDomain:
+        "playr-bebbf.firebaseapp.com",
+
+    databaseURL:
+        "https://playr-bebbf-default-rtdb.firebaseio.com",
+
+    projectId:
+        "playr-bebbf",
+
+    storageBucket:
+        "playr-bebbf.firebasestorage.app",
+
+    messagingSenderId:
+        "35506561862",
+
+    appId:
+        "1:35506561862:web:f7b27c1191637cf36abb47",
+
+    measurementId:
+        "G-C9RGJYKTP9"
+
+};
+
+
+/* =================================
+   INITIALIZE
+================================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+const db =
+    getFirestore(app);
+
+const auth =
+    getAuth(app);
+
+const googleProvider =
+    new GoogleAuthProvider();
+async function createUserProfile(user) {
+    if (!user) return;
+
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (userSnap.exists()) {
+        return;
+    }
+
+    const name =
+        user.displayName ||
+        user.email?.split("@")[0] ||
+        "PLAYR User";
+
+    await setDoc(userRef, {
+        uid: user.uid,
+        email: user.email || "",
+        displayName: name,
+        photoURL: user.photoURL || "",
+        bio: "",
+       gamesSubmitted: 0,
+gamesPlayed: 0,
+wins: 0,
+favorites: 0,
+level: 1,
+followers: 0,
+following: 0,
+createdAt: serverTimestamp()
+    });
+}
+
+/* =================================
+   GLOBAL USER
+================================= */
+
+let currentUser = null;
+
+let authMode = "login";
+
+
+window.getCurrentPLAYRUser =
+function(){
+
+    return currentUser;
+
+};
+
+
+/* =================================
+   AUTH STATE
+================================= */
+
+onAuthStateChanged(
+    auth,
+    async function(user){
+
+        currentUser = user || null;
+
+        if (user) {
+            try {
+                await createUserProfile(user);
+            }
+            catch(error) {
+                console.error(
+                    "Failed to create Firestore profile:",
+                    error
+                );
+            }
+        }
+
+        updateAccountUI();
+    }
+);
+
+
+/* =================================
+   PROFILE LINKING LOGIC
+================================= */
+
+window.handleProfileClick =
+function(){
+
+    if(!currentUser){
+
+        openLogin();
+
+    }
+    else{
+
+        window.location.href = "profile.html";
+
+    }
+
+};
+
+window.goToProfile =
+function(){
+
+    if(currentUser){
+
+        window.location.href = "profile.html";
+
+    }
+
+};
+
+
+/* =================================
+   ACCOUNT UI (DYNAMIC AVATAR PHOTO)
+================================= */
+
+function updateAccountUI(){
+
+    const avatarButton =
+        document.getElementById(
+            "avatarButton"
+        );
+
+    const accountUser =
+        document.getElementById(
+            "accountUser"
+        );
+
+    const accountAction =
+        document.getElementById(
+            "accountAction"
+        );
+
+    const profileBtn =
+        document.getElementById(
+            "profileBtn"
+        );
+
+
+    if(currentUser){
+
+        const name =
+            currentUser.displayName ||
+            currentUser.email?.split("@")[0] ||
+            "PLAYR User";
+
+        const photoURL = currentUser.photoURL;
+
+        if(photoURL){
+            avatarButton.innerHTML = `<img src="${escapeAttribute(photoURL)}" alt="User Profile" referrerpolicy="no-referrer">`;
+        } else {
+            avatarButton.textContent = name.charAt(0).toUpperCase();
+        }
+
+        accountUser.innerHTML = `
+
+            <strong>
+                ${escapeHTML(name)}
+            </strong>
+
+            <span>
+                ${escapeHTML(
+                    currentUser.email || ""
+                )}
+            </span>
+
+        `;
+
+
+        accountAction.textContent =
+            "Logout";
+
+        if(profileBtn){
+            profileBtn.style.display = "block";
+        }
+
+    }
+    else{
+
+        avatarButton.innerHTML =
+            `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+
+
+        accountUser.innerHTML = `
+
+            <strong>
+                Not logged in
+            </strong>
+
+            <span>
+                Login to your PLAYR account
+            </span>
+
+        `;
+
+
+        accountAction.textContent =
+            "Login";
+
+        if(profileBtn){
+            profileBtn.style.display = "none";
+        }
+
+    }
+
+}
+
+
+/* =================================
+   ACCOUNT MENU
+================================= */
+
+window.toggleAccountMenu =
+function(){
+
+    const menu =
+        document.getElementById(
+            "accountMenu"
+        );
+
+    menu.classList.toggle("show");
+
+};
+
+
+/* =================================
+   ACCOUNT ACTION
+================================= */
+
+window.handleAccountAction =
+function(){
+
+    const menu =
+        document.getElementById(
+            "accountMenu"
+        );
+
+
+    menu.classList.remove("show");
+
+
+    if(currentUser){
+
+        logout();
+
+    }
+    else{
+
+        openLogin();
+
+    }
+
+};
+
+
+/* =================================
+   LOGIN MODAL
+================================= */
+
+window.openLogin =
+function(){
+
+    const overlay =
+        document.getElementById(
+            "loginOverlay"
+        );
+
+    overlay.classList.add("show");
+
+    authMode =
+        "login";
+
+    updateAuthModal();
+
+};
+
+
+window.closeLogin =
+function(){
+
+    document
+        .getElementById(
+            "loginOverlay"
+        )
+        .classList.remove("show");
+
+    clearLoginError();
+
+};
+
+
+function updateAuthModal(){
+
+    const title =
+        document.getElementById(
+            "loginTitle"
+        );
+
+    const subtitle =
+        document.getElementById(
+            "loginSubtitle"
+        );
+
+    const button =
+        document.getElementById(
+            "loginMainButton"
+        );
+
+    const switchText =
+        document.getElementById(
+            "switchText"
+        );
+
+    const switchButton =
+        document.getElementById(
+            "switchButton"
+        );
+
+
+    if(authMode === "login"){
+
+        title.textContent =
+            "Welcome back.";
+
+        subtitle.textContent =
+            "Login to submit games and interact with PLAYR.";
+
+        button.textContent =
+            "LOGIN";
+
+        switchText.textContent =
+            "Don't have an account?";
+
+        switchButton.textContent =
+            "Create account";
+
+    }
+    else{
+
+        title.textContent =
+            "Create your account.";
+
+        subtitle.textContent =
+            "Create a PLAYR account to submit and comment.";
+
+        button.textContent =
+            "CREATE ACCOUNT";
+
+        switchText.textContent =
+            "Already have an account?";
+
+        switchButton.textContent =
+            "Login";
+
+    }
+
+}
+
+
+/* =================================
+   SWITCH LOGIN / REGISTER
+================================= */
+
+window.switchAuthMode =
+function(){
+
+    authMode =
+        authMode === "login"
+        ? "register"
+        : "login";
+
+    clearLoginError();
+
+    updateAuthModal();
+
+};
+
+
+/* =================================
+   EMAIL AUTH
+================================= */
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        async function(event){
+
+            event.preventDefault();
+
+            clearLoginError();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "authEmail"
+                    )
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById(
+                        "authPassword"
+                    )
+                    .value;
+
+
+            const button =
+                document.getElementById(
+                    "loginMainButton"
+                );
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                authMode === "login"
+                ? "LOGGING IN..."
+                : "CREATING ACCOUNT...";
+
+
+            try{
+
+                if(authMode === "login"){
+
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+                }
+                else{
+
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+                }
+
+
+                closeLogin();
+
+                document
+                    .getElementById(
+                        "loginForm"
+                    )
+                    .reset();
+
+            }
+            catch(error){
+
+                console.error(
+                    "Authentication error:",
+                    error
+                );
+
+
+                showLoginError(
+                    getAuthErrorMessage(
+                        error
+                    )
+                );
+
+            }
+            finally{
+
+                button.disabled =
+                    false;
+
+                updateAuthModal();
+
+            }
+
+        }
+    );
+
+
+/* =================================
+   GOOGLE LOGIN
+================================= */
+
+window.loginWithGoogle =
+async function(){
+
+    clearLoginError();
+
+
+    try{
+
+        await signInWithPopup(
+            auth,
+            googleProvider
+        );
+
+
+        closeLogin();
+
+    }
+    catch(error){
+
+        console.error(
+            "Google login error:",
+            error
+        );
+
+
+        showLoginError(
+            getAuthErrorMessage(
+                error
+            )
+        );
+
+    }
+
+};
+
+
+/* =================================
+   LOGOUT
+================================= */
+
+async function logout(){
+
+    try{
+
+        await signOut(auth);
+
+    }
+    catch(error){
+
+        console.error(
+            "Logout error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =================================
+   AUTH ERROR MESSAGE
+================================= */
+
+function getAuthErrorMessage(error){
+
+    const code =
+        error?.code || "";
+
+
+    switch(code){
+
+        case "auth/invalid-credential":
+            return "Email or password is incorrect.";
+
+        case "auth/invalid-email":
+            return "Please enter a valid email address.";
+
+        case "auth/email-already-in-use":
+            return "An account with this email already exists.";
+
+        case "auth/weak-password":
+            return "Password must contain at least 6 characters.";
+
+        case "auth/popup-closed-by-user":
+            return "Google login was cancelled.";
+
+        case "auth/popup-blocked":
+            return "Your browser blocked the Google login popup.";
+
+        case "auth/network-request-failed":
+            return "Network error. Please try again.";
+
+        default:
+            return error?.message ||
+                "Authentication failed. Please try again.";
+
+    }
+
+}
+
+
+/* =================================
+   LOGIN ERROR
+================================= */
+
+function showLoginError(message){
+
+    const box =
+        document.getElementById(
+            "loginError"
+        );
+
+    box.textContent =
+        message;
+
+    box.style.display =
+        "block";
+
+}
+
+
+function clearLoginError(){
+
+    const box =
+        document.getElementById(
+            "loginError"
+        );
+
+    box.textContent =
+        "";
+
+    box.style.display =
+        "none";
+
+}
+
+
+/* =================================
+   SUBMIT GAME
+================================= */
+
+window.handleSubmitGame =
+function(){
+
+    if(!currentUser){
+
+        openLogin();
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "submit.html";
+
+};
+
+
+/* =================================
+   GAME DATA
+================================= */
+
+let allGames = [];
+
+let currentCategory = "all";
+
+
+/* =================================
+   LOAD APPROVED GAMES
+================================= */
+
+async function loadApprovedGames(){
+
+    const container =
+        document.getElementById(
+            "games"
+        );
+
+
+    container.innerHTML =
+        `
+        <div class="loading">
+            Loading games...
+        </div>
+        `;
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "game_submissions"
+                )
+            );
+
+
+        allGames = [];
+
+
+        snapshot.forEach(gameDoc => {
+
+            const data =
+                gameDoc.data();
+
+
+            if(
+
+                String(
+                    data.status || ""
+                )
+                .toLowerCase()
+                ===
+                "approved"
+
+            ){
+
+                allGames.push({
+
+                    id:
+                        gameDoc.id,
+
+                    ...data
+
+                });
+
+            }
+
+        });
+
+
+        renderGames();
+
+    }
+    catch(error){
+
+        console.error(
+            "Firestore error:",
+            error
+        );
+
+
+        container.innerHTML =
+            `
+            <div class="error">
+
+                Unable to load games.
+
+                <br><br>
+
+                ${escapeHTML(
+                    error.message
+                )}
+
+            </div>
+            `;
+
+    }
+
+}
+
+
+/* =================================
+   RENDER
+================================= */
+
+function renderGames(){
+
+    const container =
+        document.getElementById(
+            "games"
+        );
+
+
+    let games =
+        [...allGames];
+
+
+    if(
+        currentCategory !== "all"
+    ){
+
+        games =
+            games.filter(game => {
+
+                return String(
+                    game.category || ""
+                )
+                .toLowerCase()
+                ===
+                currentCategory;
+
+            });
+
+    }
+
+
+    const search =
+        document
+            .getElementById(
+                "search"
+            )
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    if(search){
+
+        games =
+            games.filter(game => {
+
+                const name =
+                    String(
+
+                        game.gameName ||
+                        game.name ||
+                        game.title ||
+                        ""
+
+                    )
+                    .toLowerCase();
+
+
+                const developer =
+                    String(
+
+                        game.developer ||
+                        game.developerName ||
+                        ""
+
+                    )
+                    .toLowerCase();
+
+
+                return (
+
+                    name.includes(search) ||
+
+                    developer.includes(search)
+
+                );
+
+            });
+
+    }
+
+
+    if(!games.length){
+
+        container.innerHTML =
+            `
+            <div class="empty">
+
+                No approved games found.
+
+            </div>
+            `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+
+        games.map(game => {
+
+            const name =
+
+                game.gameName ||
+                game.name ||
+                game.title ||
+                "Untitled Game";
+
+
+            const category =
+
+                game.category ||
+                "Game";
+
+
+            const rating =
+
+                game.rating ||
+                "New";
+
+
+            const gameUrl =
+
+                game.githubUrl ||
+                game.gameUrl ||
+                game.url ||
+                game.link ||
+                "";
+
+
+            const initials =
+
+                name
+                    .split(" ")
+                    .slice(0,2)
+                    .map(x => x[0])
+                    .join("")
+                    .toUpperCase();
+
+
+            const thumbnail =
+
+                game.thumbnailData ||
+                game.thumbnailUrl ||
+                "";
+
+
+            return `
+
+            <article class="game">
+
+                <div
+                    class="thumb"
+
+                    ${
+                        thumbnail
+
+                        ?
+
+                        `style="background-image:url('${escapeAttribute(thumbnail)}');background-size:cover;background-position:center;"`
+
+                        :
+
+                        ""
+
+                    }
+                >
+
+                    <span class="game-letter">
+
+                        ${escapeHTML(
+                            initials
+                        )}
+
+                    </span>
+
+
+                    <button
+                        class="play"
+
+                        onclick="playApprovedGame(
+                            '${escapeJS(gameUrl)}',
+                            '${escapeJS(name)}'
+                        )"
+                    >
+
+                        ▶
+
+                    </button>
+
+                </div>
+
+
+                <div class="game-info">
+
+                    <div class="game-title">
+
+                        ${escapeHTML(
+                            name
+                        )}
+
+                    </div>
+
+
+                    <div class="game-meta">
+
+                        <span>
+
+                            ${escapeHTML(
+                                category
+                            )}
+
+                        </span>
+
+
+                        <span>
+
+                            ${escapeHTML(
+                                String(rating)
+                            )}
+
+                            ${
+                                rating !== "New"
+                                ? " ★"
+                                : ""
+                            }
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+/* =================================
+   PLAY APPROVED GAME
+================================= */
+
+window.playApprovedGame =
+function(url,name){
+
+    if(
+        !url ||
+        url === "#"
+    ){
+
+        alert(
+            "This game does not have a playable link yet."
+        );
+
+        return;
+
+    }
+
+
+    const playerUrl =
+
+        "player.html?url=" +
+
+        encodeURIComponent(
+            url
+        ) +
+
+        "&name=" +
+
+        encodeURIComponent(
+            name ||
+            "PLAYR Game"
+        );
+
+
+    window.location.href =
+        playerUrl;
+
+};
+
+
+/* =================================
+   CATEGORY
+================================= */
+
+window.filterCategory =
+function(category,button){
+
+    currentCategory =
+        category;
+
+
+    document
+        .querySelectorAll(
+            ".category"
+        )
+        .forEach(button =>
+
+            button.classList.remove(
+                "active"
+            )
+
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    renderGames();
+
+};
+
+
+/* =================================
+   SEARCH
+================================= */
+
+window.searchGames =
+function(){
+
+    renderGames();
+
+};
+
+
+/* =================================
+   FEATURED GAME
+================================= */
+
+window.playGame =
+function(){
+
+    const game =
+
+        allGames.find(game => {
+
+            const name =
+
+                String(
+
+                    game.gameName ||
+                    game.name ||
+                    game.title ||
+                    ""
+
+                )
+                .toLowerCase();
+
+
+            return name ===
+                "velocity rush";
+
+        });
+
+
+    if(game){
+
+        const url =
+
+            game.githubUrl ||
+            game.gameUrl ||
+            game.url ||
+            game.link ||
+            "";
+
+
+        if(url){
+
+            const playerUrl =
+
+                "player.html?url=" +
+
+                encodeURIComponent(
+                    url
+                ) +
+
+                "&name=" +
+
+                encodeURIComponent(
+
+                    game.gameName ||
+                    game.name ||
+                    game.title ||
+                    "Velocity Rush"
+
+                );
+
+
+            window.location.href =
+                playerUrl;
+
+            return;
+
+        }
+
+    }
+
+
+    alert(
+        "Featured game is not available yet."
+    );
+
+};
+
+
+/* =================================
+   ESCAPE HTML
+================================= */
+
+function escapeHTML(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =================================
+   ESCAPE ATTRIBUTE
+================================= */
+
+function escapeAttribute(value){
+
+    return String(
+        value || ""
+    )
+
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+
+    .replace(
+        /'/g,
+        "\\'"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    );
+
+}
+
+
+/* =================================
+   ESCAPE JS
+================================= */
+
+function escapeJS(value){
+
+    return String(
+        value || ""
+    )
+
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+
+    .replace(
+        /'/g,
+        "\\'"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /\n/g,
+        "\\n"
+    )
+
+    .replace(
+        /\r/g,
+        "\\r"
+    );
+
+}
+
+
+/* =================================
+   CLOSE MENU WHEN CLICKING OUTSIDE
+================================= */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const menu =
+            document.getElementById(
+                "accountMenu"
+            );
+
+        const avatar =
+            document.getElementById(
+                "avatarButton"
+            );
+
+
+        if(
+            !menu.contains(event.target) &&
+            !avatar.contains(event.target)
+        ){
+
+            menu.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =================================
+   CLOSE LOGIN WITH ESC
+================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeLogin();
+
+        }
+
+    }
+);
+
+
+
+/* THREE-LINE MENU */
+const menuBtn=document.getElementById("menuBtn");
+const sideMenu=document.getElementById("sideMenu");
+const menuClose=document.getElementById("menuClose");
+const menuOverlay=document.getElementById("menuOverlay");
+const menuLogout=document.getElementById("menuLogout");
+function openSideMenu(){sideMenu.classList.add("open");menuOverlay.classList.add("open");document.body.style.overflow="hidden";}
+function closeSideMenu(){sideMenu.classList.remove("open");menuOverlay.classList.remove("open");document.body.style.overflow="";}
+menuBtn.addEventListener("click",openSideMenu);
+menuClose.addEventListener("click",closeSideMenu);
+menuOverlay.addEventListener("click",closeSideMenu);
+menuLogout.addEventListener("click",function(){closeSideMenu();if(currentUser){logout()}else{openLogin()}});
+document.querySelectorAll("[data-menu-category]").forEach(link=>{link.addEventListener("click",function(){const c=this.dataset.menuCategory;const b=document.querySelector(`.category[onclick*="'${c}'"]`);if(b)filterCategory(c,b);closeSideMenu();})});
+document.getElementById("howToUploadLink").addEventListener("click",closeSideMenu);
+
+/* =================================
+   START
+================================= */
+
+loadApprovedGames();
+
+</script>
+
+</body>
+
+</html>

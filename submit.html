@@ -1,0 +1,1910 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Submit Your Game — PLAYR</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #24150f 0%,
+            transparent 35%
+        ),
+        #080808;
+
+    color:#f5f5f3;
+
+    font-family:Inter,Arial,sans-serif;
+
+    padding:35px 18px;
+}
+
+.page{
+    width:min(720px,100%);
+    margin:auto;
+}
+
+.logo{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    color:white;
+    text-decoration:none;
+
+    font-size:20px;
+    font-weight:800;
+
+    margin-bottom:40px;
+}
+
+.logo-mark{
+    width:22px;
+    height:22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff914d,
+            #ff4f2d
+        );
+
+    border-radius:6px;
+
+    transform:rotate(45deg);
+}
+
+.header{
+    margin-bottom:25px;
+}
+
+.header small{
+    color:#ff8754;
+
+    font-size:9px;
+    text-transform:uppercase;
+
+    letter-spacing:1.7px;
+
+    font-weight:700;
+}
+
+.header h1{
+    font-size:34px;
+
+    margin-top:9px;
+
+    letter-spacing:-1.5px;
+}
+
+.header p{
+    color:#777;
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    margin-top:9px;
+}
+
+.card{
+    background:#111;
+
+    border:1px solid #282828;
+
+    border-radius:13px;
+
+    padding:25px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+}
+
+.section{
+    padding-bottom:23px;
+
+    margin-bottom:23px;
+
+    border-bottom:1px solid #222;
+}
+
+.section:last-of-type{
+    border-bottom:0;
+}
+
+.section-title{
+    color:#fff;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    margin-bottom:17px;
+}
+
+.section-title span{
+    color:#ff8754;
+
+    margin-right:7px;
+}
+
+.field{
+    margin-bottom:19px;
+}
+
+label{
+    display:block;
+
+    color:#cfcfcd;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    margin-bottom:8px;
+}
+
+.required{
+    color:#ff7045;
+}
+
+input,
+textarea,
+select{
+    width:100%;
+
+    background:#090909;
+
+    border:1px solid #292929;
+
+    color:white;
+
+    outline:none;
+
+    border-radius:7px;
+
+    padding:12px;
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    transition:.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color:#555;
+}
+
+select{
+    cursor:pointer;
+}
+
+input[type="file"]{
+    padding:10px;
+
+    cursor:pointer;
+}
+
+input[type="file"]::file-selector-button{
+    background:#202020;
+
+    border:1px solid #333;
+
+    color:#fff;
+
+    border-radius:5px;
+
+    padding:7px 10px;
+
+    margin-right:10px;
+
+    cursor:pointer;
+}
+
+textarea{
+    min-height:110px;
+
+    resize:vertical;
+}
+
+.help{
+    color:#666;
+
+    font-size:9px;
+
+    margin-top:6px;
+
+    line-height:1.5;
+}
+
+.row{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:15px;
+}
+
+.choice-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:9px;
+}
+
+.choice{
+    position:relative;
+}
+
+.choice input{
+    position:absolute;
+
+    opacity:0;
+
+    pointer-events:none;
+}
+
+.choice label{
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:43px;
+
+    margin:0;
+
+    padding:10px;
+
+    background:#090909;
+
+    border:1px solid #292929;
+
+    border-radius:7px;
+
+    color:#777;
+
+    cursor:pointer;
+
+    text-align:center;
+
+    font-size:10px;
+
+    transition:.2s;
+}
+
+.choice input:checked + label{
+    color:#fff;
+
+    border-color:#ff7045;
+
+    background:#17100d;
+
+    box-shadow:
+        0 0 0 1px rgba(255,112,69,.12);
+}
+
+.thumbnail-preview{
+    display:none;
+
+    margin-top:12px;
+
+    border:1px solid #292929;
+
+    border-radius:8px;
+
+    overflow:hidden;
+
+    background:#090909;
+}
+
+.thumbnail-preview img{
+    display:block;
+
+    width:100%;
+
+    max-height:280px;
+
+    object-fit:cover;
+}
+
+.thumbnail-info{
+    padding:8px 10px;
+
+    color:#888;
+
+    font-size:9px;
+
+    border-top:1px solid #222;
+}
+
+/* =================================
+   DEVELOPER INSTRUCTIONS
+================================= */
+
+.instructions{
+    background:
+        linear-gradient(
+            145deg,
+            #17120f,
+            #100f0e
+        );
+
+    border:1px solid #34251d;
+
+    border-radius:10px;
+
+    padding:17px;
+
+    margin-bottom:20px;
+}
+
+.instructions-title{
+    color:#ff9568;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    margin-bottom:12px;
+}
+
+.instructions p{
+    color:#888;
+
+    font-size:10px;
+
+    line-height:1.7;
+
+    margin-bottom:12px;
+}
+
+.instructions ol{
+    padding-left:18px;
+}
+
+.instructions li{
+    color:#999;
+
+    font-size:10px;
+
+    line-height:1.8;
+
+    margin-bottom:4px;
+}
+
+.instructions strong{
+    color:#ddd;
+}
+
+.code-box{
+    margin-top:12px;
+
+    padding:11px;
+
+    background:#080808;
+
+    border:1px solid #292929;
+
+    border-radius:7px;
+
+    color:#aaa;
+
+    font-family:
+        monospace;
+
+    font-size:9px;
+
+    line-height:1.7;
+
+    word-break:break-all;
+}
+
+.checkbox{
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:9px;
+
+    margin:20px 0;
+}
+
+.checkbox input{
+    width:auto;
+
+    margin-top:2px;
+}
+
+.checkbox label{
+    color:#777;
+
+    line-height:1.5;
+
+    margin:0;
+}
+
+.submit{
+    width:100%;
+
+    border:0;
+
+    border-radius:7px;
+
+    padding:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #d9d9d9
+        );
+
+    color:#090909;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.submit:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(255,255,255,.08);
+}
+
+.submit:disabled{
+    opacity:.5;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+.progress{
+    display:none;
+
+    margin-top:12px;
+
+    color:#888;
+
+    font-size:9px;
+
+    text-align:center;
+}
+
+.message{
+    display:none;
+
+    margin-top:17px;
+
+    padding:13px;
+
+    border-radius:7px;
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+.success{
+    background:#101b13;
+
+    border:1px solid #263c2b;
+
+    color:#8dc398;
+}
+
+.error{
+    background:#1b100e;
+
+    border:1px solid #48231c;
+
+    color:#e99a88;
+}
+
+.note{
+    margin-top:17px;
+
+    padding:12px;
+
+    background:#17120f;
+
+    border:1px solid #302018;
+
+    border-radius:7px;
+
+    color:#8c776c;
+
+    font-size:9px;
+
+    line-height:1.6;
+}
+
+footer{
+    text-align:center;
+
+    color:#555;
+
+    font-size:9px;
+
+    margin-top:28px;
+}
+
+@media(max-width:600px){
+
+    body{
+        padding:25px 13px;
+    }
+
+    .card{
+        padding:18px;
+    }
+
+    .header h1{
+        font-size:28px;
+    }
+
+    .row{
+        grid-template-columns:1fr;
+
+        gap:0;
+    }
+
+    .choice-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<a class="logo" href="index.html">
+
+    <span class="logo-mark"></span>
+
+    <span>PLAYR</span>
+
+</a>
+
+
+<div class="header">
+
+    <small>Developer Portal</small>
+
+    <h1>Submit your game.</h1>
+
+    <p>
+        Have a game you'd like to see on PLAYR?
+        Send us the details and our team will review your submission.
+    </p>
+
+</div>
+
+
+<div class="card">
+
+<form id="gameForm">
+
+
+<!-- =================================
+     DEVELOPER
+================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+        <span>01</span>
+        Developer Information
+    </div>
+
+
+    <div class="row">
+
+        <div class="field">
+
+            <label>
+                Developer / Studio Name
+                <span class="required">*</span>
+            </label>
+
+            <input
+                type="text"
+                name="developer"
+                placeholder="Your name or studio"
+                required
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Email
+                <span class="required">*</span>
+            </label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+            >
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="field">
+
+            <label>
+                Country
+                <span class="required">*</span>
+            </label>
+
+            <select
+                name="country"
+                required
+            >
+
+                <option value="">
+                    Select country
+                </option>
+
+                <option>Afghanistan</option>
+                <option>Argentina</option>
+                <option>Australia</option>
+                <option>Bangladesh</option>
+                <option>Brazil</option>
+                <option>Canada</option>
+                <option>China</option>
+                <option>France</option>
+                <option>Germany</option>
+                <option>India</option>
+                <option>Indonesia</option>
+                <option>Italy</option>
+                <option>Japan</option>
+                <option>Malaysia</option>
+                <option>Mexico</option>
+                <option>Nepal</option>
+                <option>Netherlands</option>
+                <option>New Zealand</option>
+                <option>Pakistan</option>
+                <option>Philippines</option>
+                <option>Russia</option>
+                <option>Singapore</option>
+                <option>South Africa</option>
+                <option>South Korea</option>
+                <option>Spain</option>
+                <option>Sri Lanka</option>
+                <option>Sweden</option>
+                <option>Switzerland</option>
+                <option>Thailand</option>
+                <option>Turkey</option>
+                <option>United Arab Emirates</option>
+                <option>United Kingdom</option>
+                <option>United States</option>
+                <option>Vietnam</option>
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="field">
+
+            <label>
+                Developer Type
+                <span class="required">*</span>
+            </label>
+
+            <select
+                name="developerType"
+                required
+            >
+
+                <option value="">
+                    Choose type
+                </option>
+
+                <option>Individual</option>
+                <option>Studio</option>
+                <option>Team</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================
+     GAME INFORMATION
+================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+        <span>02</span>
+        Game Information
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Game Title
+            <span class="required">*</span>
+        </label>
+
+        <input
+            type="text"
+            name="gameName"
+            minlength="3"
+            maxlength="80"
+            placeholder="Example: Velocity Rush"
+            required
+        >
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Category
+            <span class="required">*</span>
+        </label>
+
+        <select
+            name="category"
+            required
+        >
+
+            <option value="">
+                Choose category
+            </option>
+
+            <option>Action</option>
+            <option>Adventure</option>
+            <option>Arcade</option>
+            <option>Racing</option>
+            <option>Shooting</option>
+            <option>Sports</option>
+            <option>Puzzle</option>
+            <option>Strategy</option>
+            <option>Simulation</option>
+            <option>Other</option>
+
+        </select>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Description
+            <span class="required">*</span>
+        </label>
+
+        <textarea
+            name="description"
+            minlength="100"
+            maxlength="1500"
+            placeholder="Tell us about your game, its objective and gameplay..."
+            required
+        ></textarea>
+
+        <div class="help">
+            Minimum 100 characters.
+        </div>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Controls / Instructions
+            <span class="required">*</span>
+        </label>
+
+        <textarea
+            name="controls"
+            minlength="20"
+            maxlength="800"
+            placeholder="Example: WASD to move, Space to jump, Mouse to aim..."
+            required
+        ></textarea>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Supported Devices
+            <span class="required">*</span>
+        </label>
+
+        <div class="choice-grid">
+
+            <div class="choice">
+
+                <input
+                    type="radio"
+                    name="supportedDevices"
+                    id="desktop"
+                    value="Desktop"
+                    required
+                >
+
+                <label for="desktop">
+                    Desktop
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="radio"
+                    name="supportedDevices"
+                    id="mobile"
+                    value="Mobile"
+                >
+
+                <label for="mobile">
+                    Mobile
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="radio"
+                    name="supportedDevices"
+                    id="bothDevices"
+                    value="Both"
+                >
+
+                <label for="bothDevices">
+                    Both
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Orientation
+            <span class="required">*</span>
+        </label>
+
+        <div class="choice-grid">
+
+            <div class="choice">
+
+                <input
+                    type="radio"
+                    name="orientation"
+                    id="landscape"
+                    value="Landscape"
+                    required
+                >
+
+                <label for="landscape">
+                    Landscape
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="radio"
+                    name="orientation"
+                    id="portrait"
+                    value="Portrait"
+                >
+
+                <label for="portrait">
+                    Portrait
+                </label>
+
+            </div>
+
+
+            <div class="choice">
+
+                <input
+                    type="radio"
+                    name="orientation"
+                    id="bothOrientation"
+                    value="Both"
+                >
+
+                <label for="bothOrientation">
+                    Both
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="field">
+
+        <label>
+            Language
+            <span class="required">*</span>
+        </label>
+
+        <select
+            name="language"
+            required
+        >
+
+            <option value="">
+                Choose language
+            </option>
+
+            <option value="English">
+                English
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<!-- =================================
+     GAME BUILD
+================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+        <span>03</span>
+        Game Build
+    </div>
+
+
+    <!-- INSTRUCTIONS -->
+
+    <div class="instructions">
+
+        <div class="instructions-title">
+            HOW TO PUBLISH YOUR GAME
+        </div>
+
+        <p>
+            Your game must be available online before you submit it.
+            Follow these simple steps:
+        </p>
+
+        <ol>
+
+            <li>
+                Create a <strong>GitHub account</strong> if you
+                don't already have one.
+            </li>
+
+            <li>
+                Create a new <strong>Public GitHub repository</strong>
+                for your game.
+            </li>
+
+            <li>
+                Upload all your game files to the repository.
+            </li>
+
+            <li>
+                Your game must have an
+                <strong>index.html</strong>
+                file that starts the game.
+            </li>
+
+            <li>
+                Go to your repository's
+                <strong>Settings → Pages</strong>.
+            </li>
+
+            <li>
+                Select
+                <strong>Deploy from a branch</strong>.
+            </li>
+
+            <li>
+                Select the
+                <strong>main</strong>
+                branch and
+                <strong>/ (root)</strong>,
+                then click <strong>Save</strong>.
+            </li>
+
+            <li>
+                Wait for GitHub Pages to publish your game.
+            </li>
+
+            <li>
+                Open the generated website URL and make sure
+                your game works correctly.
+            </li>
+
+            <li>
+                Copy that live website URL and paste it into
+                the <strong>Live Game URL</strong> field below.
+            </li>
+
+        </ol>
+
+
+        <div class="code-box">
+
+            Example Live Game URL:<br>
+
+            https://yourusername.github.io/your-game/
+
+        </div>
+
+
+        <p style="margin-top:12px;margin-bottom:0;">
+
+            <strong>Important:</strong>
+            Do not submit only the GitHub repository URL as the
+            playable game link. PLAYR needs the live GitHub Pages
+            URL to open and play your game.
+
+        </p>
+
+    </div>
+
+
+    <!-- GITHUB REPOSITORY -->
+
+    <div class="field">
+
+        <label>
+            GitHub Repository URL
+            <span class="required">*</span>
+        </label>
+
+        <input
+            type="url"
+            name="githubUrl"
+            id="githubUrl"
+            placeholder="https://github.com/username/game"
+            pattern="https://(www\.)?github\.com/.*"
+            required
+        >
+
+        <div class="help">
+            Example:
+            https://github.com/username/my-game
+        </div>
+
+    </div>
+
+
+    <!-- LIVE GAME -->
+
+    <div class="field">
+
+        <label>
+            Live Game URL
+            <span class="required">*</span>
+        </label>
+
+        <input
+            type="url"
+            name="gameUrl"
+            id="gameUrl"
+            placeholder="https://username.github.io/my-game/"
+            pattern="https://.*"
+            required
+        >
+
+        <div class="help">
+            This is the actual playable game URL generated by GitHub Pages.
+            PLAYR will use this URL to launch your game.
+        </div>
+
+    </div>
+
+
+    <!-- THUMBNAIL -->
+
+    <div class="field">
+
+        <label>
+            Game Thumbnail
+            <span class="required">*</span>
+        </label>
+
+        <input
+            type="file"
+            id="thumbnail"
+            name="thumbnail"
+            accept="image/png,image/jpeg,image/webp"
+            required
+        >
+
+        <div class="help">
+            Upload a JPG, PNG or WebP image.
+            Maximum size: 5 MB.
+        </div>
+
+
+        <div
+            class="thumbnail-preview"
+            id="thumbnailPreview"
+        >
+
+            <img
+                id="thumbnailImage"
+                alt="Thumbnail preview"
+            >
+
+            <div class="thumbnail-info">
+                Thumbnail preview
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================
+     RIGHTS
+================================= -->
+
+<div class="section">
+
+    <div class="section-title">
+        <span>04</span>
+        Rights & Confirmation
+    </div>
+
+
+    <div class="checkbox">
+
+        <input
+            type="checkbox"
+            id="rights"
+            required
+        >
+
+        <label for="rights">
+
+            I confirm that I have the rights or permission
+            to submit this game and its content.
+
+        </label>
+
+    </div>
+
+
+    <div class="checkbox">
+
+        <input
+            type="checkbox"
+            id="assets"
+            required
+        >
+
+        <label for="assets">
+
+            I confirm that I have the necessary rights or
+            licenses for the assets used in this game.
+
+        </label>
+
+    </div>
+
+
+    <div class="checkbox">
+
+        <input
+            type="checkbox"
+            id="rules"
+            required
+        >
+
+        <label for="rules">
+
+            I understand that PLAYR can approve, reject or
+            later remove a submitted game.
+
+        </label>
+
+    </div>
+
+</div>
+
+
+<button
+    class="submit"
+    id="submitButton"
+    type="submit"
+>
+    SUBMIT FOR REVIEW
+</button>
+
+
+<div
+    class="progress"
+    id="progress"
+>
+    Uploading thumbnail and submitting...
+</div>
+
+
+<div
+    class="message success"
+    id="success"
+>
+    ✓ Submission received.
+    <br><br>
+    Your game has been submitted for review.
+    It will only appear publicly after approval.
+</div>
+
+
+<div
+    class="message error"
+    id="error"
+></div>
+
+
+<div class="note">
+
+    Every submission is reviewed before appearing on PLAYR.
+    Approval is not automatic.
+
+</div>
+
+</form>
+
+</div>
+
+
+<footer>
+    PLAYR Developer Portal · 2026
+</footer>
+
+
+</div>
+
+
+<script>
+
+/* =================================
+   FIREBASE CONFIG
+================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2q6Yfhz8",
+
+    authDomain:
+        "playr-bebbf.firebaseapp.com",
+
+    databaseURL:
+        "https://playr-bebbf-default-rtdb.firebaseio.com",
+
+    projectId:
+        "playr-bebbf",
+
+    storageBucket:
+        "playr-bebbf.firebasestorage.app",
+
+    messagingSenderId:
+        "35506561862",
+
+    appId:
+        "1:35506561862:web:f7b27c1191637cf36abb47",
+
+    measurementId:
+        "G-C9RGJYKTP9"
+
+};
+
+
+firebase.initializeApp(firebaseConfig);
+
+const db =
+    firebase.firestore();
+
+const storage =
+    firebase.storage();
+
+
+/* =================================
+   ELEMENTS
+================================= */
+
+const form =
+    document.getElementById("gameForm");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+const thumbnail =
+    document.getElementById("thumbnail");
+
+const thumbnailPreview =
+    document.getElementById("thumbnailPreview");
+
+const thumbnailImage =
+    document.getElementById("thumbnailImage");
+
+const progress =
+    document.getElementById("progress");
+
+const success =
+    document.getElementById("success");
+
+const errorBox =
+    document.getElementById("error");
+
+
+/* =================================
+   THUMBNAIL PREVIEW
+================================= */
+
+thumbnail.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            thumbnail.files[0];
+
+        if(!file){
+
+            thumbnailPreview.style.display =
+                "none";
+
+            return;
+        }
+
+
+        if(file.size > 5 * 1024 * 1024){
+
+            thumbnail.value = "";
+
+            showError(
+                "Thumbnail must be smaller than 5 MB."
+            );
+
+            return;
+        }
+
+
+        if(
+            file.type !== "image/jpeg" &&
+            file.type !== "image/png" &&
+            file.type !== "image/webp"
+        ){
+
+            thumbnail.value = "";
+
+            showError(
+                "Only JPG, PNG and WebP images are allowed."
+            );
+
+            return;
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(e){
+
+                thumbnailImage.src =
+                    e.target.result;
+
+                thumbnailPreview.style.display =
+                    "block";
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* =================================
+   SUBMIT
+================================= */
+
+form.addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+
+        success.style.display =
+            "none";
+
+        errorBox.style.display =
+            "none";
+
+
+        const file =
+            thumbnail.files[0];
+
+
+        if(!file){
+
+            showError(
+                "Please upload a game thumbnail."
+            );
+
+            return;
+        }
+
+
+        if(file.size > 5 * 1024 * 1024){
+
+            showError(
+                "Thumbnail must be smaller than 5 MB."
+            );
+
+            return;
+        }
+
+
+        const data =
+            new FormData(form);
+
+
+        const gameName =
+            data.get("gameName").trim();
+
+        const developer =
+            data.get("developer").trim();
+
+        const email =
+            data.get("email").trim();
+
+        const country =
+            data.get("country");
+
+        const developerType =
+            data.get("developerType");
+
+        const category =
+            data.get("category");
+
+        const description =
+            data.get("description").trim();
+
+        const controls =
+            data.get("controls").trim();
+
+        const supportedDevices =
+            data.get("supportedDevices");
+
+        const orientation =
+            data.get("orientation");
+
+        const language =
+            data.get("language");
+
+        const githubUrl =
+            data.get("githubUrl").trim();
+
+        const gameUrl =
+            data.get("gameUrl").trim();
+
+
+        /* =================================
+           VALIDATION
+        ================================= */
+
+        if(gameName.length < 3){
+
+            showError(
+                "Game title must contain at least 3 characters."
+            );
+
+            return;
+        }
+
+
+        if(description.length < 100){
+
+            showError(
+                "Description must contain at least 100 characters."
+            );
+
+            return;
+        }
+
+
+        if(controls.length < 20){
+
+            showError(
+                "Please provide proper controls or instructions."
+            );
+
+            return;
+        }
+
+
+        if(!supportedDevices){
+
+            showError(
+                "Please select supported devices."
+            );
+
+            return;
+        }
+
+
+        if(!orientation){
+
+            showError(
+                "Please select the game orientation."
+            );
+
+            return;
+        }
+
+
+        if(!language){
+
+            showError(
+                "Please select the game language."
+            );
+
+            return;
+        }
+
+
+        /* LIVE URL CHECK */
+
+        try{
+
+            const liveURL =
+                new URL(gameUrl);
+
+            if(
+                liveURL.protocol !== "https:"
+            ){
+
+                showError(
+                    "Live Game URL must use HTTPS."
+                );
+
+                return;
+            }
+
+        }
+        catch{
+
+            showError(
+                "Please enter a valid Live Game URL."
+            );
+
+            return;
+        }
+
+
+        /* =================================
+           LOCK BUTTON
+        ================================= */
+
+        submitButton.disabled =
+            true;
+
+        submitButton.textContent =
+            "CHECKING...";
+
+        progress.style.display =
+            "block";
+
+
+        try{
+
+            /* =================================
+               DUPLICATE GITHUB CHECK
+            ================================= */
+
+            const duplicate =
+                await db
+                .collection("game_submissions")
+                .where(
+                    "githubUrl",
+                    "==",
+                    githubUrl
+                )
+                .limit(1)
+                .get();
+
+
+            if(!duplicate.empty){
+
+                showError(
+                    "This GitHub repository has already been submitted."
+                );
+
+                return;
+            }
+
+
+            /* =================================
+               UPLOAD THUMBNAIL
+            ================================= */
+
+            submitButton.textContent =
+                "UPLOADING IMAGE...";
+
+
+            const safeName =
+                file.name
+                .replace(
+                    /[^a-zA-Z0-9._-]/g,
+                    "_"
+                );
+
+
+            const filePath =
+                "game-thumbnails/" +
+                Date.now() +
+                "_" +
+                safeName;
+
+
+            const storageRef =
+                storage.ref(filePath);
+
+
+            await storageRef.put(file);
+
+
+            const thumbnailUrl =
+                await storageRef.getDownloadURL();
+
+
+            /* =================================
+               SAVE FIRESTORE
+            ================================= */
+
+            submitButton.textContent =
+                "SUBMITTING...";
+
+
+            await db
+            .collection("game_submissions")
+            .add({
+
+                gameName:
+                    gameName,
+
+                developer:
+                    developer,
+
+                email:
+                    email,
+
+                country:
+                    country,
+
+                developerType:
+                    developerType,
+
+                category:
+                    category,
+
+                description:
+                    description,
+
+                controls:
+                    controls,
+
+                supportedDevices:
+                    supportedDevices,
+
+                orientation:
+                    orientation,
+
+                language:
+                    language,
+
+                githubUrl:
+                    githubUrl,
+
+                gameUrl:
+                    gameUrl,
+
+                thumbnailUrl:
+                    thumbnailUrl,
+
+                thumbnailPath:
+                    filePath,
+
+                status:
+                    "pending",
+
+                rightsConfirmed:
+                    document
+                    .getElementById("rights")
+                    .checked,
+
+                assetsConfirmed:
+                    document
+                    .getElementById("assets")
+                    .checked,
+
+                rulesAccepted:
+                    document
+                    .getElementById("rules")
+                    .checked,
+
+                createdAt:
+                    firebase
+                    .firestore
+                    .FieldValue
+                    .serverTimestamp(),
+
+                reviewedAt:
+                    null,
+
+                rejectionReason:
+                    ""
+
+            });
+
+
+            /* =================================
+               SUCCESS
+            ================================= */
+
+            form.reset();
+
+            thumbnailPreview.style.display =
+                "none";
+
+            progress.style.display =
+                "none";
+
+            success.style.display =
+                "block";
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "SUBMIT FOR REVIEW";
+
+
+            window.scrollTo({
+
+                top:0,
+
+                behavior:"smooth"
+
+            });
+
+        }
+
+        catch(err){
+
+            console.error(err);
+
+            progress.style.display =
+                "none";
+
+            showError(
+                "Submission failed: " +
+                (
+                    err.message ||
+                    "Please try again."
+                )
+            );
+
+        }
+
+    }
+);
+
+
+/* =================================
+   ERROR
+================================= */
+
+function showError(message){
+
+    errorBox.textContent =
+        "✕ " + message;
+
+    errorBox.style.display =
+        "block";
+
+    progress.style.display =
+        "none";
+
+    submitButton.disabled =
+        false;
+
+    submitButton.textContent =
+        "SUBMIT FOR REVIEW";
+
+}
+
+</script>
+
+</body>
+</html>
+```

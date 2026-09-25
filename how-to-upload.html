@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PLAYR — How to Upload</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root{--bg:#070707;--card:#101010;--border:#252525;--white:#f7f7f5;--muted:#777;--accent:#ff6b35}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:radial-gradient(circle at 50% -10%,#202020 0,transparent 32%),#070707;color:var(--white);font-family:Inter,sans-serif}
+.topbar{height:68px;display:flex;align-items:center;padding:0 30px;background:rgba(7,7,7,.88);border-bottom:1px solid #202020;backdrop-filter:blur(18px);position:sticky;top:0;z-index:50}
+.logo{display:flex;align-items:center;gap:10px;color:white;text-decoration:none;font-family:"Space Grotesk";font-weight:700;font-size:21px;letter-spacing:-1px}.logo-mark{width:23px;height:23px;border-radius:6px;background:linear-gradient(135deg,#ff914d,#ff4f2d);transform:rotate(45deg);box-shadow:0 0 22px rgba(255,100,50,.25)}
+.container{width:min(1000px,94%);margin:45px auto 80px}.eyebrow{color:#ff8a55;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px}.eyebrow span{display:inline-block;width:5px;height:5px;background:#ff713e;border-radius:50%;margin-right:7px;box-shadow:0 0 10px #ff713e}h1{font-family:"Space Grotesk";font-size:42px;letter-spacing:-2px;margin-top:10px}header p{color:#777;font-size:11px;margin-top:8px;line-height:1.7}.guide{margin-top:30px;display:grid;gap:14px}.step{background:#101010;border:1px solid #292929;border-radius:12px;padding:22px}.step-num{color:#ff7845;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.step h2{font-family:"Space Grotesk";font-size:19px;margin-top:7px}.step p,.step li{color:#888;font-size:11px;line-height:1.8}.step p{margin-top:9px}.step ul{margin:12px 0 0 18px}.code{margin-top:13px;padding:14px;background:#080808;border:1px solid #242424;border-radius:8px;color:#aaa;font:10px/1.7 monospace;overflow:auto}.note{margin-top:13px;padding:13px;border-left:2px solid #ff6b35;background:#15100e;color:#999;font-size:10px;line-height:1.7}.back{display:inline-block;margin-top:28px;padding:10px 15px;border:1px solid #292929;border-radius:7px;background:#111;color:#bbb;text-decoration:none;font-size:10px;font-weight:700}.back:hover{color:white;background:#191919}footer{margin-top:65px;padding:25px 3%;border-top:1px solid #202020;display:flex;justify-content:space-between;color:#5f5f5f;font-size:9px}@media(max-width:600px){h1{font-size:32px}.container{margin-top:32px}.step{padding:18px}footer{flex-direction:column;gap:8px}}
+</style>
+</head>
+<body>
+<header class="topbar"><a class="logo" href="index.html"><span class="logo-mark"></span>PLAYR</a></header>
+<main class="container">
+<header>
+<div class="eyebrow"><span></span>For Developers</div>
+<h1>How to Upload Your Game</h1>
+<p>Follow every step below before submitting a game to PLAYR. This guide explains what to prepare, what to enter, what happens during review, and what happens after approval.</p>
+</header>
+<section class="guide">
+<article class="step"><div class="step-num">Step 01</div><h2>Create your PLAYR account</h2><p>Login or create your PLAYR account first. Your account is used to identify your submission and show its review status.</p><ul><li>Use an email address you can access.</li><li>Complete your basic profile information.</li><li>Make sure you are logged in before opening the submission form.</li></ul></article>
+<article class="step"><div class="step-num">Step 02</div><h2>Prepare and test your game</h2><p>Before uploading anything, open the game yourself and test the complete experience.</p><ul><li>Check that the game starts correctly.</li><li>Check controls and buttons.</li><li>Check that important files load without errors.</li><li>Check the game on the device or screen size you intend to support.</li><li>Remove broken links, unfinished pages, test text, and unnecessary files.</li></ul><div class="note">Do not submit a game that you have not tested from start to finish.</div></article>
+<article class="step"><div class="step-num">Step 03</div><h2>Prepare your GitHub repository</h2><p>Put the playable game files in a GitHub repository and make sure the repository link you submit actually works.</p><ul><li>Keep the repository organised.</li><li>Include all files required for the game to run.</li><li>Make sure the main HTML file and required assets are present.</li><li>Check that the submitted repository URL is correct.</li></ul><div class="code">your-repository/<br>├── index.html<br>├── css/<br>├── js/<br>├── assets/<br>└── ...game files...</div></article>
+<article class="step"><div class="step-num">Step 04</div><h2>Prepare your thumbnail</h2><p>Choose a clear thumbnail that represents the game. It is the image players will see while browsing PLAYR.</p><ul><li>Use an image that belongs to your game.</li><li>Keep the important visual elements easy to recognise.</li><li>Check that the image is not broken before submitting.</li></ul></article>
+<article class="step"><div class="step-num">Step 05</div><h2>Open Submit Your Game</h2><p>Open <strong>Submit Your Game</strong> from the PLAYR menu and fill in the requested information carefully.</p><ul><li>Game title</li><li>Category</li><li>Description</li><li>Controls or instructions</li><li>Supported devices</li><li>Game URL / GitHub repository</li><li>Thumbnail</li></ul></article>
+<article class="step"><div class="step-num">Step 06</div><h2>Review everything before submitting</h2><p>Do one final check before pressing submit. A wrong URL, missing file, unclear description, or broken game can delay the review.</p><ul><li>Title is correct.</li><li>Category is correct.</li><li>Description explains the game clearly.</li><li>Game link opens correctly.</li><li>Thumbnail appears correctly.</li><li>The submitted game is the same version you tested.</li></ul></article>
+<article class="step"><div class="step-num">Step 07</div><h2>Submit for review</h2><p>After submitting, your game enters the review process. Its status will remain <strong>Pending</strong> until an admin makes a decision.</p><p>Do not submit the same game repeatedly just because the status is still pending. Check the submission status first.</p></article>
+<article class="step"><div class="step-num">Step 08</div><h2>Admin review</h2><p>The PLAYR admin checks the submitted game and its information. The submission can be approved or rejected.</p><ul><li><strong>Approved:</strong> the game is accepted for PLAYR.</li><li><strong>Rejected:</strong> the submission is declined and a rejection reason can be provided.</li></ul></article>
+<article class="step"><div class="step-num">Step 09</div><h2>After approval</h2><p>When the admin approves the submission, its status changes to <strong>Approved</strong>. The approved game can then appear automatically in PLAYR's public game list.</p><div class="note">Keep the game link and repository working after approval. If the playable files or link stop working, the game may no longer work correctly for players.</div></article>
+<article class="step"><div class="step-num">Step 10</div><h2>If your game is rejected</h2><p>Read the rejection reason carefully, fix the problem, test the updated version, and submit again when the game is ready.</p><ul><li>Fix the exact issue first.</li><li>Retest the complete game.</li><li>Update the repository if required.</li><li>Submit the corrected version.</li></ul></article>
+</section>
+<a class="back" href="index.html">← Back to PLAYR</a>
+</main>
+<footer><span>© 2026 PLAYR</span><span>Games worth playing.</span></footer>
+</body>
+</html>
