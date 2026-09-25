@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +9,7 @@
 
 <style>
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0;}
 
 :root{
     --bg:#070707;
@@ -29,719 +24,332 @@
 
 body{
     min-height:100vh;
-    background:
-        radial-gradient(
-            900px 420px at 50% -160px,
-            rgba(255,100,45,.17),
-            transparent 70%
-        ),
-        var(--bg);
+    background:radial-gradient(1100px 520px at 50% -180px,rgba(255,100,45,.20),transparent 70%),var(--bg);
     color:var(--white);
     font-family:Inter,Arial,sans-serif;
+    font-size:15px;
 }
 
 .topbar{
-    height:82px;
-    border-bottom:1px solid #202020;
-    background:rgba(7,7,7,.9);
-    backdrop-filter:blur(18px);
-
-    display:flex;
-    align-items:center;
-    padding:0 48px;
-
-    position:sticky;
-    top:0;
-    z-index:50;
+    height:100px;border-bottom:1px solid #202020;
+    background:rgba(7,7,7,.9);backdrop-filter:blur(18px);
+    display:flex;align-items:center;padding:0 60px;
+    position:sticky;top:0;z-index:50;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:13px;
+.logo{display:flex;align-items:center;gap:16px;font-size:28px;font-weight:900;letter-spacing:-.9px;}
 
-    font-size:23px;
-    font-weight:900;
-    letter-spacing:-.8px;
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,#ff9a63,#ff4926);border-radius:9px;transform:rotate(45deg);}
+
+.admin-pill{margin-left:auto;display:flex;align-items:center;gap:11px;color:#888;font-size:11px;font-weight:800;letter-spacing:1.8px;}
+
+.admin-dot{width:9px;height:9px;border-radius:50%;background:#78d68b;box-shadow:0 0 16px rgba(120,214,139,.6);}
+
+.admin-nav{
+    display:flex;gap:4px;padding:0 50px;
+    border-bottom:1px solid #1c1c1c;background:rgba(7,7,7,.85);
+    backdrop-filter:blur(18px);overflow-x:auto;scrollbar-width:none;
+    position:sticky;top:100px;z-index:49;
 }
 
-.logo-mark{
-    width:25px;
-    height:25px;
+.admin-nav::-webkit-scrollbar{display:none;}
 
-    background:
-        linear-gradient(
-            135deg,
-            #ff9a63,
-            #ff4926
-        );
-
-    border-radius:7px;
-    transform:rotate(45deg);
+.admin-nav button{
+    padding:22px 18px;background:transparent;border:none;
+    border-bottom:3px solid transparent;color:#666;
+    font-size:11px;font-weight:800;letter-spacing:1.5px;
+    text-transform:uppercase;cursor:pointer;white-space:nowrap;font-family:inherit;
 }
 
-.admin-pill{
-    margin-left:auto;
+.admin-nav button:hover{color:#bbb;}
+.admin-nav button.active{color:#fff;border-bottom-color:var(--orange);}
+.admin-nav button.danger{color:#c77;}
+.admin-nav button.danger.active{color:#ff9b9b;border-bottom-color:#ff5252;}
 
-    display:flex;
-    align-items:center;
-    gap:9px;
+.container{width:min(1650px,94%);margin:65px auto 120px;}
 
-    color:#777;
+.header{display:flex;justify-content:space-between;align-items:flex-end;gap:36px;margin-bottom:46px;}
 
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:1.5px;
-}
+.eyebrow{color:var(--orange);font-size:12px;font-weight:900;letter-spacing:2.4px;text-transform:uppercase;}
 
-.admin-dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
+h1{margin-top:14px;font-size:58px;line-height:1;letter-spacing:-3.2px;}
 
-    background:#78d68b;
+.header p{margin-top:18px;color:#7a7a7a;font-size:14px;line-height:1.7;}
 
-    box-shadow:
-        0 0 14px rgba(120,214,139,.55);
-}
+.refresh{min-width:150px;padding:16px 24px;border-radius:9px;border:1px solid #303030;background:#121212;color:#c8c8c8;font-size:12px;font-weight:800;cursor:pointer;}
 
-.container{
-    width:min(1450px,94%);
-    margin:55px auto 100px;
-}
+.refresh:hover{background:#1a1a1a;border-color:#444;color:white;}
 
-.header{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:40px;}
 
-    gap:30px;
+.stat{min-height:180px;padding:32px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#141414,#0d0d0d);box-shadow:0 20px 50px rgba(0,0,0,.18);}
 
-    margin-bottom:38px;
-}
+.stat-label{color:#787878;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;}
 
-.eyebrow{
-    color:var(--orange);
+.stat-number{margin-top:22px;font-size:50px;font-weight:900;letter-spacing:-2px;}
 
-    font-size:10px;
-    font-weight:900;
+.stat-sub{margin-top:9px;color:#5a5a5a;font-size:11px;}
 
-    letter-spacing:2px;
-    text-transform:uppercase;
-}
+.panel{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#0e0e0e;box-shadow:0 30px 90px rgba(0,0,0,.25);}
 
-h1{
-    margin-top:10px;
+.toolbar{min-height:96px;padding:20px 26px;border-bottom:1px solid #242424;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 
-    font-size:48px;
-    line-height:1;
+.tab{padding:15px 22px;border:1px solid transparent;border-radius:9px;background:transparent;color:#6d6d6d;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;}
 
-    letter-spacing:-2.8px;
-}
+.tab:hover{background:#171717;color:#aaa;}
+.tab.active{background:#1c1c1c;color:white;border-color:#303030;}
 
-.header p{
-    margin-top:13px;
+.search{margin-left:auto;width:340px;padding:16px 18px;border-radius:9px;background:#080808;border:1px solid #292929;color:white;outline:none;font-size:12px;font-family:inherit;}
 
-    color:#686868;
+.search:focus{border-color:#484848;}
 
-    font-size:12px;
-    line-height:1.6;
-}
+.content{padding:28px;}
 
-.refresh{
-    min-width:120px;
+.submissions{display:grid;gap:22px;}
 
-    padding:13px 18px;
+.submission{padding:32px;border-radius:17px;background:linear-gradient(145deg,#151515,#111);border:1px solid #292929;transition:transform .18s,border-color .18s;}
 
-    border-radius:8px;
+.submission:hover{transform:translateY(-2px);border-color:#3a3a3a;}
 
-    border:1px solid #303030;
+.card-top{display:flex;gap:30px;align-items:flex-start;}
 
-    background:#121212;
-    color:#c8c8c8;
+.thumbnail{width:260px;height:170px;flex:none;border-radius:13px;overflow:hidden;border:1px solid #303030;background:radial-gradient(circle at 30% 20%,#3b2117,#15100e 60%,#0b0b0b);display:flex;align-items:center;justify-content:center;}
 
-    font-size:10px;
-    font-weight:800;
+.thumbnail img{width:100%;height:100%;object-fit:cover;}
 
-    cursor:pointer;
-}
+.thumbnail-placeholder{color:#4d4d4d;font-size:11px;font-weight:800;letter-spacing:1.2px;}
 
-.refresh:hover{
-    background:#1a1a1a;
-    border-color:#444;
-    color:white;
-}
+.info{min-width:0;flex:1;padding-top:4px;}
 
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-    margin-bottom:32px;
-}
+.title-line{display:flex;align-items:center;flex-wrap:wrap;gap:14px;}
 
-.stat{
-    min-height:145px;
+.game-name{font-size:30px;font-weight:900;letter-spacing:-1px;}
 
-    padding:25px;
+.status{padding:8px 12px;border-radius:7px;font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;}
 
-    border:1px solid var(--line);
+.status.pending{color:#ffad7c;background:#28170f;border:1px solid #493021;}
+.status.approved{color:#91dda0;background:#102016;border:1px solid #29442f;}
+.status.rejected{color:#ff9b9b;background:#241212;border:1px solid #452424;}
 
-    border-radius:16px;
+.developer{margin-top:14px;color:#999;font-size:14px;}
 
-    background:
-        linear-gradient(
-            145deg,
-            #141414,
-            #0d0d0d
-        );
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
 
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.18);
-}
+.meta span{padding:9px 13px;border-radius:7px;border:1px solid #292929;background:#1a1a1a;color:#888;font-size:11px;}
 
-.stat-label{
-    color:#6e6e6e;
+.description{margin-top:28px;padding-top:24px;border-top:1px solid #272727;color:#8b8b8b;font-size:13px;line-height:1.8;max-width:1100px;}
 
-    font-size:9px;
-    font-weight:800;
+.game-url{margin-top:14px;color:#666;font-size:11px;word-break:break-all;}
 
-    letter-spacing:1.4px;
-    text-transform:uppercase;
-}
+.game-url a{color:#aaa;text-decoration:none;}
+.game-url a:hover{color:white;}
 
-.stat-number{
-    margin-top:17px;
-
-    font-size:38px;
-    font-weight:900;
-
-    letter-spacing:-1.5px;
-}
-
-.stat-sub{
-    margin-top:6px;
-
-    color:#505050;
-
-    font-size:9px;
-}
-
-.panel{
-    border:1px solid var(--line);
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    background:#0e0e0e;
-
-    box-shadow:
-        0 30px 90px rgba(0,0,0,.25);
-}
-
-.toolbar{
-    min-height:78px;
-
-    padding:15px 20px;
-
-    border-bottom:1px solid #242424;
-
-    display:flex;
-    align-items:center;
-
-    gap:8px;
-}
-
-.tab{
-    padding:11px 17px;
-
-    border:1px solid transparent;
-
-    border-radius:8px;
-
-    background:transparent;
-
-    color:#686868;
-
-    font-size:10px;
-    font-weight:800;
-
-    cursor:pointer;
-}
-
-.tab:hover{
-    background:#171717;
-    color:#aaa;
-}
-
-.tab.active{
-    background:#1c1c1c;
-
-    color:white;
-
-    border-color:#303030;
-}
-
-.search{
-    margin-left:auto;
-
-    width:280px;
-
-    padding:12px 14px;
-
-    border-radius:8px;
-
-    background:#080808;
-
-    border:1px solid #292929;
-
-    color:white;
-
-    outline:none;
-
-    font-size:10px;
-}
-
-.search:focus{
-    border-color:#484848;
-}
-
-.content{
-    padding:20px;
-}
-
-.submissions{
-    display:grid;
-    gap:18px;
-}
-
-.submission{
-    padding:25px;
-
-    border-radius:15px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #151515,
-            #111
-        );
-
-    border:1px solid #292929;
-
-    transition:
-        transform .18s,
-        border-color .18s;
-}
-
-.submission:hover{
-    transform:translateY(-2px);
-    border-color:#3a3a3a;
-}
-
-.card-top{
-    display:flex;
-    gap:25px;
-    align-items:flex-start;
-}
-
-.thumbnail{
-    width:210px;
-    height:135px;
-
-    flex:none;
-
-    border-radius:11px;
-
-    overflow:hidden;
-
-    border:1px solid #303030;
-
-    background:
-        radial-gradient(
-            circle at 30% 20%,
-            #3b2117,
-            #15100e 60%,
-            #0b0b0b
-        );
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.thumbnail img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.thumbnail-placeholder{
-    color:#4d4d4d;
-
-    font-size:9px;
-    font-weight:800;
-
-    letter-spacing:1px;
-}
-
-.info{
-    min-width:0;
-    flex:1;
-    padding-top:3px;
-}
-
-.title-line{
-    display:flex;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:11px;
-}
-
-.game-name{
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:-.8px;
-}
-
-.status{
-    padding:6px 9px;
-
-    border-radius:6px;
-
-    font-size:8px;
-    font-weight:900;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-}
-
-.status.pending{
-    color:#ffad7c;
-    background:#28170f;
-    border:1px solid #493021;
-}
-
-.status.approved{
-    color:#91dda0;
-    background:#102016;
-    border:1px solid #29442f;
-}
-
-.status.rejected{
-    color:#ff9b9b;
-    background:#241212;
-    border:1px solid #452424;
-}
-
-.developer{
-    margin-top:11px;
-    color:#999;
-    font-size:12px;
-}
-
-.meta{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-top:16px;
-}
-
-.meta span{
-    padding:7px 10px;
-
-    border-radius:6px;
-
-    border:1px solid #292929;
-
-    background:#1a1a1a;
-
-    color:#777;
-
-    font-size:9px;
-}
-
-.description{
-    margin-top:24px;
-
-    padding-top:20px;
-
-    border-top:1px solid #272727;
-
-    color:#8b8b8b;
-
-    font-size:11px;
-
-    line-height:1.75;
-
-    max-width:1000px;
-}
-
-.game-url{
-    margin-top:12px;
-
-    color:#555;
-
-    font-size:9px;
-
-    word-break:break-all;
-}
-
-.game-url a{
-    color:#999;
-    text-decoration:none;
-}
-
-.game-url a:hover{
-    color:white;
-}
-
-.actions{
-    display:flex;
-    align-items:center;
-    gap:9px;
-
-    margin-top:22px;
-    padding-top:19px;
-
-    border-top:1px solid #272727;
-}
+.actions{display:flex;align-items:center;gap:12px;margin-top:26px;padding-top:24px;border-top:1px solid #272727;flex-wrap:wrap;}
 
 .action{
-    min-width:105px;
-
-    padding:11px 15px;
-
-    border-radius:7px;
-
-    border:1px solid #343434;
-
-    background:#191919;
-
-    color:#c4c4c4;
-
-    font-size:9px;
-    font-weight:800;
-
-    cursor:pointer;
+    min-width:120px;padding:14px 20px;border-radius:9px;
+    border:1px solid #343434;background:#191919;color:#c4c4c4;
+    font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;
 }
 
-.action:hover{
-    background:#222;
-    color:white;
+.action:hover{background:#222;color:white;}
+
+.action.approve{background:#e7ffd9;color:#101610;border-color:#e7ffd9;}
+.action.approve:hover{background:#d0f7bd;}
+
+.action.reject{color:#ff9d9d;border-color:#462525;}
+.action.reject:hover{background:#251414;}
+
+.action.delete{color:#ff9b9b;border-color:#542727;}
+.action.delete:hover{background:#2a1313;color:#fff;}
+
+.action.orange{color:#ffb28d;border-color:#4a2c1c;}
+.action.orange:hover{background:#2a1a10;color:#fff;}
+
+/* ============ SLIDER BUTTON ============ */
+.action.slider{
+    color:#ffd9a0;
+    border-color:#6a4a1f;
+    background:#241a0e;
 }
 
-.action.approve{
-    background:#e7ffd9;
-    color:#101610;
-    border-color:#e7ffd9;
+.action.slider:hover{
+    background:#332211;
+    color:#fff;
+    border-color:#8a6330;
 }
 
-.action.approve:hover{
-    background:#d0f7bd;
+.action.slider.active{
+    background:linear-gradient(135deg,#ff9a63,#ff4926);
+    color:#fff;
+    border-color:#ff7a45;
+    box-shadow:0 6px 20px rgba(255,113,62,.35);
 }
 
-.action.reject{
-    color:#ff9d9d;
-    border-color:#462525;
+/* ============ ORIGINAL BUTTON ============ */
+.action.original{
+    color:#ffd9a0;
+    border-color:#7a4a1f;
+    background:#2a1a0e;
 }
 
-.action.reject:hover{
-    background:#251414;
-}
-
-.action.delete{
-    color:#ff9b9b;
-    border-color:#542727;
-}
-
-.action.delete:hover{
-    background:#2a1313;
+.action.original:hover{
+    background:#3a2211;
     color:#fff;
 }
 
-.review-info{
-    margin-left:auto;
-    color:#4f4f4f;
-    font-size:9px;
+.action.original.active{
+    background:linear-gradient(135deg,#ffb04a,#ff7a2f);
+    color:#fff;
+    border-color:#ff9a45;
+    box-shadow:0 6px 20px rgba(255,150,50,.4);
 }
 
-.reason{
-    display:none;
+.action:disabled{opacity:.4;cursor:not-allowed;}
 
-    margin-top:14px;
+.review-info{margin-left:auto;color:#5a5a5a;font-size:11px;}
 
-    padding:15px;
+.reason{display:none;margin-top:18px;padding:20px;border-radius:11px;background:#0a0a0a;border:1px solid #292929;}
 
-    border-radius:9px;
+.reason textarea{width:100%;min-height:110px;padding:16px;resize:vertical;border-radius:9px;background:#070707;border:1px solid #292929;outline:none;color:white;font-size:12px;font-family:inherit;}
 
-    background:#0a0a0a;
+.reason-actions{display:flex;gap:10px;margin-top:12px;}
 
-    border:1px solid #292929;
-}
+.reason-actions button{padding:12px 18px;border-radius:8px;background:#181818;border:1px solid #333;color:#bbb;font-size:11px;cursor:pointer;font-family:inherit;}
 
-.reason textarea{
-    width:100%;
+.reason-actions .confirm{color:#ff9b9b;border-color:#472424;}
 
-    min-height:90px;
+.loading,.empty{padding:120px 20px;text-align:center;color:#666;font-size:13px;}
 
-    padding:12px;
+.error{margin:24px;padding:20px;border-radius:10px;background:#1c0e0e;border:1px solid #442121;color:#ff9d9d;font-size:12px;line-height:1.7;}
 
-    resize:vertical;
+.view.hidden{display:none !important;}
 
-    border-radius:7px;
+.field{margin-bottom:18px;}
 
-    background:#070707;
+.field label{display:block;color:#787878;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:9px;}
 
-    border:1px solid #292929;
+.field input,
+.field textarea,
+.field select{width:100%;padding:15px 18px;border-radius:9px;background:#080808;border:1px solid #292929;color:white;outline:none;font-size:12px;font-family:inherit;}
 
-    outline:none;
+.field textarea{min-height:120px;resize:vertical;}
 
-    color:white;
+.field input:focus,
+.field textarea:focus,
+.field select:focus{border-color:#484848;}
 
-    font-size:10px;
-}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
 
-.reason-actions{
-    display:flex;
-    gap:8px;
-    margin-top:9px;
-}
+.form-block{padding:30px;border-bottom:1px solid #242424;background:#0b0b0b;}
 
-.reason-actions button{
-    padding:9px 13px;
+.form-block h3{font-size:18px;font-weight:900;letter-spacing:-.4px;margin-bottom:16px;}
 
-    border-radius:6px;
+.form-block .hint{color:#666;font-size:12px;margin-bottom:18px;line-height:1.7;}
 
-    background:#181818;
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
 
-    border:1px solid #333;
+.chip{padding:11px 17px;border-radius:8px;border:1px solid #292929;background:#141414;color:#999;font-size:11px;font-weight:800;letter-spacing:1.2px;cursor:pointer;font-family:inherit;}
 
-    color:#bbb;
+.chip:hover{color:#ccc;}
+.chip.active{background:#1c1c1c;color:#fff;border-color:#3a3a3a;}
 
-    font-size:9px;
+.row-card{padding:26px;border-radius:16px;background:linear-gradient(145deg,#151515,#111);border:1px solid #292929;display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;}
 
-    cursor:pointer;
-}
+.row-card + .row-card{margin-top:18px;}
 
-.reason-actions .confirm{
-    color:#ff9b9b;
-    border-color:#472424;
-}
+.row-card .main{flex:1;min-width:260px;}
 
-.loading,
-.empty{
-    padding:90px 20px;
-    text-align:center;
-    color:#555;
-    font-size:11px;
-}
+.row-card .main h4{font-size:20px;font-weight:900;letter-spacing:-.5px;}
 
-.error{
-    margin:20px;
+.row-card .main .sub{color:#777;font-size:12px;margin-top:8px;line-height:1.7;}
 
-    padding:15px;
+.row-card .side{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 
-    border-radius:8px;
+.badge{padding:6px 10px;border-radius:6px;font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;}
 
-    background:#1c0e0e;
+.badge.green{color:#91dda0;background:#102016;border:1px solid #29442f;}
+.badge.orange{color:#ffad7c;background:#28170f;border:1px solid #493021;}
+.badge.red{color:#ff9b9b;background:#241212;border:1px solid #452424;}
+.badge.grey{color:#999;background:#161616;border:1px solid #2b2b2b;}
+.badge.gold{color:#ffd9a0;background:#2a1e0e;border:1px solid #6a4a1f;}
 
-    border:1px solid #442121;
+.toast-container{position:fixed;bottom:30px;right:30px;z-index:999;display:flex;flex-direction:column;gap:12px;pointer-events:none;}
 
-    color:#ff9d9d;
+.toast{padding:18px 24px;border-radius:11px;background:#141414;border:1px solid #292929;color:#ccc;font-size:12px;line-height:1.6;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:400px;animation:toastIn .2s ease;}
 
-    font-size:10px;
-    line-height:1.6;
-}
+.toast.success{border-color:#29442f;color:#91dda0;}
+.toast.error{border-color:#452424;color:#ff9b9b;}
+.toast.warn{border-color:#493021;color:#ffad7c;}
+
+@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+
+.toggle-row{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:20px 0;border-bottom:1px solid #1e1e1e;}
+
+.toggle-row:last-child{border-bottom:none;}
+
+.toggle-row .label-block{flex:1;min-width:0;}
+
+.toggle-row .label-block strong{display:block;font-size:15px;font-weight:800;color:#ddd;}
+
+.toggle-row .label-block span{display:block;color:#777;font-size:12px;margin-top:6px;line-height:1.6;}
+
+.switch{position:relative;display:inline-block;width:54px;height:30px;flex:none;}
+
+.switch input{opacity:0;width:0;height:0;}
+
+.switch .slider{position:absolute;inset:0;cursor:pointer;background:#1c1c1c;border:1px solid #303030;border-radius:30px;transition:.2s;}
+
+.switch .slider:before{content:"";position:absolute;height:20px;width:20px;left:4px;top:4px;background:#888;border-radius:50%;transition:.2s;}
+
+.switch input:checked + .slider{background:#2a1a10;border-color:#5a3520;}
+
+.switch input:checked + .slider:before{transform:translateX(24px);background:var(--orange);}
+
+.danger-block{border:1px solid #452424;background:#130909;padding:26px;border-radius:16px;margin-bottom:18px;}
+
+.danger-block h3{color:#ff9b9b;font-size:18px;margin-bottom:10px;font-weight:900;}
+
+.danger-block p{color:#b77;font-size:12px;line-height:1.7;margin-bottom:18px;}
+
+.kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+
+.kv .cell{padding:20px;border:1px solid #292929;border-radius:12px;background:#101010;}
+
+.kv .cell .k{color:#777;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;}
+
+.kv .cell .v{margin-top:10px;font-size:26px;font-weight:900;letter-spacing:-1.2px;}
 
 @media(max-width:1000px){
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .header{
-        align-items:flex-start;
-        flex-direction:column;
-    }
-
+    .topbar{height:88px;padding:0 30px;}
+    .logo{font-size:24px;}
+    .admin-nav{padding:0 24px;top:88px;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .header{align-items:flex-start;flex-direction:column;}
+    h1{font-size:44px;}
+    .grid-2,.grid-3{grid-template-columns:1fr;}
 }
 
 @media(max-width:700px){
-
-    .topbar{
-        padding:0 18px;
-    }
-
-    .container{
-        width:94%;
-        margin-top:35px;
-    }
-
-    h1{
-        font-size:37px;
-    }
-
-    .stats{
-        gap:10px;
-    }
-
-    .stat{
-        padding:18px;
-        min-height:115px;
-    }
-
-    .stat-number{
-        font-size:30px;
-    }
-
-    .toolbar{
-        flex-wrap:wrap;
-        padding:13px;
-    }
-
-    .tab{
-        padding:9px 11px;
-    }
-
-    .search{
-        width:100%;
-        margin-left:0;
-        margin-top:4px;
-    }
-
-    .content{
-        padding:12px;
-    }
-
-    .submission{
-        padding:17px;
-    }
-
-    .card-top{
-        flex-direction:column;
-    }
-
-    .thumbnail{
-        width:100%;
-        height:190px;
-    }
-
-    .game-name{
-        font-size:22px;
-    }
-
-    .actions{
-        flex-wrap:wrap;
-    }
-
-    .review-info{
-        width:100%;
-        margin-left:0;
-        margin-top:5px;
-    }
-
+    .topbar{padding:0 18px;height:76px;}
+    .logo{font-size:22px;}
+    .logo-mark{width:26px;height:26px;}
+    .container{width:94%;margin-top:40px;}
+    h1{font-size:38px;}
+    .stats{gap:12px;}
+    .stat{padding:22px;min-height:140px;}
+    .stat-number{font-size:36px;}
+    .toolbar{flex-wrap:wrap;padding:16px;}
+    .tab{padding:11px 14px;font-size:11px;}
+    .search{width:100%;margin-left:0;margin-top:6px;}
+    .content{padding:16px;}
+    .submission{padding:20px;}
+    .card-top{flex-direction:column;}
+    .thumbnail{width:100%;height:220px;}
+    .game-name{font-size:24px;}
+    .actions{flex-wrap:wrap;}
+    .review-info{width:100%;margin-left:0;margin-top:8px;}
 }
 
 </style>
@@ -750,1201 +358,1588 @@ h1{
 <body>
 
 <header class="topbar">
-
-    <div class="logo">
-        <span class="logo-mark"></span>
-        PLAYR
-    </div>
-
-    <div class="admin-pill">
-        <span class="admin-dot"></span>
-        PRIVATE ADMIN
-    </div>
-
+    <div class="logo"><span class="logo-mark"></span>PLAYR</div>
+    <div class="admin-pill"><span class="admin-dot"></span>PRIVATE ADMIN</div>
 </header>
+
+<nav class="admin-nav" id="adminNav">
+    <button data-view="submissions" class="active">Submissions</button>
+    <button data-view="games">Games</button>
+    <button data-view="users">Users</button>
+    <button data-view="reports">Reports</button>
+    <button data-view="analytics">Analytics</button>
+    <button data-view="homepage">Homepage</button>
+    <button data-view="categories">Categories</button>
+    <button data-view="notifications">Notifications</button>
+    <button data-view="originals">Originals</button>
+    <button data-view="emergency" class="danger">Emergency</button>
+    <button data-view="settings">Settings</button>
+    <button data-view="audit">Audit</button>
+</nav>
 
 <main class="container">
 
+<!-- SUBMISSIONS -->
+<section id="view-submissions" class="view">
 <section class="header">
-
     <div>
-
-        <div class="eyebrow">
-            Developer Portal
-        </div>
-
-        <h1>
-            Game submissions
-        </h1>
-
-        <p>
-            Review and manage every game submitted to PLAYR.
-        </p>
-
+        <div class="eyebrow">Developer Portal</div>
+        <h1>Game submissions</h1>
+        <p>Review and manage every game submitted to PLAYR.</p>
     </div>
-
-    <button
-        class="refresh"
-        id="refreshButton"
-    >
-        ↻ &nbsp; Refresh
-    </button>
-
+    <button class="refresh" id="refreshButton">↻ &nbsp; Refresh</button>
 </section>
 
 <section class="stats">
-
-    <div class="stat">
-
-        <div class="stat-label">
-            Total submissions
-        </div>
-
-        <div
-            class="stat-number"
-            id="totalCount"
-        >
-            0
-        </div>
-
-        <div class="stat-sub">
-            All submissions
-        </div>
-
-    </div>
-
-    <div class="stat">
-
-        <div class="stat-label">
-            Pending review
-        </div>
-
-        <div
-            class="stat-number"
-            id="pendingCount"
-        >
-            0
-        </div>
-
-        <div class="stat-sub">
-            Waiting for decision
-        </div>
-
-    </div>
-
-    <div class="stat">
-
-        <div class="stat-label">
-            Approved
-        </div>
-
-        <div
-            class="stat-number"
-            id="approvedCount"
-        >
-            0
-        </div>
-
-        <div class="stat-sub">
-            Currently approved
-        </div>
-
-    </div>
-
-    <div class="stat">
-
-        <div class="stat-label">
-            Rejected
-        </div>
-
-        <div
-            class="stat-number"
-            id="rejectedCount"
-        >
-            0
-        </div>
-
-        <div class="stat-sub">
-            Declined submissions
-        </div>
-
-    </div>
-
+    <div class="stat"><div class="stat-label">Total submissions</div><div class="stat-number" id="totalCount">0</div><div class="stat-sub">All submissions</div></div>
+    <div class="stat"><div class="stat-label">Pending review</div><div class="stat-number" id="pendingCount">0</div><div class="stat-sub">Waiting for decision</div></div>
+    <div class="stat"><div class="stat-label">Approved</div><div class="stat-number" id="approvedCount">0</div><div class="stat-sub">Currently approved</div></div>
+    <div class="stat"><div class="stat-label">Rejected</div><div class="stat-number" id="rejectedCount">0</div><div class="stat-sub">Declined submissions</div></div>
 </section>
 
 <section class="panel">
-
 <div class="toolbar">
-
-    <button
-        class="tab active"
-        data-tab="all"
-    >
-        ALL
-    </button>
-
-    <button
-        class="tab"
-        data-tab="pending"
-    >
-        PENDING
-    </button>
-
-    <button
-        class="tab"
-        data-tab="approved"
-    >
-        APPROVED
-    </button>
-
-    <button
-        class="tab"
-        data-tab="rejected"
-    >
-        REJECTED
-    </button>
-
-    <input
-        class="search"
-        id="search"
-        type="search"
-        placeholder="Search games, developers or categories..."
-    >
-
+    <button class="tab active" data-tab="all">ALL</button>
+    <button class="tab" data-tab="pending">PENDING</button>
+    <button class="tab" data-tab="approved">APPROVED</button>
+    <button class="tab" data-tab="rejected">REJECTED</button>
+    <button class="action approve" id="bulkApproveBtn" disabled>✓ Bulk approve</button>
+    <button class="action reject" id="bulkRejectBtn" disabled>✕ Bulk reject</button>
+    <button class="action delete" id="bulkDeleteBtn" disabled>🗑 Bulk delete</button>
+    <input class="search" id="search" type="search" placeholder="Search games, developers or categories...">
 </div>
-
 <div id="errorBox"></div>
-
 <div class="content">
-
-    <div
-        class="submissions"
-        id="submissions"
-    >
-
-        <div class="loading">
-            Loading submissions...
-        </div>
-
-    </div>
-
+    <div class="submissions" id="submissions"><div class="loading">Loading submissions...</div></div>
 </div>
+</section>
+</section>
 
+<!-- GAMES -->
+<section id="view-games" class="view hidden">
+<section class="header">
+    <div>
+        <div class="eyebrow">Control Center</div>
+        <h1>Game management</h1>
+        <p>Feature, pin, freeze, add to hero slider, mark as original or takedown.</p>
+    </div>
+</section>
+<section class="panel">
+<div class="toolbar">
+    <div class="chip-row" style="margin:0;">
+        <button class="chip active" data-gamefilter="all">ALL</button>
+        <button class="chip" data-gamefilter="slider">SLIDER</button>
+        <button class="chip" data-gamefilter="original">ORIGINAL</button>
+        <button class="chip" data-gamefilter="featured">FEATURED</button>
+        <button class="chip" data-gamefilter="pinned">PINNED</button>
+        <button class="chip" data-gamefilter="frozen">FROZEN</button>
+        <button class="chip" data-gamefilter="takedown">TAKEDOWN</button>
+    </div>
+    <input class="search" id="gamesSearch" type="search" placeholder="Search games...">
+</div>
+<div class="content">
+    <div id="gamesList"><div class="loading">Loading games...</div></div>
+</div>
+</section>
+</section>
+
+<!-- USERS -->
+<section id="view-users" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Community</div><h1>User control</h1><p>Manage roles, bans, shadow-bans and passwords.</p></div>
+</section>
+<section class="panel">
+<div class="toolbar">
+    <input class="search" id="usersSearch" type="search" placeholder="Search users by name or email..." style="margin-left:0;width:100%;max-width:520px;">
+</div>
+<div class="content">
+    <div id="usersList"><div class="loading">Loading users...</div></div>
+</div>
+</section>
+</section>
+
+<!-- REPORTS -->
+<section id="view-reports" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Moderation</div><h1>Reports & safety</h1><p>Review player reports and take action.</p></div>
+</section>
+<section class="panel">
+<div class="toolbar">
+    <div class="chip-row" style="margin:0;">
+        <button class="chip active" data-reportfilter="open">OPEN</button>
+        <button class="chip" data-reportfilter="resolved">RESOLVED</button>
+        <button class="chip" data-reportfilter="all">ALL</button>
+    </div>
+</div>
+<div class="content"><div id="reportsList"><div class="loading">Loading reports...</div></div></div>
+</section>
+</section>
+
+<!-- ANALYTICS -->
+<section id="view-analytics" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Insights</div><h1>Analytics</h1><p>Live stats, top games, engagement.</p></div>
+    <button class="refresh" id="analyticsRefresh">↻ &nbsp; Refresh</button>
+</section>
+<section class="stats" style="grid-template-columns:repeat(4,1fr);">
+    <div class="stat"><div class="stat-label">Total approved</div><div class="stat-number" id="anTotalGames">0</div><div class="stat-sub">Published games</div></div>
+    <div class="stat"><div class="stat-label">Pending</div><div class="stat-number" id="anPending">0</div><div class="stat-sub">Awaiting review</div></div>
+    <div class="stat"><div class="stat-label">Total users</div><div class="stat-number" id="anUsers">0</div><div class="stat-sub">Registered</div></div>
+    <div class="stat"><div class="stat-label">Reports open</div><div class="stat-number" id="anReports">0</div><div class="stat-sub">Needs attention</div></div>
+</section>
+<section class="panel">
+<div class="content">
+    <div class="form-block" style="border:none;padding:0 0 18px 0;background:transparent;">
+        <h3>Top categories</h3>
+        <div class="hint">Distribution of approved games across categories.</div>
+    </div>
+    <div id="anTopGames"><div class="loading">Loading...</div></div>
+</div>
+</section>
+</section>
+
+<!-- HOMEPAGE -->
+<section id="view-homepage" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Curation</div><h1>Homepage control</h1><p>Manage banners, hero game and announcements.</p></div>
+</section>
+<section class="panel">
+<div class="form-block">
+    <h3>Hero game</h3>
+    <div class="hint">Game shown at the top of the homepage slider (top priority).</div>
+    <div class="grid-2">
+        <div class="field"><label>Hero game ID</label><input id="heroGameId" placeholder="game doc id"></div>
+        <div class="field"><label>Hero tagline</label><input id="heroTagline" placeholder="Short tagline"></div>
+    </div>
+    <button class="action orange" id="saveHeroBtn">Save hero</button>
+</div>
+<div class="form-block">
+    <h3>Announcement bar</h3>
+    <div class="hint">Shown at the very top of the site for everyone.</div>
+    <div class="field"><label>Message</label><input id="announcementText" placeholder="e.g. New games every Friday!"></div>
+    <button class="action orange" id="saveAnnouncementBtn">Save announcement</button>
+    <button class="action delete" id="clearAnnouncementBtn">Clear</button>
+</div>
+<div class="form-block" style="border-bottom:none;">
+    <h3>Banners</h3>
+    <div class="hint">Add banners to the homepage carousel.</div>
+    <div class="grid-3">
+        <div class="field"><label>Title</label><input id="bannerTitle" placeholder="Banner title"></div>
+        <div class="field"><label>Image URL</label><input id="bannerImage" placeholder="https://..."></div>
+        <div class="field"><label>Link</label><input id="bannerLink" placeholder="/game/xyz or https://..."></div>
+    </div>
+    <button class="action approve" id="addBannerBtn">+ Add banner</button>
+</div>
+<div class="content" style="border-top:1px solid #242424;">
+    <div id="bannersList"><div class="loading">Loading banners...</div></div>
+</div>
+</section>
+</section>
+
+<!-- CATEGORIES -->
+<section id="view-categories" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Taxonomy</div><h1>Categories</h1><p>Add, edit, reorder or remove categories.</p></div>
+</section>
+<section class="panel">
+<div class="form-block">
+    <h3>New category</h3>
+    <div class="grid-3">
+        <div class="field"><label>Name</label><input id="catName" placeholder="e.g. Arcade"></div>
+        <div class="field"><label>Slug</label><input id="catSlug" placeholder="arcade"></div>
+        <div class="field"><label>Order</label><input id="catOrder" type="number" value="0"></div>
+    </div>
+    <button class="action approve" id="addCatBtn">+ Add category</button>
+</div>
+<div class="content"><div id="catsList"><div class="loading">Loading categories...</div></div></div>
+</section>
+</section>
+
+<!-- NOTIFICATIONS -->
+<section id="view-notifications" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Communication</div><h1>Notification center</h1><p>Push messages to all users, developers or a single user.</p></div>
+</section>
+<section class="panel">
+<div class="form-block">
+    <h3>Send notification</h3>
+    <div class="grid-2">
+        <div class="field">
+            <label>Audience</label>
+            <select id="notifAudience">
+                <option value="all">All users</option>
+                <option value="developers">Developers only</option>
+                <option value="players">Players only</option>
+                <option value="single">Single user (by ID)</option>
+            </select>
+        </div>
+        <div class="field"><label>User ID (if single)</label><input id="notifUserId" placeholder="user uid"></div>
+    </div>
+    <div class="field"><label>Title</label><input id="notifTitle" placeholder="Notification title"></div>
+    <div class="field"><label>Message</label><textarea id="notifMessage" placeholder="Type the message..."></textarea></div>
+    <button class="action approve" id="sendNotifBtn">Send notification</button>
+</div>
+<div class="content">
+    <div class="form-block" style="border:none;padding:0 0 18px 0;background:transparent;"><h3>Recent notifications</h3></div>
+    <div id="notifsList"><div class="loading">Loading...</div></div>
+</div>
+</section>
+</section>
+
+<!-- ORIGINALS -->
+<section id="view-originals" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">PLAYR</div><h1>PLAYR Originals</h1><p>First-party games published by PLAYR itself.</p></div>
+</section>
+<section class="panel">
+<div class="form-block">
+    <h3>Add / update an Original</h3>
+    <div class="hint">These appear with a special "PLAYR Original" badge across the site.</div>
+    <div class="grid-2">
+        <div class="field"><label>Title</label><input id="origTitle" placeholder="Original title"></div>
+        <div class="field"><label>Game URL</label><input id="origUrl" placeholder="https://..."></div>
+    </div>
+    <div class="grid-3">
+        <div class="field"><label>Category</label><input id="origCategory" placeholder="e.g. Arcade"></div>
+        <div class="field"><label>Thumbnail URL</label><input id="origThumb" placeholder="https://..."></div>
+        <div class="field"><label>Order</label><input id="origOrder" type="number" value="0"></div>
+    </div>
+    <div class="field"><label>Description</label><textarea id="origDesc" placeholder="Short description..."></textarea></div>
+    <button class="action approve" id="addOriginalBtn">+ Publish Original</button>
+</div>
+<div class="content"><div id="originalsList"><div class="loading">Loading originals...</div></div></div>
+</section>
+</section>
+
+<!-- EMERGENCY -->
+<section id="view-emergency" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow" style="color:#ff5252;">Restricted</div><h1>Emergency controls</h1><p>Site-wide kill switches. Use with caution.</p></div>
+</section>
+<section class="panel">
+<div class="form-block" style="border-bottom:1px solid #242424;">
+    <div class="danger-block">
+        <h3>⚠ Maintenance mode</h3>
+        <p>Site goes down. All users see a maintenance page. Admins can still access.</p>
+        <div class="field"><label>Maintenance message</label><input id="maintenanceMsg" placeholder="We'll be back shortly."></div>
+        <div class="toggle-row" style="border:none;padding:0;">
+            <div class="label-block"><strong>Enable maintenance mode</strong><span>Kill switch — use only during outages.</span></div>
+            <label class="switch"><input type="checkbox" id="maintenanceToggle"><span class="slider"></span></label>
+        </div>
+    </div>
+    <div class="danger-block">
+        <h3>⚠ Disable new submissions</h3>
+        <p>Developers cannot submit new games. Existing reviews keep working.</p>
+        <div class="toggle-row" style="border:none;padding:0;">
+            <div class="label-block"><strong>Block new submissions</strong><span>Good when spam wave hits.</span></div>
+            <label class="switch"><input type="checkbox" id="submissionsToggle"><span class="slider"></span></label>
+        </div>
+    </div>
+    <div class="danger-block">
+        <h3>⚠ Hide all unapproved games</h3>
+        <p>Immediately hide every pending submission from public view.</p>
+        <div class="toggle-row" style="border:none;padding:0;">
+            <div class="label-block"><strong>Hide unapproved</strong><span>Only approved games remain visible.</span></div>
+            <label class="switch"><input type="checkbox" id="hideUnapprovedToggle"><span class="slider"></span></label>
+        </div>
+    </div>
+    <div class="danger-block">
+        <h3>⚠ Disable a specific game</h3>
+        <p>Temporarily disable one game without deleting it.</p>
+        <div class="field"><label>Game submission ID</label><input id="disableGameId" placeholder="submission doc id"></div>
+        <button class="action reject" id="disableGameBtn">Disable game</button>
+        <button class="action" id="enableGameBtn">Re-enable game</button>
+    </div>
+    <div class="danger-block" style="border-color:#542727;background:#150909;">
+        <h3 style="color:#ff7878;">🚨 Emergency announcement</h3>
+        <p>Banner shown across the entire site immediately. Use for urgent notices.</p>
+        <div class="field"><label>Announcement text</label><input id="emergencyText" placeholder="e.g. We're experiencing issues. Fix in progress."></div>
+        <div class="toggle-row" style="border:none;padding:0;">
+            <div class="label-block"><strong>Activate emergency announcement</strong><span>Shows a red banner site-wide.</span></div>
+            <label class="switch"><input type="checkbox" id="emergencyToggle"><span class="slider"></span></label>
+        </div>
+    </div>
+    <button class="action approve" id="saveEmergencyBtn">Save emergency settings</button>
+</div>
+</section>
+</section>
+
+<!-- SETTINGS -->
+<section id="view-settings" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">System</div><h1>Site settings</h1><p>Global configuration and data tools.</p></div>
+</section>
+<section class="panel">
+<div class="form-block">
+    <h3>Site basics</h3>
+    <div class="grid-2">
+        <div class="field"><label>Site name</label><input id="setSiteName" placeholder="PLAYR"></div>
+        <div class="field"><label>Tagline</label><input id="setTagline" placeholder="Play. Discover. Repeat."></div>
+    </div>
+    <button class="action orange" id="saveSiteBtn">Save site settings</button>
+</div>
+<div class="form-block">
+    <h3>Data export</h3>
+    <div class="hint">Download all data as JSON. Use for backups or migrations.</div>
+    <button class="action" id="exportSubsBtn">Export submissions (JSON)</button>
+    <button class="action" id="exportApprovedBtn">Export approved games (JSON)</button>
+    <button class="action" id="exportUsersBtn">Export users (JSON)</button>
+</div>
+<div class="form-block" style="border-bottom:none;">
+    <h3>Danger zone</h3>
+    <div class="danger-block" style="margin-top:18px;">
+        <h3>⚠ Clear all audit logs</h3>
+        <p>Deletes every entry in the audit log. Cannot be undone.</p>
+        <button class="action delete" id="clearAuditBtn">Clear audit logs</button>
+    </div>
+</div>
+</section>
+</section>
+
+<!-- AUDIT -->
+<section id="view-audit" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Security</div><h1>Audit log</h1><p>Every admin action, timestamped.</p></div>
+    <button class="refresh" id="auditRefresh">↻ &nbsp; Refresh</button>
+</section>
+<section class="panel">
+<div class="content"><div id="auditList"><div class="loading">Loading audit log...</div></div></div>
+</section>
 </section>
 
 </main>
 
+<div class="toast-container" id="toastContainer"></div>
+
 <script type="module">
 
-import {
-    initializeApp
-}
-from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 
 import {
-    getFirestore,
-    collection,
-    getDocs,
-    updateDoc,
-    deleteDoc,
-    doc,
-    serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-
+    getFirestore, collection, getDocs, getDoc, setDoc, addDoc,
+    updateDoc, deleteDoc, doc, serverTimestamp, writeBatch
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2qY6fhz8",
-
-    authDomain:
-        "playr-bebbf.firebaseapp.com",
-
-    databaseURL:
-        "https://playr-bebbf-default-rtdb.firebaseio.com",
-
-    projectId:
-        "playr-bebbf",
-
-    storageBucket:
-        "playr-bebbf.firebasestorage.app",
-
-    messagingSenderId:
-        "35506561862",
-
-    appId:
-        "1:35506561862:web:f7b27c1191637cf36abb47",
-
-    measurementId:
-        "G-C9RGJYKTP9"
-
+    apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2qY6fhz8",
+    authDomain: "playr-bebbf.firebaseapp.com",
+    databaseURL: "https://playr-bebbf-default-rtdb.firebaseio.com",
+    projectId: "playr-bebbf",
+    storageBucket: "playr-bebbf.firebasestorage.app",
+    messagingSenderId: "35506561862",
+    appId: "1:35506561862:web:f7b27c1191637cf36abb47",
+    measurementId: "G-C9RGJYKTP9"
 };
 
-const app =
-    initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
 
-const db =
-    getFirestore(app);
-
+/* SUBMISSIONS */
 
 let submissions = [];
 let currentTab = "all";
+let selectedSubIds = new Set();
 
-
-const list =
-    document.getElementById("submissions");
-
-const search =
-    document.getElementById("search");
-
-const errorBox =
-    document.getElementById("errorBox");
-
+const list      = document.getElementById("submissions");
+const search    = document.getElementById("search");
+const errorBox  = document.getElementById("errorBox");
 
 async function loadSubmissions(){
-
-    list.innerHTML = `
-        <div class="loading">
-            Loading submissions...
-        </div>
-    `;
-
+    list.innerHTML = `<div class="loading">Loading submissions...</div>`;
     errorBox.innerHTML = "";
-
     try{
-
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "game_submissions"
-                )
-            );
-
-        submissions =
-            snapshot.docs.map(
-                item => ({
-                    id:item.id,
-                    ...item.data()
-                })
-            );
-
-        submissions.sort(
-            (a,b) => {
-
-                const A =
-                    a.createdAt?.seconds || 0;
-
-                const B =
-                    b.createdAt?.seconds || 0;
-
-                return B - A;
-
-            }
-        );
-
+        const snapshot = await getDocs(collection(db, "game_submissions"));
+        submissions = snapshot.docs.map(item => ({ id: item.id, ...item.data() }));
+        submissions.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
         updateStats();
-
         render();
-
-    }
-
-    catch(error){
-
+    }catch(error){
         console.error(error);
-
-        errorBox.innerHTML = `
-            <div class="error">
-                Could not load submissions:
-                ${escapeHTML(error.message)}
-            </div>
-        `;
-
-        list.innerHTML = `
-            <div class="empty">
-                Unable to load submissions.
-            </div>
-        `;
-
+        errorBox.innerHTML = `<div class="error">Could not load submissions: ${escapeHTML(error.message)}</div>`;
+        list.innerHTML = `<div class="empty">Unable to load submissions.</div>`;
     }
-
 }
-
 
 function updateStats(){
-
-    document.getElementById("totalCount").textContent =
-        submissions.length;
-
-    document.getElementById("pendingCount").textContent =
-        submissions.filter(
-            x => x.status === "pending"
-        ).length;
-
-    document.getElementById("approvedCount").textContent =
-        submissions.filter(
-            x => x.status === "approved"
-        ).length;
-
-    document.getElementById("rejectedCount").textContent =
-        submissions.filter(
-            x => x.status === "rejected"
-        ).length;
-
+    document.getElementById("totalCount").textContent = submissions.length;
+    document.getElementById("pendingCount").textContent = submissions.filter(x => x.status === "pending").length;
+    document.getElementById("approvedCount").textContent = submissions.filter(x => x.status === "approved").length;
+    document.getElementById("rejectedCount").textContent = submissions.filter(x => x.status === "rejected").length;
 }
-
 
 function render(){
-
-    const term =
-        search.value
-        .trim()
-        .toLowerCase();
-
-    const filtered =
-        submissions.filter(
-            item => {
-
-                const statusOK =
-                    currentTab === "all" ||
-                    item.status === currentTab;
-
-                const text =
-                    (
-                        item.gameName || ""
-                    ).toLowerCase()
-                    + " " +
-                    (
-                        item.developer ||
-                        item.developerName ||
-                        ""
-                    ).toLowerCase()
-                    + " " +
-                    (
-                        item.email || ""
-                    ).toLowerCase()
-                    + " " +
-                    (
-                        item.country || ""
-                    ).toLowerCase()
-                    + " " +
-                    (
-                        item.category || ""
-                    ).toLowerCase()
-                    + " " +
-                    (
-                        item.developerType || ""
-                    ).toLowerCase()
-                    + " " +
-                    (
-                        item.language || ""
-                    ).toLowerCase();
-
-                return (
-                    statusOK &&
-                    (!term || text.includes(term))
-                );
-
-            }
-        );
-
+    const term = search.value.trim().toLowerCase();
+    const filtered = submissions.filter(item => {
+        const statusOK = currentTab === "all" || item.status === currentTab;
+        const text = (item.gameName||"").toLowerCase() + " " +
+            (item.developer||item.developerName||"").toLowerCase() + " " +
+            (item.email||"").toLowerCase() + " " +
+            (item.country||"").toLowerCase() + " " +
+            (item.category||"").toLowerCase() + " " +
+            (item.developerType||"").toLowerCase() + " " +
+            (item.language||"").toLowerCase();
+        return statusOK && (!term || text.includes(term));
+    });
     if(!filtered.length){
-
-        list.innerHTML = `
-            <div class="empty">
-                No submissions found.
-            </div>
-        `;
-
+        list.innerHTML = `<div class="empty">No submissions found.</div>`;
+        updateBulkButtons();
         return;
-
     }
-
-    list.innerHTML =
-        filtered
-        .map(renderCard)
-        .join("");
-
+    list.innerHTML = filtered.map(renderCard).join("");
+    updateBulkButtons();
 }
-
 
 function renderCard(item){
-
     let date = "Unknown";
-
-    if(item.createdAt?.toDate){
-
-        date =
-            item.createdAt
-            .toDate()
-            .toLocaleString();
-
-    }
-
-
+    if(item.createdAt?.toDate){ date = item.createdAt.toDate().toLocaleString(); }
     let reviewed = "";
+    if(item.reviewedAt?.toDate){ reviewed = "Reviewed " + item.reviewedAt.toDate().toLocaleString(); }
 
-    if(item.reviewedAt?.toDate){
+    const developer = item.developer || item.developerName || "Unknown developer";
+    const githubUrl = item.githubUrl || item.gameUrl || "";
+    const thumbnail = item.thumbnailData || item.thumbnailUrl || "";
+    const image = thumbnail
+        ? `<img src="${safe(thumbnail)}" alt="${escapeHTML(item.gameName || "Game thumbnail")}" onerror="this.style.display='none'">`
+        : `<div class="thumbnail-placeholder">PLAYR</div>`;
 
-        reviewed =
-            "Reviewed " +
-            item.reviewedAt
-            .toDate()
-            .toLocaleString();
-
-    }
-
-
-    const developer =
-        item.developer ||
-        item.developerName ||
-        "Unknown developer";
-
-    const githubUrl =
-        item.githubUrl ||
-        item.gameUrl ||
-        "";
-
-    const thumbnail =
-        item.thumbnailData ||
-        item.thumbnailUrl ||
-        "";
-
-
-    const image =
-        thumbnail
-        ? `
-            <img
-                src="${safe(thumbnail)}"
-                alt="${escapeHTML(item.gameName || "Game thumbnail")}"
-                onerror="this.style.display='none'"
-            >
-        `
-        : `
-            <div class="thumbnail-placeholder">
-                PLAYR
-            </div>
-        `;
-
-
-    const controls =
-        item.controls ||
-        "Not provided";
-
-    const supportedDevices =
-        item.supportedDevices ||
-        "Not provided";
-
-    const orientation =
-        item.orientation ||
-        "Not provided";
-
-    const language =
-        item.language ||
-        "Not provided";
-
-    const country =
-        item.country ||
-        "Not provided";
-
-    const developerType =
-        item.developerType ||
-        "Not provided";
-
+    const controls = item.controls || "Not provided";
+    const supportedDevices = item.supportedDevices || "Not provided";
+    const orientation = item.orientation || "Not provided";
+    const language = item.language || "Not provided";
+    const country = item.country || "Not provided";
+    const developerType = item.developerType || "Not provided";
 
     return `
-
-    <article
-        class="submission"
-        data-id="${safe(item.id)}"
-    >
-
+    <article class="submission" data-id="${safe(item.id)}">
         <div class="card-top">
-
-            <div class="thumbnail">
-                ${image}
-            </div>
-
+            <input type="checkbox" class="bulk-check" data-id="${safe(item.id)}" ${selectedSubIds.has(item.id) ? "checked" : ""} style="margin-top:8px;accent-color:#ff7845;width:20px;height:20px;flex:none;cursor:pointer;">
+            <div class="thumbnail">${image}</div>
             <div class="info">
-
                 <div class="title-line">
-
-                    <div class="game-name">
-                        ${escapeHTML(
-                            item.gameName ||
-                            "Untitled Game"
-                        )}
-                    </div>
-
-                    <span
-                        class="status ${safe(
-                            item.status || "pending"
-                        )}"
-                    >
-                        ${escapeHTML(
-                            item.status || "pending"
-                        )}
-                    </span>
-
+                    <div class="game-name">${escapeHTML(item.gameName || "Untitled Game")}</div>
+                    <span class="status ${safe(item.status || "pending")}">${escapeHTML(item.status || "pending")}</span>
                 </div>
-
-                <div class="developer">
-                    ${escapeHTML(developer)}
-                    &nbsp; · &nbsp;
-                    ${escapeHTML(item.email || "No email")}
-                </div>
-
+                <div class="developer">${escapeHTML(developer)} &nbsp; · &nbsp; ${escapeHTML(item.email || "No email")}</div>
                 <div class="meta">
-
-                    <span>
-                        Category:
-                        ${escapeHTML(
-                            item.category ||
-                            "Not provided"
-                        )}
-                    </span>
-
-                    <span>
-                        Country:
-                        ${escapeHTML(country)}
-                    </span>
-
-                    <span>
-                        Type:
-                        ${escapeHTML(developerType)}
-                    </span>
-
-                    <span>
-                        Devices:
-                        ${escapeHTML(supportedDevices)}
-                    </span>
-
-                    <span>
-                        Orientation:
-                        ${escapeHTML(orientation)}
-                    </span>
-
-                    <span>
-                        Language:
-                        ${escapeHTML(language)}
-                    </span>
-
-                    <span>
-                        Submitted ${escapeHTML(date)}
-                    </span>
-
+                    <span>Category: ${escapeHTML(item.category || "Not provided")}</span>
+                    <span>Country: ${escapeHTML(country)}</span>
+                    <span>Type: ${escapeHTML(developerType)}</span>
+                    <span>Devices: ${escapeHTML(supportedDevices)}</span>
+                    <span>Orientation: ${escapeHTML(orientation)}</span>
+                    <span>Language: ${escapeHTML(language)}</span>
+                    <span>Submitted ${escapeHTML(date)}</span>
                 </div>
-
             </div>
-
         </div>
-
-        <div class="description">
-
-            <strong style="color:#cfcfcf;">
-                Description
-            </strong>
-
-            <br><br>
-
-            ${escapeHTML(
-                item.description ||
-                "No description provided."
-            )}
-
-        </div>
-
-        <div class="description">
-
-            <strong style="color:#cfcfcf;">
-                Controls / Instructions
-            </strong>
-
-            <br><br>
-
-            ${escapeHTML(controls)}
-
-        </div>
-
-        <div class="game-url">
-
-            <strong style="color:#cfcfcf;">
-                GitHub Repository
-            </strong>
-
-            <br>
-
-            ${
-                githubUrl
-                ? `
-                    <a
-                        href="${safe(githubUrl)}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        ${escapeHTML(githubUrl)}
-                    </a>
-                `
-                : `
-                    <span style="color:#555;">
-                        Not provided
-                    </span>
-                `
-            }
-
-        </div>
-
+        <div class="description"><strong style="color:#cfcfcf;">Description</strong><br><br>${escapeHTML(item.description || "No description provided.")}</div>
+        <div class="description"><strong style="color:#cfcfcf;">Controls / Instructions</strong><br><br>${escapeHTML(controls)}</div>
+        <div class="game-url"><strong style="color:#cfcfcf;">GitHub Repository</strong><br>${githubUrl ? `<a href="${safe(githubUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(githubUrl)}</a>` : `<span style="color:#555;">Not provided</span>`}</div>
         <div class="actions">
-
-            ${
-                githubUrl
-                ? `
-                    <button
-                        class="action"
-                        data-action="open"
-                        data-id="${safe(item.id)}"
-                    >
-                        OPEN GITHUB
-                    </button>
-                `
-                : ""
-            }
-
-            ${
-                item.status !== "approved"
-                ? `
-                    <button
-                        class="action approve"
-                        data-action="approve"
-                        data-id="${safe(item.id)}"
-                    >
-                        ✓ APPROVE
-                    </button>
-                `
-                : ""
-            }
-
-            ${
-                item.status !== "rejected"
-                ? `
-                    <button
-                        class="action reject"
-                        data-action="reject"
-                        data-id="${safe(item.id)}"
-                    >
-                        ✕ REJECT
-                    </button>
-                `
-                : ""
-            }
-
-            <button
-                type="button"
-                class="action delete"
-                data-action="delete"
-                data-id="${safe(item.id)}"
-            >
-                🗑 DELETE
-            </button>
-
-            <div class="review-info">
-                ${escapeHTML(reviewed)}
-            </div>
-
+            ${githubUrl ? `<button class="action" data-action="open" data-id="${safe(item.id)}">OPEN GITHUB</button>` : ""}
+            ${item.status !== "approved" ? `<button class="action approve" data-action="approve" data-id="${safe(item.id)}">✓ APPROVE</button>` : ""}
+            ${item.status !== "rejected" ? `<button class="action reject" data-action="reject" data-id="${safe(item.id)}">✕ REJECT</button>` : ""}
+            <button type="button" class="action delete" data-action="delete" data-id="${safe(item.id)}">🗑 DELETE</button>
+            <div class="review-info">${escapeHTML(reviewed)}</div>
         </div>
-
-        <div
-            class="reason"
-            id="reason-${safe(item.id)}"
-        >
-
-            <textarea
-                id="reasonText-${safe(item.id)}"
-                placeholder="Optional rejection reason..."
-            >${escapeHTML(
-                item.rejectionReason || ""
-            )}</textarea>
-
+        <div class="reason" id="reason-${safe(item.id)}">
+            <textarea id="reasonText-${safe(item.id)}" placeholder="Optional rejection reason...">${escapeHTML(item.rejectionReason || "")}</textarea>
             <div class="reason-actions">
-
-                <button
-                    class="confirm"
-                    data-action="confirmReject"
-                    data-id="${safe(item.id)}"
-                >
-                    Confirm rejection
-                </button>
-
-                <button
-                    data-action="cancelReject"
-                    data-id="${safe(item.id)}"
-                >
-                    Cancel
-                </button>
-
+                <button class="confirm" data-action="confirmReject" data-id="${safe(item.id)}">Confirm rejection</button>
+                <button data-action="cancelReject" data-id="${safe(item.id)}">Cancel</button>
             </div>
-
         </div>
-
-    </article>
-
-    `;
+    </article>`;
 }
 
-
-list.addEventListener(
-    "click",
-    async event => {
-
-        const button =
-            event.target.closest("button");
-
-        if(!button){
-            return;
-        }
-
-        const action =
-            button.dataset.action;
-
-        const id =
-            button.dataset.id;
-
-
-        if(action === "open"){
-
-            const item =
-                submissions.find(
-                    x => x.id === id
-                );
-
-            const openUrl =
-                item?.githubUrl ||
-                item?.gameUrl ||
-                "";
-
-            if(openUrl){
-
-                window.open(
-                    openUrl,
-                    "_blank"
-                );
-
-            }
-
-            return;
-        }
-
-
-        if(action === "approve"){
-
-            await approve(id);
-
-            return;
-        }
-
-
-        if(action === "reject"){
-
-            const box =
-                document.getElementById(
-                    "reason-" + id
-                );
-
-            if(box){
-                box.style.display = "block";
-            }
-
-            return;
-        }
-
-
-        if(action === "cancelReject"){
-
-            const box =
-                document.getElementById(
-                    "reason-" + id
-                );
-
-            if(box){
-                box.style.display = "none";
-            }
-
-            return;
-        }
-
-
-        if(action === "confirmReject"){
-
-            await reject(id);
-
-            return;
-        }
-
-
-        if(action === "delete"){
-
-            await deleteSubmission(id);
-
-            return;
-        }
-
+list.addEventListener("click", async event => {
+    const check = event.target.closest(".bulk-check");
+    if(check){
+        const id = check.dataset.id;
+        if(check.checked){ selectedSubIds.add(id); } else { selectedSubIds.delete(id); }
+        updateBulkButtons();
+        return;
     }
-);
+    const button = event.target.closest("button");
+    if(!button) return;
+    const action = button.dataset.action;
+    const id = button.dataset.id;
 
+    if(action === "open"){
+        const item = submissions.find(x => x.id === id);
+        const openUrl = item?.githubUrl || item?.gameUrl || "";
+        if(openUrl){ window.open(openUrl, "_blank"); }
+        return;
+    }
+    if(action === "approve"){ await approve(id); return; }
+    if(action === "reject"){
+        const box = document.getElementById("reason-" + id);
+        if(box) box.style.display = "block";
+        return;
+    }
+    if(action === "cancelReject"){
+        const box = document.getElementById("reason-" + id);
+        if(box) box.style.display = "none";
+        return;
+    }
+    if(action === "confirmReject"){ await reject(id); return; }
+    if(action === "delete"){ await deleteSubmission(id); return; }
+});
 
 async function approve(id){
-
-    const item =
-        submissions.find(
-            x => x.id === id
-        );
-
-    if(!item){
-        return;
-    }
-
-
-    if(
-        !confirm(
-            `Approve "${item.gameName}"?`
-        )
-    ){
-        return;
-    }
-
-
+    const item = submissions.find(x => x.id === id);
+    if(!item) return;
+    if(!confirm(`Approve "${item.gameName}"?`)) return;
     try{
-
-        /*
-         * APPROVAL:
-         * status becomes "approved".
-         *
-         * index.html can now automatically
-         * show this game by reading only
-         * approved submissions.
-         */
-
-        await updateDoc(
-            doc(
-                db,
-                "game_submissions",
-                id
-            ),
-            {
-                status:"approved",
-
-                reviewedAt:
-                    serverTimestamp(),
-
-                approvedAt:
-                    serverTimestamp(),
-
-                rejectionReason:null
-            }
-        );
-
-
-        item.status =
-            "approved";
-
-        item.rejectionReason =
-            null;
-
-        item.reviewedAt = {
-            toDate:() => new Date()
-        };
-
-        item.approvedAt = {
-            toDate:() => new Date()
-        };
-
-
+        await updateDoc(doc(db, "game_submissions", id), {
+            status:"approved", reviewedAt: serverTimestamp(), approvedAt: serverTimestamp(), rejectionReason:null
+        });
+        item.status = "approved";
+        item.rejectionReason = null;
+        item.reviewedAt = { toDate:() => new Date() };
+        item.approvedAt = { toDate:() => new Date() };
+        logAudit("approve_submission", "game_submissions", id, { name: item.gameName });
         updateStats();
-
         render();
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        showError(
-            "Approve failed: " +
-            error.message
-        );
-
-    }
-
+        toast(`Approved "${item.gameName}"`, "success");
+    }catch(error){ showError("Approve failed: " + error.message); }
 }
-
 
 async function reject(id){
-
-    const item =
-        submissions.find(
-            x => x.id === id
-        );
-
-    if(!item){
-        return;
-    }
-
-
-    const textarea =
-        document.getElementById(
-            "reasonText-" + id
-        );
-
-
-    const reason =
-        textarea
-        ? textarea.value.trim()
-        : "";
-
-
-    if(
-        !confirm(
-            `Reject "${item.gameName}"?`
-        )
-    ){
-        return;
-    }
-
-
+    const item = submissions.find(x => x.id === id);
+    if(!item) return;
+    const textarea = document.getElementById("reasonText-" + id);
+    const reason = textarea ? textarea.value.trim() : "";
+    if(!confirm(`Reject "${item.gameName}"?`)) return;
     try{
-
-        await updateDoc(
-            doc(
-                db,
-                "game_submissions",
-                id
-            ),
-            {
-                status:"rejected",
-
-                reviewedAt:
-                    serverTimestamp(),
-
-                approvedAt:null,
-
-                rejectionReason:
-                    reason || null
-            }
-        );
-
-
-        item.status =
-            "rejected";
-
-        item.reviewedAt = {
-            toDate:() => new Date()
-        };
-
+        await updateDoc(doc(db, "game_submissions", id), {
+            status:"rejected", reviewedAt: serverTimestamp(), approvedAt:null, rejectionReason: reason || null
+        });
+        item.status = "rejected";
+        item.reviewedAt = { toDate:() => new Date() };
         item.approvedAt = null;
-
-        item.rejectionReason =
-            reason || null;
-
-
+        item.rejectionReason = reason || null;
+        logAudit("reject_submission", "game_submissions", id, { name: item.gameName, reason });
         updateStats();
-
         render();
-
-    }
-
-    catch(error){
-
-        showError(
-            "Reject failed: " +
-            error.message
-        );
-
-    }
-
+        toast(`Rejected "${item.gameName}"`, "warn");
+    }catch(error){ showError("Reject failed: " + error.message); }
 }
-
 
 async function deleteSubmission(id){
-
-    const item =
-        submissions.find(
-            x => x.id === id
-        );
-
-    if(!item){
-
-        showError(
-            "Submission not found."
-        );
-
-        return;
-    }
-
-
-    const title =
-        item.gameName ||
-        "this submission";
-
-
-    const confirmed =
-        window.confirm(
-            `PERMANENTLY DELETE "${title}"?\n\n` +
-            `This will completely remove the submission ` +
-            `from Firestore. This cannot be undone.`
-        );
-
-
-    if(!confirmed){
-        return;
-    }
-
-
+    const item = submissions.find(x => x.id === id);
+    if(!item){ showError("Submission not found."); return; }
+    const title = item.gameName || "this submission";
+    if(!window.confirm(`PERMANENTLY DELETE "${title}"?\n\nThis cannot be undone.`)) return;
     try{
-
-        await deleteDoc(
-            doc(
-                db,
-                "game_submissions",
-                id
-            )
-        );
-
-
-        submissions =
-            submissions.filter(
-                x => x.id !== id
-            );
-
-
+        await deleteDoc(doc(db, "game_submissions", id));
+        submissions = submissions.filter(x => x.id !== id);
+        selectedSubIds.delete(id);
+        logAudit("delete_submission", "game_submissions", id, { name: title });
         updateStats();
-
         render();
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Delete error:",
-            error
-        );
-
-
-        if(
-            error.code ===
-            "permission-denied"
-        ){
-
-            showError(
-                "Delete blocked by Firestore Rules. " +
-                "Your rules must allow delete for game_submissions."
-            );
-
+        toast(`Deleted "${title}"`, "error");
+    }catch(error){
+        if(error.code === "permission-denied"){
+            showError("Delete blocked by Firestore Rules. Allow delete for game_submissions.");
+        }else{
+            showError("Delete failed: " + error.message);
         }
-        else{
-
-            showError(
-                "Delete failed: " +
-                error.message
-            );
-
-        }
-
     }
-
 }
 
+document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+        document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+        tab.classList.add("active");
+        currentTab = tab.dataset.tab;
+        render();
+    });
+});
 
-document
-.querySelectorAll(".tab")
-.forEach(
-    tab => {
+search.addEventListener("input", render);
+document.getElementById("refreshButton").addEventListener("click", loadSubmissions);
 
-        tab.addEventListener(
-            "click",
-            () => {
+/* BULK ACTIONS */
 
-                document
-                .querySelectorAll(".tab")
-                .forEach(
-                    x =>
-                    x.classList.remove(
-                        "active"
-                    )
-                );
+function updateBulkButtons(){
+    const a = document.getElementById("bulkApproveBtn");
+    const r = document.getElementById("bulkRejectBtn");
+    const d = document.getElementById("bulkDeleteBtn");
+    const disabled = selectedSubIds.size === 0;
+    a.disabled = disabled;
+    r.disabled = disabled;
+    d.disabled = disabled;
+    a.textContent = disabled ? "✓ Bulk approve" : `✓ Bulk approve (${selectedSubIds.size})`;
+    r.textContent = disabled ? "✕ Bulk reject"  : `✕ Bulk reject (${selectedSubIds.size})`;
+    d.textContent = disabled ? "🗑 Bulk delete"  : `🗑 Bulk delete (${selectedSubIds.size})`;
+}
 
+document.getElementById("bulkApproveBtn").addEventListener("click", async () => {
+    if(selectedSubIds.size === 0) return;
+    if(!confirm(`Approve ${selectedSubIds.size} submissions?`)) return;
+    try{
+        const batch = writeBatch(db);
+        const ids = [...selectedSubIds];
+        ids.forEach(id => {
+            batch.update(doc(db, "game_submissions", id), {
+                status: "approved", reviewedAt: serverTimestamp(), approvedAt: serverTimestamp(), rejectionReason: null
+            });
+        });
+        await batch.commit();
+        ids.forEach(id => {
+            const it = submissions.find(x => x.id === id);
+            if(it){ it.status = "approved"; it.rejectionReason = null; it.reviewedAt = { toDate:() => new Date() }; }
+        });
+        logAudit("bulk_approve", "game_submissions", ids.join(","), { count: ids.length });
+        selectedSubIds.clear();
+        updateStats();
+        render();
+        toast(`Approved ${ids.length} submissions`, "success");
+    }catch(err){ showError("Bulk approve failed: " + err.message); }
+});
 
-                tab.classList.add(
-                    "active"
-                );
+document.getElementById("bulkRejectBtn").addEventListener("click", async () => {
+    if(selectedSubIds.size === 0) return;
+    const reason = prompt(`Rejection reason for ${selectedSubIds.size} submissions? (optional)`) || "";
+    if(!confirm(`Reject ${selectedSubIds.size} submissions?`)) return;
+    try{
+        const batch = writeBatch(db);
+        const ids = [...selectedSubIds];
+        ids.forEach(id => {
+            batch.update(doc(db, "game_submissions", id), {
+                status: "rejected", reviewedAt: serverTimestamp(), approvedAt: null, rejectionReason: reason || null
+            });
+        });
+        await batch.commit();
+        ids.forEach(id => {
+            const it = submissions.find(x => x.id === id);
+            if(it){ it.status = "rejected"; it.rejectionReason = reason || null; it.reviewedAt = { toDate:() => new Date() }; }
+        });
+        logAudit("bulk_reject", "game_submissions", ids.join(","), { count: ids.length, reason });
+        selectedSubIds.clear();
+        updateStats();
+        render();
+        toast(`Rejected ${ids.length} submissions`, "warn");
+    }catch(err){ showError("Bulk reject failed: " + err.message); }
+});
 
+document.getElementById("bulkDeleteBtn").addEventListener("click", async () => {
+    if(selectedSubIds.size === 0) return;
+    if(!confirm(`PERMANENTLY DELETE ${selectedSubIds.size} submissions? Cannot be undone.`)) return;
+    try{
+        const batch = writeBatch(db);
+        const ids = [...selectedSubIds];
+        ids.forEach(id => batch.delete(doc(db, "game_submissions", id)));
+        await batch.commit();
+        submissions = submissions.filter(x => !selectedSubIds.has(x.id));
+        const count = ids.length;
+        logAudit("bulk_delete", "game_submissions", ids.join(","), { count });
+        selectedSubIds.clear();
+        updateStats();
+        render();
+        toast(`Deleted ${count} submissions`, "error");
+    }catch(err){ showError("Bulk delete failed: " + err.message); }
+});
 
-                currentTab =
-                    tab.dataset.tab;
-
-
-                render();
-
-            }
-        );
-
-    }
-);
-
-
-search.addEventListener(
-    "input",
-    render
-);
-
-
-document
-.getElementById("refreshButton")
-.addEventListener(
-    "click",
-    loadSubmissions
-);
-
+/* HELPERS */
 
 function escapeHTML(value){
+    if(value === null || value === undefined) return "";
+    return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function safe(value){ return escapeHTML(value); }
+function showError(message){ errorBox.innerHTML = `<div class="error">${escapeHTML(message)}</div>`; }
+function toast(message, type){
+    const box = document.getElementById("toastContainer");
+    const el = document.createElement("div");
+    el.className = "toast " + (type || "");
+    el.textContent = message;
+    box.appendChild(el);
+    setTimeout(() => { el.style.opacity = "0"; el.style.transition = "opacity .25s"; setTimeout(() => el.remove(), 250); }, 3000);
+}
+async function logAudit(action, targetType, targetId, meta = {}){
+    try{
+        await addDoc(collection(db, "audit_logs"), {
+            action, targetType, targetId, meta, adminUid: "admin", createdAt: serverTimestamp()
+        });
+    }catch(e){ console.warn("audit log failed", e); }
+}
+function fmtDate(ts){
+    if(!ts) return "—";
+    if(ts.toDate) return ts.toDate().toLocaleString();
+    if(ts.seconds) return new Date(ts.seconds * 1000).toLocaleString();
+    return "—";
+}
 
-    if(
-        value === null ||
-        value === undefined
-    ){
-        return "";
+/* VIEW ROUTER */
+
+const navButtons = document.querySelectorAll("#adminNav button");
+const views = document.querySelectorAll(".view");
+
+const viewLoaders = {
+    games: loadGames, users: loadUsers, reports: loadReports, analytics: loadAnalytics,
+    homepage: loadHomepage, categories: loadCategories, notifications: loadNotifications,
+    originals: loadOriginals, emergency: loadEmergency, settings: loadSettings, audit: loadAudit
+};
+
+navButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        navButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const target = btn.dataset.view;
+        views.forEach(v => { v.classList.toggle("hidden", v.id !== "view-" + target); });
+        if(viewLoaders[target]) viewLoaders[target]();
+        window.scrollTo({ top:0, behavior:"smooth" });
+    });
+});
+
+/* GAMES */
+
+let allGames = [];
+let gameFilter = "all";
+let gameSearchTerm = "";
+
+async function loadGames(){
+    const box = document.getElementById("gamesList");
+    box.innerHTML = `<div class="loading">Loading games...</div>`;
+    try{
+        const snap = await getDocs(collection(db, "game_submissions"));
+        allGames = snap.docs.map(d => ({ id:d.id, ...d.data() }))
+                            .filter(g => g.status === "approved" || g.status === "takedown");
+        renderGames();
+    }catch(err){
+        box.innerHTML = `<div class="empty">Failed to load: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+function renderGames(){
+    const box = document.getElementById("gamesList");
+    const filtered = allGames.filter(g => {
+        if(gameFilter === "slider" && !g.heroSlider) return false;
+        if(gameFilter === "original" && !g.isOriginal) return false;
+        if(gameFilter === "featured" && !g.featured) return false;
+        if(gameFilter === "pinned" && !g.pinned) return false;
+        if(gameFilter === "frozen" && !g.frozen) return false;
+        if(gameFilter === "takedown" && g.status !== "takedown") return false;
+        if(gameFilter !== "takedown" && g.status === "takedown") return false;
+        if(gameSearchTerm){
+            const t = (g.gameName||"") + " " + (g.category||"") + " " + (g.developer||"");
+            if(!t.toLowerCase().includes(gameSearchTerm)) return false;
+        }
+        return true;
+    });
+
+    if(!filtered.length){
+        box.innerHTML = `<div class="empty">No games in this filter.</div>`;
+        return;
     }
 
-
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-function safe(value){
-
-    return escapeHTML(value);
-
-}
-
-
-function showError(message){
-
-    errorBox.innerHTML = `
-        <div class="error">
-            ${escapeHTML(message)}
+    box.innerHTML = filtered.map(g => `
+        <div class="row-card">
+            <div class="main">
+                <h4>${escapeHTML(g.gameName || "Untitled")}</h4>
+                <div class="sub">
+                    ${escapeHTML(g.category || "No category")} · ${escapeHTML(g.developer || g.developerName || "Unknown")}
+                </div>
+                <div class="chip-row" style="margin-top:14px;margin-bottom:0;">
+                    ${g.heroSlider ? `<span class="badge gold">In Slider</span>` : ""}
+                    ${g.isOriginal ? `<span class="badge orange">Original</span>` : ""}
+                    ${g.featured ? `<span class="badge orange">Featured</span>` : ""}
+                    ${g.pinned ? `<span class="badge green">Pinned</span>` : ""}
+                    ${g.frozen ? `<span class="badge red">Frozen</span>` : ""}
+                    ${g.status === "takedown" ? `<span class="badge red">Takedown</span>` : ""}
+                </div>
+            </div>
+            <div class="side">
+                <button class="action slider ${g.heroSlider?"active":""}" data-gact="slider" data-id="${safe(g.id)}">
+                    ${g.heroSlider ? "⭐ In Slider" : "⭐ Add to Slider"}
+                </button>
+                <button class="action original ${g.isOriginal?"active":""}" data-gact="original" data-id="${safe(g.id)}">
+                    ${g.isOriginal ? "👑 Original" : "👑 Make Original"}
+                </button>
+                <button class="action orange" data-gact="feature" data-id="${safe(g.id)}">${g.featured?"Unfeature":"Feature"}</button>
+                <button class="action" data-gact="pin" data-id="${safe(g.id)}">${g.pinned?"Unpin":"Pin"}</button>
+                <button class="action" data-gact="freeze" data-id="${safe(g.id)}">${g.frozen?"Unfreeze":"Freeze"}</button>
+                <button class="action reject" data-gact="takedown" data-id="${safe(g.id)}">${g.status==="takedown"?"Restore":"Takedown"}</button>
+                <button class="action" data-gact="edit" data-id="${safe(g.id)}">Edit</button>
+            </div>
         </div>
-    `;
-
+    `).join("");
 }
 
+document.querySelectorAll("[data-gamefilter]").forEach(chip => {
+    chip.addEventListener("click", () => {
+        document.querySelectorAll("[data-gamefilter]").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        gameFilter = chip.dataset.gamefilter;
+        renderGames();
+    });
+});
+
+document.getElementById("gamesSearch").addEventListener("input", e => {
+    gameSearchTerm = e.target.value.trim().toLowerCase();
+    renderGames();
+});
+
+document.getElementById("gamesList").addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-gact]");
+    if(!btn) return;
+
+    const act = btn.dataset.gact;
+    const id  = btn.dataset.id;
+    const game = allGames.find(g => g.id === id);
+    if(!game) return;
+
+    try{
+        /* ============ SLIDER (only heroSlider) ============ */
+        if(act === "slider"){
+            const v = !game.heroSlider;
+            await updateDoc(doc(db, "game_submissions", id), { heroSlider: v });
+            game.heroSlider = v;
+            logAudit(v?"add_to_slider":"remove_from_slider","game_submissions",id);
+            toast(v?"Added to Hero Slider":"Removed from Hero Slider", v?"success":"warn");
+        }
+
+        /* ============ ORIGINAL (only isOriginal) ============ */
+        if(act === "original"){
+            const v = !game.isOriginal;
+            await updateDoc(doc(db, "game_submissions", id), { isOriginal: v });
+            game.isOriginal = v;
+            logAudit(v?"mark_original":"unmark_original","game_submissions",id);
+            toast(v?"Marked as PLAYR Original":"Original removed", v?"success":"warn");
+        }
+
+        if(act === "feature"){
+            const v = !game.featured;
+            await updateDoc(doc(db, "game_submissions", id), { featured:v, featuredAt: v?serverTimestamp():null });
+            game.featured = v;
+            logAudit(v?"feature_game":"unfeature_game","game_submissions",id);
+            toast(v?"Featured":"Unfeatured","success");
+        }
+
+        if(act === "pin"){
+            const v = !game.pinned;
+            await updateDoc(doc(db, "game_submissions", id), { pinned:v });
+            game.pinned = v;
+            logAudit(v?"pin_game":"unpin_game","game_submissions",id);
+            toast(v?"Pinned":"Unpinned","success");
+        }
+
+        if(act === "freeze"){
+            const v = !game.frozen;
+            await updateDoc(doc(db, "game_submissions", id), { frozen:v });
+            game.frozen = v;
+            logAudit(v?"freeze_game":"unfreeze_game","game_submissions",id);
+            toast(v?"Frozen":"Unfrozen","warn");
+        }
+
+        if(act === "takedown"){
+            if(game.status === "takedown"){
+                await updateDoc(doc(db, "game_submissions", id), { status:"approved" });
+                game.status = "approved";
+                logAudit("restore_game","game_submissions",id);
+                toast("Game restored","success");
+            }else{
+                if(!confirm(`Takedown "${game.gameName}"?`)) return;
+                await updateDoc(doc(db, "game_submissions", id), { status:"takedown", takedownAt: serverTimestamp() });
+                game.status = "takedown";
+                logAudit("takedown_game","game_submissions",id);
+                toast("Game taken down","error");
+            }
+        }
+
+        if(act === "edit"){
+            const newName = prompt("New title:", game.gameName || "");
+            if(newName === null) return;
+            const newCat = prompt("New category:", game.category || "");
+            if(newCat === null) return;
+            await updateDoc(doc(db, "game_submissions", id), {
+                gameName: newName.trim(), category: newCat.trim()
+            });
+            game.gameName = newName.trim();
+            game.category = newCat.trim();
+            logAudit("edit_game","game_submissions",id);
+            toast("Game updated","success");
+        }
+
+        renderGames();
+    }catch(err){
+        toast(err.message,"error");
+    }
+});
+
+/* USERS */
+
+let allUsers = [];
+let userSearchTerm = "";
+
+async function loadUsers(){
+    const box = document.getElementById("usersList");
+    box.innerHTML = `<div class="loading">Loading users...</div>`;
+    try{
+        const snap = await getDocs(collection(db, "users"));
+        allUsers = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        renderUsers();
+    }catch(err){
+        box.innerHTML = `<div class="empty">Failed to load: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+function renderUsers(){
+    const box = document.getElementById("usersList");
+    const filtered = allUsers.filter(u => {
+        if(!userSearchTerm) return true;
+        const t = ((u.displayName||"") + " " + (u.username||"") + " " + (u.email||"")).toLowerCase();
+        return t.includes(userSearchTerm);
+    });
+    if(!filtered.length){
+        box.innerHTML = `<div class="empty">No users found.</div>`;
+        return;
+    }
+    box.innerHTML = filtered.map(u => `
+        <div class="row-card">
+            <div class="main">
+                <h4>${escapeHTML(u.displayName || u.username || u.email || u.id)}</h4>
+                <div class="sub">${escapeHTML(u.email || "No email")} · role: ${escapeHTML(u.role || "player")}</div>
+                <div class="chip-row" style="margin-top:14px;margin-bottom:0;">
+                    ${u.banned ? `<span class="badge red">Banned</span>` : ""}
+                    ${u.shadowBanned ? `<span class="badge red">Shadow</span>` : ""}
+                </div>
+            </div>
+            <div class="side">
+                <select class="chip" data-urole="${safe(u.id)}" style="padding:11px 16px;">
+                    <option value="player"    ${u.role==="player"||!u.role?"selected":""}>player</option>
+                    <option value="developer" ${u.role==="developer"?"selected":""}>developer</option>
+                    <option value="moderator" ${u.role==="moderator"?"selected":""}>moderator</option>
+                    <option value="admin"     ${u.role==="admin"?"selected":""}>admin</option>
+                </select>
+                <button class="action reject" data-uact="ban" data-id="${safe(u.id)}">${u.banned?"Unban":"Ban"}</button>
+                <button class="action" data-uact="shadow" data-id="${safe(u.id)}">${u.shadowBanned?"Unshadow":"Shadow ban"}</button>
+            </div>
+        </div>
+    `).join("");
+}
+
+document.getElementById("usersSearch").addEventListener("input", e => {
+    userSearchTerm = e.target.value.trim().toLowerCase();
+    renderUsers();
+});
+
+document.getElementById("usersList").addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-uact]");
+    if(!btn) return;
+    const act = btn.dataset.uact;
+    const id  = btn.dataset.id;
+    const user = allUsers.find(u => u.id === id);
+    if(!user) return;
+    try{
+        if(act === "ban"){
+            const v = !user.banned;
+            await updateDoc(doc(db, "users", id), { banned:v, bannedAt: v?serverTimestamp():null });
+            user.banned = v;
+            logAudit(v?"ban_user":"unban_user","users",id);
+            toast(v?"User banned":"User unbanned", v?"error":"success");
+        }
+        if(act === "shadow"){
+            const v = !user.shadowBanned;
+            await updateDoc(doc(db, "users", id), { shadowBanned:v });
+            user.shadowBanned = v;
+            logAudit(v?"shadow_ban":"unshadow_ban","users",id);
+            toast(v?"Shadow banned":"Shadow removed","warn");
+        }
+        renderUsers();
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("usersList").addEventListener("change", async e => {
+    const sel = e.target.closest("select[data-urole]");
+    if(!sel) return;
+    const id = sel.dataset.urole;
+    const role = sel.value;
+    try{
+        await updateDoc(doc(db, "users", id), { role });
+        const user = allUsers.find(u => u.id === id);
+        if(user) user.role = role;
+        logAudit("set_role","users",id,{ role });
+        toast(`Role set to ${role}`,"success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+/* REPORTS */
+
+let allReports = [];
+let reportFilter = "open";
+
+async function loadReports(){
+    const box = document.getElementById("reportsList");
+    box.innerHTML = `<div class="loading">Loading reports...</div>`;
+    try{
+        const snap = await getDocs(collection(db, "reports"));
+        allReports = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        allReports.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+        renderReports();
+    }catch(err){
+        box.innerHTML = `<div class="empty">Failed to load: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+function renderReports(){
+    const box = document.getElementById("reportsList");
+    const list = allReports.filter(r => reportFilter==="all" || (r.status||"open") === reportFilter);
+    if(!list.length){
+        box.innerHTML = `<div class="empty">No reports.</div>`;
+        return;
+    }
+    box.innerHTML = list.map(r => `
+        <div class="row-card">
+            <div class="main">
+                <h4>${escapeHTML(r.reason || "Report")}</h4>
+                <div class="sub">
+                    target: ${escapeHTML(r.targetType || "—")} · ${escapeHTML(r.targetId || "—")}<br>
+                    ${escapeHTML(r.details || "No details")}
+                </div>
+            </div>
+            <div class="side">
+                <button class="action approve" data-ract="dismiss" data-id="${safe(r.id)}">Dismiss</button>
+                <button class="action reject"  data-ract="action"  data-id="${safe(r.id)}">Action</button>
+            </div>
+        </div>
+    `).join("");
+}
+
+document.querySelectorAll("[data-reportfilter]").forEach(chip => {
+    chip.addEventListener("click", () => {
+        document.querySelectorAll("[data-reportfilter]").forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        reportFilter = chip.dataset.reportfilter;
+        renderReports();
+    });
+});
+
+document.getElementById("reportsList").addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-ract]");
+    if(!btn) return;
+    const act = btn.dataset.ract;
+    const id  = btn.dataset.id;
+    try{
+        await updateDoc(doc(db, "reports", id), {
+            status:"resolved",
+            resolution: act === "dismiss" ? "dismissed" : "actioned",
+            resolvedAt: serverTimestamp()
+        });
+        logAudit("resolve_report","reports",id,{ resolution:act });
+        toast("Report resolved","success");
+        loadReports();
+    }catch(err){ toast(err.message,"error"); }
+});
+
+/* ANALYTICS */
+
+async function loadAnalytics(){
+    try{
+        const subsSnap = await getDocs(collection(db, "game_submissions"));
+        const subs = subsSnap.docs.map(d => d.data());
+        const approved = subs.filter(s => s.status === "approved");
+        const pending  = subs.filter(s => s.status === "pending");
+
+        document.getElementById("anTotalGames").textContent = approved.length;
+        document.getElementById("anPending").textContent = pending.length;
+
+        let userCount = 0;
+        try{
+            const us = await getDocs(collection(db, "users"));
+            userCount = us.size;
+        }catch(e){}
+        document.getElementById("anUsers").textContent = userCount;
+
+        let reportCount = 0;
+        try{
+            const rs = await getDocs(collection(db, "reports"));
+            reportCount = rs.docs.filter(d => (d.data().status||"open")==="open").length;
+        }catch(e){}
+        document.getElementById("anReports").textContent = reportCount;
+
+        const cats = {};
+        approved.forEach(g => {
+            const c = g.category || "Uncategorized";
+            cats[c] = (cats[c] || 0) + 1;
+        });
+        const sorted = Object.entries(cats).sort((a,b) => b[1]-a[1]).slice(0,10);
+
+        const box = document.getElementById("anTopGames");
+        if(!sorted.length){
+            box.innerHTML = `<div class="empty">No approved games yet.</div>`;
+        }else{
+            box.innerHTML = `<div class="kv">${sorted.map(([c,n]) => `
+                <div class="cell">
+                    <div class="k">${escapeHTML(c)}</div>
+                    <div class="v">${n}</div>
+                </div>
+            `).join("")}</div>`;
+        }
+    }catch(err){
+        document.getElementById("anTopGames").innerHTML = `<div class="empty">Failed: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+document.getElementById("analyticsRefresh").addEventListener("click", loadAnalytics);
+
+/* HOMEPAGE */
+
+async function loadHomepage(){
+    try{
+        const snap = await getDoc(doc(db, "site_settings", "global"));
+        if(snap.exists()){
+            const d = snap.data();
+            document.getElementById("heroGameId").value = d.heroGameId || "";
+            document.getElementById("heroTagline").value = d.heroTagline || "";
+            document.getElementById("announcementText").value = d.announcement || "";
+        }
+        loadBanners();
+    }catch(err){ console.warn(err); }
+}
+
+document.getElementById("saveHeroBtn").addEventListener("click", async () => {
+    const heroGameId = document.getElementById("heroGameId").value.trim();
+    const heroTagline = document.getElementById("heroTagline").value.trim();
+    try{
+        await setDoc(doc(db, "site_settings", "global"), {
+            heroGameId, heroTagline, updatedAt: serverTimestamp()
+        }, { merge:true });
+        logAudit("set_hero","site_settings","global",{ heroGameId });
+        toast("Hero saved","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("saveAnnouncementBtn").addEventListener("click", async () => {
+    const announcement = document.getElementById("announcementText").value.trim();
+    try{
+        await setDoc(doc(db, "site_settings", "global"), {
+            announcement, updatedAt: serverTimestamp()
+        }, { merge:true });
+        logAudit("set_announcement","site_settings","global");
+        toast("Announcement saved","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("clearAnnouncementBtn").addEventListener("click", async () => {
+    try{
+        await setDoc(doc(db, "site_settings", "global"), {
+            announcement: "", updatedAt: serverTimestamp()
+        }, { merge:true });
+        document.getElementById("announcementText").value = "";
+        logAudit("clear_announcement","site_settings","global");
+        toast("Announcement cleared","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("addBannerBtn").addEventListener("click", async () => {
+    const title = document.getElementById("bannerTitle").value.trim();
+    const image = document.getElementById("bannerImage").value.trim();
+    const link  = document.getElementById("bannerLink").value.trim();
+    if(!title || !image){ toast("Title and image required","warn"); return; }
+    try{
+        await addDoc(collection(db, "banners"), {
+            title, image, link, active:true, createdAt: serverTimestamp()
+        });
+        document.getElementById("bannerTitle").value = "";
+        document.getElementById("bannerImage").value = "";
+        document.getElementById("bannerLink").value = "";
+        logAudit("add_banner","banners","new",{ title });
+        toast("Banner added","success");
+        loadBanners();
+    }catch(err){ toast(err.message,"error"); }
+});
+
+async function loadBanners(){
+    const box = document.getElementById("bannersList");
+    try{
+        const snap = await getDocs(collection(db, "banners"));
+        const items = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        if(!items.length){
+            box.innerHTML = `<div class="empty">No banners yet.</div>`;
+            return;
+        }
+        box.innerHTML = items.map(b => `
+            <div class="row-card">
+                <div class="main">
+                    <h4>${escapeHTML(b.title || "Untitled banner")}</h4>
+                    <div class="sub">${escapeHTML(b.image || "")}${b.link ? " → " + escapeHTML(b.link) : ""}</div>
+                </div>
+                <div class="side">
+                    <button class="action reject" data-bact="del" data-id="${safe(b.id)}">Delete</button>
+                </div>
+            </div>
+        `).join("");
+    }catch(err){
+        box.innerHTML = `<div class="empty">Failed: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+document.getElementById("bannersList").addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-bact]");
+    if(!btn) return;
+    if(btn.dataset.bact === "del"){
+        if(!confirm("Delete this banner?")) return;
+        try{
+            await deleteDoc(doc(db, "banners", btn.dataset.id));
+            logAudit("delete_banner","banners",btn.dataset.id);
+            toast("Banner deleted","error");
+            loadBanners();
+        }catch(err){ toast(err.message,"error"); }
+    }
+});
+
+/* CATEGORIES */
+
+async function loadCategories(){
+    const box = document.getElementById("catsList");
+    try{
+        const snap = await getDocs(collection(db, "categories"));
+        const items = snap.docs.map(d => ({ id:d.id, ...d.data() })).sort((a,b) => (a.order||0)-(b.order||0));
+        if(!items.length){
+            box.innerHTML = `<div class="empty">No categories yet.</div>`;
+            return;
+        }
+        box.innerHTML = items.map(c => `
+            <div class="row-card">
+                <div class="main">
+                    <h4>${escapeHTML(c.name || c.id)}</h4>
+                    <div class="sub">slug: ${escapeHTML(c.slug || "—")} · order: ${c.order || 0}</div>
+                </div>
+                <div class="side">
+                    <button class="action reject" data-cact="del" data-id="${safe(c.id)}">Delete</button>
+                </div>
+            </div>
+        `).join("");
+    }catch(err){
+        box.innerHTML = `<div class="empty">Failed: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+document.getElementById("addCatBtn").addEventListener("click", async () => {
+    const name = document.getElementById("catName").value.trim();
+    const slug = document.getElementById("catSlug").value.trim();
+    const order = parseInt(document.getElementById("catOrder").value || "0", 10);
+    if(!name){ toast("Name required","warn"); return; }
+    try{
+        await addDoc(collection(db, "categories"), {
+            name, slug: slug || name.toLowerCase().replace(/\s+/g,"-"), order, createdAt: serverTimestamp()
+        });
+        document.getElementById("catName").value = "";
+        document.getElementById("catSlug").value = "";
+        logAudit("add_category","categories","new",{ name });
+        toast("Category added","success");
+        loadCategories();
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("catsList").addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-cact]");
+    if(!btn) return;
+    if(btn.dataset.cact === "del"){
+        if(!confirm("Delete this category?")) return;
+        try{
+            await deleteDoc(doc(db, "categories", btn.dataset.id));
+            logAudit("delete_category","categories",btn.dataset.id);
+            toast("Category deleted","error");
+            loadCategories();
+        }catch(err){ toast(err.message,"error"); }
+    }
+});
+
+/* NOTIFICATIONS */
+
+document.getElementById("sendNotifBtn").addEventListener("click", async () => {
+    const audience = document.getElementById("notifAudience").value;
+    const userId   = document.getElementById("notifUserId").value.trim();
+    const title    = document.getElementById("notifTitle").value.trim();
+    const message  = document.getElementById("notifMessage").value.trim();
+    if(!title || !message){ toast("Title and message required","warn"); return; }
+    if(audience === "single" && !userId){ toast("User ID required","warn"); return; }
+    try{
+        await addDoc(collection(db, "notifications"), {
+            audience, userId: audience === "single" ? userId : null,
+            title, message, createdAt: serverTimestamp(), sentBy: "admin"
+        });
+        document.getElementById("notifTitle").value = "";
+        document.getElementById("notifMessage").value = "";
+        logAudit("send_notification","notifications","new",{ audience, title });
+        toast("Notification sent","success");
+        loadNotifications();
+    }catch(err){ toast(err.message,"error"); }
+});
+
+async function loadNotifications(){
+    const box = document.getElementById("notifsList");
+    try{
+        const snap = await getDocs(collection(db, "notifications"));
+        const items = snap.docs.map(d => ({ id:d.id, ...d.data() }))
+                              .sort((a,b) => (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)).slice(0,30);
+        if(!items.length){
+            box.innerHTML = `<div class="empty">No notifications yet.</div>`;
+            return;
+        }
+        box.innerHTML = items.map(n => `
+            <div class="row-card">
+                <div class="main">
+                    <h4>${escapeHTML(n.title || "—")}</h4>
+                    <div class="sub">
+                        audience: ${escapeHTML(n.audience || "—")} · ${fmtDate(n.createdAt)}<br>
+                        ${escapeHTML(n.message || "")}
+                    </div>
+                </div>
+            </div>
+        `).join("");
+    }catch(err){
+        box.innerHTML = `<div class="empty">Failed: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+/* ORIGINALS */
+
+document.getElementById("addOriginalBtn").addEventListener("click", async () => {
+    const title       = document.getElementById("origTitle").value.trim();
+    const url         = document.getElementById("origUrl").value.trim();
+    const category    = document.getElementById("origCategory").value.trim();
+    const thumb       = document.getElementById("origThumb").value.trim();
+    const order       = parseInt(document.getElementById("origOrder").value || "0", 10);
+    const description = document.getElementById("origDesc").value.trim();
+    if(!title || !url){ toast("Title and URL required","warn"); return; }
+    try{
+        await addDoc(collection(db, "playr_originals"), {
+            title, url, category, thumbnail: thumb, order, description,
+            active:true, isOriginal:true, createdAt: serverTimestamp()
+        });
+        ["origTitle","origUrl","origCategory","origThumb","origDesc"].forEach(id => {
+            document.getElementById(id).value = "";
+        });
+        document.getElementById("origOrder").value = "0";
+        logAudit("add_original","playr_originals","new",{ title });
+        toast("PLAYR Original published","success");
+        loadOriginals();
+    }catch(err){ toast(err.message,"error"); }
+});
+
+async function loadOriginals(){
+    const box = document.getElementById("originalsList");
+    try{
+        const snap = await getDocs(collection(db, "playr_originals"));
+        const items = snap.docs.map(d => ({ id:d.id, ...d.data() })).sort((a,b) => (a.order||0)-(b.order||0));
+        if(!items.length){
+            box.innerHTML = `<div class="empty">No PLAYR Originals yet.</div>`;
+            return;
+        }
+        box.innerHTML = items.map(o => `
+            <div class="row-card">
+                <div class="main">
+                    <h4>${escapeHTML(o.title || "Untitled")} <span class="badge orange">Original</span></h4>
+                    <div class="sub">
+                        ${escapeHTML(o.category || "—")} · order ${o.order || 0}<br>
+                        ${escapeHTML(o.url || "")}
+                    </div>
+                </div>
+                <div class="side">
+                    <button class="action" data-oact="toggle" data-id="${safe(o.id)}">${o.active===false?"Activate":"Deactivate"}</button>
+                    <button class="action reject" data-oact="del" data-id="${safe(o.id)}">Delete</button>
+                </div>
+            </div>
+        `).join("");
+    }catch(err){
+        box.innerHTML = `<div class="empty">Failed: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+document.getElementById("originalsList").addEventListener("click", async e => {
+    const btn = e.target.closest("button[data-oact]");
+    if(!btn) return;
+    const act = btn.dataset.oact;
+    const id  = btn.dataset.id;
+    try{
+        if(act === "del"){
+            if(!confirm("Delete this Original?")) return;
+            await deleteDoc(doc(db, "playr_originals", id));
+            logAudit("delete_original","playr_originals",id);
+            toast("Deleted","error");
+        }
+        if(act === "toggle"){
+            const ref = doc(db, "playr_originals", id);
+            const snap = await getDoc(ref);
+            const cur = snap.data()?.active !== false;
+            await updateDoc(ref, { active: !cur });
+            logAudit("toggle_original","playr_originals",id);
+            toast(!cur ? "Activated" : "Deactivated","success");
+        }
+        loadOriginals();
+    }catch(err){ toast(err.message,"error"); }
+});
+
+/* EMERGENCY */
+
+async function loadEmergency(){
+    try{
+        const snap = await getDoc(doc(db, "site_settings", "global"));
+        if(snap.exists()){
+            const d = snap.data();
+            document.getElementById("maintenanceToggle").checked = !!d.maintenance;
+            document.getElementById("maintenanceMsg").value = d.maintenanceMessage || "";
+            document.getElementById("submissionsToggle").checked = !!d.submissionsDisabled;
+            document.getElementById("hideUnapprovedToggle").checked = !!d.hideUnapproved;
+            document.getElementById("emergencyToggle").checked = !!d.emergencyActive;
+            document.getElementById("emergencyText").value = d.emergencyText || "";
+        }
+    }catch(err){ console.warn(err); }
+}
+
+document.getElementById("saveEmergencyBtn").addEventListener("click", async () => {
+    const maintenance         = document.getElementById("maintenanceToggle").checked;
+    const maintenanceMessage  = document.getElementById("maintenanceMsg").value.trim();
+    const submissionsDisabled = document.getElementById("submissionsToggle").checked;
+    const hideUnapproved      = document.getElementById("hideUnapprovedToggle").checked;
+    const emergencyActive     = document.getElementById("emergencyToggle").checked;
+    const emergencyText       = document.getElementById("emergencyText").value.trim();
+
+    if(maintenance || emergencyActive){
+        if(!confirm("This will immediately affect ALL users. Continue?")) return;
+    }
+
+    try{
+        await setDoc(doc(db, "site_settings", "global"), {
+            maintenance, maintenanceMessage, submissionsDisabled, hideUnapproved,
+            emergencyActive, emergencyText, emergencyUpdatedAt: serverTimestamp()
+        }, { merge:true });
+        logAudit("emergency_settings_update","site_settings","global",{
+            maintenance, submissionsDisabled, hideUnapproved, emergencyActive
+        });
+        toast("Emergency settings saved","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("disableGameBtn").addEventListener("click", async () => {
+    const id = document.getElementById("disableGameId").value.trim();
+    if(!id){ toast("Enter a game submission ID","warn"); return; }
+    if(!confirm(`Disable game ${id}?`)) return;
+    try{
+        await updateDoc(doc(db, "game_submissions", id), { disabled:true, disabledAt: serverTimestamp() });
+        logAudit("disable_game","game_submissions",id);
+        toast("Game disabled","warn");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("enableGameBtn").addEventListener("click", async () => {
+    const id = document.getElementById("disableGameId").value.trim();
+    if(!id){ toast("Enter a game submission ID","warn"); return; }
+    try{
+        await updateDoc(doc(db, "game_submissions", id), { disabled:false });
+        logAudit("enable_game","game_submissions",id);
+        toast("Game re-enabled","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+/* SETTINGS */
+
+async function loadSettings(){
+    try{
+        const snap = await getDoc(doc(db, "site_settings", "global"));
+        if(snap.exists()){
+            const d = snap.data();
+            document.getElementById("setSiteName").value = d.siteName || "";
+            document.getElementById("setTagline").value = d.tagline || "";
+        }
+    }catch(err){ console.warn(err); }
+}
+
+document.getElementById("saveSiteBtn").addEventListener("click", async () => {
+    const siteName = document.getElementById("setSiteName").value.trim();
+    const tagline  = document.getElementById("setTagline").value.trim();
+    try{
+        await setDoc(doc(db, "site_settings", "global"), { siteName, tagline, updatedAt: serverTimestamp() }, { merge:true });
+        logAudit("save_site_settings","site_settings","global");
+        toast("Site settings saved","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+function downloadJSON(data, filename){
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type:"application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+}
+
+document.getElementById("exportSubsBtn").addEventListener("click", async () => {
+    try{
+        const snap = await getDocs(collection(db, "game_submissions"));
+        downloadJSON(snap.docs.map(d => ({ id:d.id, ...d.data() })), "playr_submissions.json");
+        toast("Exported submissions","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("exportApprovedBtn").addEventListener("click", async () => {
+    try{
+        const snap = await getDocs(collection(db, "game_submissions"));
+        const approved = snap.docs.map(d => ({ id:d.id, ...d.data() })).filter(x => x.status==="approved");
+        downloadJSON(approved, "playr_approved_games.json");
+        toast("Exported approved games","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("exportUsersBtn").addEventListener("click", async () => {
+    try{
+        const snap = await getDocs(collection(db, "users"));
+        downloadJSON(snap.docs.map(d => ({ id:d.id, ...d.data() })), "playr_users.json");
+        toast("Exported users","success");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+document.getElementById("clearAuditBtn").addEventListener("click", async () => {
+    if(!confirm("DELETE all audit logs? Cannot be undone.")) return;
+    if(!confirm("Are you absolutely sure?")) return;
+    try{
+        const snap = await getDocs(collection(db, "audit_logs"));
+        const batch = writeBatch(db);
+        snap.docs.forEach(d => batch.delete(d.ref));
+        await batch.commit();
+        toast("Audit logs cleared","error");
+    }catch(err){ toast(err.message,"error"); }
+});
+
+/* AUDIT */
+
+async function loadAudit(){
+    const box = document.getElementById("auditList");
+    box.innerHTML = `<div class="loading">Loading audit log...</div>`;
+    try{
+        const snap = await getDocs(collection(db, "audit_logs"));
+        const items = snap.docs.map(d => ({ id:d.id, ...d.data() }))
+                              .sort((a,b) => (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)).slice(0,200);
+        if(!items.length){
+            box.innerHTML = `<div class="empty">No audit entries yet.</div>`;
+            return;
+        }
+        box.innerHTML = items.map(l => `
+            <div class="row-card">
+                <div class="main">
+                    <h4>${escapeHTML(l.action || "—")}</h4>
+                    <div class="sub">
+                        ${escapeHTML(l.targetType || "—")} · ${escapeHTML(l.targetId || "—")}<br>
+                        ${fmtDate(l.createdAt)}
+                    </div>
+                </div>
+            </div>
+        `).join("");
+    }catch(err){
+        box.innerHTML = `<div class="empty">Failed: ${escapeHTML(err.message)}</div>`;
+    }
+}
+
+document.getElementById("auditRefresh").addEventListener("click", loadAudit);
+
+/* INIT */
 
 loadSubmissions();
 
@@ -1952,4 +1947,3 @@ loadSubmissions();
 
 </body>
 </html>
-```
