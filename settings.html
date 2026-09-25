@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Settings — PLAYR</title>
+
+<!-- THEME LOADER — must be FIRST -->
+<script src="theme.js"></script>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root,
+[data-theme="dark"]{
+    --bg:#070707;
+    --bg-gradient:radial-gradient(circle at 50% -10%,#202020 0,transparent 32%);
+    --card:#101010;
+    --card-hover:#181818;
+    --border:#292929;
+    --border-strong:#3a3a3a;
+    --text:#f7f7f5;
+    --text-muted:#777;
+    --text-soft:#aaa;
+    --input-bg:#080808;
+    --orange:#ff6b35;
+    --orange-soft:#ff8754;
+    --green:#22c55e;
+    --red:#ef4444;
+    --shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+[data-theme="light"]{
+    --bg:#f5f5f2;
+    --bg-gradient:radial-gradient(circle at 50% -10%,#ffffff 0,transparent 32%);
+    --card:#ffffff;
+    --card-hover:#f9f9f9;
+    --border:#e2e2e0;
+    --border-strong:#c8c8c5;
+    --text:#0a0a08;
+    --text-muted:#777;
+    --text-soft:#555;
+    --input-bg:#f0f0ed;
+    --orange:#ff5a1f;
+    --orange-soft:#ff7a45;
+    --green:#16a34a;
+    --red:#dc2626;
+    --shadow:0 20px 50px rgba(0,0,0,.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+html{scroll-behavior:smooth;}
+
+body{
+    background:var(--bg-gradient),var(--bg);
+    color:var(--text);
+    font-family:Inter,sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    transition:background .3s ease, color .3s ease;
+    -webkit-font-smoothing:antialiased;
+}
+
+button{font-family:inherit;cursor:pointer;touch-action:manipulation;border:0;}
+input,select,textarea{font-family:inherit;}
+
+/* ============ TOPBAR ============ */
+
+.topbar{
+    height:76px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:0 28px;
+    padding-left:calc(28px + env(safe-area-inset-left, 0px));
+    padding-right:calc(28px + env(safe-area-inset-right, 0px));
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:50;
+    transition:background .3s, border-color .3s;
+}
+
+.back-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:10px 16px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text-soft);
+    font-size:13px;
+    font-weight:700;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.back-btn:hover{
+    background:var(--card-hover);
+    border-color:var(--border-strong);
+    color:var(--text);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--text);
+    text-decoration:none;
+    font-family:"Space Grotesk";
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:-1px;
+    margin-left:auto;
+}
+
+.logo-mark{
+    width:24px;
+    height:24px;
+    border-radius:6px;
+    background:linear-gradient(135deg,#ff914d,#ff4f2d);
+    transform:rotate(45deg);
+    box-shadow:0 0 20px rgba(255,100,50,.3);
+    position:relative;
+}
+
+.logo-mark:after{
+    content:"";
+    position:absolute;
+    width:7px;
+    height:7px;
+    background:var(--bg);
+    border-radius:2px;
+    left:8px;
+    top:8px;
+}
+
+/* ============ CONTAINER ============ */
+
+.container{
+    width:min(820px,94%);
+    margin:44px auto 100px;
+    padding-left:env(safe-area-inset-left, 0px);
+    padding-right:env(safe-area-inset-right, 0px);
+}
+
+.page-header{
+    margin-bottom:36px;
+}
+
+.eyebrow{
+    color:var(--orange);
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:2.4px;
+    text-transform:uppercase;
+}
+
+h1{
+    margin-top:12px;
+    font-family:"Space Grotesk";
+    font-size:44px;
+    line-height:1;
+    letter-spacing:-2.4px;
+    color:var(--text);
+}
+
+.page-header p{
+    margin-top:14px;
+    color:var(--text-muted);
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* ============ SECTION CARD ============ */
+
+.section{
+    margin-bottom:22px;
+    padding:28px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    transition:background .3s, border-color .3s;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:6px;
+}
+
+.section-title-icon{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    background:linear-gradient(135deg, rgba(255,107,53,.15), rgba(255,79,45,.05));
+    border:1px solid rgba(255,107,53,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    flex:none;
+}
+
+.section-title h2{
+    font-family:"Space Grotesk";
+    font-size:19px;
+    font-weight:700;
+    letter-spacing:-.5px;
+    color:var(--text);
+}
+
+.section-desc{
+    color:var(--text-muted);
+    font-size:12.5px;
+    line-height:1.6;
+    margin-bottom:20px;
+    margin-left:48px;
+}
+
+/* ============ ROW ITEMS ============ */
+
+.row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    padding:16px 0;
+    border-bottom:1px solid var(--border);
+}
+
+.row:last-child{border-bottom:none;}
+
+.row-label{
+    flex:1;
+    min-width:0;
+}
+
+.row-label strong{
+    display:block;
+    font-size:14px;
+    font-weight:600;
+    color:var(--text);
+}
+
+.row-label span{
+    display:block;
+    color:var(--text-muted);
+    font-size:12px;
+    margin-top:5px;
+    line-height:1.5;
+}
+
+/* ============ THEME TOGGLE ============ */
+
+.theme-toggle-wrap{
+    display:flex;
+    gap:10px;
+    background:var(--input-bg);
+    border:1px solid var(--border);
+    padding:5px;
+    border-radius:11px;
+    flex:none;
+}
+
+.theme-opt{
+    padding:10px 16px;
+    border-radius:8px;
+    background:transparent;
+    color:var(--text-muted);
+    font-size:12px;
+    font-weight:700;
+    transition:.2s;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    white-space:nowrap;
+}
+
+.theme-opt:hover{color:var(--text);}
+
+.theme-opt.active{
+    background:var(--card);
+    color:var(--text);
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+[data-theme="dark"] .theme-opt.active{
+    background:#1c1c1c;
+}
+
+[data-theme="light"] .theme-opt.active{
+    background:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+/* ============ SWITCH ============ */
+
+.switch{
+    position:relative;
+    display:inline-block;
+    width:50px;
+    height:28px;
+    flex:none;
+}
+
+.switch input{opacity:0;width:0;height:0;}
+
+.switch .slider{
+    position:absolute;
+    inset:0;
+    cursor:pointer;
+    background:var(--input-bg);
+    border:1px solid var(--border);
+    border-radius:28px;
+    transition:.25s;
+}
+
+.switch .slider:before{
+    content:"";
+    position:absolute;
+    height:20px;
+    width:20px;
+    left:3px;
+    top:3px;
+    background:var(--text-muted);
+    border-radius:50%;
+    transition:.25s;
+}
+
+.switch input:checked + .slider{
+    background:rgba(255,107,53,.18);
+    border-color:rgba(255,107,53,.5);
+}
+
+.switch input:checked + .slider:before{
+    transform:translateX(22px);
+    background:var(--orange);
+}
+
+/* ============ INPUT FIELDS ============ */
+
+.field{margin-bottom:16px;}
+
+.field label{
+    display:block;
+    color:var(--text-muted);
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+}
+
+.field input,
+.field select{
+    width:100%;
+    padding:13px 16px;
+    border-radius:10px;
+    background:var(--input-bg);
+    border:1px solid var(--border);
+    color:var(--text);
+    outline:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+.field input:focus,
+.field select:focus{
+    border-color:var(--orange);
+    background:var(--card);
+}
+
+/* ============ BUTTONS ============ */
+
+.btn{
+    padding:12px 20px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:700;
+    transition:.2s;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    justify-content:center;
+    min-height:44px;
+    white-space:nowrap;
+}
+
+.btn-primary{
+    background:linear-gradient(135deg,#ff7a45,#ff542f);
+    color:#fff;
+    box-shadow:0 7px 22px rgba(255,90,45,.2);
+}
+
+.btn-primary:hover{
+    transform:translateY(-1px);
+    box-shadow:0 12px 28px rgba(255,90,45,.3);
+}
+
+.btn-primary:active{transform:scale(.97);}
+
+.btn-ghost{
+    background:var(--card);
+    color:var(--text-soft);
+    border:1px solid var(--border);
+}
+
+.btn-ghost:hover{
+    background:var(--card-hover);
+    border-color:var(--border-strong);
+    color:var(--text);
+}
+
+.btn-danger{
+    background:var(--card);
+    color:var(--red);
+    border:1px solid rgba(239,68,68,.3);
+}
+
+.btn-danger:hover{
+    background:rgba(239,68,68,.08);
+    border-color:rgba(239,68,68,.5);
+}
+
+.btn-full{width:100%;}
+
+/* ============ DANGER ZONE ============ */
+
+.danger-zone{
+    padding:20px;
+    border:1px solid rgba(239,68,68,.3);
+    background:rgba(239,68,68,.04);
+    border-radius:14px;
+    margin-top:16px;
+}
+
+.danger-zone h3{
+    color:var(--red);
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.danger-zone p{
+    color:var(--text-muted);
+    font-size:12.5px;
+    line-height:1.6;
+    margin-bottom:14px;
+}
+
+/* ============ TOAST ============ */
+
+.toast-container{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    right:calc(24px + env(safe-area-inset-right, 0px));
+    bottom:calc(24px + env(safe-area-inset-bottom, 0px));
+    z-index:9999;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    pointer-events:none;
+}
+
+.toast{
+    padding:14px 20px;
+    border-radius:10px;
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--text);
+    font-size:13px;
+    font-weight:600;
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+    max-width:340px;
+    animation:toastIn .25s ease;
+}
+
+.toast.success{border-color:rgba(34,197,94,.4);color:var(--green);}
+.toast.error{border-color:rgba(239,68,68,.4);color:var(--red);}
+
+@keyframes toastIn{
+    from{opacity:0;transform:translateX(20px);}
+    to{opacity:1;transform:translateX(0);}
+}
+
+/* ============ MOBILE ============ */
+
+@media(max-width:600px){
+
+    .topbar{height:62px;gap:10px;padding:0 14px;}
+
+    .back-btn{padding:9px 13px;font-size:12px;}
+
+    .logo{font-size:19px;}
+    .logo-mark{width:22px;height:22px;}
+    .logo-mark:after{width:6px;height:6px;left:8px;top:8px;}
+
+    .container{margin-top:28px;margin-bottom:60px;}
+
+    h1{font-size:32px;letter-spacing:-1.6px;}
+
+    .page-header p{font-size:13px;}
+
+    .section{padding:22px 18px;border-radius:15px;}
+
+    .section-title h2{font-size:17px;}
+
+    .section-title-icon{width:32px;height:32px;font-size:16px;}
+
+    .section-desc{font-size:12px;margin-left:44px;}
+
+    .row{padding:14px 0;flex-wrap:wrap;}
+
+    .theme-toggle-wrap{width:100%;}
+
+    .theme-opt{flex:1;justify-content:center;padding:11px 10px;font-size:11.5px;}
+
+    .btn{padding:11px 16px;font-size:12px;}
+
+    .toast-container{left:14px;right:14px;bottom:14px;}
+}
+
+/* iPhone SE */
+@media(max-width:380px){
+    .logo{font-size:17px;}
+    .back-btn{padding:8px 10px;font-size:11px;}
+    h1{font-size:28px;}
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="back-btn">← Back</a>
+    <a href="index.html" class="logo">
+        PLAYR
+        <span class="logo-mark"></span>
+    </a>
+</header>
+
+<main class="container">
+
+    <div class="page-header">
+        <div class="eyebrow">Preferences</div>
+        <h1>Settings</h1>
+        <p>Customize your PLAYR experience. Changes are saved automatically.</p>
+    </div>
+
+    <!-- APPEARANCE -->
+    <section class="section">
+        <div class="section-title">
+            <div class="section-title-icon">🎨</div>
+            <h2>Appearance</h2>
+        </div>
+        <div class="section-desc">Choose how PLAYR looks to you.</div>
+
+        <div class="row">
+            <div class="row-label">
+                <strong>Theme</strong>
+                <span>Switch between dark and light mode</span>
+            </div>
+            <div class="theme-toggle-wrap">
+                <button class="theme-opt" data-theme-set="dark">🌙 Dark</button>
+                <button class="theme-opt" data-theme-set="light">☀️ Light</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACCOUNT -->
+    <section class="section">
+        <div class="section-title">
+            <div class="section-title-icon">👤</div>
+            <h2>Account</h2>
+        </div>
+        <div class="section-desc">Your basic account information.</div>
+
+        <div class="field">
+            <label>Display name</label>
+            <input type="text" id="setDisplayName" placeholder="Your name">
+        </div>
+
+        <div class="field">
+            <label>Email</label>
+            <input type="email" id="setEmail" placeholder="you@example.com" disabled>
+        </div>
+
+        <button class="btn btn-primary" id="saveAccountBtn">Save changes</button>
+    </section>
+
+    <!-- NOTIFICATIONS -->
+    <section class="section">
+        <div class="section-title">
+            <div class="section-title-icon">🔔</div>
+            <h2>Notifications</h2>
+        </div>
+        <div class="section-desc">Control what updates you want to receive.</div>
+
+        <div class="row">
+            <div class="row-label">
+                <strong>New games</strong>
+                <span>Get notified when new games are published</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="notifNewGames" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="row-label">
+                <strong>Submission updates</strong>
+                <span>Status changes on your submitted games</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="notifSubmissions" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="row-label">
+                <strong>Announcements</strong>
+                <span>Important PLAYR news</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="notifAnnouncements" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </section>
+
+    <!-- PRIVACY -->
+    <section class="section">
+        <div class="section-title">
+            <div class="section-title-icon">🔒</div>
+            <h2>Privacy</h2>
+        </div>
+        <div class="section-desc">Control your visibility on PLAYR.</div>
+
+        <div class="row">
+            <div class="row-label">
+                <strong>Public profile</strong>
+                <span>Let others see your profile and games</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="privacyPublic" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="row-label">
+                <strong>Show play history</strong>
+                <span>Display recently played games on profile</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="privacyHistory">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </section>
+
+    <!-- DANGER ZONE -->
+    <section class="section">
+        <div class="section-title">
+            <div class="section-title-icon">⚠️</div>
+            <h2>Account actions</h2>
+        </div>
+        <div class="section-desc">Manage your session and account.</div>
+
+        <button class="btn btn-ghost btn-full" id="logoutBtn" style="margin-bottom:10px;">
+            🚪 Log out
+        </button>
+
+        <div class="danger-zone">
+            <h3>⚠ Delete account</h3>
+            <p>Permanently delete your account and all your data. This action cannot be undone.</p>
+            <button class="btn btn-danger" id="deleteAccountBtn">Delete my account</button>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section">
+        <div class="section-title">
+            <div class="section-title-icon">ℹ️</div>
+            <h2>About</h2>
+        </div>
+        <div class="section-desc">Information about PLAYR.</div>
+
+        <div class="row">
+            <div class="row-label">
+                <strong>Version</strong>
+                <span>Current build</span>
+            </div>
+            <span style="color:var(--text-muted);font-size:13px;font-weight:600;">1.0.0</span>
+        </div>
+
+        <div class="row">
+            <div class="row-label">
+                <strong>Made by</strong>
+                <span>Team PLAYR</span>
+            </div>
+            <span style="color:var(--text-muted);font-size:13px;font-weight:600;">2026</span>
+        </div>
+    </section>
+
+</main>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+
+import {
+    getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+import {
+    getAuth, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2qY6fhz8",
+    authDomain: "playr-bebbf.firebaseapp.com",
+    databaseURL: "https://playr-bebbf-default-rtdb.firebaseio.com",
+    projectId: "playr-bebbf",
+    storageBucket: "playr-bebbf.firebasestorage.app",
+    messagingSenderId: "35506561862",
+    appId: "1:35506561862:web:f7b27c1191637cf36abb47",
+    measurementId: "G-C9RGJYKTP9"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+let currentUser = null;
+
+/* ============ THEME ============ */
+
+function initTheme(){
+    var cur = window.PLAYR_THEME.get();
+
+    document.querySelectorAll("[data-theme-set]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.themeSet === cur);
+
+        btn.addEventListener("click", () => {
+            var mode = btn.dataset.themeSet;
+            window.PLAYR_THEME.set(mode);
+
+            document.querySelectorAll("[data-theme-set]").forEach(b => {
+                b.classList.toggle("active", b.dataset.themeSet === mode);
+            });
+
+            toast((mode === "dark" ? "🌙 Dark" : "☀️ Light") + " mode enabled", "success");
+        });
+    });
+
+    /* Listen for external theme changes */
+    window.addEventListener("playr-theme-change", e => {
+        var mode = e.detail.theme;
+        document.querySelectorAll("[data-theme-set]").forEach(b => {
+            b.classList.toggle("active", b.dataset.themeSet === mode);
+        });
+    });
+}
+
+/* ============ AUTH ============ */
+
+onAuthStateChanged(auth, async function(user){
+    currentUser = user || null;
+
+    if(user){
+        document.getElementById("setEmail").value = user.email || "";
+
+        /* Load user profile from Firestore */
+        try{
+            var snap = await getDoc(doc(db, "users", user.uid));
+            if(snap.exists()){
+                var data = snap.data();
+                document.getElementById("setDisplayName").value = data.displayName || "";
+                document.getElementById("notifNewGames").checked = data.notifNewGames !== false;
+                document.getElementById("notifSubmissions").checked = data.notifSubmissions !== false;
+                document.getElementById("notifAnnouncements").checked = data.notifAnnouncements !== false;
+                document.getElementById("privacyPublic").checked = data.privacyPublic !== false;
+                document.getElementById("privacyHistory").checked = data.privacyHistory === true;
+            } else {
+                document.getElementById("setDisplayName").value =
+                    user.displayName || user.email?.split("@")[0] || "";
+            }
+        }catch(e){
+            console.warn("Could not load profile", e);
+        }
+
+    } else {
+        /* Not logged in — show message but still allow theme toggle */
+        document.getElementById("setDisplayName").disabled = true;
+        document.getElementById("setEmail").value = "Not logged in";
+    }
+});
+
+/* ============ SAVE ============ */
+
+document.getElementById("saveAccountBtn").addEventListener("click", async () => {
+    if(!currentUser){ toast("Login first", "error"); return; }
+
+    var name = document.getElementById("setDisplayName").value.trim();
+    if(!name){ toast("Name required", "error"); return; }
+
+    try{
+        await setDoc(doc(db, "users", currentUser.uid), {
+            displayName: name,
+            notifNewGames: document.getElementById("notifNewGames").checked,
+            notifSubmissions: document.getElementById("notifSubmissions").checked,
+            notifAnnouncements: document.getElementById("notifAnnouncements").checked,
+            privacyPublic: document.getElementById("privacyPublic").checked,
+            privacyHistory: document.getElementById("privacyHistory").checked,
+            updatedAt: serverTimestamp()
+        }, { merge:true });
+
+        toast("Settings saved", "success");
+    }catch(e){
+        toast("Failed: " + e.message, "error");
+    }
+});
+
+/* ============ LOGOUT ============ */
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+    if(!currentUser){ window.location.href = "index.html"; return; }
+
+    if(!confirm("Log out of PLAYR?")) return;
+
+    try{
+        await signOut(auth);
+        toast("Logged out", "success");
+        setTimeout(() => window.location.href = "index.html", 800);
+    }catch(e){
+        toast("Error: " + e.message, "error");
+    }
+});
+
+/* ============ DELETE ============ */
+
+document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
+    if(!currentUser){ toast("Login first", "error"); return; }
+
+    if(!confirm("Delete your account? This cannot be undone.")) return;
+    if(!confirm("Are you absolutely sure?")) return;
+
+    try{
+        await deleteDoc(doc(db, "users", currentUser.uid));
+        await signOut(auth);
+        toast("Account deleted", "success");
+        setTimeout(() => window.location.href = "index.html", 1200);
+    }catch(e){
+        toast("Failed: " + e.message, "error");
+    }
+});
+
+/* ============ TOAST ============ */
+
+function toast(message, type){
+    var box = document.getElementById("toastContainer");
+    var el = document.createElement("div");
+    el.className = "toast " + (type || "");
+    el.textContent = message;
+    box.appendChild(el);
+    setTimeout(() => {
+        el.style.opacity = "0";
+        el.style.transition = "opacity .25s";
+        setTimeout(() => el.remove(), 250);
+    }, 2500);
+}
+
+/* ============ INIT ============ */
+
+initTheme();
+
+</script>
+
+</body>
+
+</html>
