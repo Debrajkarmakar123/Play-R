@@ -9,7 +9,11 @@
 
 <style>
 
-*{box-sizing:border-box;margin:0;padding:0;}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
 :root{
     --bg:#070707;
@@ -286,19 +290,20 @@ h1{margin-top:14px;font-size:58px;line-height:1;letter-spacing:-3.2px;}
 
 .row-card .main{flex:1;min-width:260px;}
 
-.row-card .main h4{font-size:20px;font-weight:900;letter-spacing:-.5px;}
+.row-card .main h4{font-size:20px;font-weight:900;letter-spacing:-.5px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 
 .row-card .main .sub{color:#777;font-size:12px;margin-top:8px;line-height:1.7;}
 
 .row-card .side{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 
-.badge{padding:6px 10px;border-radius:6px;font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;}
+.badge{padding:6px 10px;border-radius:6px;font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;display:inline-block;}
 
 .badge.green{color:#91dda0;background:#102016;border:1px solid #29442f;}
 .badge.orange{color:#ffad7c;background:#28170f;border:1px solid #493021;}
 .badge.red{color:#ff9b9b;background:#241212;border:1px solid #452424;}
 .badge.grey{color:#999;background:#161616;border:1px solid #2b2b2b;}
 .badge.gold{color:#ffd9a0;background:#2a1e0e;border:1px solid #6a4a1f;}
+.badge.blue{color:#8ec5ff;background:#0c1a2a;border:1px solid #2a4260;}
 
 .toast-container{position:fixed;bottom:30px;right:30px;z-index:999;display:flex;flex-direction:column;gap:12px;pointer-events:none;}
 
@@ -488,7 +493,7 @@ h1{margin-top:14px;font-size:58px;line-height:1;letter-spacing:-3.2px;}
 <!-- REPORTS -->
 <section id="view-reports" class="view hidden">
 <section class="header">
-    <div><div class="eyebrow">Moderation</div><h1>Reports & safety</h1><p>Review player reports and take action.</p></div>
+    <div><div class="eyebrow">Moderation</div><h1>Reports & messages</h1><p>Review player reports and contact messages.</p></div>
 </section>
 <section class="panel">
 <div class="toolbar">
@@ -749,7 +754,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2qY6fhz8",
+    apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2q6Yfhz8",
     authDomain: "playr-bebbf.firebaseapp.com",
     databaseURL: "https://playr-bebbf-default-rtdb.firebaseio.com",
     projectId: "playr-bebbf",
@@ -1134,7 +1139,6 @@ async function loadGames(){
     box.innerHTML = `<div class="loading">Loading games...</div>`;
 
     try{
-        /* Load current hero */
         try{
             const settingsSnap = await getDoc(doc(db, "site_settings", "global"));
             if(settingsSnap.exists()){
@@ -1151,11 +1155,9 @@ async function loadGames(){
     }
 }
 
-/* Helper: is game currently in slider? */
 function isInSlider(g){
     if(g.hideFromSlider === true) return false;
     if(g.frozen === true) return false;
-    /* Hero, pinned, featured, or normal (auto-fill) — sab slider mein */
     return true;
 }
 
@@ -1252,7 +1254,6 @@ document.getElementById("gamesList").addEventListener("click", async e => {
     if(!game) return;
 
     try{
-        /* ============ MAKE HERO ============ */
         if(act === "hero"){
             if(currentHeroGameId === id){
                 if(!confirm(`Remove "${game.gameName}" as hero game?`)) return;
@@ -1275,19 +1276,16 @@ document.getElementById("gamesList").addEventListener("click", async e => {
             }
         }
 
-        /* ============ SLIDER TOGGLE (remove / add back) ============ */
         if(act === "sliderToggle"){
             const hidden = game.hideFromSlider === true;
 
             if(!hidden){
-                /* Remove from slider */
                 if(!confirm(`Remove "${game.gameName}" from slider?\n\nGame will still appear in the games list, just not in the hero slider.`)) return;
                 await updateDoc(doc(db, "game_submissions", id), { hideFromSlider: true });
                 game.hideFromSlider = true;
                 logAudit("remove_from_slider","game_submissions",id,{ name: game.gameName });
                 toast(`Removed from slider: "${game.gameName}"`, "warn");
             } else {
-                /* Add back */
                 await updateDoc(doc(db, "game_submissions", id), { hideFromSlider: false });
                 game.hideFromSlider = false;
                 logAudit("add_back_to_slider","game_submissions",id,{ name: game.gameName });
@@ -1295,7 +1293,6 @@ document.getElementById("gamesList").addEventListener("click", async e => {
             }
         }
 
-        /* ============ ORIGINAL ============ */
         if(act === "original"){
             const v = !game.isOriginal;
             await updateDoc(doc(db, "game_submissions", id), { isOriginal: v });
@@ -1460,17 +1457,40 @@ document.getElementById("usersList").addEventListener("change", async e => {
     }catch(err){ toast(err.message,"error"); }
 });
 
-/* REPORTS */
+/* ============ REPORTS + CONTACT MESSAGES ============ */
 
 let allReports = [];
 let reportFilter = "open";
 
 async function loadReports(){
     const box = document.getElementById("reportsList");
-    box.innerHTML = `<div class="loading">Loading reports...</div>`;
+    box.innerHTML = `<div class="loading">Loading reports & messages...</div>`;
+
     try{
-        const snap = await getDocs(collection(db, "reports"));
-        allReports = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        /* 1. Game reports */
+        let reports = [];
+        try{
+            const reportsSnap = await getDocs(collection(db, "reports"));
+            reports = reportsSnap.docs.map(d => ({
+                id: d.id,
+                _type: "report",
+                ...d.data()
+            }));
+        }catch(e){ reports = []; }
+
+        /* 2. Contact messages */
+        let contacts = [];
+        try{
+            const contactsSnap = await getDocs(collection(db, "contact_messages"));
+            contacts = contactsSnap.docs.map(d => ({
+                id: d.id,
+                _type: "contact",
+                ...d.data()
+            }));
+        }catch(e){ contacts = []; }
+
+        /* 3. Merge */
+        allReports = [...reports, ...contacts];
         allReports.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
         renderReports();
     }catch(err){
@@ -1480,26 +1500,87 @@ async function loadReports(){
 
 function renderReports(){
     const box = document.getElementById("reportsList");
-    const list = allReports.filter(r => reportFilter==="all" || (r.status||"open") === reportFilter);
-    if(!list.length){
-        box.innerHTML = `<div class="empty">No reports.</div>`;
+
+    const filtered = allReports.filter(r => {
+        const status = r.status || "open";
+        if(reportFilter === "all") return true;
+        return status === reportFilter;
+    });
+
+    if(!filtered.length){
+        box.innerHTML = `<div class="empty">No reports or messages.</div>`;
         return;
     }
-    box.innerHTML = list.map(r => `
-        <div class="row-card">
-            <div class="main">
-                <h4>${escapeHTML(r.reason || "Report")}</h4>
-                <div class="sub">
-                    target: ${escapeHTML(r.targetType || "—")} · ${escapeHTML(r.targetId || "—")}<br>
-                    ${escapeHTML(r.details || "No details")}
+
+    box.innerHTML = filtered.map(r => {
+
+        /* ============ CONTACT MESSAGE ============ */
+        if(r._type === "contact"){
+            const subjectLabels = {
+                general: "General question",
+                bug: "Bug report",
+                submission: "Submission issue",
+                account: "Account problem",
+                feedback: "Feedback / suggestion",
+                other: "Other"
+            };
+            const subLabel = subjectLabels[r.subject] || r.subject || "Contact message";
+
+            return `
+                <div class="row-card" style="border-color:#2a4260;">
+                    <div class="main">
+                        <h4>
+                            ${escapeHTML(subLabel)}
+                            <span class="badge blue">Contact</span>
+                        </h4>
+                        <div class="sub">
+                            From: <strong style="color:#ddd;">${escapeHTML(r.name || "Unknown")}</strong>
+                            · ${escapeHTML(r.email || "No email")}<br><br>
+                            ${escapeHTML(r.message || "No message")}<br><br>
+                            <span style="color:#5a5a5a;font-size:11px;">${fmtDate(r.createdAt)}</span>
+                        </div>
+                    </div>
+                    <div class="side">
+                        <button class="action approve"
+                                data-ract="reply"
+                                data-id="${safe(r.id)}"
+                                data-rtype="contact"
+                                data-email="${safe(r.email)}"
+                                data-subject="${safe(subLabel)}">
+                            ✉ Reply
+                        </button>
+                        <button class="action reject"
+                                data-ract="dismiss"
+                                data-id="${safe(r.id)}"
+                                data-rtype="contact">
+                            Mark resolved
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* ============ GAME REPORT ============ */
+        return `
+            <div class="row-card">
+                <div class="main">
+                    <h4>
+                        ${escapeHTML(r.reason || "Report")}
+                        <span class="badge orange">Report</span>
+                    </h4>
+                    <div class="sub">
+                        target: ${escapeHTML(r.targetType || "—")} · ${escapeHTML(r.targetId || "—")}<br>
+                        ${escapeHTML(r.details || "No details")}<br><br>
+                        <span style="color:#5a5a5a;font-size:11px;">${fmtDate(r.createdAt)}</span>
+                    </div>
+                </div>
+                <div class="side">
+                    <button class="action approve" data-ract="dismiss" data-id="${safe(r.id)}" data-rtype="report">Dismiss</button>
+                    <button class="action reject"  data-ract="action"  data-id="${safe(r.id)}" data-rtype="report">Action</button>
                 </div>
             </div>
-            <div class="side">
-                <button class="action approve" data-ract="dismiss" data-id="${safe(r.id)}">Dismiss</button>
-                <button class="action reject"  data-ract="action"  data-id="${safe(r.id)}">Action</button>
-            </div>
-        </div>
-    `).join("");
+        `;
+    }).join("");
 }
 
 document.querySelectorAll("[data-reportfilter]").forEach(chip => {
@@ -1514,18 +1595,32 @@ document.querySelectorAll("[data-reportfilter]").forEach(chip => {
 document.getElementById("reportsList").addEventListener("click", async e => {
     const btn = e.target.closest("button[data-ract]");
     if(!btn) return;
+
     const act = btn.dataset.ract;
     const id  = btn.dataset.id;
+    const rtype = btn.dataset.rtype || "report";
+    const collectionName = rtype === "contact" ? "contact_messages" : "reports";
+
+    /* Reply → open mail client */
+    if(act === "reply"){
+        const email = btn.dataset.email || "";
+        const subject = btn.dataset.subject || "";
+        window.location.href = "mailto:" + email + "?subject=" + encodeURIComponent("Re: " + subject);
+        return;
+    }
+
     try{
-        await updateDoc(doc(db, "reports", id), {
-            status:"resolved",
+        await updateDoc(doc(db, collectionName, id), {
+            status: "resolved",
             resolution: act === "dismiss" ? "dismissed" : "actioned",
             resolvedAt: serverTimestamp()
         });
-        logAudit("resolve_report","reports",id,{ resolution:act });
-        toast("Report resolved","success");
+        logAudit("resolve_" + rtype, collectionName, id, { resolution: act });
+        toast("Marked as resolved", "success");
         loadReports();
-    }catch(err){ toast(err.message,"error"); }
+    }catch(err){
+        toast(err.message, "error");
+    }
 });
 
 /* ANALYTICS */
@@ -1547,10 +1642,15 @@ async function loadAnalytics(){
         }catch(e){}
         document.getElementById("anUsers").textContent = userCount;
 
+        /* Reports open — includes both game reports + contact messages */
         let reportCount = 0;
         try{
             const rs = await getDocs(collection(db, "reports"));
-            reportCount = rs.docs.filter(d => (d.data().status||"open")==="open").length;
+            reportCount += rs.docs.filter(d => (d.data().status||"open")==="open").length;
+        }catch(e){}
+        try{
+            const cs = await getDocs(collection(db, "contact_messages"));
+            reportCount += cs.docs.filter(d => (d.data().status||"open")==="open").length;
         }catch(e){}
         document.getElementById("anReports").textContent = reportCount;
 
