@@ -160,7 +160,7 @@ h1{margin-top:12px;font-family:"Space Grotesk";font-size:44px;line-height:1;lett
             <div class="contact-card-icon">✉️</div>
             <h3>Email us</h3>
             <p>General support and inquiries</p>
-            <a href="yoyohoneysinger633@gmail.com">yoyohoneysinger633@gmail.com</a>
+            <a href="mailto:yoyohoneysinger633@gmail.com">yoyohoneysinger633@gmail.com</a>
         </div>
         <div class="contact-card">
             <div class="contact-card-icon">🎮</div>
@@ -217,7 +217,7 @@ const firebaseConfig = {
     storageBucket: "playr-bebbf.firebasestorage.app",
     messagingSenderId: "35506561862",
     appId: "1:35506561862:web:f7b27c1191637cf36abb47",
-    measurementConfig: "G-C9RGJYKTP9"
+    measurementId: "G-C9RGJYKTP9"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -247,7 +247,7 @@ document.getElementById("contactForm").addEventListener("submit", async function
             subject: subject,
             message: message,
             createdAt: serverTimestamp(),
-            status: "new"
+            status: "open"
         });
 
         toast("Message sent! We'll reply soon.", "success");
