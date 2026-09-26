@@ -295,19 +295,19 @@ input,textarea,select{font-family:inherit;}
     color:var(--text-muted);font-size:16px;pointer-events:none;
 }
 
-/* ============ NOTIFICATION BELL ============ */
+/* ============ NOTIFICATION BELL (38px) ============ */
 
 .notif-btn{
     position:relative;
-    width:42px;height:42px;
-    border-radius:10px;
+    width:38px;height:38px;
+    border-radius:9px;
     border:1px solid var(--border);
     background:var(--bg-card2);
     color:var(--text-soft);
     cursor:pointer;
-    flex:0 0 42px;
+    flex:0 0 38px;
     display:flex;align-items:center;justify-content:center;
-    font-size:19px;transition:.2s;padding:0;
+    font-size:17px;transition:.2s;padding:0;
 }
 
 .notif-btn:hover{background:var(--bg-elev);border-color:var(--accent);color:var(--text);}
@@ -317,12 +317,12 @@ input,textarea,select{font-family:inherit;}
 .notif-badge{
     position:absolute;
     top:-5px;right:-5px;
-    min-width:20px;height:20px;
+    min-width:18px;height:18px;
     padding:0 5px;
     border-radius:10px;
     background:linear-gradient(135deg,#ff4040,#c80000);
     color:#fff;
-    font-size:10px;font-weight:900;
+    font-size:9px;font-weight:900;
     display:none;
     align-items:center;justify-content:center;
     box-shadow:0 3px 10px rgba(255,50,50,.5);
@@ -332,13 +332,6 @@ input,textarea,select{font-family:inherit;}
 }
 
 .notif-badge.show{display:flex;}
-
-@keyframes notifPulse{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.15);}
-}
-
-.notif-badge.pulse{animation:notifPulse .6s ease;}
 
 /* ============ NOTIFICATION PANEL ============ */
 
@@ -371,7 +364,6 @@ input,textarea,select{font-family:inherit;}
     position:sticky;top:0;
     background:var(--bg-card);
     z-index:2;
-    backdrop-filter:blur(10px);
 }
 
 .notif-header h3{
@@ -379,8 +371,6 @@ input,textarea,select{font-family:inherit;}
     font-size:16px;font-weight:700;
     color:var(--text);letter-spacing:-.3px;
 }
-
-.notif-header-actions{display:flex;gap:6px;align-items:center;}
 
 .notif-clear{
     border:0;background:transparent;
@@ -413,8 +403,7 @@ input,textarea,select{font-family:inherit;}
 }
 
 .notif-item.unread:after{
-    content:"";
-    position:absolute;
+    content:"";position:absolute;
     top:14px;right:14px;
     width:8px;height:8px;
     background:var(--accent);
@@ -422,37 +411,12 @@ input,textarea,select{font-family:inherit;}
     box-shadow:0 0 10px var(--accent);
 }
 
-.notif-item-title{
-    font-size:13px;font-weight:700;
-    color:var(--text);margin-bottom:5px;
-    padding-right:20px;
-    line-height:1.3;
-}
+.notif-item-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;padding-right:20px;line-height:1.3;}
+.notif-item-msg{font-size:12px;color:var(--text-soft);line-height:1.55;margin-bottom:8px;word-wrap:break-word;}
+.notif-item-time{font-size:10px;color:var(--text-muted);font-weight:600;}
 
-.notif-item-msg{
-    font-size:12px;color:var(--text-soft);
-    line-height:1.55;margin-bottom:8px;
-    word-wrap:break-word;
-}
-
-.notif-item-time{
-    font-size:10px;color:var(--text-muted);
-    font-weight:600;
-}
-
-.notif-empty{
-    padding:50px 20px;
-    text-align:center;color:var(--text-muted);
-    font-size:13px;
-}
-
-.notif-empty:before{
-    content:"🔔";
-    display:block;
-    font-size:36px;
-    margin-bottom:12px;
-    opacity:.35;
-}
+.notif-empty{padding:50px 20px;text-align:center;color:var(--text-muted);font-size:13px;}
+.notif-empty:before{content:"🔔";display:block;font-size:36px;margin-bottom:12px;opacity:.35;}
 
 /* ============ ACCOUNT MENU ============ */
 
@@ -468,7 +432,6 @@ input,textarea,select{font-family:inherit;}
     box-shadow:0 25px 70px rgba(0,0,0,.35);
     z-index:100;
     display:none;
-    transition:background .3s;
 }
 
 .account-menu.show{display:block;}
@@ -498,6 +461,31 @@ input,textarea,select{font-family:inherit;}
 
 .account-menu button:last-child{margin-bottom:0;}
 .account-menu button:hover{background:var(--bg-card2);color:var(--text);}
+
+/* ============ AVATAR (38px — fixed) ============ */
+
+.avatar{
+    width:38px;
+    height:38px;
+    border-radius:9px;
+    border:1px solid var(--border);
+    background:var(--bg-card2);
+    color:var(--text-soft);
+    cursor:pointer;
+    font-size:13px;
+    font-weight:700;
+    transition:.2s;
+    padding:0;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 38px;
+}
+
+.avatar:hover{background:var(--bg-elev);border-color:var(--accent);color:var(--text);}
+.avatar img{width:100%;height:100%;object-fit:cover;}
+.avatar svg{width:17px;height:17px;fill:currentColor;}
 
 /* ============ LOGIN MODAL ============ */
 
@@ -757,8 +745,7 @@ footer{margin-top:75px;padding:28px 3%;padding-bottom:calc(28px + env(safe-area-
 
     .search{display:none;}
 
-    .notif-btn{width:38px;height:38px;flex:0 0 38px;font-size:17px;}
-    .notif-badge{top:-4px;right:-4px;min-width:18px;height:18px;font-size:9px;}
+    .notif-btn{width:36px;height:36px;flex:0 0 36px;font-size:16px;}
 
     .notif-panel{
         top:62px;
@@ -767,30 +754,12 @@ footer{margin-top:75px;padding:28px 3%;padding-bottom:calc(28px + env(safe-area-
         width:auto;
         max-width:none;
         max-height:calc(100vh - 80px);
-        right:calc(14px + env(safe-area-inset-right, 0px));
     }
 
-    .avatar{
-    width:38px;
-    height:38px;
-    border-radius:9px;
-    border:1px solid var(--border);
-    background:var(--bg-card2);
-    color:var(--text-soft);
-    cursor:pointer;
-    font-size:13px;
-    font-weight:700;
-    transition:.2s;
-    padding:0;
-    overflow:hidden;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex:0 0 38px;
-}
-    .avatar svg{width:17px;height:17px;}
+    .avatar{width:36px;height:36px;flex:0 0 36px;}
+    .avatar svg{width:16px;height:16px;}
 
-    .account-menu{right:14px;top:66px;width:calc(100vw - 28px);max-width:280px;right:calc(14px + env(safe-area-inset-right, 0px));}
+    .account-menu{right:14px;top:66px;width:calc(100vw - 28px);max-width:280px;}
 
     .feature{height:290px;margin-top:15px;border-radius:13px;}
     .feature-content{left:20px;bottom:22px;right:20px;max-width:100%;}
@@ -846,12 +815,13 @@ footer{margin-top:75px;padding:28px 3%;padding-bottom:calc(28px + env(safe-area-
 @media(max-width:380px){
     .topbar{height:56px;gap:6px;padding:0 10px;}
     .menu-btn{width:36px;height:36px;flex:0 0 36px;font-size:16px;}
-    .notif-btn{width:36px;height:36px;flex:0 0 36px;font-size:16px;}
+    .notif-btn{width:34px;height:34px;flex:0 0 34px;font-size:15px;}
     .logo{font-size:16px;gap:6px;}
     .logo-mark{width:20px;height:20px;flex:0 0 20px;}
     .logo-mark:after{width:5px;height:5px;left:7px;top:7px;}
     .submit-btn{padding:8px 10px;font-size:10px;min-height:36px;}
-    .avatar{width:36px;height:36px;flex:0 0 36px;}
+    .avatar{width:34px;height:34px;flex:0 0 34px;}
+    .avatar svg{width:15px;height:15px;}
     .games{grid-template-columns:1fr;}
     .thumb{height:180px;}
     .quick-grid{grid-template-columns:1fr;}
@@ -1012,7 +982,6 @@ body.is-touch .category.active{color:var(--text);background:var(--bg-elev);borde
         <input id="search" type="text" placeholder="Search games..." oninput="searchGames()">
     </div>
 
-    <!-- 🔔 NOTIFICATIONS BUTTON -->
     <button class="notif-btn" id="notifBtn" aria-label="Notifications" type="button">
         🔔
         <span class="notif-badge" id="notifBadge">0</span>
@@ -1023,16 +992,13 @@ body.is-touch .category.active{color:var(--text);background:var(--bg-elev);borde
     </button>
 </header>
 
-<!-- 🔔 NOTIFICATION PANEL -->
 <div class="notif-panel" id="notifPanel">
     <div class="notif-header">
         <h3>Notifications</h3>
-        <div class="notif-header-actions">
-            <button class="notif-clear" id="notifClear" type="button">Mark all read</button>
-        </div>
+        <button class="notif-clear" id="notifClear" type="button">Mark all read</button>
     </div>
     <div class="notif-list" id="notifList">
-        <div class="notif-empty">No notifications</div>
+        <div class="notif-empty">No notifications yet</div>
     </div>
 </div>
 
@@ -1242,8 +1208,6 @@ window.__userRole = "player";
 const MAINT_KEY = "playr_maintenance_state";
 const BAN_KEY = "playr_banned";
 
-/* ============ MAINTENANCE ============ */
-
 function showMaintenance(msg){
     const mo = document.getElementById("maintenanceOverlay");
     if(!mo) return;
@@ -1281,8 +1245,6 @@ function hideMaintenance(){
     }catch(e){}
 })();
 
-/* ============ BAN HELPERS ============ */
-
 function setBanFlag(){ try{ localStorage.setItem(BAN_KEY, "1"); }catch(e){} }
 function clearBanFlag(){ try{ localStorage.removeItem(BAN_KEY); }catch(e){} }
 
@@ -1304,8 +1266,6 @@ function showBannedScreen(){
     if(document.body){ paint(); }
     else { document.addEventListener("DOMContentLoaded", paint); }
 }
-
-/* ============ USER PROFILE ============ */
 
 window.getCurrentPLAYRUser = function(){ return currentUser; };
 
@@ -1335,8 +1295,6 @@ async function createUserProfile(user){
         createdAt: serverTimestamp()
     });
 }
-
-/* ============ AUTH STATE ============ */
 
 onAuthStateChanged(auth, async function(user){
     currentUser = user || null;
@@ -1403,9 +1361,8 @@ let allNotifications = [];
 const NOTIF_READ_KEY = "playr_read_notifs";
 
 function getReadIds(){
-    try{
-        return JSON.parse(localStorage.getItem(NOTIF_READ_KEY) || "[]");
-    }catch(e){ return []; }
+    try{ return JSON.parse(localStorage.getItem(NOTIF_READ_KEY) || "[]"); }
+    catch(e){ return []; }
 }
 
 function saveReadIds(ids){
@@ -1417,17 +1374,12 @@ function isNotificationForMe(n){
     const uid = currentUser?.uid || null;
 
     if(!n.audience) return true;
-
     if(n.audience === "all") return true;
     if(n.audience === "developers"){
         return role === "developer" || role === "admin" || role === "moderator";
     }
-    if(n.audience === "players"){
-        return role === "player";
-    }
-    if(n.audience === "single"){
-        return n.userId && uid && n.userId === uid;
-    }
+    if(n.audience === "players"){ return role === "player"; }
+    if(n.audience === "single"){ return n.userId && uid && n.userId === uid; }
     return false;
 }
 
@@ -1492,7 +1444,6 @@ function markNotifRead(id){
     const ids = getReadIds();
     if(!ids.includes(id)){
         ids.push(id);
-        /* cap to 500 to prevent overflow */
         if(ids.length > 500) ids.splice(0, ids.length - 500);
         saveReadIds(ids);
         renderNotifications();
@@ -1501,10 +1452,9 @@ function markNotifRead(id){
 
 function markAllNotifRead(){
     const ids = getReadIds();
-    const mine = allNotifications
-        .filter(isNotificationForMe)
-        .map(n => n.id);
-    mine.forEach(id => { if(!ids.includes(id)) ids.push(id); });
+    allNotifications.filter(isNotificationForMe).forEach(n => {
+        if(!ids.includes(n.id)) ids.push(n.id);
+    });
     if(ids.length > 500) ids.splice(0, ids.length - 500);
     saveReadIds(ids);
     renderNotifications();
@@ -1515,15 +1465,9 @@ function listenToNotifications(){
         onSnapshot(collection(db, "notifications"), (snap) => {
             allNotifications = snap.docs.map(d => ({ id: d.id, ...d.data() }));
             renderNotifications();
-        }, (err) => {
-            console.warn("notifications listen failed", err);
-        });
-    }catch(e){
-        console.warn("notif init failed", e);
-    }
+        }, (err) => { console.warn("notifications listen failed", err); });
+    }catch(e){ console.warn("notif init failed", e); }
 }
-
-/* ============ PROFILE ============ */
 
 window.handleProfileClick = function(){
     const menu = document.getElementById("accountMenu");
@@ -1537,16 +1481,13 @@ window.goToProfile = function(){
     else { openLogin(); }
 };
 
-window.goToSettings = function(){
-    window.location.href = "settings.html";
-};
+window.goToSettings = function(){ window.location.href = "settings.html"; };
 
 function updateAccountUI(){
     const avatarButton = document.getElementById("avatarButton");
     const accountUser = document.getElementById("accountUser");
     const accountAction = document.getElementById("accountAction");
     const profileBtn = document.getElementById("profileBtn");
-
     if(!avatarButton) return;
 
     if(currentUser){
@@ -1695,8 +1636,6 @@ function clearLoginError(){
     box.style.display = "none";
 }
 
-/* ============ SUBMIT GAME ============ */
-
 window.handleSubmitGame = function(){
     if(window.__submissionsDisabled){
         alert("New game submissions are temporarily paused. Please check back soon.");
@@ -1712,8 +1651,6 @@ window.handleSubmitGame = function(){
 
     window.location.href = "submit.html";
 };
-
-/* ============ GAMES ============ */
 
 let allGames = [];
 let currentCategory = "all";
@@ -1832,8 +1769,6 @@ function renderQuickPicks(){
         `;
     }).join("");
 }
-
-/* ============ HERO SLIDER ============ */
 
 let slideGames = [];
 let slideIndex = 0;
@@ -1978,8 +1913,6 @@ if(featureEl){
     }, { passive:true });
 }
 
-/* ============ ORIGINAL OVERLAY ============ */
-
 function showPlayrOriginalOverlay(callback){
     const overlay = document.getElementById("playrOriginalOverlay");
     if(!overlay){ callback(); return; }
@@ -2060,8 +1993,6 @@ window.filterCategory = function(category, button){
 
 window.searchGames = function(){ renderGames(); };
 
-/* ============ SITE SETTINGS ============ */
-
 function listenToSiteSettings(){
     try{
         const ref = doc(db, "site_settings", "global");
@@ -2115,8 +2046,6 @@ async function applySiteSettings(d){
     }
 }
 
-/* ============ ORIGINALS ============ */
-
 async function loadOriginals(){
     const section = document.getElementById("originalsSection");
     const grid = document.getElementById("originalsGrid");
@@ -2161,8 +2090,6 @@ async function loadOriginals(){
     }
 }
 
-/* ============ BANNERS ============ */
-
 async function loadBanners(){
     const strip = document.getElementById("bannerStrip");
     if(!strip) return;
@@ -2198,8 +2125,6 @@ window.handleBannerClick = function(link){
     else { window.location.href = link; }
 };
 
-/* ============ ESCAPERS ============ */
-
 function escapeHTML(value){
     if(value === null || value === undefined) return "";
     return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
@@ -2212,8 +2137,6 @@ function escapeAttribute(value){
 function escapeJS(value){
     return String(value || "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;").replace(/\n/g,"\\n").replace(/\r/g,"\\r");
 }
-
-/* ============ UI EVENTS ============ */
 
 document.addEventListener("click", function(event){
     const menu = document.getElementById("accountMenu");
@@ -2240,8 +2163,6 @@ document.addEventListener("keydown", function(event){
     }
 });
 
-/* ============ NOTIFICATION UI WIRING ============ */
-
 const notifBtn = document.getElementById("notifBtn");
 const notifPanel = document.getElementById("notifPanel");
 const notifList = document.getElementById("notifList");
@@ -2252,7 +2173,6 @@ if(notifBtn && notifPanel){
         e.stopPropagation();
         const isOpen = notifPanel.classList.toggle("show");
         notifBtn.classList.toggle("active", isOpen);
-        /* Close account menu */
         const am = document.getElementById("accountMenu");
         if(am) am.classList.remove("show");
     });
@@ -2273,8 +2193,6 @@ if(notifList){
         if(nid) markNotifRead(nid);
     });
 }
-
-/* ============ SIDE MENU ============ */
 
 const menuBtn = document.getElementById("menuBtn");
 const sideMenu = document.getElementById("sideMenu");
@@ -2318,8 +2236,6 @@ const howToUploadLink = document.getElementById("howToUploadLink");
 if(howToUploadLink){
     howToUploadLink.addEventListener("click", closeSideMenu);
 }
-
-/* ============ START ============ */
 
 listenToSiteSettings();
 listenToGames();
