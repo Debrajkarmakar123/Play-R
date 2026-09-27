@@ -9,7 +9,7 @@
 <title>PLAYR — Loading Game</title>
 
 <meta name="description" id="metaDescription" content="Play games on PLAYR.">
-<meta name="keywords" content="online games, browser games, free games, PLAYR, web games, HTML5 games">
+<meta name="keywords" content="online games, browser games, free games, PLAYR, web games">
 <meta name="robots" content="index, follow">
 
 <meta property="og:type" content="website">
@@ -66,13 +66,7 @@ input,textarea{font-family:inherit;}
 }
 
 .logo{display:flex;align-items:center;gap:9px;color:white;text-decoration:none;font-size:19px;font-weight:900;letter-spacing:-.7px;flex:0 0 auto;}
-
-.logo-mark{
-    width:22px;height:22px;border-radius:6px;
-    background:linear-gradient(135deg,#ff9a63,#ff4926);
-    transform:rotate(45deg);box-shadow:0 0 22px rgba(255,100,50,.22);flex:0 0 22px;
-}
-
+.logo-mark{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#ff9a63,#ff4926);transform:rotate(45deg);box-shadow:0 0 22px rgba(255,100,50,.22);flex:0 0 22px;}
 .nav{display:flex;gap:2px;}
 .nav a{color:#777;text-decoration:none;padding:8px 12px;border-radius:7px;font-size:12px;font-weight:600;transition:.15s;}
 .nav a:hover{color:#fff;background:#181818;}
@@ -96,9 +90,7 @@ input,textarea{font-family:inherit;}
     background:linear-gradient(135deg,#432417,#15100e);border:1px solid var(--border);
     display:flex;align-items:center;justify-content:center;position:relative;
 }
-
 .game-cover img{width:100%;height:100%;object-fit:cover;display:none;}
-
 .cover-letter{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:900;color:#ff9a63;}
 
 .game-heading{min-width:0;flex:1;}
@@ -108,7 +100,6 @@ input,textarea{font-family:inherit;}
 .game-subtitle{color:#777;font-size:12px;margin-top:6px;word-break:break-word;}
 
 .header-rating{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;}
-
 .stars{display:flex;gap:1px;color:#ffb35c;font-size:14px;letter-spacing:.5px;}
 .rating-number{color:#bbb;font-size:12px;font-weight:700;}
 .rating-count{color:#666;font-size:11px;}
@@ -154,11 +145,7 @@ input,textarea{font-family:inherit;}
     padding:30px 20px;text-align:center;
 }
 
-.spinner{
-    width:34px;height:34px;border:3px solid #292929;border-top-color:var(--accent);
-    border-radius:50%;animation:spin .8s linear infinite;
-}
-
+.spinner{width:34px;height:34px;border:3px solid #292929;border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
 .player-controls{
@@ -167,7 +154,6 @@ input,textarea{font-family:inherit;}
     background:#101010;border-top:1px solid #222;
     flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
 }
-
 .player-controls::-webkit-scrollbar{display:none;}
 
 .control-btn{
@@ -176,15 +162,10 @@ input,textarea{font-family:inherit;}
     font-size:11px;font-weight:800;white-space:nowrap;flex:0 0 auto;
     transition:.15s;font-family:inherit;
 }
-
 .control-btn:hover{color:white;background:#222;border-color:#444;}
 .control-btn:active{transform:scale(.96);}
 
-.control-btn.primary{
-    background:linear-gradient(135deg,#ff7a45,#ff4926);
-    color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(255,90,45,.3);
-}
-
+.control-btn.primary{background:linear-gradient(135deg,#ff7a45,#ff4926);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(255,90,45,.3);}
 .control-btn.primary:hover{background:linear-gradient(135deg,#ff8a55,#ff5a36);color:#fff;}
 
 .control-spacer{flex:1;min-width:8px;}
@@ -194,199 +175,100 @@ input,textarea{font-family:inherit;}
     padding:6px 10px;border-radius:6px;
     background:#0d0d0d;border:1px solid #222;flex:0 0 auto;
 }
-
 .player-status.playing{color:#91dda0;border-color:#1e3325;background:#0d1510;}
 .player-status.error{color:#ff9b9b;border-color:#452424;background:#160909;}
 
 /* ERROR */
 .error{min-height:520px;display:none;align-items:center;justify-content:center;padding:30px 20px;text-align:center;}
-
 .error-box{max-width:600px;width:100%;padding:28px 24px;border:1px solid #442121;border-radius:14px;background:#160b0b;}
-
 .error-icon{font-size:48px;margin-bottom:16px;filter:drop-shadow(0 0 30px rgba(255,80,80,.4));}
-
 .error-title{color:#ff8c8c;font-size:19px;font-weight:900;margin-bottom:12px;letter-spacing:-.4px;}
-
 .error-text{color:#888;font-size:13px;line-height:1.7;margin-bottom:18px;}
-
 .error-url{padding:10px 12px;background:#0b0b0b;border:1px solid #292929;border-radius:8px;color:#666;font-size:10px;font-family:monospace;word-break:break-all;margin-bottom:18px;}
-
 .error-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-
-.error-btn{
-    padding:11px 20px;border-radius:9px;font-size:12px;font-weight:800;
-    border:1px solid #333;background:#181818;color:#bbb;
-    cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block;
-}
-
+.error-btn{padding:11px 20px;border-radius:9px;font-size:12px;font-weight:800;border:1px solid #333;background:#181818;color:#bbb;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block;}
 .error-btn:hover{background:#222;color:#fff;}
-
 .error-btn.primary{background:linear-gradient(135deg,#ff7a45,#ff4926);color:#fff;border-color:transparent;}
 
 /* CONTENT GRID */
 .content-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;margin-top:20px;}
-
 .panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-
 .panel-head{padding:15px 18px;border-bottom:1px solid #242424;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-
 .panel-head h2{font-size:15px;font-weight:800;letter-spacing:-.3px;}
-
 .panel-body{padding:18px;}
 
 .description{color:#999;font-size:13px;line-height:1.75;white-space:pre-line;word-break:break-word;}
-
 .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;}
-
 .tag{padding:7px 11px;border:1px solid #292929;border-radius:7px;color:#888;background:#0c0c0c;font-size:10px;font-weight:700;letter-spacing:.4px;}
 
 .info-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#262626;border:1px solid #262626;border-radius:9px;overflow:hidden;}
-
 .info-item{padding:14px;background:#111;}
-
 .info-label{color:#666;font-size:10px;text-transform:uppercase;letter-spacing:.9px;font-weight:800;}
-
 .info-value{color:#ddd;font-size:12px;font-weight:700;margin-top:6px;word-break:break-word;}
 
 .developer-box{display:flex;align-items:center;gap:12px;}
-
-.developer-avatar{
-    width:46px;height:46px;flex:0 0 46px;
-    display:flex;align-items:center;justify-content:center;
-    border-radius:10px;background:linear-gradient(135deg,#272727,#111);
-    border:1px solid #333;color:#ff8d5d;font-weight:900;font-size:17px;
-}
-
+.developer-avatar{width:46px;height:46px;flex:0 0 46px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:linear-gradient(135deg,#272727,#111);border:1px solid #333;color:#ff8d5d;font-weight:900;font-size:17px;}
 .developer-name{font-size:13px;font-weight:800;word-break:break-word;}
 .developer-email{color:#666;font-size:11px;margin-top:4px;word-break:break-word;}
 
 .rating-summary{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;}
-
 .big-rating{text-align:center;padding-right:20px;border-right:1px solid #282828;}
-
 .big-rating-number{font-size:38px;font-weight:900;letter-spacing:-2px;}
-
 .big-stars{color:#ffb35c;font-size:16px;margin-top:4px;letter-spacing:1px;}
-
 .big-rating-text{color:#666;font-size:10px;margin-top:5px;}
-
 .rating-bars{display:flex;flex-direction:column;gap:7px;}
-
 .rating-row{display:grid;grid-template-columns:35px 1fr 32px;align-items:center;gap:8px;}
-
 .rating-row span{color:#777;font-size:10px;font-weight:700;}
 .rating-row span:last-child{text-align:right;}
-
 .bar{height:7px;border-radius:10px;background:#242424;overflow:hidden;}
-
 .bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#ff9b51,#ff6b35);border-radius:10px;transition:width .35s ease;}
 
 .review-form{margin-top:20px;padding-top:20px;border-top:1px solid #252525;}
-
 .review-form h3{font-size:13px;margin-bottom:12px;}
-
 .star-picker{display:flex;gap:4px;margin-bottom:12px;}
-
 .star-picker button{border:0;background:transparent;color:#444;font-size:28px;cursor:pointer;padding:0;line-height:1;transition:.15s;}
-
 .star-picker button:hover{color:#ffb35c;transform:scale(1.1);}
 .star-picker button.active{color:#ffb35c;}
-
-.review-input{
-    width:100%;min-height:90px;resize:vertical;
-    background:#090909;border:1px solid #292929;border-radius:9px;
-    color:white;outline:none;padding:13px;font-family:inherit;font-size:13px;transition:.15s;
-}
-
+.review-input{width:100%;min-height:90px;resize:vertical;background:#090909;border:1px solid #292929;border-radius:9px;color:white;outline:none;padding:13px;font-family:inherit;font-size:13px;transition:.15s;}
 .review-input:focus{border-color:#444;}
-
-.review-submit{
-    margin-top:10px;padding:12px 20px;border:0;border-radius:9px;
-    background:linear-gradient(135deg,#ff7b45,#ff512f);color:white;
-    cursor:pointer;font-size:12px;font-weight:800;transition:.15s;font-family:inherit;
-}
-
+.review-submit{margin-top:10px;padding:12px 20px;border:0;border-radius:9px;background:linear-gradient(135deg,#ff7b45,#ff512f);color:white;cursor:pointer;font-size:12px;font-weight:800;transition:.15s;font-family:inherit;}
 .review-submit:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,90,45,.3);}
 .review-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-
 .review-list{display:flex;flex-direction:column;gap:1px;background:#252525;border:1px solid #252525;border-radius:9px;overflow:hidden;}
-
 .review{padding:15px;background:#111;}
-
 .review-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-
 .reviewer{font-size:12px;font-weight:800;color:#ddd;}
 .review-date{color:#555;font-size:10px;}
 .review-stars{color:#ffb35c;font-size:13px;margin-top:6px;letter-spacing:1px;}
 .review-text{color:#888;font-size:12px;line-height:1.65;margin-top:8px;word-break:break-word;}
-
 .no-reviews{padding:28px 20px;color:#666;text-align:center;font-size:12px;background:#111;}
 
 .comment-form{display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;}
-
-.comment-input{
-    flex:1;min-width:150px;height:44px;
-    background:#090909;border:1px solid #292929;border-radius:9px;
-    padding:0 13px;color:white;outline:none;font-size:13px;transition:.15s;
-}
-
+.comment-input{flex:1;min-width:150px;height:44px;background:#090909;border:1px solid #292929;border-radius:9px;padding:0 13px;color:white;outline:none;font-size:13px;transition:.15s;}
 .comment-input:focus{border-color:#444;}
-
-.comment-btn{
-    border:0;border-radius:9px;padding:0 18px;
-    background:linear-gradient(135deg,#ff7b45,#ff512f);color:#fff;
-    font-size:11px;font-weight:900;cursor:pointer;transition:.15s;
-    font-family:inherit;height:44px;
-}
-
+.comment-btn{border:0;border-radius:9px;padding:0 18px;background:linear-gradient(135deg,#ff7b45,#ff512f);color:#fff;font-size:11px;font-weight:900;cursor:pointer;transition:.15s;font-family:inherit;height:44px;}
 .comment-btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,90,45,.3);}
 .comment-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-
 .comments{display:flex;flex-direction:column;gap:1px;background:#252525;border:1px solid #252525;border-radius:9px;overflow:hidden;}
-
 .comment{padding:14px;background:#111;}
-
 .comment-user{color:#ddd;font-size:12px;font-weight:800;}
 .comment-text{color:#888;font-size:12px;line-height:1.6;margin-top:6px;word-break:break-word;}
 .comment-date{color:#4f4f4f;font-size:10px;margin-top:8px;}
 
 .sidebar{display:flex;flex-direction:column;gap:14px;}
-
 .side-title{font-size:13px;font-weight:800;margin-bottom:13px;letter-spacing:-.2px;}
-
 .share-buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
-
-.share-btn{
-    padding:11px;border:1px solid #292929;border-radius:8px;
-    background:#111;color:#aaa;cursor:pointer;font-size:11px;font-weight:700;
-    transition:.15s;font-family:inherit;
-}
-
+.share-btn{padding:11px;border:1px solid #292929;border-radius:8px;background:#111;color:#aaa;cursor:pointer;font-size:11px;font-weight:700;transition:.15s;font-family:inherit;}
 .share-btn:hover{color:#fff;background:#1b1b1b;border-color:#3a3a3a;}
 .share-btn:active{transform:scale(.96);}
 
 .related-list{display:flex;flex-direction:column;gap:8px;}
-
-.related-card{
-    display:flex;gap:11px;padding:9px;border:1px solid #272727;
-    border-radius:9px;background:#0e0e0e;cursor:pointer;
-    transition:.15s;align-items:center;
-}
-
+.related-card{display:flex;gap:11px;padding:9px;border:1px solid #272727;border-radius:9px;background:#0e0e0e;cursor:pointer;transition:.15s;align-items:center;}
 .related-card:hover{background:#171717;border-color:#3b3b3b;transform:translateX(3px);}
 .related-card:active{transform:scale(.98);}
-
-.related-cover{
-    width:50px;height:50px;flex:0 0 50px;border-radius:7px;overflow:hidden;
-    background:linear-gradient(135deg,#432417,#17110e);
-    display:flex;align-items:center;justify-content:center;
-    color:#ff9865;font-size:17px;font-weight:900;
-}
-
+.related-cover{width:50px;height:50px;flex:0 0 50px;border-radius:7px;overflow:hidden;background:linear-gradient(135deg,#432417,#17110e);display:flex;align-items:center;justify-content:center;color:#ff9865;font-size:17px;font-weight:900;}
 .related-cover img{width:100%;height:100%;object-fit:cover;}
-
 .related-info{min-width:0;flex:1;}
-
 .related-name{font-size:12px;font-weight:800;word-break:break-word;line-height:1.3;}
 .related-category{color:#666;font-size:10px;margin-top:5px;}
 
@@ -406,25 +288,12 @@ footer{
     z-index:9999;display:none;align-items:center;justify-content:center;
     flex-direction:column;gap:20px;padding:30px;text-align:center;color:#fff;
 }
-
 .mobile-hint.show{display:flex;}
-
-.mobile-hint .rotate-icon{
-    font-size:64px;animation:rotateHint 2s ease-in-out infinite;
-    filter:drop-shadow(0 0 40px rgba(255,113,62,.5));
-}
-
+.mobile-hint .rotate-icon{font-size:64px;animation:rotateHint 2s ease-in-out infinite;filter:drop-shadow(0 0 40px rgba(255,113,62,.5));}
 @keyframes rotateHint{0%,100%{transform:rotate(0deg);}50%{transform:rotate(90deg);}}
-
 .mobile-hint h3{font-size:20px;font-weight:900;letter-spacing:-.6px;}
 .mobile-hint p{color:#999;font-size:13px;line-height:1.6;max-width:320px;}
-
-.mobile-hint .hint-btn{
-    padding:12px 24px;border-radius:9px;
-    background:linear-gradient(135deg,#ff7a45,#ff4926);
-    color:#fff;border:0;font-size:13px;font-weight:800;
-    cursor:pointer;font-family:inherit;
-}
+.mobile-hint .hint-btn{padding:12px 24px;border-radius:9px;background:linear-gradient(135deg,#ff7a45,#ff4926);color:#fff;border:0;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;}
 
 @media(max-width:1000px){
     .content-grid{grid-template-columns:1fr;}
@@ -520,11 +389,9 @@ footer{
         <img id="gameCoverImage" alt="Game thumbnail">
         <div class="cover-letter" id="coverLetter">?</div>
     </div>
-
     <div class="game-heading">
         <h1 id="gameTitle">Loading game...</h1>
         <div class="game-subtitle" id="gameSubtitle">Finding game information...</div>
-
         <div class="header-rating">
             <div class="stars" id="headerStars">★★★★★</div>
             <span class="rating-number" id="headerRating">0.0</span>
@@ -540,11 +407,14 @@ footer{
         <div id="loadingText">Finding game...</div>
     </div>
 
+    <!-- ✅ SANDBOX iframe — No top navigation allowed -->
     <iframe
         id="gameFrame"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-pointer-lock allow-orientation-lock allow-modals allow-presentation allow-downloads allow-storage-access-by-user-activation"
         allowfullscreen
-        allow="fullscreen; autoplay; gamepad; pointer-lock"
+        allow="fullscreen; autoplay; gamepad; pointer-lock; accelerometer; gyroscope; clipboard-write"
         tabindex="0"
+        referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
 
     <div class="error" id="error">
@@ -555,6 +425,7 @@ footer{
             <div class="error-url" id="errorUrl"></div>
             <div class="error-actions">
                 <button class="error-btn primary" id="errorRetryBtn">↻ Retry</button>
+                <button class="error-btn primary" id="errorOpenBtn">↗ Open Direct</button>
                 <a class="error-btn" href="index.html">← Back to Home</a>
             </div>
         </div>
@@ -564,17 +435,13 @@ footer{
         <button class="control-btn primary" id="fullscreenBtn" type="button">
             ⛶ FULLSCREEN
         </button>
-
         <button class="control-btn" id="reloadBtn" type="button">
             ↻ RELOAD
         </button>
-
-        <button class="control-btn" id="openNewBtn" type="button" style="display:none;">
-            ↗ OPEN
+        <button class="control-btn" id="openNewBtn" type="button">
+            ↗ OPEN DIRECT
         </button>
-
         <div class="control-spacer"></div>
-
         <span class="player-status" id="playerStatus">READY</span>
     </div>
 
@@ -585,9 +452,7 @@ footer{
 <div>
 
 <section class="panel">
-    <div class="panel-head">
-        <h2>About this game</h2>
-    </div>
+    <div class="panel-head"><h2>About this game</h2></div>
     <div class="panel-body">
         <div class="description" id="gameDescription">Loading game description...</div>
         <div class="tags" id="gameTags"></div>
@@ -595,43 +460,21 @@ footer{
 </section>
 
 <section class="panel" style="margin-top:14px;">
-    <div class="panel-head">
-        <h2>Game Information</h2>
-    </div>
+    <div class="panel-head"><h2>Game Information</h2></div>
     <div class="panel-body">
         <div class="info-list">
-            <div class="info-item">
-                <div class="info-label">Category</div>
-                <div class="info-value" id="infoCategory">—</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Developer</div>
-                <div class="info-value" id="infoDeveloper">—</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Device</div>
-                <div class="info-value" id="infoDevice">—</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Orientation</div>
-                <div class="info-value" id="infoOrientation">—</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Language</div>
-                <div class="info-value" id="infoLanguage">—</div>
-            </div>
-            <div class="info-item">
-                <div class="info-label">Status</div>
-                <div class="info-value" id="infoStatus">Approved</div>
-            </div>
+            <div class="info-item"><div class="info-label">Category</div><div class="info-value" id="infoCategory">—</div></div>
+            <div class="info-item"><div class="info-label">Developer</div><div class="info-value" id="infoDeveloper">—</div></div>
+            <div class="info-item"><div class="info-label">Device</div><div class="info-value" id="infoDevice">—</div></div>
+            <div class="info-item"><div class="info-label">Orientation</div><div class="info-value" id="infoOrientation">—</div></div>
+            <div class="info-item"><div class="info-label">Language</div><div class="info-value" id="infoLanguage">—</div></div>
+            <div class="info-item"><div class="info-label">Hosted On</div><div class="info-value" id="infoHost">—</div></div>
         </div>
     </div>
 </section>
 
 <section class="panel" style="margin-top:14px;">
-    <div class="panel-head">
-        <h2>How to play</h2>
-    </div>
+    <div class="panel-head"><h2>How to play</h2></div>
     <div class="panel-body">
         <div class="description" id="gameControls">Game controls will appear here.</div>
     </div>
@@ -643,40 +486,18 @@ footer{
         <span class="rating-count" id="reviewCountTop">0 reviews</span>
     </div>
     <div class="panel-body">
-
         <div class="rating-summary">
             <div class="big-rating">
                 <div class="big-rating-number" id="bigRating">0.0</div>
                 <div class="big-stars" id="bigStars">★★★★★</div>
                 <div class="big-rating-text">Overall rating</div>
             </div>
-
             <div class="rating-bars">
-                <div class="rating-row">
-                    <span>5 ★</span>
-                    <div class="bar"><div class="bar-fill" id="bar5"></div></div>
-                    <span id="count5">0</span>
-                </div>
-                <div class="rating-row">
-                    <span>4 ★</span>
-                    <div class="bar"><div class="bar-fill" id="bar4"></div></div>
-                    <span id="count4">0</span>
-                </div>
-                <div class="rating-row">
-                    <span>3 ★</span>
-                    <div class="bar"><div class="bar-fill" id="bar3"></div></div>
-                    <span id="count3">0</span>
-                </div>
-                <div class="rating-row">
-                    <span>2 ★</span>
-                    <div class="bar"><div class="bar-fill" id="bar2"></div></div>
-                    <span id="count2">0</span>
-                </div>
-                <div class="rating-row">
-                    <span>1 ★</span>
-                    <div class="bar"><div class="bar-fill" id="bar1"></div></div>
-                    <span id="count1">0</span>
-                </div>
+                <div class="rating-row"><span>5 ★</span><div class="bar"><div class="bar-fill" id="bar5"></div></div><span id="count5">0</span></div>
+                <div class="rating-row"><span>4 ★</span><div class="bar"><div class="bar-fill" id="bar4"></div></div><span id="count4">0</span></div>
+                <div class="rating-row"><span>3 ★</span><div class="bar"><div class="bar-fill" id="bar3"></div></div><span id="count3">0</span></div>
+                <div class="rating-row"><span>2 ★</span><div class="bar"><div class="bar-fill" id="bar2"></div></div><span id="count2">0</span></div>
+                <div class="rating-row"><span>1 ★</span><div class="bar"><div class="bar-fill" id="bar1"></div></div><span id="count1">0</span></div>
             </div>
         </div>
 
@@ -689,30 +510,18 @@ footer{
                 <button data-rating="4" type="button">★</button>
                 <button data-rating="5" type="button">★</button>
             </div>
-
-            <textarea
-                class="review-input"
-                id="reviewText"
-                placeholder="Write your review..."
-                maxlength="1000"
-            ></textarea>
-
-            <button class="review-submit" id="reviewSubmit" type="button">
-                SUBMIT REVIEW
-            </button>
+            <textarea class="review-input" id="reviewText" placeholder="Write your review..." maxlength="1000"></textarea>
+            <button class="review-submit" id="reviewSubmit" type="button">SUBMIT REVIEW</button>
         </div>
 
         <div class="review-list" id="reviewList" style="margin-top:18px;">
             <div class="no-reviews">No reviews yet.</div>
         </div>
-
     </div>
 </section>
 
 <section class="panel" style="margin-top:14px;">
-    <div class="panel-head">
-        <h2>Comments</h2>
-    </div>
+    <div class="panel-head"><h2>Comments</h2></div>
     <div class="panel-body">
         <div class="comment-form">
             <input class="comment-input" id="commentInput" maxlength="500" placeholder="Write a comment...">
@@ -729,9 +538,7 @@ footer{
 <aside class="sidebar">
 
 <section class="panel">
-    <div class="panel-head">
-        <h2>Developer</h2>
-    </div>
+    <div class="panel-head"><h2>Developer</h2></div>
     <div class="panel-body">
         <div class="developer-box">
             <div class="developer-avatar" id="developerAvatar">D</div>
@@ -765,9 +572,7 @@ footer{
 <section class="panel">
     <div class="panel-body">
         <div class="side-title">About PLAYR</div>
-        <div class="seo-text" id="seoText">
-            Discover browser games on PLAYR.
-        </div>
+        <div class="seo-text" id="seoText">Discover browser games on PLAYR.</div>
     </div>
 </section>
 
@@ -788,6 +593,64 @@ footer{
     <p>For a better gaming experience, hold your phone horizontally.</p>
     <button class="hint-btn" id="hintCloseBtn" type="button">Got it</button>
 </div>
+
+<script>
+/* ============================================================
+   ANTI-REDIRECT PROTECTION
+   Yeh script iframe load hone se PEHLE chalti hai
+   Koi bhi game parent page ko redirect nahi kar sakta
+   ============================================================ */
+
+(function(){
+    /* Save current URL — this is where we stay */
+    var LOCKED_URL = window.location.href;
+    var allowNavigation = false;
+
+    /* Freeze window.top object to prevent location changes */
+    try{
+        var frozenLocation = window.location;
+        Object.defineProperty(window, "top", {
+            get: function(){ return window; },
+            set: function(){ return false; }
+        });
+    }catch(e){}
+
+    /* Block attempts to change parent location from iframe context */
+    window.addEventListener("beforeunload", function(e){
+        if(!allowNavigation){
+            /* If URL changed unexpectedly, block it */
+            if(window.location.href !== LOCKED_URL){
+                e.preventDefault();
+                e.returnValue = "";
+                /* Force back to locked URL */
+                setTimeout(function(){
+                    try{
+                        window.location.replace(LOCKED_URL);
+                    }catch(err){}
+                }, 0);
+                return "";
+            }
+        }
+    });
+
+    /* Monitor URL every 300ms — if changed unexpectedly, reload back */
+    setInterval(function(){
+        if(!allowNavigation && window.location.href !== LOCKED_URL){
+            console.warn("🛡️ Redirect blocked! Going back to game...");
+            try{
+                window.location.replace(LOCKED_URL);
+            }catch(err){}
+        }
+    }, 300);
+
+    /* Expose function to allow safe navigation when needed */
+    window.__playrAllowNav = function(){
+        allowNavigation = true;
+    };
+    window.__playrLockedUrl = LOCKED_URL;
+
+})();
+</script>
 
 <script type="module">
 
@@ -828,6 +691,7 @@ const fullscreenBtn = document.getElementById("fullscreenBtn");
 const reloadBtn = document.getElementById("reloadBtn");
 const openNewBtn = document.getElementById("openNewBtn");
 const errorRetryBtn = document.getElementById("errorRetryBtn");
+const errorOpenBtn = document.getElementById("errorOpenBtn");
 
 /* ============ STATE ============ */
 
@@ -847,58 +711,6 @@ const directName = params.get("name");
 console.log("PLAYR → gameId:", gameId);
 console.log("PLAYR → directUrl:", directUrl);
 
-/* ============ BLACKLISTED EXTENSIONS ============ */
-/* Files with these extensions are NOT games */
-
-const BLACKLIST_EXTENSIONS = [
-    ".txt", ".md", ".markdown", ".json", ".xml", ".csv", ".log",
-    ".pdf", ".doc", ".docx", ".rtf", ".odt",
-    ".zip", ".rar", ".7z", ".tar", ".gz",
-    ".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".bmp", ".ico",
-    ".mp3", ".mp4", ".wav", ".ogg", ".webm", ".avi", ".mov",
-    ".exe", ".dll", ".so", ".dylib", ".bin",
-    ".py", ".rb", ".php", ".java", ".cs", ".cpp", ".c", ".h", ".hpp",
-    ".yml", ".yaml", ".toml", ".ini", ".cfg", ".config",
-    ".map", ".lock", ".gitignore"
-];
-
-/* Files with these names are NOT games */
-const BLACKLIST_NAMES = [
-    "readme", "license", "licence", "changelog", "changes",
-    "contributing", "contributors", "authors", "notice",
-    "code_of_conduct", "code-of-conduct", "security", "funding"
-];
-
-function isBlacklistedUrl(url){
-    try{
-        const parsed = new URL(url);
-        const pathname = parsed.pathname.toLowerCase();
-        const filename = pathname.split("/").pop() || "";
-
-        /* Check extension */
-        for(const ext of BLACKLIST_EXTENSIONS){
-            if(pathname.endsWith(ext)){
-                console.log(`⛔ Blacklisted URL (extension): ${url}`);
-                return true;
-            }
-        }
-
-        /* Check filename (without extension) */
-        const nameWithoutExt = filename.replace(/\.[^.]+$/, "");
-        for(const bad of BLACKLIST_NAMES){
-            if(nameWithoutExt === bad || nameWithoutExt.startsWith(bad + ".") || nameWithoutExt.startsWith(bad + "-")){
-                console.log(`⛔ Blacklisted URL (name): ${url}`);
-                return true;
-            }
-        }
-
-        return false;
-    }
-    catch{
-        return false;
-    }
-}
-
 /* ============ START ============ */
 
 startPlayer();
@@ -912,9 +724,10 @@ async function startPlayer(){
             game = await getGameById(gameId);
         }
 
-        if(!game && directUrl){
-            loadingText.textContent = "Finding submitted game...";
-            game = await getGameByGitHubUrl(directUrl);
+        if(directUrl){
+            if(!game){
+                game = await findGameByUrl(directUrl);
+            }
 
             if(!game){
                 game = {
@@ -930,11 +743,12 @@ async function startPlayer(){
                     orientation: "—",
                     language: "—",
                     status: "approved",
-                    githubUrl: directUrl,
-                    gameUrl: "",
+                    gameUrl: directUrl,
                     thumbnailUrl: ""
                 };
             }
+
+            game.gameUrl = directUrl;
         }
 
         if(!game){
@@ -942,7 +756,7 @@ async function startPlayer(){
                 "Game not found",
                 gameId
                     ? `Game with id "${gameId}" was not found.`
-                    : "No game id or GitHub URL was provided."
+                    : "No game id or URL was provided."
             );
             return;
         }
@@ -960,68 +774,22 @@ async function startPlayer(){
 
         loadRelatedGames(game);
 
-        /* ============================================
-           PICK BEST URL
-           ============================================ */
-
-        let liveUrl = firstValue(
+        const gameUrl = firstValue(
             game.gameUrl,
             game.playableUrl,
-            game.playUrl
+            game.playUrl,
+            game.url
         );
 
-        const repository = firstValue(
-            game.githubUrl,
-            game.repositoryUrl,
-            game.repoUrl
-        );
-
-        /* ⛔ Skip liveUrl if it's a blacklisted file (txt, md, etc.) */
-        if(liveUrl && isBlacklistedUrl(liveUrl)){
-            console.warn(`⚠ Live URL is blacklisted (not a game): ${liveUrl}`);
-            console.warn(`→ Falling back to GitHub repository...`);
-            liveUrl = "";
-        }
-
-        /* 1. Try Live URL first if valid */
-        if(liveUrl && isPlayableWebUrl(liveUrl)){
-            console.log("🎯 Using submitted Live URL:", liveUrl);
-            currentGameUrl = liveUrl;
-            openNewBtn.style.display = "inline-block";
-
-            loadGame(liveUrl, function(){
-                console.warn("Live URL failed, falling back to GitHub...");
-                if(repository){
-                    const repo = parseGitHubRepository(repository);
-                    if(repo) findGitHubGame(repo.owner, repo.name);
-                    else showError("Load failed", "Could not load game from submitted URL.");
-                }else{
-                    showError("Load failed", "The submitted Live URL did not work.");
-                }
-            });
+        if(!gameUrl){
+            showError("No URL", "This game does not have a playable URL.");
             return;
         }
 
-        /* 2. Fallback to GitHub */
-        if(repository){
-            if(isPlayableWebUrl(repository) && !isBlacklistedUrl(repository)){
-                currentGameUrl = repository;
-                openNewBtn.style.display = "inline-block";
-                loadGame(repository);
-                return;
-            }
+        console.log("🎯 Loading game URL:", gameUrl);
+        currentGameUrl = gameUrl;
 
-            const repo = parseGitHubRepository(repository);
-            if(!repo){
-                showError("Invalid URL", "Invalid GitHub repository URL.");
-                return;
-            }
-
-            await findGitHubGame(repo.owner, repo.name);
-            return;
-        }
-
-        showError("No URL", "This game does not have a playable URL or GitHub repository.");
+        loadGame(gameUrl);
 
     }
     catch(err){
@@ -1042,30 +810,16 @@ async function getGameById(id){
     }catch(err){
         console.error("game_submissions ID error:", err);
     }
-
-    try{
-        const ref = doc(db, "games", id);
-        const snapshot = await getDoc(ref);
-        if(snapshot.exists()){
-            return normalizeGame(id, snapshot.data());
-        }
-    }catch(err){
-        console.error("games ID error:", err);
-    }
-
     return null;
 }
 
-/* ============ GET GAME BY URL ============ */
+/* ============ FIND GAME BY URL ============ */
 
-async function getGameByGitHubUrl(githubUrl){
-    const normalized = normalizeGitHubUrl(githubUrl);
-    if(!normalized) return null;
-
+async function findGameByUrl(url){
     try{
         const q = query(
             collection(db, "game_submissions"),
-            where("githubUrl", "==", normalized),
+            where("gameUrl", "==", url),
             limit(1)
         );
         const snapshot = await getDocs(q);
@@ -1074,46 +828,9 @@ async function getGameByGitHubUrl(githubUrl){
             return normalizeGame(gameDoc.id, gameDoc.data());
         }
     }catch(err){
-        console.error("Exact githubUrl query failed:", err);
+        console.error("gameUrl query failed:", err);
     }
-
-    try{
-        const snapshot = await getDocs(collection(db, "game_submissions"));
-        for(const gameDoc of snapshot.docs){
-            const data = gameDoc.data();
-            const savedUrl = normalizeGitHubUrl(
-                data.githubUrl || data.githubURL || data.github || ""
-            );
-            if(savedUrl && savedUrl === normalized){
-                const status = String(data.status || "").toLowerCase();
-                if(!status || status === "approved"){
-                    return normalizeGame(gameDoc.id, data);
-                }
-            }
-        }
-    }catch(err){
-        console.error("Fallback metadata search failed:", err);
-    }
-
     return null;
-}
-
-/* ============ NORMALIZE URL ============ */
-
-function normalizeGitHubUrl(url){
-    try{
-        const parsed = new URL(String(url).trim());
-        if(parsed.hostname.toLowerCase() !== "github.com") return "";
-
-        const parts = parsed.pathname.split("/").filter(Boolean);
-        if(parts.length < 2) return "";
-
-        const owner = parts[0];
-        const repo = parts[1].replace(/\.git$/, "");
-
-        return `https://github.com/${owner}/${repo}`;
-    }
-    catch{ return ""; }
 }
 
 /* ============ NORMALIZE GAME ============ */
@@ -1135,12 +852,12 @@ function normalizeGame(id, data){
         orientation: firstValue(data.orientation, data.gameOrientation, "—"),
         language: firstValue(data.language, data.gameLanguage, "—"),
         status: firstValue(data.status, "approved"),
-        githubUrl: firstValue(data.githubUrl, data.githubURL, data.github, data.repositoryUrl, data.repoUrl, ""),
         gameUrl: firstValue(data.gameUrl, data.playableUrl, data.playUrl, data.url, ""),
         playableUrl: firstValue(data.playableUrl, data.gameUrl, ""),
         playUrl: firstValue(data.playUrl, data.gameUrl, ""),
-        repositoryUrl: firstValue(data.repositoryUrl, data.githubUrl, ""),
-        repoUrl: firstValue(data.repoUrl, data.githubUrl, ""),
+        url: firstValue(data.url, data.gameUrl, ""),
+        hostingPlatform: firstValue(data.hostingPlatform, ""),
+        sourceUrl: firstValue(data.sourceUrl, data.githubUrl, ""),
         thumbnailUrl: firstValue(data.thumbnailData, data.thumbnailUrl, data.thumbnail, data.imageUrl, data.coverUrl, ""),
         thumbnail: firstValue(data.thumbnailData, data.thumbnailUrl, data.thumbnail, data.imageUrl, data.coverUrl, ""),
         createdAt: data.createdAt || null
@@ -1168,7 +885,7 @@ function renderGameInformation(game){
     const device = firstValue(game.supportedDevices, "—");
     const orientation = firstValue(game.orientation, "—");
     const language = firstValue(game.language, "—");
-    const status = firstValue(game.status, "approved");
+    const host = firstValue(game.hostingPlatform, "External");
     const thumbnail = firstValue(game.thumbnailUrl, game.thumbnail, "");
 
     document.title = `${name} — Play on PLAYR`;
@@ -1182,7 +899,7 @@ function renderGameInformation(game){
     setText("infoDevice", device);
     setText("infoOrientation", orientation);
     setText("infoLanguage", language);
-    setText("infoStatus", status);
+    setText("infoHost", host);
     setText("developerName", developer);
     setText("developerEmail", game.email || "PLAYR Developer");
     setText("developerAvatar", getInitials(developer));
@@ -1194,7 +911,6 @@ function renderGameInformation(game){
         image.src = thumbnail;
         image.style.display = "block";
         if(coverLetter) coverLetter.style.display = "none";
-
         image.onerror = function(){
             image.style.display = "none";
             if(coverLetter){
@@ -1202,8 +918,7 @@ function renderGameInformation(game){
                 coverLetter.textContent = getInitials(name);
             }
         };
-    }
-    else if(coverLetter){
+    }else if(coverLetter){
         coverLetter.style.display = "flex";
         coverLetter.textContent = getInitials(name);
     }
@@ -1212,7 +927,7 @@ function renderGameInformation(game){
     if(tags){
         tags.innerHTML = "";
         [category, device, orientation, language]
-            .filter(value => value && value !== "—")
+            .filter(v => v && v !== "—")
             .forEach(value => {
                 const el = document.createElement("span");
                 el.className = "tag";
@@ -1233,7 +948,6 @@ function setupSEO(game){
     const name = firstValue(game.name, game.gameName, game.title, "Game");
     const category = firstValue(game.category, "browser game");
     const description = firstValue(game.description, `Play ${name} online on PLAYR.`);
-
     const shortDescription = String(description).replace(/\s+/g, " ").slice(0, 155);
     const pageUrl = window.location.href;
     const image = firstValue(game.thumbnailUrl, game.thumbnail, "");
@@ -1258,259 +972,16 @@ function setMeta(id, attribute, value){
     if(el) el.setAttribute(attribute, value || "");
 }
 
-/* ============ PARSE GITHUB ============ */
-
-function parseGitHubRepository(url){
-    try{
-        const parsed = new URL(url);
-        const hostname = parsed.hostname.toLowerCase();
-        if(hostname !== "github.com" && hostname !== "www.github.com") return null;
-
-        const parts = parsed.pathname.split("/").filter(Boolean);
-        if(parts.length < 2) return null;
-
-        return {
-            owner: parts[0],
-            name: parts[1].replace(/\.git$/, "")
-        };
-    }
-    catch{ return null; }
-}
-
-/* ============ GITHUB FETCH ============ */
-
-async function githubFetch(url){
-    const response = await fetch(url, {
-        headers: { "Accept": "application/vnd.github+json" }
-    });
-    if(!response.ok){
-        throw new Error(`GitHub API ${response.status}`);
-    }
-    return response.json();
-}
-
-/* ============ FIND GITHUB GAME ============ */
-
-async function findGitHubGame(owner, repo){
-    loading.style.display = "flex";
-    frame.style.display = "none";
-    error.style.display = "none";
-    loadingText.textContent = "Checking GitHub repository...";
-
-    try{
-        const repository = await githubFetch(
-            `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`
-        );
-
-        const defaultBranch = repository.default_branch || "main";
-
-        let branch = defaultBranch;
-        let files = [];
-
-        try{
-            files = await getGitTree(owner, repo, branch);
-        }catch(err){ console.warn("Default branch tree failed:", err); }
-
-        if(!files.length && branch !== "main"){
-            try{
-                branch = "main";
-                files = await getGitTree(owner, repo, branch);
-            }catch{}
-        }
-
-        if(!files.length && branch !== "master"){
-            try{
-                branch = "master";
-                files = await getGitTree(owner, repo, branch);
-            }catch{}
-        }
-
-        if(!files.length){
-            loadingText.textContent = "Reading repository files...";
-            files = await getRepositoryFiles(owner, repo, branch);
-        }
-
-        if(!files.length){
-            showError("Repository empty", "Could not read this GitHub repository. Make sure it is public and contains game files.");
-            return;
-        }
-
-        /* ============================================
-           FILTER HTML FILES — SKIP BAD NAMES
-           ============================================ */
-
-        const htmlFiles = files
-            .filter(file => {
-                const path = typeof file === "string" ? file : file.path;
-                if(!path || !path.toLowerCase().endsWith(".html")) return false;
-
-                const pathLower = path.toLowerCase();
-                const filename = pathLower.split("/").pop() || "";
-                const nameWithoutExt = filename.replace(/\.html$/, "");
-
-                /* Skip README.html, LICENSE.html, CHANGELOG.html etc */
-                for(const bad of BLACKLIST_NAMES){
-                    if(nameWithoutExt === bad ||
-                       nameWithoutExt.startsWith(bad + ".") ||
-                       nameWithoutExt.startsWith(bad + "-") ||
-                       nameWithoutExt.startsWith(bad + "_")){
-                        console.log(`⛔ Skipping non-game HTML: ${path}`);
-                        return false;
-                    }
-                }
-
-                return true;
-            })
-            .map(file => typeof file === "string" ? file : file.path);
-
-        if(!htmlFiles.length){
-            showError(
-                "No game HTML file",
-                "No playable HTML game file found in this GitHub repository. The repository may only contain README/documentation files."
-            );
-            return;
-        }
-
-        console.log("🎮 Valid HTML files:", htmlFiles);
-
-        /* ============================================
-           PREFERRED ENTRY FILES (best first)
-           ============================================ */
-
-        const possibleFiles = [
-            "index.html",
-            "game.html",
-            "play.html",
-            "main.html",
-            "public/index.html",
-            "src/index.html",
-            "dist/index.html",
-            "build/index.html",
-            "game/index.html",
-            "app/index.html"
-        ];
-
-        let selected = null;
-
-        for(const preferred of possibleFiles){
-            selected = htmlFiles.find(f => f.toLowerCase() === preferred.toLowerCase());
-            if(selected) break;
-        }
-
-        /* Any index.html anywhere */
-        if(!selected){
-            selected = htmlFiles.find(f => f.split("/").pop().toLowerCase() === "index.html");
-        }
-
-        /* Best effort: prefer files near root (shorter paths = closer to root) */
-        if(!selected){
-            const sorted = [...htmlFiles].sort((a, b) => a.split("/").length - b.split("/").length);
-            selected = sorted[0];
-        }
-
-        console.log("✅ Selected game file:", selected);
-
-        const pagesUrl = `https://${owner}.github.io/${repo}/${selected}`;
-        const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${selected}`;
-        const githackUrl = `https://raw.githack.com/${owner}/${repo}/${encodeURIComponent(branch)}/${selected}`;
-
-        /* GITHACK FIRST — works without GitHub Pages */
-        loadGameWithFallbacks([githackUrl, pagesUrl, rawUrl]);
-    }
-    catch(err){
-        console.error("GitHub repo error:", err);
-        try{
-            const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/index.html`;
-            loadGame(rawUrl);
-        }catch{
-            showError("GitHub error", "Could not read this GitHub repository.");
-        }
-    }
-}
-
-async function getGitTree(owner, repo, branch){
-    const data = await githubFetch(
-        `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/git/trees/${encodeURIComponent(branch)}?recursive=1`
-    );
-    if(!Array.isArray(data.tree)) return [];
-    return data.tree.filter(item => item.type === "blob").map(item => item.path);
-}
-
-async function getRepositoryFiles(owner, repo, branch){
-    const result = [];
-
-    async function walk(path){
-        const url = path
-            ? `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${path}?ref=${encodeURIComponent(branch)}`
-            : `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents?ref=${encodeURIComponent(branch)}`;
-
-        const data = await githubFetch(url);
-        if(!Array.isArray(data)) return;
-
-        for(const item of data){
-            if(item.type === "file") result.push(item.path);
-            if(item.type === "dir") await walk(item.path);
-        }
-    }
-
-    try{ await walk(""); }
-    catch(err){ console.error("Contents API error:", err); }
-
-    return result;
-}
-
-/* ============ LOAD GAME WITH FALLBACKS ============ */
-
-function loadGameWithFallbacks(urls){
-    const validUrls = urls.filter(url => url && !isBlacklistedUrl(url));
-
-    if(!validUrls.length){
-        showError("No URL", "No playable game URL was found.");
-        return;
-    }
-
-    let index = 0;
-
-    function tryNext(){
-        if(index >= validUrls.length){
-            showError(
-                "Could not load game",
-                "The repository was found, but the game could not be loaded. Make sure GitHub Pages is enabled or your repository has an index.html at the root."
-            );
-            return;
-        }
-
-        const url = validUrls[index++];
-        currentGameUrl = url;
-        openNewBtn.style.display = "inline-block";
-
-        loading.style.display = "flex";
-        loadingText.textContent = `Trying source ${index}/${validUrls.length}...`;
-
-        console.log(`🎮 Trying: ${url}`);
-
-        loadGame(url, function(){
-            if(index < validUrls.length){
-                console.warn(`❌ Failed, trying next...`);
-                tryNext();
-            }else{
-                showError("Load failed", "The game could not be loaded from any source.");
-            }
-        });
-    }
-
-    tryNext();
-}
-
 /* ============ LOAD GAME ============ */
 
-function loadGame(url, onFailure = null){
+function loadGame(url){
     loading.style.display = "none";
     error.style.display = "none";
     frame.style.display = "block";
     playerStatus.textContent = "LOADING";
     playerStatus.className = "player-status";
 
+    /* Set iframe src — sandbox prevents any redirect */
     frame.src = url;
 
     let loaded = false;
@@ -1525,29 +996,15 @@ function loadGame(url, onFailure = null){
         focusGameFrame();
     };
 
+    /* 12 sec timeout — if nothing loads */
     setTimeout(function(){
         if(!loaded && !finished){
             finished = true;
-            frame.style.display = "none";
-            if(onFailure) onFailure();
-            else showError("Load failed", "The game page could not be loaded.");
+            playerStatus.textContent = "SLOW";
+            playerStatus.className = "player-status";
+            loadingText.textContent = "Taking longer than expected...";
         }
-    }, 4000);
-}
-
-/* ============ PLAYABLE URL CHECK ============ */
-
-function isPlayableWebUrl(url){
-    try{
-        const parsed = new URL(url);
-        const hostname = parsed.hostname.toLowerCase();
-        return (
-            (parsed.protocol === "http:" || parsed.protocol === "https:") &&
-            hostname !== "github.com" &&
-            hostname !== "www.github.com"
-        );
-    }
-    catch{ return false; }
+    }, 12000);
 }
 
 /* ============ FOCUS ============ */
@@ -1593,15 +1050,10 @@ async function toggleFullscreen(){
             }catch{}
 
         }else{
-            if(document.exitFullscreen){
-                await document.exitFullscreen();
-            }else if(document.webkitExitFullscreen){
-                await document.webkitExitFullscreen();
-            }else if(document.mozCancelFullScreen){
-                await document.mozCancelFullScreen();
-            }else if(document.msExitFullscreen){
-                await document.msExitFullscreen();
-            }
+            if(document.exitFullscreen) await document.exitFullscreen();
+            else if(document.webkitExitFullscreen) await document.webkitExitFullscreen();
+            else if(document.mozCancelFullScreen) await document.mozCancelFullScreen();
+            else if(document.msExitFullscreen) await document.msExitFullscreen();
         }
 
         setTimeout(focusGameFrame, 200);
@@ -1641,7 +1093,6 @@ document.addEventListener("keydown", function(e){
             document.fullscreenElement ||
             document.webkitFullscreenElement ||
             document.mozFullScreenElement;
-
         if(fsElement){
             if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
             else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
@@ -1659,10 +1110,18 @@ reloadBtn.addEventListener("click", function(){
     }
 });
 
-/* ============ OPEN IN NEW TAB ============ */
+/* ============ OPEN DIRECT ============ */
 
 openNewBtn.addEventListener("click", function(){
     if(currentGameUrl){
+        if(window.__playrAllowNav) window.__playrAllowNav();
+        window.open(currentGameUrl, "_blank", "noopener,noreferrer");
+    }
+});
+
+errorOpenBtn.addEventListener("click", function(){
+    if(currentGameUrl){
+        if(window.__playrAllowNav) window.__playrAllowNav();
         window.open(currentGameUrl, "_blank", "noopener,noreferrer");
     }
 });
@@ -1684,7 +1143,6 @@ errorRetryBtn.addEventListener("click", function(){
 
 async function loadReviews(id){
     if(!id) return;
-
     try{
         const reviewQuery = query(
             collection(db, "reviews"),
@@ -1692,15 +1150,11 @@ async function loadReviews(id){
             orderBy("createdAt", "desc"),
             limit(50)
         );
-
         const snapshot = await getDocs(reviewQuery);
         reviews = [];
-        snapshot.forEach(reviewDoc => {
-            reviews.push({ id: reviewDoc.id, ...reviewDoc.data() });
-        });
+        snapshot.forEach(d => reviews.push({ id: d.id, ...d.data() }));
         renderReviews();
-    }
-    catch(err){
+    }catch(err){
         console.error("Review query error:", err);
         try{
             const fallback = query(
@@ -1710,14 +1164,9 @@ async function loadReviews(id){
             );
             const snapshot = await getDocs(fallback);
             reviews = [];
-            snapshot.forEach(reviewDoc => {
-                reviews.push({ id: reviewDoc.id, ...reviewDoc.data() });
-            });
+            snapshot.forEach(d => reviews.push({ id: d.id, ...d.data() }));
             renderReviews();
-        }
-        catch(error){
-            console.error("Review fallback error:", error);
-        }
+        }catch(e){ console.error(e); }
     }
 }
 
@@ -1729,27 +1178,23 @@ function renderReviews(){
     setText("reviewCountTop", `${total} reviews`);
 
     if(!total){
-        list.innerHTML = `<div class="no-reviews">No reviews yet. Be the first to review this game.</div>`;
+        list.innerHTML = `<div class="no-reviews">No reviews yet. Be the first!</div>`;
         updateRating([]);
         return;
     }
 
-    list.innerHTML = reviews.map(review => {
-        const rating = Math.max(0, Math.min(5, Number(review.rating || 0)));
+    list.innerHTML = reviews.map(r => {
+        const rating = Math.max(0, Math.min(5, Number(r.rating || 0)));
         const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
-        const text = escapeHTML(review.text || review.review || "");
-        const user = escapeHTML(review.userName || review.username || "PLAYR Player");
-
         return `
         <div class="review">
             <div class="review-top">
-                <div class="reviewer">${user}</div>
-                <div class="review-date">${formatDate(review.createdAt)}</div>
+                <div class="reviewer">${escapeHTML(r.userName || "PLAYR Player")}</div>
+                <div class="review-date">${formatDate(r.createdAt)}</div>
             </div>
             <div class="review-stars">${stars}</div>
-            <div class="review-text">${text}</div>
-        </div>
-        `;
+            <div class="review-text">${escapeHTML(r.text || r.review || "")}</div>
+        </div>`;
     }).join("");
 
     updateRating(reviews);
@@ -1760,26 +1205,20 @@ function updateRating(items){
         setRatingUI(0, 0, [0,0,0,0,0]);
         return;
     }
-
     const counts = [0,0,0,0,0];
     let total = 0;
-
-    items.forEach(review => {
-        const rating = Math.max(1, Math.min(5, Number(review.rating || 0)));
+    items.forEach(r => {
+        const rating = Math.max(1, Math.min(5, Number(r.rating || 0)));
         counts[rating - 1]++;
         total += rating;
     });
-
-    const average = total / items.length;
-    setRatingUI(average, items.length, counts);
+    setRatingUI(total / items.length, items.length, counts);
 }
 
 function setRatingUI(average, total, counts){
     const rounded = Number(average.toFixed(1));
-
     setText("headerRating", rounded.toFixed(1));
     setText("bigRating", rounded.toFixed(1));
-
     const stars = getStars(average);
     setText("headerStars", stars);
     setText("bigStars", stars);
@@ -1787,55 +1226,30 @@ function setRatingUI(average, total, counts){
     for(let i = 1; i <= 5; i++){
         const count = counts[i - 1] || 0;
         const percent = total ? (count / total) * 100 : 0;
-
         const bar = document.getElementById(`bar${i}`);
         const countEl = document.getElementById(`count${i}`);
-
         if(bar) bar.style.width = `${percent}%`;
         if(countEl) countEl.textContent = count;
     }
 }
 
-/* ============ STAR PICKER ============ */
-
 document.querySelectorAll("#starPicker button").forEach(button => {
     button.addEventListener("click", function(){
         selectedRating = Number(this.dataset.rating);
-
         document.querySelectorAll("#starPicker button").forEach(item => {
-            item.classList.toggle(
-                "active",
-                Number(item.dataset.rating) <= selectedRating
-            );
+            item.classList.toggle("active", Number(item.dataset.rating) <= selectedRating);
         });
     });
 });
 
-/* ============ SUBMIT REVIEW ============ */
-
 document.getElementById("reviewSubmit").addEventListener("click", async function(){
-    if(!currentGame){
-        alert("Game is still loading.");
-        return;
-    }
-
-    if(!selectedRating){
-        alert("Please select a star rating.");
-        return;
-    }
+    if(!currentGame) return alert("Game is still loading.");
+    if(!selectedRating) return alert("Please select a star rating.");
 
     const input = document.getElementById("reviewText");
     const text = input.value.trim();
-
-    if(!text){
-        alert("Please write a review.");
-        return;
-    }
-
-    if(!currentGame.id){
-        alert("Reviews are available for published PLAYR games only.");
-        return;
-    }
+    if(!text) return alert("Please write a review.");
+    if(!currentGame.id) return alert("Reviews are available for published PLAYR games only.");
 
     const button = this;
     button.disabled = true;
@@ -1850,22 +1264,15 @@ document.getElementById("reviewSubmit").addEventListener("click", async function
             userName: "PLAYR Player",
             createdAt: serverTimestamp()
         });
-
         input.value = "";
         selectedRating = 0;
-
-        document.querySelectorAll("#starPicker button").forEach(item => {
-            item.classList.remove("active");
-        });
-
+        document.querySelectorAll("#starPicker button").forEach(item => item.classList.remove("active"));
         await loadReviews(currentGame.id);
-        alert("Review submitted successfully.");
-    }
-    catch(err){
+        alert("Review submitted!");
+    }catch(err){
         console.error(err);
-        alert("Unable to submit review. Check your Firestore rules.");
-    }
-    finally{
+        alert("Unable to submit review. Check Firestore rules.");
+    }finally{
         button.disabled = false;
         button.textContent = "SUBMIT REVIEW";
     }
@@ -1875,60 +1282,41 @@ document.getElementById("reviewSubmit").addEventListener("click", async function
 
 async function loadComments(id){
     if(!id) return;
-
     try{
-        const commentQuery = query(
+        const q = query(
             collection(db, "comments"),
             where("gameId", "==", id),
             limit(50)
         );
-
-        const snapshot = await getDocs(commentQuery);
+        const snapshot = await getDocs(q);
         comments = [];
-        snapshot.forEach(commentDoc => {
-            comments.push({ id: commentDoc.id, ...commentDoc.data() });
-        });
-
+        snapshot.forEach(d => comments.push({ id: d.id, ...d.data() }));
         comments.sort((a,b) => getTimestamp(b.createdAt) - getTimestamp(a.createdAt));
         renderComments();
-    }
-    catch(err){
-        console.error("Comments error:", err);
-    }
+    }catch(err){ console.error("Comments error:", err); }
 }
 
 function renderComments(){
     const container = document.getElementById("comments");
-
     if(!comments.length){
         container.innerHTML = `<div class="no-reviews">No comments yet.</div>`;
         return;
     }
-
-    container.innerHTML = comments.map(comment => {
-        return `
+    container.innerHTML = comments.map(c => `
         <div class="comment">
-            <div class="comment-user">${escapeHTML(comment.userName || "PLAYR Player")}</div>
-            <div class="comment-text">${escapeHTML(comment.text || "")}</div>
-            <div class="comment-date">${formatDate(comment.createdAt)}</div>
-        </div>
-        `;
-    }).join("");
+            <div class="comment-user">${escapeHTML(c.userName || "PLAYR Player")}</div>
+            <div class="comment-text">${escapeHTML(c.text || "")}</div>
+            <div class="comment-date">${formatDate(c.createdAt)}</div>
+        </div>`).join("");
 }
 
 document.getElementById("commentBtn").addEventListener("click", async function(){
-    if(!currentGame || !currentGame.id){
-        alert("Comments are available for published PLAYR games only.");
-        return;
-    }
-
+    if(!currentGame || !currentGame.id) return alert("Comments are for published games only.");
     const input = document.getElementById("commentInput");
     const text = input.value.trim();
-
     if(!text) return;
 
     this.disabled = true;
-
     try{
         await addDoc(collection(db, "comments"), {
             gameId: currentGame.id,
@@ -1937,78 +1325,65 @@ document.getElementById("commentBtn").addEventListener("click", async function()
             userName: "PLAYR Player",
             createdAt: serverTimestamp()
         });
-
         input.value = "";
         await loadComments(currentGame.id);
-    }
-    catch(err){
+    }catch(err){
         console.error(err);
-        alert("Unable to post comment. Check your Firestore rules.");
-    }
-    finally{
+        alert("Unable to post comment.");
+    }finally{
         this.disabled = false;
     }
 });
 
-/* ============ RELATED GAMES ============ */
+/* ============ RELATED ============ */
 
 async function loadRelatedGames(game){
     try{
         const snapshot = await getDocs(collection(db, "game_submissions"));
         const games = [];
-
-        snapshot.forEach(gameDoc => {
-            const data = gameDoc.data();
+        snapshot.forEach(d => {
+            const data = d.data();
             const status = String(data.status || "").toLowerCase();
-
-            if(gameDoc.id !== game.id && status === "approved"){
-                games.push(normalizeGame(gameDoc.id, data));
+            if(d.id !== game.id && status === "approved"){
+                games.push(normalizeGame(d.id, data));
             }
         });
-
         renderRelatedGames(games.slice(0, 6));
-    }
-    catch(err){
-        console.error("Related games error:", err);
-        const related = document.getElementById("relatedGames");
-        if(related){
-            related.innerHTML = `<div class="no-reviews">No other games found.</div>`;
-        }
+    }catch(err){
+        console.error("Related error:", err);
+        const r = document.getElementById("relatedGames");
+        if(r) r.innerHTML = `<div class="no-reviews">No other games found.</div>`;
     }
 }
 
 function renderRelatedGames(games){
     const container = document.getElementById("relatedGames");
-
     if(!games.length){
         container.innerHTML = `<div class="no-reviews">No other games found.</div>`;
         return;
     }
-
     container.innerHTML = games.map(game => {
         const name = game.name || "Untitled";
         const category = game.category || "Game";
         const thumbnail = game.thumbnailUrl || "";
         const initials = getInitials(name);
-
         return `
         <div class="related-card" onclick="openRelatedGame('${escapeJS(game.id)}')">
             <div class="related-cover">
                 ${thumbnail
                     ? `<img src="${escapeHTML(thumbnail)}" alt="${escapeHTML(name)}" onerror="this.style.display='none';this.parentElement.textContent='${escapeJS(initials)}';">`
-                    : escapeHTML(initials)
-                }
+                    : escapeHTML(initials)}
             </div>
             <div class="related-info">
                 <div class="related-name">${escapeHTML(name)}</div>
                 <div class="related-category">${escapeHTML(category)}</div>
             </div>
-        </div>
-        `;
+        </div>`;
     }).join("");
 }
 
 window.openRelatedGame = function(id){
+    if(window.__playrAllowNav) window.__playrAllowNav();
     window.location.href = `player.html?id=${encodeURIComponent(id)}`;
 };
 
@@ -2019,10 +1394,7 @@ document.getElementById("copyLink").addEventListener("click", async function(){
         await navigator.clipboard.writeText(window.location.href);
         this.textContent = "✓ Copied";
         setTimeout(() => { this.textContent = "🔗 Copy Link"; }, 1500);
-    }
-    catch{
-        alert(window.location.href);
-    }
+    }catch{ alert(window.location.href); }
 });
 
 document.getElementById("nativeShare").addEventListener("click", async function(){
@@ -2034,8 +1406,7 @@ document.getElementById("nativeShare").addEventListener("click", async function(
                 url: window.location.href
             });
         }catch{}
-    }
-    else{
+    }else{
         document.getElementById("copyLink").click();
     }
 });
@@ -2043,12 +1414,10 @@ document.getElementById("nativeShare").addEventListener("click", async function(
 /* ============ MOBILE HINT ============ */
 
 const mobileHint = document.getElementById("mobileHint");
-
 if(mobileHint){
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const hasShown = sessionStorage.getItem("playr_rotate_hint_shown");
-
     if(isMobile && isPortrait && !hasShown){
         setTimeout(() => {
             if(frame && frame.style.display === "block" && playerStatus.textContent === "PLAYING"){
@@ -2057,7 +1426,6 @@ if(mobileHint){
             }
         }, 4000);
     }
-
     document.getElementById("hintCloseBtn").addEventListener("click", () => {
         mobileHint.classList.remove("show");
     });
@@ -2072,49 +1440,26 @@ function getStars(number){
 }
 
 function getInitials(name){
-    return String(name || "?")
-        .split(/\s+/)
-        .filter(Boolean)
-        .slice(0, 2)
-        .map(word => word.charAt(0))
-        .join("")
-        .toUpperCase() || "?";
+    return String(name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w.charAt(0)).join("").toUpperCase() || "?";
 }
 
 function escapeHTML(value){
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
 
 function escapeJS(value){
-    return String(value ?? "")
-        .replace(/\\/g, "\\\\")
-        .replace(/'/g, "\\'")
-        .replace(/\n/g, "\\n")
-        .replace(/\r/g, "\\r");
+    return String(value ?? "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\n/g,"\\n").replace(/\r/g,"\\r");
 }
 
-function getTimestamp(timestamp){
-    if(timestamp && typeof timestamp.toMillis === "function"){
-        return timestamp.toMillis();
-    }
+function getTimestamp(ts){
+    if(ts && typeof ts.toMillis === "function") return ts.toMillis();
     return 0;
 }
 
-function formatDate(timestamp){
-    if(!timestamp || typeof timestamp.toDate !== "function"){
-        return "Recently";
-    }
-    try{
-        return timestamp.toDate().toLocaleDateString();
-    }
-    catch{
-        return "Recently";
-    }
+function formatDate(ts){
+    if(!ts || typeof ts.toDate !== "function") return "Recently";
+    try{ return ts.toDate().toLocaleDateString(); }
+    catch{ return "Recently"; }
 }
 
 /* ============ ERROR ============ */
