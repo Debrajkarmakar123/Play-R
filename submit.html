@@ -20,79 +20,39 @@ body{
     color:#f5f5f3;
     font-family:Inter,-apple-system,BlinkMacSystemFont,Arial,sans-serif;
     padding:30px 16px;
-    padding-left:calc(16px + env(safe-area-inset-left,0px));
-    padding-right:calc(16px + env(safe-area-inset-right,0px));
     padding-bottom:calc(30px + env(safe-area-inset-bottom,0px));
 }
 
 .page{width:min(720px,100%);margin:auto;}
-
-.logo{
-    display:inline-flex;align-items:center;gap:10px;
-    color:white;text-decoration:none;font-size:20px;font-weight:800;
-    margin-bottom:32px;
-}
-
-.logo-mark{
-    width:22px;height:22px;
-    background:linear-gradient(135deg,#ff914d,#ff4f2d);
-    border-radius:6px;transform:rotate(45deg);
-}
+.logo{display:inline-flex;align-items:center;gap:10px;color:white;text-decoration:none;font-size:20px;font-weight:800;margin-bottom:32px;}
+.logo-mark{width:22px;height:22px;background:linear-gradient(135deg,#ff914d,#ff4f2d);border-radius:6px;transform:rotate(45deg);}
 
 .header{margin-bottom:24px;}
-
-.header small{
-    color:#ff8754;font-size:10px;text-transform:uppercase;
-    letter-spacing:1.7px;font-weight:700;
-}
-
+.header small{color:#ff8754;font-size:10px;text-transform:uppercase;letter-spacing:1.7px;font-weight:700;}
 .header h1{font-size:32px;margin-top:9px;letter-spacing:-1.4px;line-height:1.1;}
-
 .header p{color:#777;font-size:13px;line-height:1.65;margin-top:9px;}
 
-.card{
-    background:#111;border:1px solid #282828;border-radius:14px;
-    padding:24px;box-shadow:0 25px 70px rgba(0,0,0,.35);
-}
+.card{background:#111;border:1px solid #282828;border-radius:14px;padding:24px;box-shadow:0 25px 70px rgba(0,0,0,.35);}
 
 .section{padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #222;}
 .section:last-of-type{border-bottom:0;}
 
-.section-title{
-    color:#fff;font-size:13px;font-weight:800;margin-bottom:16px;letter-spacing:-.2px;
-}
-
+.section-title{color:#fff;font-size:13px;font-weight:800;margin-bottom:16px;letter-spacing:-.2px;}
 .section-title span{color:#ff8754;margin-right:7px;}
 
 .field{margin-bottom:18px;}
-
 label{display:block;color:#cfcfcd;font-size:12px;font-weight:600;margin-bottom:8px;}
-
 .required{color:#ff7045;}
 
-input,
-textarea,
-select{
-    width:100%;
-    background:#090909;
-    border:1px solid #292929;
-    color:white;
-    outline:none;
-    border-radius:8px;
-    padding:13px;
-    font-family:inherit;
-    font-size:13px;
-    transition:.2s;
+input,textarea,select{
+    width:100%;background:#090909;border:1px solid #292929;
+    color:white;outline:none;border-radius:8px;padding:13px;
+    font-family:inherit;font-size:13px;transition:.2s;
 }
-
-input:focus,
-textarea:focus,
-select:focus{border-color:#555;}
-
+input:focus,textarea:focus,select:focus{border-color:#555;}
 select{cursor:pointer;}
 
 input[type="file"]{padding:11px;cursor:pointer;font-size:12px;}
-
 input[type="file"]::file-selector-button{
     background:#202020;border:1px solid #333;color:#fff;
     border-radius:6px;padding:8px 12px;margin-right:10px;
@@ -100,19 +60,12 @@ input[type="file"]::file-selector-button{
 }
 
 textarea{min-height:100px;resize:vertical;}
-
 .help{color:#666;font-size:11px;margin-top:7px;line-height:1.55;}
 
 .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-
 .choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
-
 .choice{position:relative;}
-
-.choice input{
-    position:absolute;opacity:0;pointer-events:none;
-}
-
+.choice input{position:absolute;opacity:0;pointer-events:none;}
 .choice label{
     display:flex;align-items:center;justify-content:center;
     min-height:46px;margin:0;padding:11px;
@@ -120,43 +73,62 @@ textarea{min-height:100px;resize:vertical;}
     color:#777;cursor:pointer;text-align:center;
     font-size:12px;font-weight:600;transition:.2s;
 }
-
 .choice input:checked + label{
     color:#fff;border-color:#ff7045;background:#17100d;
     box-shadow:0 0 0 1px rgba(255,112,69,.12);
 }
-
 .choice.yes-no label{min-height:52px;font-size:13px;font-weight:800;}
 
-.thumbnail-preview{
-    display:none;margin-top:12px;
-    border:1px solid #292929;border-radius:8px;overflow:hidden;background:#090909;
-}
-
+.thumbnail-preview{display:none;margin-top:12px;border:1px solid #292929;border-radius:8px;overflow:hidden;background:#090909;}
 .thumbnail-preview img{display:block;width:100%;max-height:260px;object-fit:cover;}
-
-.thumbnail-info{
-    padding:8px 12px;color:#888;font-size:10px;border-top:1px solid #222;
-    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
-}
-
+.thumbnail-info{padding:8px 12px;color:#888;font-size:10px;border-top:1px solid #222;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .thumbnail-info .size{color:#ff9a63;font-weight:700;}
 
-/* INSTRUCTIONS */
+/* ITCH.IO INSTRUCTIONS */
+.itch-hero{
+    background:linear-gradient(145deg,#17120f,#100f0e);
+    border:1px solid #34251d;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:20px;
+    text-align:center;
+}
+.itch-hero .itch-logo{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 18px;
+    background:#fa5c5c;
+    border-radius:9px;
+    color:#fff;
+    font-size:15px;
+    font-weight:900;
+    letter-spacing:-.2px;
+    margin-bottom:14px;
+    text-decoration:none;
+}
+.itch-hero .itch-logo svg{width:22px;height:22px;}
+.itch-hero h3{color:#ffb17c;font-size:14px;margin-bottom:8px;font-weight:800;}
+.itch-hero p{color:#888;font-size:11px;line-height:1.65;}
+
 .instructions{
     background:linear-gradient(145deg,#17120f,#100f0e);
-    border:1px solid #34251d;border-radius:10px;padding:17px;margin-bottom:20px;
+    border:1px solid #34251d;border-radius:10px;
+    padding:17px;margin-bottom:18px;
 }
 .instructions-title{color:#ff9568;font-size:12px;font-weight:800;margin-bottom:12px;}
 .instructions p{color:#888;font-size:11px;line-height:1.7;margin-bottom:12px;}
-.instructions ol{padding-left:20px;}
-.instructions li{color:#999;font-size:11px;line-height:1.75;margin-bottom:5px;}
+.instructions ol{padding-left:20px;margin-bottom:10px;}
+.instructions li{color:#999;font-size:11px;line-height:1.75;margin-bottom:6px;}
 .instructions strong{color:#ddd;}
+
 .code-box{
-    margin-top:12px;padding:11px;background:#080808;
-    border:1px solid #292929;border-radius:7px;
-    color:#aaa;font-family:monospace;font-size:10px;line-height:1.7;word-break:break-all;
+    margin-top:12px;padding:12px;
+    background:#080808;border:1px solid #292929;border-radius:7px;
+    color:#aaa;font-family:monospace;font-size:10px;
+    line-height:1.7;word-break:break-all;
 }
+.code-box .highlight{color:#ffb17c;font-weight:700;}
 
 /* SERVER NOTE */
 .server-note{
@@ -165,63 +137,25 @@ textarea{min-height:100px;resize:vertical;}
     padding:15px;margin-bottom:18px;
     display:flex;gap:12px;align-items:flex-start;
 }
-.server-note .icon{
-    font-size:22px;line-height:1;flex:0 0 auto;
-    filter:drop-shadow(0 0 12px rgba(255,140,60,.4));
-}
+.server-note .icon{font-size:22px;line-height:1;flex:0 0 auto;filter:drop-shadow(0 0 12px rgba(255,140,60,.4));}
 .server-note .text{color:#c9b79f;font-size:11px;line-height:1.65;}
-.server-note .text strong{
-    display:block;color:#ffb17c;font-size:12px;margin-bottom:4px;letter-spacing:-.2px;
-}
+.server-note .text strong{display:block;color:#ffb17c;font-size:12px;margin-bottom:4px;letter-spacing:-.2px;}
 
 /* MULTIPLAYER */
-.multiplayer-fields{
-    display:none;margin-top:14px;padding-top:16px;
-    border-top:1px dashed #2a2a2a;
-    animation:slideDown .25s ease;
-}
+.multiplayer-fields{display:none;margin-top:14px;padding-top:16px;border-top:1px dashed #2a2a2a;}
 .multiplayer-fields.show{display:block;}
-@keyframes slideDown{
-    from{opacity:0;transform:translateY(-6px);}
-    to{opacity:1;transform:translateY(0);}
-}
 
-/* CHECKBOX — FIXED */
-.checkbox{
-    display:flex;
-    align-items:flex-start;
-    gap:10px;
-    margin:18px 0;
-}
-
+/* CHECKBOX */
+.checkbox{display:flex;align-items:flex-start;gap:10px;margin:18px 0;}
 .checkbox input[type="checkbox"]{
-    -webkit-appearance:auto !important;
-    appearance:auto !important;
-    width:18px !important;
-    height:18px !important;
-    min-width:18px !important;
-    margin:3px 0 0 0 !important;
-    padding:0 !important;
-    background:transparent !important;
-    border:0 !important;
-    border-radius:3px !important;
-    accent-color:#ff7045;
-    cursor:pointer;
-    flex:0 0 18px;
-    transform:scale(1.15);
+    -webkit-appearance:auto !important;appearance:auto !important;
+    width:18px !important;height:18px !important;min-width:18px !important;
+    margin:3px 0 0 0 !important;padding:0 !important;
+    background:transparent !important;border:0 !important;
+    border-radius:3px !important;accent-color:#ff7045;cursor:pointer;
+    flex:0 0 18px;transform:scale(1.15);
 }
-
-.checkbox label{
-    color:#777;
-    line-height:1.55;
-    margin:0;
-    font-size:12px;
-    font-weight:500;
-    cursor:pointer;
-    user-select:none;
-    flex:1;
-}
-
+.checkbox label{color:#777;line-height:1.55;margin:0;font-size:12px;font-weight:500;cursor:pointer;user-select:none;flex:1;}
 .checkbox label strong{color:#ffb17c;}
 
 /* SUBMIT */
@@ -232,10 +166,8 @@ textarea{min-height:100px;resize:vertical;}
     cursor:pointer;transition:.2s;font-family:inherit;letter-spacing:.3px;
 }
 .submit:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.1);}
-.submit:active{transform:translateY(0);}
 .submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 
-/* PROGRESS */
 .progress{
     display:none;margin-top:14px;color:#aaa;font-size:12px;
     text-align:center;padding:14px;background:#0d0d0d;
@@ -243,68 +175,21 @@ textarea{min-height:100px;resize:vertical;}
 }
 .progress .dot{
     display:inline-block;width:8px;height:8px;border-radius:50%;
-    background:#ff8754;margin-right:8px;
-    animation:blink 1s infinite;
+    background:#ff8754;margin-right:8px;animation:blink 1s infinite;
 }
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-.progress-steps{
-    display:flex;
-    justify-content:center;
-    gap:14px;
-    margin-top:10px;
-    flex-wrap:wrap;
-}
-.progress-step{
-    font-size:10px;
-    color:#444;
-    font-weight:700;
-    letter-spacing:.5px;
-    display:flex;
-    align-items:center;
-    gap:4px;
-}
-.progress-step.active{color:#ff8754;}
-.progress-step.done{color:#8dc398;}
-.progress-step.done:before{content:"✓ ";}
-.progress-step.failed{color:#ff9999;}
-
-/* MESSAGES */
-.message{
-    display:none;margin-top:18px;padding:15px;border-radius:9px;
-    font-size:12px;line-height:1.65;word-break:break-word;
-}
+.message{display:none;margin-top:18px;padding:15px;border-radius:9px;font-size:12px;line-height:1.65;word-break:break-word;}
 .success{background:#101b13;border:1px solid #263c2b;color:#8dc398;}
 .error{background:#1b100e;border:1px solid #48231c;color:#e99a88;}
 .error strong{display:block;margin-bottom:6px;color:#ffb3a3;font-size:13px;}
-.error-detail{
-    margin-top:10px;
-    padding:10px;
-    background:#0b0706;
-    border-radius:6px;
-    font-size:10px;
-    font-family:monospace;
-    color:#a68;
-    word-break:break-all;
-    line-height:1.5;
-}
-.warning{
-    background:#1a1408;
-    border:1px solid #4a3a1a;
-    color:#d9b878;
-}
+.error-detail{margin-top:10px;padding:10px;background:#0b0706;border-radius:6px;font-size:10px;font-family:monospace;color:#a68;word-break:break-all;line-height:1.5;}
+.warning{background:#1a1408;border:1px solid #4a3a1a;color:#d9b878;}
 .warning strong{display:block;margin-bottom:6px;color:#ffd28a;font-size:13px;}
 
-.note{
-    margin-top:18px;padding:13px;
-    background:#17120f;border:1px solid #302018;border-radius:8px;
-    color:#8c776c;font-size:11px;line-height:1.65;
-}
+.note{margin-top:18px;padding:13px;background:#17120f;border:1px solid #302018;border-radius:8px;color:#8c776c;font-size:11px;line-height:1.65;}
 
-footer{
-    text-align:center;color:#555;font-size:11px;margin-top:26px;
-    padding-bottom:env(safe-area-inset-bottom,0px);
-}
+footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-bottom:env(safe-area-inset-bottom,0px);}
 
 @media(max-width:600px){
     body{padding:20px 12px;}
@@ -318,8 +203,6 @@ footer{
     .server-note .text{font-size:10.5px;}
     label{font-size:11px;}
     input,textarea,select{font-size:14px;}
-    .progress-steps{gap:10px;}
-    .progress-step{font-size:9px;}
 }
 
 @media(max-width:380px){
@@ -343,17 +226,91 @@ footer{
 <div class="header">
     <small>Developer Portal</small>
     <h1>Submit your game.</h1>
-    <p>Have a game you'd like to see on PLAYR? Send us the details and our team will review your submission.</p>
+    <p>Host your game on itch.io and submit the embed link. We'll review and publish it on PLAYR.</p>
 </div>
 
 <div class="card">
 
 <form id="gameForm" novalidate>
 
-<!-- DEVELOPER -->
+<!-- ============================================
+     SECTION 0 — ITCH.IO HOSTING GUIDE
+     ============================================ -->
 <div class="section">
     <div class="section-title">
         <span>01</span>
+        Host your game on itch.io
+    </div>
+
+    <div class="itch-hero">
+        <a class="itch-logo" href="https://itch.io/register" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.13 1.34C2.07 1.34 1.21 2.2 1.21 3.26v10.47c0 4.5 3.65 8.15 8.15 8.15h5.28c4.5 0 8.15-3.65 8.15-8.15V3.26c0-1.06-.86-1.92-1.92-1.92H3.13zm6.48 5.84c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm.01 2c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm7.01-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/></svg>
+            itch.io
+        </a>
+        <h3>Free game hosting — no code needed</h3>
+        <p>Upload your HTML5 game, get an embed link, and paste it below.</p>
+    </div>
+
+    <div class="instructions">
+        <div class="instructions-title">📋 HOW TO PUBLISH YOUR GAME ON ITCH.IO</div>
+
+        <ol>
+            <li>Create a free account on <strong>itch.io</strong></li>
+            <li>Click <strong>"Upload new project"</strong></li>
+            <li>Fill in game title, description, and cover image</li>
+            <li>Under <strong>"Kind of project"</strong> select <strong>HTML</strong></li>
+            <li>Zip your game files (must include <strong>index.html</strong> at the root)</li>
+            <li>Upload the ZIP file to itch.io</li>
+            <li>Tick <strong>"This file will be played in the browser"</strong></li>
+            <li>Set viewport size and enable fullscreen (optional)</li>
+            <li>Click <strong>"Save & view page"</strong></li>
+            <li>On your game page, click <strong>"Embed"</strong> or <strong>"Run game"</strong></li>
+            <li>Copy the embed URL from the address bar — it will look like:</li>
+        </ol>
+
+        <div class="code-box">
+            <span class="highlight">https://itch.io/embed-upload/1234567?color=000000</span>
+        </div>
+
+        <p style="margin-top:14px;margin-bottom:0;">
+            <strong>Important:</strong> Copy the URL <strong>directly from the iframe src</strong> (right-click the game → "Inspect" → find <code>&lt;iframe src="..."&gt;</code>) OR use the "Run game" URL. It must start with <strong>https://itch.io/embed-upload/</strong>
+        </p>
+    </div>
+
+    <div class="field">
+        <label>itch.io Embed URL <span class="required">*</span></label>
+        <input
+            type="url"
+            name="gameUrl"
+            id="gameUrl"
+            placeholder="https://itch.io/embed-upload/1234567?color=000000"
+            pattern="https://itch\.io/.*"
+            required
+        >
+        <div class="help">Example: https://itch.io/embed-upload/1234567?color=000000</div>
+    </div>
+
+    <div class="field">
+        <label>itch.io Game Page URL <span class="required">*</span></label>
+        <input
+            type="url"
+            name="itchPageUrl"
+            id="itchPageUrl"
+            placeholder="https://yourname.itch.io/your-game"
+            pattern="https://.*\.itch\.io/.*"
+            required
+        >
+        <div class="help">The public page URL where players can find your game on itch.io. This helps us verify.</div>
+    </div>
+
+</div>
+
+<!-- ============================================
+     SECTION 1 — DEVELOPER INFO
+     ============================================ -->
+<div class="section">
+    <div class="section-title">
+        <span>02</span>
         Developer Information
     </div>
 
@@ -423,10 +380,12 @@ footer{
     </div>
 </div>
 
-<!-- GAME INFO -->
+<!-- ============================================
+     SECTION 2 — GAME INFO
+     ============================================ -->
 <div class="section">
     <div class="section-title">
-        <span>02</span>
+        <span>03</span>
         Game Information
     </div>
 
@@ -509,12 +468,28 @@ footer{
         </select>
     </div>
 
+    <div class="field">
+        <label>Game Thumbnail <span class="required">*</span></label>
+        <input type="file" id="thumbnail" name="thumbnail" accept="image/png,image/jpeg,image/webp" required>
+        <div class="help">Upload a JPG, PNG or WebP image. Max 5 MB (auto-compressed).</div>
+
+        <div class="thumbnail-preview" id="thumbnailPreview">
+            <img id="thumbnailImage" alt="Thumbnail preview">
+            <div class="thumbnail-info">
+                <span>Thumbnail preview</span>
+                <span class="size" id="thumbnailSize"></span>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<!-- MULTIPLAYER -->
+<!-- ============================================
+     SECTION 3 — MULTIPLAYER
+     ============================================ -->
 <div class="section">
     <div class="section-title">
-        <span>03</span>
+        <span>04</span>
         Multiplayer & Server
     </div>
 
@@ -548,7 +523,7 @@ footer{
                 name="serverInfo"
                 id="serverInfo"
                 maxlength="800"
-                placeholder="Describe your server setup:&#10;• Hosting provider (AWS, DigitalOcean, etc.)&#10;• Server region / location&#10;• WebSocket / API endpoint (if applicable)&#10;• How to connect to your server&#10;• Any special requirements"
+                placeholder="Describe your server setup:&#10;• Hosting provider&#10;• Server region / location&#10;• WebSocket / API endpoint&#10;• How to connect to your server"
             ></textarea>
             <div class="help">Tell us how your multiplayer server works.</div>
         </div>
@@ -579,68 +554,9 @@ footer{
     </div>
 </div>
 
-<!-- BUILD -->
-<div class="section">
-    <div class="section-title">
-        <span>04</span>
-        Game Build
-    </div>
-
-    <div class="instructions">
-        <div class="instructions-title">HOW TO PUBLISH YOUR GAME</div>
-        <p>Your game must be available online before you submit it. Follow these simple steps:</p>
-        <ol>
-            <li>Create a <strong>GitHub account</strong> if you don't already have one.</li>
-            <li>Create a new <strong>Public GitHub repository</strong> for your game.</li>
-            <li>Upload all your game files to the repository.</li>
-            <li>Your game must have an <strong>index.html</strong> file that starts the game.</li>
-            <li>Go to your repository's <strong>Settings → Pages</strong>.</li>
-            <li>Select <strong>Deploy from a branch</strong>.</li>
-            <li>Select the <strong>main</strong> branch and <strong>/ (root)</strong>, then click <strong>Save</strong>.</li>
-            <li>Wait for GitHub Pages to publish your game.</li>
-            <li>Open the generated website URL and make sure your game works correctly.</li>
-            <li>Copy that live website URL and paste it into the <strong>Live Game URL</strong> field below.</li>
-        </ol>
-
-        <div class="code-box">
-            Example Live Game URL:<br>
-            https://yourusername.github.io/your-game/
-        </div>
-
-        <p style="margin-top:12px;margin-bottom:0;">
-            <strong>Important:</strong> Do not submit only the GitHub repository URL as the playable game link. PLAYR needs the live GitHub Pages URL to open and play your game.
-        </p>
-    </div>
-
-    <div class="field">
-        <label>GitHub Repository URL <span class="required">*</span></label>
-        <input type="url" name="githubUrl" id="githubUrl" placeholder="https://github.com/username/game" pattern="https://(www\.)?github\.com/.*" required>
-        <div class="help">Example: https://github.com/username/my-game</div>
-    </div>
-
-    <div class="field">
-        <label>Live Game URL <span class="required">*</span></label>
-        <input type="url" name="gameUrl" id="gameUrl" placeholder="https://username.github.io/my-game/" pattern="https://.*" required>
-        <div class="help">This is the actual playable game URL generated by GitHub Pages.</div>
-    </div>
-
-    <div class="field">
-        <label>Game Thumbnail <span class="required">*</span></label>
-        <input type="file" id="thumbnail" name="thumbnail" accept="image/png,image/jpeg,image/webp" required>
-        <div class="help">Upload a JPG, PNG or WebP image. Max 5 MB (will be auto-compressed to ~200KB).</div>
-
-        <div class="thumbnail-preview" id="thumbnailPreview">
-            <img id="thumbnailImage" alt="Thumbnail preview">
-            <div class="thumbnail-info">
-                <span>Thumbnail preview</span>
-                <span class="size" id="thumbnailSize"></span>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-<!-- RIGHTS -->
+<!-- ============================================
+     SECTION 4 — RIGHTS
+     ============================================ -->
 <div class="section">
     <div class="section-title">
         <span>05</span>
@@ -663,6 +579,11 @@ footer{
     </div>
 
     <div class="checkbox">
+        <input type="checkbox" id="itchAgree">
+        <label for="itchAgree">I confirm my game is publicly accessible on itch.io and the embed URL works.</label>
+    </div>
+
+    <div class="checkbox">
         <input type="checkbox" id="serverAgree">
         <label for="serverAgree">I understand that if my game is multiplayer, <strong>I am responsible for providing my own server</strong> — PLAYR does not provide game servers.</label>
     </div>
@@ -673,22 +594,16 @@ footer{
 </button>
 
 <div class="progress" id="progress">
-    <div><span class="dot"></span><span id="progressText">Starting...</span></div>
-    <div class="progress-steps">
-        <span class="progress-step" id="stepCheck">1. Check</span>
-        <span class="progress-step" id="stepCompress">2. Compress Image</span>
-        <span class="progress-step" id="stepSave">3. Save Data</span>
-    </div>
+    <span class="dot"></span><span id="progressText">Submitting...</span>
 </div>
 
 <div class="message success" id="success">
     ✓ Submission received.
     <br><br>
-    Your game has been submitted for review. It will only appear publicly after approval.
+    Your game has been submitted for review. Our team will verify the itch.io embed and publish it if approved.
 </div>
 
 <div class="message warning" id="warning"></div>
-
 <div class="message error" id="error"></div>
 
 <div class="note">
@@ -708,7 +623,7 @@ footer{
 <script>
 
 /* =================================
-   FIREBASE CONFIG (No Storage)
+   FIREBASE CONFIG
 ================================= */
 
 const firebaseConfig = {
@@ -723,10 +638,9 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
 const db = firebase.firestore();
 
-console.log("🔥 Firebase initialized (Firestore only)");
+console.log("🔥 Firebase initialized");
 
 /* =================================
    ELEMENTS
@@ -744,36 +658,11 @@ const success = document.getElementById("success");
 const warning = document.getElementById("warning");
 const errorBox = document.getElementById("error");
 
-const stepCheck = document.getElementById("stepCheck");
-const stepCompress = document.getElementById("stepCompress");
-const stepSave = document.getElementById("stepSave");
-
 const mpYes = document.getElementById("mpYes");
 const mpNo = document.getElementById("mpNo");
 const multiplayerFields = document.getElementById("multiplayerFields");
 
 let currentBase64Image = "";
-
-/* =================================
-   HELPERS
-================================= */
-
-function resetSteps(){
-    [stepCheck, stepCompress, stepSave].forEach(s => {
-        s.classList.remove("active", "done", "failed");
-    });
-}
-
-function setStep(el, state){
-    el.classList.remove("active", "done", "failed");
-    if(state === "active") el.classList.add("active");
-    if(state === "done") el.classList.add("done");
-    if(state === "failed") el.classList.add("failed");
-}
-
-function setProgress(text){
-    progressText.textContent = text;
-}
 
 /* =================================
    MULTIPLAYER TOGGLE
@@ -799,70 +688,51 @@ mpNo.addEventListener("change", updateMultiplayerFields);
 updateMultiplayerFields();
 
 /* =================================
-   IMAGE COMPRESS TO BASE64
+   IMAGE COMPRESS
 ================================= */
 
 function compressToBase64(file, maxWidth = 800, quality = 0.75){
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-
         reader.onload = function(e){
             const img = new Image();
-
             img.onload = function(){
                 try{
                     const canvas = document.createElement("canvas");
                     let { width, height } = img;
-
                     if(width > maxWidth){
                         height = Math.round((height * maxWidth) / width);
                         width = maxWidth;
                     }
-
                     canvas.width = width;
                     canvas.height = height;
-
                     const ctx = canvas.getContext("2d");
                     ctx.fillStyle = "#0a0a0a";
                     ctx.fillRect(0, 0, width, height);
                     ctx.drawImage(img, 0, 0, width, height);
-
-                    const dataUrl = canvas.toDataURL("image/jpeg", quality);
-                    resolve(dataUrl);
-
-                }catch(err){
-                    reject(err);
-                }
+                    resolve(canvas.toDataURL("image/jpeg", quality));
+                }catch(err){ reject(err); }
             };
-
             img.onerror = () => reject(new Error("Failed to load image"));
             img.src = e.target.result;
         };
-
         reader.onerror = () => reject(new Error("Failed to read file"));
         reader.readAsDataURL(file);
     });
 }
 
-/* =================================
-   GET BASE64 SIZE (KB)
-================================= */
-
 function getBase64SizeKB(dataUrl){
-    /* Remove data:image/jpeg;base64, prefix */
     const base64 = dataUrl.split(",")[1] || "";
-    /* Base64 has ~33% overhead, so actual bytes ≈ base64.length * 0.75 */
     const bytes = base64.length * 0.75;
     return (bytes / 1024).toFixed(1);
 }
 
 /* =================================
-   THUMBNAIL CHANGE
+   THUMBNAIL PREVIEW
 ================================= */
 
 thumbnail.addEventListener("change", async function(){
     const file = thumbnail.files[0];
-
     if(!file){
         thumbnailPreview.style.display = "none";
         currentBase64Image = "";
@@ -877,11 +747,7 @@ thumbnail.addEventListener("change", async function(){
         return;
     }
 
-    if(
-        file.type !== "image/jpeg" &&
-        file.type !== "image/png" &&
-        file.type !== "image/webp"
-    ){
+    if(file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/webp"){
         thumbnail.value = "";
         thumbnailPreview.style.display = "none";
         currentBase64Image = "";
@@ -890,30 +756,21 @@ thumbnail.addEventListener("change", async function(){
     }
 
     try{
-        /* Compress with adaptive quality */
         let dataUrl = await compressToBase64(file, 800, 0.75);
-
-        /* If still too big (>900KB), compress harder */
         if(parseFloat(getBase64SizeKB(dataUrl)) > 900){
             dataUrl = await compressToBase64(file, 600, 0.6);
         }
-
-        /* If STILL too big, compress even harder */
         if(parseFloat(getBase64SizeKB(dataUrl)) > 900){
             dataUrl = await compressToBase64(file, 400, 0.5);
         }
 
         currentBase64Image = dataUrl;
-
         thumbnailImage.src = dataUrl;
         thumbnailPreview.style.display = "block";
-        thumbnailSize.textContent = getBase64SizeKB(dataUrl) + " KB (compressed)";
-
-        console.log(`📸 Compressed: ${(file.size / 1024).toFixed(0)}KB → ${getBase64SizeKB(dataUrl)}KB`);
-
+        thumbnailSize.textContent = getBase64SizeKB(dataUrl) + " KB";
     }catch(err){
-        console.error("Compress error:", err);
-        showError("Failed to process image. Try a different image.");
+        console.error(err);
+        showError("Failed to process image. Try a different one.");
         thumbnail.value = "";
         thumbnailPreview.style.display = "none";
         currentBase64Image = "";
@@ -933,15 +790,8 @@ form.addEventListener("submit", async function(e){
 
     const file = thumbnail.files[0];
 
-    if(!file){
-        showError("Please upload a game thumbnail.");
-        return;
-    }
-
-    if(!currentBase64Image){
-        showError("Thumbnail is still processing. Please wait a moment.");
-        return;
-    }
+    if(!file){ showError("Please upload a game thumbnail."); return; }
+    if(!currentBase64Image){ showError("Thumbnail is still processing."); return; }
 
     const data = new FormData(form);
 
@@ -956,8 +806,8 @@ form.addEventListener("submit", async function(e){
     const supportedDevices = data.get("supportedDevices") || "";
     const orientation = data.get("orientation") || "";
     const language = data.get("language") || "";
-    const githubUrl = (data.get("githubUrl") || "").trim();
     const gameUrl = (data.get("gameUrl") || "").trim();
+    const itchPageUrl = (data.get("itchPageUrl") || "").trim();
 
     const multiplayer = data.get("multiplayer") || "No";
     const isMultiplayer = multiplayer === "Yes";
@@ -965,150 +815,91 @@ form.addEventListener("submit", async function(e){
     const maxPlayers = isMultiplayer ? parseInt(data.get("maxPlayers") || "0", 10) : 0;
     const serverRegion = isMultiplayer ? (data.get("serverRegion") || "") : "";
 
-    /* =================================
-       VALIDATION
-    ================================= */
+    /* VALIDATION */
 
-    if(!developer){ showError("Please enter developer/studio name."); return; }
+    if(!developer){ showError("Please enter developer name."); return; }
     if(!email || !email.includes("@")){ showError("Please enter a valid email."); return; }
     if(!country){ showError("Please select your country."); return; }
     if(!developerType){ showError("Please select developer type."); return; }
 
-    if(gameName.length < 3){
-        showError("Game title must contain at least 3 characters.");
-        return;
-    }
-
+    if(gameName.length < 3){ showError("Game title must be at least 3 characters."); return; }
     if(!category){ showError("Please select a category."); return; }
-
-    if(description.length < 100){
-        showError("Description must contain at least 100 characters.");
-        return;
-    }
-
-    if(controls.length < 20){
-        showError("Please provide proper controls or instructions.");
-        return;
-    }
-
+    if(description.length < 100){ showError("Description must be at least 100 characters."); return; }
+    if(controls.length < 20){ showError("Please provide proper controls."); return; }
     if(!supportedDevices){ showError("Please select supported devices."); return; }
-    if(!orientation){ showError("Please select the game orientation."); return; }
-    if(!language){ showError("Please select the game language."); return; }
+    if(!orientation){ showError("Please select orientation."); return; }
+    if(!language){ showError("Please select language."); return; }
 
     if(isMultiplayer){
         if(!serverInfo || serverInfo.length < 20){
-            showError("Please provide detailed server information (min 20 characters).");
+            showError("Please provide detailed server info (min 20 characters).");
             return;
         }
         if(!maxPlayers || maxPlayers < 2){
-            showError("Please enter a valid max players count (minimum 2).");
+            showError("Please enter max players (minimum 2).");
             return;
         }
     }
 
-    if(!githubUrl || !githubUrl.includes("github.com")){
-        showError("Please enter a valid GitHub repository URL.");
+    /* ITCH.IO URL VALIDATION */
+
+    if(!gameUrl || !gameUrl.includes("itch.io")){
+        showError("Please enter a valid itch.io embed URL.");
         return;
     }
 
-    try{
-        const liveURL = new URL(gameUrl);
-        if(liveURL.protocol !== "https:"){
-            showError("Live Game URL must use HTTPS.");
-            return;
-        }
-    }catch{
-        showError("Please enter a valid Live Game URL.");
+    if(!gameUrl.startsWith("https://")){
+        showError("Embed URL must use HTTPS.");
         return;
     }
 
-    /* Checkboxes */
-    if(!document.getElementById("rights").checked){
-        showError("Please confirm you have rights to submit this game.");
-        return;
-    }
-    if(!document.getElementById("assets").checked){
-        showError("Please confirm asset rights.");
-        return;
-    }
-    if(!document.getElementById("rules").checked){
-        showError("Please accept the review policy.");
-        return;
-    }
-    if(!document.getElementById("serverAgree").checked){
-        showError("Please accept the server responsibility agreement.");
+    if(!itchPageUrl || !itchPageUrl.includes(".itch.io")){
+        showError("Please enter a valid itch.io game page URL.");
         return;
     }
 
-    /* Check base64 size */
+    /* CHECKBOXES */
+
+    if(!document.getElementById("rights").checked){ showError("Please confirm you have rights."); return; }
+    if(!document.getElementById("assets").checked){ showError("Please confirm asset rights."); return; }
+    if(!document.getElementById("rules").checked){ showError("Please accept review policy."); return; }
+    if(!document.getElementById("itchAgree").checked){ showError("Please confirm itch.io accessibility."); return; }
+    if(!document.getElementById("serverAgree").checked){ showError("Please accept server responsibility."); return; }
+
+    /* IMAGE SIZE */
+
     const imageSizeKB = parseFloat(getBase64SizeKB(currentBase64Image));
     if(imageSizeKB > 900){
-        showError(`Thumbnail is too large (${imageSizeKB}KB). Try a smaller image.`);
+        showError(`Thumbnail too large (${imageSizeKB}KB). Try a smaller image.`);
         return;
     }
 
     /* =================================
-       LOCK BUTTON
+       SUBMIT
     ================================= */
 
     submitButton.disabled = true;
-    submitButton.textContent = "PROCESSING...";
+    submitButton.textContent = "SUBMITTING...";
     progress.style.display = "block";
-    resetSteps();
+    progressText.textContent = "Checking for duplicates...";
 
     try{
-        /* =================================
-           STEP 1: DUPLICATE CHECK
-        ================================= */
-
-        setStep(stepCheck, "active");
-        setProgress("Checking for duplicates...");
-        console.log("🔍 Step 1: Duplicate check");
-
+        /* Duplicate check — same itch.io embed URL */
         let duplicateFound = false;
-
         try{
-            const duplicate = await Promise.race([
-                db.collection("game_submissions")
-                    .where("githubUrl", "==", githubUrl)
-                    .limit(1)
-                    .get(),
+            const dup = await Promise.race([
+                db.collection("game_submissions").where("gameUrl", "==", gameUrl).limit(1).get(),
                 new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 10000))
             ]);
-
-            if(!duplicate.empty){
-                duplicateFound = true;
-            }
-        }catch(dupErr){
-            console.warn("Duplicate check failed (continuing):", dupErr.message);
-        }
+            if(!dup.empty) duplicateFound = true;
+        }catch(e){ console.warn("Dup check failed:", e.message); }
 
         if(duplicateFound){
-            setStep(stepCheck, "failed");
-            showError("This GitHub repository has already been submitted.");
+            showError("This itch.io embed URL has already been submitted.");
             return;
         }
 
-        setStep(stepCheck, "done");
-
-        /* =================================
-           STEP 2: COMPRESS IMAGE (already done)
-        ================================= */
-
-        setStep(stepCompress, "active");
-        setProgress(`Image ready (${imageSizeKB}KB)`);
-        await new Promise(r => setTimeout(r, 300));
-        setStep(stepCompress, "done");
-
-        /* =================================
-           STEP 3: SAVE TO FIRESTORE
-        ================================= */
-
-        setStep(stepSave, "active");
-        setProgress("Saving submission...");
-        submitButton.textContent = "SUBMITTING...";
-
-        console.log("💾 Saving to Firestore...");
+        progressText.textContent = "Saving submission...";
 
         const docData = {
             gameName: gameName,
@@ -1122,12 +913,19 @@ form.addEventListener("submit", async function(e){
             supportedDevices: supportedDevices,
             orientation: orientation,
             language: language,
-            githubUrl: githubUrl,
-            gameUrl: gameUrl,
 
-            /* Base64 image stored directly in Firestore */
+            /* itch.io URLs */
+            gameUrl: gameUrl,
+            itchPageUrl: itchPageUrl,
+            hostingPlatform: "itch.io",
+
+            /* No GitHub for itch.io */
+            githubUrl: "",
+            repositoryUrl: "",
+
+            /* Base64 thumbnail */
             thumbnailData: currentBase64Image,
-            thumbnailUrl: currentBase64Image,  /* keep both for compatibility */
+            thumbnailUrl: currentBase64Image,
             thumbnailSizeKB: imageSizeKB,
 
             status: "pending",
@@ -1141,6 +939,7 @@ form.addEventListener("submit", async function(e){
             rightsConfirmed: document.getElementById("rights").checked,
             assetsConfirmed: document.getElementById("assets").checked,
             rulesAccepted: document.getElementById("rules").checked,
+            itchConfirmed: document.getElementById("itchAgree").checked,
             serverAgreement: document.getElementById("serverAgree").checked,
 
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -1150,17 +949,10 @@ form.addEventListener("submit", async function(e){
 
         await Promise.race([
             db.collection("game_submissions").add(docData),
-            new Promise((_, rej) => setTimeout(() => rej(new Error("Saving timed out. Check Firestore rules.")), 20000))
+            new Promise((_, rej) => setTimeout(() => rej(new Error("Save timeout. Check Firestore rules.")), 20000))
         ]);
 
-        setStep(stepSave, "done");
-        setProgress("Complete!");
-
-        console.log("✅ Successfully submitted!");
-
-        /* =================================
-           SUCCESS
-        ================================= */
+        console.log("✅ Submitted successfully");
 
         form.reset();
         thumbnailPreview.style.display = "none";
@@ -1174,26 +966,16 @@ form.addEventListener("submit", async function(e){
         window.scrollTo({ top:0, behavior:"smooth" });
 
     }catch(err){
-        console.error("❌ Submission error:", err);
-
-        if(stepCheck.classList.contains("active")) setStep(stepCheck, "failed");
-        else if(stepCompress.classList.contains("active")) setStep(stepCompress, "failed");
-        else if(stepSave.classList.contains("active")) setStep(stepSave, "failed");
-
+        console.error("❌ Error:", err);
         progress.style.display = "none";
 
         let errorMsg = "Submission failed.";
         let errorDetail = "";
 
-        if(err.code === "permission-denied" || err.code === "firestore/permission-denied"){
+        if(err.code === "permission-denied"){
             errorMsg = "Firestore permission denied.";
-            errorDetail = "Firebase Console → Firestore → Rules → allow write for game_submissions.";
-        }
-        else if(err.message && err.message.includes("timed out")){
-            errorMsg = "Operation timed out.";
-            errorDetail = "Possible causes:\n• Firestore rules blocking writes\n• Slow internet connection\n• Image too large";
-        }
-        else if(err.message){
+            errorDetail = "Allow write for game_submissions in Firebase rules.";
+        }else if(err.message){
             errorMsg = err.message;
         }
 
@@ -1202,7 +984,7 @@ form.addEventListener("submit", async function(e){
 });
 
 /* =================================
-   SHOW ERROR
+   ERROR
 ================================= */
 
 function showError(message, detail){
@@ -1229,10 +1011,6 @@ function escapeHTML(str){
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
-
-/* =================================
-   WARN BEFORE LEAVING
-================================= */
 
 window.addEventListener("beforeunload", function(e){
     if(submitButton.disabled && progress.style.display === "block"){
