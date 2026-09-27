@@ -9,7 +9,6 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 
 <style>
 
@@ -26,88 +25,48 @@ body{
     padding-bottom:calc(30px + env(safe-area-inset-bottom,0px));
 }
 
-.page{
-    width:min(720px,100%);
-    margin:auto;
-}
+.page{width:min(720px,100%);margin:auto;}
 
 .logo{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    color:white;
-    text-decoration:none;
-    font-size:20px;
-    font-weight:800;
+    display:inline-flex;align-items:center;gap:10px;
+    color:white;text-decoration:none;font-size:20px;font-weight:800;
     margin-bottom:32px;
 }
 
 .logo-mark{
     width:22px;height:22px;
     background:linear-gradient(135deg,#ff914d,#ff4f2d);
-    border-radius:6px;
-    transform:rotate(45deg);
+    border-radius:6px;transform:rotate(45deg);
 }
 
 .header{margin-bottom:24px;}
 
 .header small{
-    color:#ff8754;
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:1.7px;
-    font-weight:700;
+    color:#ff8754;font-size:10px;text-transform:uppercase;
+    letter-spacing:1.7px;font-weight:700;
 }
 
-.header h1{
-    font-size:32px;
-    margin-top:9px;
-    letter-spacing:-1.4px;
-    line-height:1.1;
-}
+.header h1{font-size:32px;margin-top:9px;letter-spacing:-1.4px;line-height:1.1;}
 
-.header p{
-    color:#777;
-    font-size:13px;
-    line-height:1.65;
-    margin-top:9px;
-}
+.header p{color:#777;font-size:13px;line-height:1.65;margin-top:9px;}
 
 .card{
-    background:#111;
-    border:1px solid #282828;
-    border-radius:14px;
-    padding:24px;
-    box-shadow:0 25px 70px rgba(0,0,0,.35);
+    background:#111;border:1px solid #282828;border-radius:14px;
+    padding:24px;box-shadow:0 25px 70px rgba(0,0,0,.35);
 }
 
-.section{
-    padding-bottom:22px;
-    margin-bottom:22px;
-    border-bottom:1px solid #222;
-}
-
+.section{padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #222;}
 .section:last-of-type{border-bottom:0;}
 
 .section-title{
-    color:#fff;
-    font-size:13px;
-    font-weight:800;
-    margin-bottom:16px;
-    letter-spacing:-.2px;
+    color:#fff;font-size:13px;font-weight:800;margin-bottom:16px;letter-spacing:-.2px;
 }
 
 .section-title span{color:#ff8754;margin-right:7px;}
 
 .field{margin-bottom:18px;}
 
-label{
-    display:block;
-    color:#cfcfcd;
-    font-size:12px;
-    font-weight:600;
-    margin-bottom:8px;
-}
+label{display:block;color:#cfcfcd;font-size:12px;font-weight:600;margin-bottom:8px;}
 
 .required{color:#ff7045;}
 
@@ -124,8 +83,6 @@ select{
     font-family:inherit;
     font-size:13px;
     transition:.2s;
-    -webkit-appearance:none;
-    appearance:none;
 }
 
 input:focus,
@@ -134,219 +91,102 @@ select:focus{border-color:#555;}
 
 select{cursor:pointer;}
 
-input[type="file"]{
-    padding:11px;
-    cursor:pointer;
-    font-size:12px;
-}
+input[type="file"]{padding:11px;cursor:pointer;font-size:12px;}
 
 input[type="file"]::file-selector-button{
-    background:#202020;
-    border:1px solid #333;
-    color:#fff;
-    border-radius:6px;
-    padding:8px 12px;
-    margin-right:10px;
-    cursor:pointer;
-    font-family:inherit;
-    font-size:12px;
+    background:#202020;border:1px solid #333;color:#fff;
+    border-radius:6px;padding:8px 12px;margin-right:10px;
+    cursor:pointer;font-family:inherit;font-size:12px;
 }
 
-textarea{
-    min-height:100px;
-    resize:vertical;
-}
+textarea{min-height:100px;resize:vertical;}
 
-.help{
-    color:#666;
-    font-size:11px;
-    margin-top:7px;
-    line-height:1.55;
-}
+.help{color:#666;font-size:11px;margin-top:7px;line-height:1.55;}
 
-.row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:14px;
-}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 
-.choice-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:9px;
-}
+.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
 
 .choice{position:relative;}
 
 .choice input{
-    position:absolute;
-    opacity:0;
-    pointer-events:none;
+    position:absolute;opacity:0;pointer-events:none;
 }
 
 .choice label{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:46px;
-    margin:0;
-    padding:11px;
-    background:#090909;
-    border:1px solid #292929;
-    border-radius:8px;
-    color:#777;
-    cursor:pointer;
-    text-align:center;
-    font-size:12px;
-    font-weight:600;
-    transition:.2s;
+    display:flex;align-items:center;justify-content:center;
+    min-height:46px;margin:0;padding:11px;
+    background:#090909;border:1px solid #292929;border-radius:8px;
+    color:#777;cursor:pointer;text-align:center;
+    font-size:12px;font-weight:600;transition:.2s;
 }
 
 .choice input:checked + label{
-    color:#fff;
-    border-color:#ff7045;
-    background:#17100d;
+    color:#fff;border-color:#ff7045;background:#17100d;
     box-shadow:0 0 0 1px rgba(255,112,69,.12);
 }
 
-.choice.yes-no label{
-    min-height:52px;
-    font-size:13px;
-    font-weight:800;
-}
+.choice.yes-no label{min-height:52px;font-size:13px;font-weight:800;}
 
 .thumbnail-preview{
-    display:none;
-    margin-top:12px;
-    border:1px solid #292929;
-    border-radius:8px;
-    overflow:hidden;
-    background:#090909;
+    display:none;margin-top:12px;
+    border:1px solid #292929;border-radius:8px;overflow:hidden;background:#090909;
 }
 
-.thumbnail-preview img{
-    display:block;
-    width:100%;
-    max-height:260px;
-    object-fit:cover;
-}
+.thumbnail-preview img{display:block;width:100%;max-height:260px;object-fit:cover;}
 
 .thumbnail-info{
-    padding:8px 12px;
-    color:#888;
-    font-size:10px;
-    border-top:1px solid #222;
+    padding:8px 12px;color:#888;font-size:10px;border-top:1px solid #222;
+    display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
 }
 
-/* =================================
-   INSTRUCTIONS
-================================= */
+.thumbnail-info .size{color:#ff9a63;font-weight:700;}
 
+/* INSTRUCTIONS */
 .instructions{
     background:linear-gradient(145deg,#17120f,#100f0e);
-    border:1px solid #34251d;
-    border-radius:10px;
-    padding:17px;
-    margin-bottom:20px;
+    border:1px solid #34251d;border-radius:10px;padding:17px;margin-bottom:20px;
 }
-
-.instructions-title{
-    color:#ff9568;
-    font-size:12px;
-    font-weight:800;
-    margin-bottom:12px;
-}
-
-.instructions p{
-    color:#888;
-    font-size:11px;
-    line-height:1.7;
-    margin-bottom:12px;
-}
-
+.instructions-title{color:#ff9568;font-size:12px;font-weight:800;margin-bottom:12px;}
+.instructions p{color:#888;font-size:11px;line-height:1.7;margin-bottom:12px;}
 .instructions ol{padding-left:20px;}
-
-.instructions li{
-    color:#999;
-    font-size:11px;
-    line-height:1.75;
-    margin-bottom:5px;
-}
-
+.instructions li{color:#999;font-size:11px;line-height:1.75;margin-bottom:5px;}
 .instructions strong{color:#ddd;}
-
 .code-box{
-    margin-top:12px;
-    padding:11px;
-    background:#080808;
-    border:1px solid #292929;
-    border-radius:7px;
-    color:#aaa;
-    font-family:monospace;
-    font-size:10px;
-    line-height:1.7;
-    word-break:break-all;
+    margin-top:12px;padding:11px;background:#080808;
+    border:1px solid #292929;border-radius:7px;
+    color:#aaa;font-family:monospace;font-size:10px;line-height:1.7;word-break:break-all;
 }
 
-/* =================================
-   SERVER NOTE
-================================= */
-
+/* SERVER NOTE */
 .server-note{
     background:linear-gradient(145deg,#1a1208,#0f0d09);
-    border:1px solid #4a3520;
-    border-radius:10px;
-    padding:15px;
-    margin-bottom:18px;
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
+    border:1px solid #4a3520;border-radius:10px;
+    padding:15px;margin-bottom:18px;
+    display:flex;gap:12px;align-items:flex-start;
 }
-
 .server-note .icon{
-    font-size:22px;
-    line-height:1;
-    flex:0 0 auto;
+    font-size:22px;line-height:1;flex:0 0 auto;
     filter:drop-shadow(0 0 12px rgba(255,140,60,.4));
 }
-
-.server-note .text{
-    color:#c9b79f;
-    font-size:11px;
-    line-height:1.65;
-}
-
+.server-note .text{color:#c9b79f;font-size:11px;line-height:1.65;}
 .server-note .text strong{
-    display:block;
-    color:#ffb17c;
-    font-size:12px;
-    margin-bottom:4px;
-    letter-spacing:-.2px;
+    display:block;color:#ffb17c;font-size:12px;margin-bottom:4px;letter-spacing:-.2px;
 }
 
-/* =================================
-   MULTIPLAYER FIELDS
-================================= */
-
+/* MULTIPLAYER */
 .multiplayer-fields{
-    display:none;
-    margin-top:14px;
-    padding-top:16px;
+    display:none;margin-top:14px;padding-top:16px;
     border-top:1px dashed #2a2a2a;
     animation:slideDown .25s ease;
 }
-
 .multiplayer-fields.show{display:block;}
-
 @keyframes slideDown{
     from{opacity:0;transform:translateY(-6px);}
     to{opacity:1;transform:translateY(0);}
 }
 
-/* =================================
-   CHECKBOX
-================================= */
-
+/* CHECKBOX — FIXED */
 .checkbox{
     display:flex;
     align-items:flex-start;
@@ -354,12 +194,21 @@ textarea{
     margin:18px 0;
 }
 
-.checkbox input{
-    width:auto;
-    margin-top:3px;
+.checkbox input[type="checkbox"]{
+    -webkit-appearance:auto !important;
+    appearance:auto !important;
+    width:18px !important;
+    height:18px !important;
+    min-width:18px !important;
+    margin:3px 0 0 0 !important;
+    padding:0 !important;
+    background:transparent !important;
+    border:0 !important;
+    border-radius:3px !important;
     accent-color:#ff7045;
+    cursor:pointer;
+    flex:0 0 18px;
     transform:scale(1.15);
-    flex:0 0 auto;
 }
 
 .checkbox label{
@@ -369,113 +218,91 @@ textarea{
     font-size:12px;
     font-weight:500;
     cursor:pointer;
+    user-select:none;
+    flex:1;
 }
 
-/* =================================
-   SUBMIT BUTTON
-================================= */
+.checkbox label strong{color:#ffb17c;}
 
+/* SUBMIT */
 .submit{
-    width:100%;
-    border:0;
-    border-radius:9px;
-    padding:15px;
+    width:100%;border:0;border-radius:9px;padding:15px;
     background:linear-gradient(135deg,#fff,#d9d9d9);
-    color:#090909;
-    font-size:13px;
-    font-weight:900;
-    cursor:pointer;
-    transition:.2s;
-    font-family:inherit;
-    letter-spacing:.3px;
+    color:#090909;font-size:13px;font-weight:900;
+    cursor:pointer;transition:.2s;font-family:inherit;letter-spacing:.3px;
 }
-
-.submit:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 30px rgba(255,255,255,.1);
-}
-
+.submit:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.1);}
 .submit:active{transform:translateY(0);}
+.submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 
-.submit:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-    transform:none;
-}
-
+/* PROGRESS */
 .progress{
-    display:none;
-    margin-top:14px;
-    color:#aaa;
-    font-size:12px;
-    text-align:center;
-    padding:12px;
-    background:#0d0d0d;
-    border:1px solid #222;
-    border-radius:8px;
-    line-height:1.5;
+    display:none;margin-top:14px;color:#aaa;font-size:12px;
+    text-align:center;padding:14px;background:#0d0d0d;
+    border:1px solid #222;border-radius:8px;line-height:1.5;
 }
-
 .progress .dot{
-    display:inline-block;
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#ff8754;
-    margin-right:8px;
+    display:inline-block;width:8px;height:8px;border-radius:50%;
+    background:#ff8754;margin-right:8px;
     animation:blink 1s infinite;
 }
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-@keyframes blink{
-    0%,100%{opacity:1;}
-    50%{opacity:.3;}
+.progress-steps{
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    margin-top:10px;
+    flex-wrap:wrap;
 }
+.progress-step{
+    font-size:10px;
+    color:#444;
+    font-weight:700;
+    letter-spacing:.5px;
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+.progress-step.active{color:#ff8754;}
+.progress-step.done{color:#8dc398;}
+.progress-step.done:before{content:"✓ ";}
+.progress-step.failed{color:#ff9999;}
 
+/* MESSAGES */
 .message{
-    display:none;
-    margin-top:18px;
-    padding:15px;
-    border-radius:9px;
-    font-size:12px;
-    line-height:1.65;
-    word-break:break-word;
+    display:none;margin-top:18px;padding:15px;border-radius:9px;
+    font-size:12px;line-height:1.65;word-break:break-word;
 }
-
-.success{
-    background:#101b13;
-    border:1px solid #263c2b;
-    color:#8dc398;
+.success{background:#101b13;border:1px solid #263c2b;color:#8dc398;}
+.error{background:#1b100e;border:1px solid #48231c;color:#e99a88;}
+.error strong{display:block;margin-bottom:6px;color:#ffb3a3;font-size:13px;}
+.error-detail{
+    margin-top:10px;
+    padding:10px;
+    background:#0b0706;
+    border-radius:6px;
+    font-size:10px;
+    font-family:monospace;
+    color:#a68;
+    word-break:break-all;
+    line-height:1.5;
 }
-
-.error{
-    background:#1b100e;
-    border:1px solid #48231c;
-    color:#e99a88;
+.warning{
+    background:#1a1408;
+    border:1px solid #4a3a1a;
+    color:#d9b878;
 }
-
-.error strong{
-    display:block;
-    margin-bottom:6px;
-    color:#ffb3a3;
-    font-size:13px;
-}
+.warning strong{display:block;margin-bottom:6px;color:#ffd28a;font-size:13px;}
 
 .note{
-    margin-top:18px;
-    padding:13px;
-    background:#17120f;
-    border:1px solid #302018;
-    border-radius:8px;
-    color:#8c776c;
-    font-size:11px;
-    line-height:1.65;
+    margin-top:18px;padding:13px;
+    background:#17120f;border:1px solid #302018;border-radius:8px;
+    color:#8c776c;font-size:11px;line-height:1.65;
 }
 
 footer{
-    text-align:center;
-    color:#555;
-    font-size:11px;
-    margin-top:26px;
+    text-align:center;color:#555;font-size:11px;margin-top:26px;
     padding-bottom:env(safe-area-inset-bottom,0px);
 }
 
@@ -490,7 +317,9 @@ footer{
     .server-note{padding:12px;gap:10px;}
     .server-note .text{font-size:10.5px;}
     label{font-size:11px;}
-    input,textarea,select{font-size:14px;} /* prevents iOS zoom */
+    input,textarea,select{font-size:14px;}
+    .progress-steps{gap:10px;}
+    .progress-step{font-size:9px;}
 }
 
 @media(max-width:380px){
@@ -594,7 +423,7 @@ footer{
     </div>
 </div>
 
-<!-- GAME INFORMATION -->
+<!-- GAME INFO -->
 <div class="section">
     <div class="section-title">
         <span>02</span>
@@ -682,9 +511,7 @@ footer{
 
 </div>
 
-<!-- =========================================
-     MULTIPLAYER / SERVER INFO
-========================================= -->
+<!-- MULTIPLAYER -->
 <div class="section">
     <div class="section-title">
         <span>03</span>
@@ -705,7 +532,6 @@ footer{
         </div>
     </div>
 
-    <!-- Multiplayer-specific fields (only shown when Yes) -->
     <div class="multiplayer-fields" id="multiplayerFields">
 
         <div class="server-note">
@@ -724,20 +550,13 @@ footer{
                 maxlength="800"
                 placeholder="Describe your server setup:&#10;• Hosting provider (AWS, DigitalOcean, etc.)&#10;• Server region / location&#10;• WebSocket / API endpoint (if applicable)&#10;• How to connect to your server&#10;• Any special requirements"
             ></textarea>
-            <div class="help">Tell us how your multiplayer server works. This helps us understand your game's requirements.</div>
+            <div class="help">Tell us how your multiplayer server works.</div>
         </div>
 
         <div class="row">
             <div class="field">
                 <label>Max Players Per Room <span class="required">*</span></label>
-                <input
-                    type="number"
-                    name="maxPlayers"
-                    id="maxPlayers"
-                    min="2"
-                    max="1000"
-                    placeholder="e.g. 8"
-                >
+                <input type="number" name="maxPlayers" id="maxPlayers" min="2" max="1000" placeholder="e.g. 8">
                 <div class="help">Maximum players in a single match/room.</div>
             </div>
 
@@ -760,7 +579,7 @@ footer{
     </div>
 </div>
 
-<!-- GAME BUILD -->
+<!-- BUILD -->
 <div class="section">
     <div class="section-title">
         <span>04</span>
@@ -808,11 +627,14 @@ footer{
     <div class="field">
         <label>Game Thumbnail <span class="required">*</span></label>
         <input type="file" id="thumbnail" name="thumbnail" accept="image/png,image/jpeg,image/webp" required>
-        <div class="help">Upload a JPG, PNG or WebP image. Maximum size: 5 MB.</div>
+        <div class="help">Upload a JPG, PNG or WebP image. Max 5 MB (will be auto-compressed to ~200KB).</div>
 
         <div class="thumbnail-preview" id="thumbnailPreview">
             <img id="thumbnailImage" alt="Thumbnail preview">
-            <div class="thumbnail-info">Thumbnail preview</div>
+            <div class="thumbnail-info">
+                <span>Thumbnail preview</span>
+                <span class="size" id="thumbnailSize"></span>
+            </div>
         </div>
     </div>
 
@@ -826,23 +648,23 @@ footer{
     </div>
 
     <div class="checkbox">
-        <input type="checkbox" id="rights" required>
+        <input type="checkbox" id="rights">
         <label for="rights">I confirm that I have the rights or permission to submit this game and its content.</label>
     </div>
 
     <div class="checkbox">
-        <input type="checkbox" id="assets" required>
+        <input type="checkbox" id="assets">
         <label for="assets">I confirm that I have the necessary rights or licenses for the assets used in this game.</label>
     </div>
 
     <div class="checkbox">
-        <input type="checkbox" id="rules" required>
+        <input type="checkbox" id="rules">
         <label for="rules">I understand that PLAYR can approve, reject or later remove a submitted game.</label>
     </div>
 
     <div class="checkbox">
-        <input type="checkbox" id="serverAgree" required>
-        <label for="serverAgree">I understand that if my game is multiplayer, <strong style="color:#ffb17c;">I am responsible for providing my own server</strong> — PLAYR does not provide game servers.</label>
+        <input type="checkbox" id="serverAgree">
+        <label for="serverAgree">I understand that if my game is multiplayer, <strong>I am responsible for providing my own server</strong> — PLAYR does not provide game servers.</label>
     </div>
 </div>
 
@@ -851,7 +673,12 @@ footer{
 </button>
 
 <div class="progress" id="progress">
-    <span class="dot"></span><span id="progressText">Uploading thumbnail and submitting...</span>
+    <div><span class="dot"></span><span id="progressText">Starting...</span></div>
+    <div class="progress-steps">
+        <span class="progress-step" id="stepCheck">1. Check</span>
+        <span class="progress-step" id="stepCompress">2. Compress Image</span>
+        <span class="progress-step" id="stepSave">3. Save Data</span>
+    </div>
 </div>
 
 <div class="message success" id="success">
@@ -859,6 +686,8 @@ footer{
     <br><br>
     Your game has been submitted for review. It will only appear publicly after approval.
 </div>
+
+<div class="message warning" id="warning"></div>
 
 <div class="message error" id="error"></div>
 
@@ -879,7 +708,7 @@ footer{
 <script>
 
 /* =================================
-   FIREBASE CONFIG
+   FIREBASE CONFIG (No Storage)
 ================================= */
 
 const firebaseConfig = {
@@ -896,9 +725,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
-const storage = firebase.storage();
 
-console.log("🔥 Firebase initialized");
+console.log("🔥 Firebase initialized (Firestore only)");
 
 /* =================================
    ELEMENTS
@@ -909,14 +737,43 @@ const submitButton = document.getElementById("submitButton");
 const thumbnail = document.getElementById("thumbnail");
 const thumbnailPreview = document.getElementById("thumbnailPreview");
 const thumbnailImage = document.getElementById("thumbnailImage");
+const thumbnailSize = document.getElementById("thumbnailSize");
 const progress = document.getElementById("progress");
 const progressText = document.getElementById("progressText");
 const success = document.getElementById("success");
+const warning = document.getElementById("warning");
 const errorBox = document.getElementById("error");
+
+const stepCheck = document.getElementById("stepCheck");
+const stepCompress = document.getElementById("stepCompress");
+const stepSave = document.getElementById("stepSave");
 
 const mpYes = document.getElementById("mpYes");
 const mpNo = document.getElementById("mpNo");
 const multiplayerFields = document.getElementById("multiplayerFields");
+
+let currentBase64Image = "";
+
+/* =================================
+   HELPERS
+================================= */
+
+function resetSteps(){
+    [stepCheck, stepCompress, stepSave].forEach(s => {
+        s.classList.remove("active", "done", "failed");
+    });
+}
+
+function setStep(el, state){
+    el.classList.remove("active", "done", "failed");
+    if(state === "active") el.classList.add("active");
+    if(state === "done") el.classList.add("done");
+    if(state === "failed") el.classList.add("failed");
+}
+
+function setProgress(text){
+    progressText.textContent = text;
+}
 
 /* =================================
    MULTIPLAYER TOGGLE
@@ -942,20 +799,80 @@ mpNo.addEventListener("change", updateMultiplayerFields);
 updateMultiplayerFields();
 
 /* =================================
-   THUMBNAIL PREVIEW
+   IMAGE COMPRESS TO BASE64
 ================================= */
 
-thumbnail.addEventListener("change", function(){
+function compressToBase64(file, maxWidth = 800, quality = 0.75){
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            const img = new Image();
+
+            img.onload = function(){
+                try{
+                    const canvas = document.createElement("canvas");
+                    let { width, height } = img;
+
+                    if(width > maxWidth){
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext("2d");
+                    ctx.fillStyle = "#0a0a0a";
+                    ctx.fillRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const dataUrl = canvas.toDataURL("image/jpeg", quality);
+                    resolve(dataUrl);
+
+                }catch(err){
+                    reject(err);
+                }
+            };
+
+            img.onerror = () => reject(new Error("Failed to load image"));
+            img.src = e.target.result;
+        };
+
+        reader.onerror = () => reject(new Error("Failed to read file"));
+        reader.readAsDataURL(file);
+    });
+}
+
+/* =================================
+   GET BASE64 SIZE (KB)
+================================= */
+
+function getBase64SizeKB(dataUrl){
+    /* Remove data:image/jpeg;base64, prefix */
+    const base64 = dataUrl.split(",")[1] || "";
+    /* Base64 has ~33% overhead, so actual bytes ≈ base64.length * 0.75 */
+    const bytes = base64.length * 0.75;
+    return (bytes / 1024).toFixed(1);
+}
+
+/* =================================
+   THUMBNAIL CHANGE
+================================= */
+
+thumbnail.addEventListener("change", async function(){
     const file = thumbnail.files[0];
 
     if(!file){
         thumbnailPreview.style.display = "none";
+        currentBase64Image = "";
         return;
     }
 
     if(file.size > 5 * 1024 * 1024){
         thumbnail.value = "";
         thumbnailPreview.style.display = "none";
+        currentBase64Image = "";
         showError("Thumbnail must be smaller than 5 MB.");
         return;
     }
@@ -967,16 +884,40 @@ thumbnail.addEventListener("change", function(){
     ){
         thumbnail.value = "";
         thumbnailPreview.style.display = "none";
+        currentBase64Image = "";
         showError("Only JPG, PNG and WebP images are allowed.");
         return;
     }
 
-    const reader = new FileReader();
-    reader.onload = function(e){
-        thumbnailImage.src = e.target.result;
+    try{
+        /* Compress with adaptive quality */
+        let dataUrl = await compressToBase64(file, 800, 0.75);
+
+        /* If still too big (>900KB), compress harder */
+        if(parseFloat(getBase64SizeKB(dataUrl)) > 900){
+            dataUrl = await compressToBase64(file, 600, 0.6);
+        }
+
+        /* If STILL too big, compress even harder */
+        if(parseFloat(getBase64SizeKB(dataUrl)) > 900){
+            dataUrl = await compressToBase64(file, 400, 0.5);
+        }
+
+        currentBase64Image = dataUrl;
+
+        thumbnailImage.src = dataUrl;
         thumbnailPreview.style.display = "block";
-    };
-    reader.readAsDataURL(file);
+        thumbnailSize.textContent = getBase64SizeKB(dataUrl) + " KB (compressed)";
+
+        console.log(`📸 Compressed: ${(file.size / 1024).toFixed(0)}KB → ${getBase64SizeKB(dataUrl)}KB`);
+
+    }catch(err){
+        console.error("Compress error:", err);
+        showError("Failed to process image. Try a different image.");
+        thumbnail.value = "";
+        thumbnailPreview.style.display = "none";
+        currentBase64Image = "";
+    }
 });
 
 /* =================================
@@ -987,6 +928,7 @@ form.addEventListener("submit", async function(e){
     e.preventDefault();
 
     success.style.display = "none";
+    warning.style.display = "none";
     errorBox.style.display = "none";
 
     const file = thumbnail.files[0];
@@ -996,8 +938,8 @@ form.addEventListener("submit", async function(e){
         return;
     }
 
-    if(file.size > 5 * 1024 * 1024){
-        showError("Thumbnail must be smaller than 5 MB.");
+    if(!currentBase64Image){
+        showError("Thumbnail is still processing. Please wait a moment.");
         return;
     }
 
@@ -1027,10 +969,17 @@ form.addEventListener("submit", async function(e){
        VALIDATION
     ================================= */
 
+    if(!developer){ showError("Please enter developer/studio name."); return; }
+    if(!email || !email.includes("@")){ showError("Please enter a valid email."); return; }
+    if(!country){ showError("Please select your country."); return; }
+    if(!developerType){ showError("Please select developer type."); return; }
+
     if(gameName.length < 3){
         showError("Game title must contain at least 3 characters.");
         return;
     }
+
+    if(!category){ showError("Please select a category."); return; }
 
     if(description.length < 100){
         showError("Description must contain at least 100 characters.");
@@ -1042,20 +991,9 @@ form.addEventListener("submit", async function(e){
         return;
     }
 
-    if(!supportedDevices){
-        showError("Please select supported devices.");
-        return;
-    }
-
-    if(!orientation){
-        showError("Please select the game orientation.");
-        return;
-    }
-
-    if(!language){
-        showError("Please select the game language.");
-        return;
-    }
+    if(!supportedDevices){ showError("Please select supported devices."); return; }
+    if(!orientation){ showError("Please select the game orientation."); return; }
+    if(!language){ showError("Please select the game language."); return; }
 
     if(isMultiplayer){
         if(!serverInfo || serverInfo.length < 20){
@@ -1068,16 +1006,44 @@ form.addEventListener("submit", async function(e){
         }
     }
 
-    /* LIVE URL CHECK */
+    if(!githubUrl || !githubUrl.includes("github.com")){
+        showError("Please enter a valid GitHub repository URL.");
+        return;
+    }
+
     try{
         const liveURL = new URL(gameUrl);
         if(liveURL.protocol !== "https:"){
             showError("Live Game URL must use HTTPS.");
             return;
         }
-    }
-    catch{
+    }catch{
         showError("Please enter a valid Live Game URL.");
+        return;
+    }
+
+    /* Checkboxes */
+    if(!document.getElementById("rights").checked){
+        showError("Please confirm you have rights to submit this game.");
+        return;
+    }
+    if(!document.getElementById("assets").checked){
+        showError("Please confirm asset rights.");
+        return;
+    }
+    if(!document.getElementById("rules").checked){
+        showError("Please accept the review policy.");
+        return;
+    }
+    if(!document.getElementById("serverAgree").checked){
+        showError("Please accept the server responsibility agreement.");
+        return;
+    }
+
+    /* Check base64 size */
+    const imageSizeKB = parseFloat(getBase64SizeKB(currentBase64Image));
+    if(imageSizeKB > 900){
+        showError(`Thumbnail is too large (${imageSizeKB}KB). Try a smaller image.`);
         return;
     }
 
@@ -1086,52 +1052,61 @@ form.addEventListener("submit", async function(e){
     ================================= */
 
     submitButton.disabled = true;
-    submitButton.textContent = "CHECKING...";
+    submitButton.textContent = "PROCESSING...";
     progress.style.display = "block";
-    progressText.textContent = "Checking for duplicates...";
+    resetSteps();
 
     try{
         /* =================================
-           DUPLICATE GITHUB CHECK
+           STEP 1: DUPLICATE CHECK
         ================================= */
 
-        console.log("🔍 Checking duplicate...");
+        setStep(stepCheck, "active");
+        setProgress("Checking for duplicates...");
+        console.log("🔍 Step 1: Duplicate check");
 
-        const duplicate = await db
-            .collection("game_submissions")
-            .where("githubUrl", "==", githubUrl)
-            .limit(1)
-            .get();
+        let duplicateFound = false;
 
-        if(!duplicate.empty){
+        try{
+            const duplicate = await Promise.race([
+                db.collection("game_submissions")
+                    .where("githubUrl", "==", githubUrl)
+                    .limit(1)
+                    .get(),
+                new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 10000))
+            ]);
+
+            if(!duplicate.empty){
+                duplicateFound = true;
+            }
+        }catch(dupErr){
+            console.warn("Duplicate check failed (continuing):", dupErr.message);
+        }
+
+        if(duplicateFound){
+            setStep(stepCheck, "failed");
             showError("This GitHub repository has already been submitted.");
             return;
         }
 
-        /* =================================
-           UPLOAD THUMBNAIL
-        ================================= */
-
-        submitButton.textContent = "UPLOADING IMAGE...";
-        progressText.textContent = "Uploading thumbnail...";
-
-        console.log("📸 Uploading thumbnail...");
-
-        const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
-        const filePath = "game-thumbnails/" + Date.now() + "_" + safeName;
-        const storageRef = storage.ref(filePath);
-
-        await storageRef.put(file);
-        const thumbnailUrl = await storageRef.getDownloadURL();
-
-        console.log("✅ Thumbnail uploaded:", thumbnailUrl);
+        setStep(stepCheck, "done");
 
         /* =================================
-           SAVE FIRESTORE
+           STEP 2: COMPRESS IMAGE (already done)
         ================================= */
 
+        setStep(stepCompress, "active");
+        setProgress(`Image ready (${imageSizeKB}KB)`);
+        await new Promise(r => setTimeout(r, 300));
+        setStep(stepCompress, "done");
+
+        /* =================================
+           STEP 3: SAVE TO FIRESTORE
+        ================================= */
+
+        setStep(stepSave, "active");
+        setProgress("Saving submission...");
         submitButton.textContent = "SUBMITTING...";
-        progressText.textContent = "Saving to database...";
 
         console.log("💾 Saving to Firestore...");
 
@@ -1149,11 +1124,14 @@ form.addEventListener("submit", async function(e){
             language: language,
             githubUrl: githubUrl,
             gameUrl: gameUrl,
-            thumbnailUrl: thumbnailUrl,
-            thumbnailPath: filePath,
+
+            /* Base64 image stored directly in Firestore */
+            thumbnailData: currentBase64Image,
+            thumbnailUrl: currentBase64Image,  /* keep both for compatibility */
+            thumbnailSizeKB: imageSizeKB,
+
             status: "pending",
 
-            /* Multiplayer fields */
             multiplayer: multiplayer,
             isMultiplayer: isMultiplayer,
             serverInfo: serverInfo,
@@ -1170,7 +1148,13 @@ form.addEventListener("submit", async function(e){
             rejectionReason: ""
         };
 
-        await db.collection("game_submissions").add(docData);
+        await Promise.race([
+            db.collection("game_submissions").add(docData),
+            new Promise((_, rej) => setTimeout(() => rej(new Error("Saving timed out. Check Firestore rules.")), 20000))
+        ]);
+
+        setStep(stepSave, "done");
+        setProgress("Complete!");
 
         console.log("✅ Successfully submitted!");
 
@@ -1184,37 +1168,36 @@ form.addEventListener("submit", async function(e){
         success.style.display = "block";
         submitButton.disabled = false;
         submitButton.textContent = "SUBMIT FOR REVIEW";
+        currentBase64Image = "";
         updateMultiplayerFields();
 
         window.scrollTo({ top:0, behavior:"smooth" });
 
-    }
-    catch(err){
+    }catch(err){
         console.error("❌ Submission error:", err);
-        console.error("Error code:", err.code);
-        console.error("Error message:", err.message);
+
+        if(stepCheck.classList.contains("active")) setStep(stepCheck, "failed");
+        else if(stepCompress.classList.contains("active")) setStep(stepCompress, "failed");
+        else if(stepSave.classList.contains("active")) setStep(stepSave, "failed");
 
         progress.style.display = "none";
 
         let errorMsg = "Submission failed.";
+        let errorDetail = "";
 
-        if(err.code === "storage/unauthorized"){
-            errorMsg = "Storage permission denied. Check Firebase Storage rules — allow write for all users.";
+        if(err.code === "permission-denied" || err.code === "firestore/permission-denied"){
+            errorMsg = "Firestore permission denied.";
+            errorDetail = "Firebase Console → Firestore → Rules → allow write for game_submissions.";
         }
-        else if(err.code === "storage/canceled"){
-            errorMsg = "Upload was cancelled.";
-        }
-        else if(err.code === "storage/unknown"){
-            errorMsg = "Storage error: " + (err.message || "Unknown.");
-        }
-        else if(err.code === "permission-denied" || err.code === "firestore/permission-denied"){
-            errorMsg = "Firestore permission denied. Check your Firestore rules — allow write for game_submissions.";
+        else if(err.message && err.message.includes("timed out")){
+            errorMsg = "Operation timed out.";
+            errorDetail = "Possible causes:\n• Firestore rules blocking writes\n• Slow internet connection\n• Image too large";
         }
         else if(err.message){
             errorMsg = err.message;
         }
 
-        showError(errorMsg);
+        showError(errorMsg, errorDetail);
     }
 });
 
@@ -1222,18 +1205,41 @@ form.addEventListener("submit", async function(e){
    SHOW ERROR
 ================================= */
 
-function showError(message){
-    errorBox.innerHTML = "<strong>✕ Submission error</strong>" + message;
+function showError(message, detail){
+    errorBox.innerHTML =
+        "<strong>✕ Submission error</strong>" +
+        escapeHTML(message) +
+        (detail ? `<div class="error-detail">${escapeHTML(detail)}</div>` : "");
+
     errorBox.style.display = "block";
     progress.style.display = "none";
     submitButton.disabled = false;
     submitButton.textContent = "SUBMIT FOR REVIEW";
 
-    /* Scroll error into view */
     setTimeout(() => {
         errorBox.scrollIntoView({ behavior:"smooth", block:"center" });
     }, 100);
 }
+
+function escapeHTML(str){
+    return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+/* =================================
+   WARN BEFORE LEAVING
+================================= */
+
+window.addEventListener("beforeunload", function(e){
+    if(submitButton.disabled && progress.style.display === "block"){
+        e.preventDefault();
+        e.returnValue = "";
+    }
+});
 
 </script>
 
