@@ -239,7 +239,7 @@ input,textarea,select{font-family:inherit;}
 .category{flex:none;padding:12px 18px;border-radius:9px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;transition:.2s;cursor:pointer;white-space:nowrap;min-height:42px;}
 .category:hover,.category.active{color:var(--text);border-color:var(--border-strong);background:var(--bg-elev);}
 
-/* ============ GAMES — CRAZYGAMES-STYLE COMPACT ============ */
+/* ============ GAMES ============ */
 .games{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
 
 .game{background:var(--bg-card);border:1px solid var(--border);border-radius:11px;overflow:hidden;transition:.22s;position:relative;cursor:pointer;}
@@ -348,7 +348,6 @@ footer{margin-top:75px;padding:28px 3%;padding-bottom:calc(28px + env(safe-area-
     .slider-dots{right:16px;bottom:16px;}
     .banner{width:280px;height:140px;}
 
-    /* SLIDABLE MOBILE GAME ROW */
     .section{margin-top:32px;}
     .section-head{margin-bottom:14px;}
     .section-head h2{font-size:19px;letter-spacing:-.5px;}
@@ -746,7 +745,7 @@ import { getFirestore, collection, getDocs, doc, getDoc, setDoc, onSnapshot, ser
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2q6Yfhz8",
+    apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2qY6fhz8",
     authDomain: "playr-bebbf.firebaseapp.com",
     databaseURL: "https://playr-bebbf-default-rtdb.firebaseio.com",
     projectId: "playr-bebbf",
@@ -1075,12 +1074,14 @@ function getAuthErrorMessage(error){
 function showLoginError(m){ const b = document.getElementById("loginError"); b.textContent = m; b.style.display = "block"; }
 function clearLoginError(){ const b = document.getElementById("loginError"); b.textContent = ""; b.style.display = "none"; }
 
+/* ⚡ UPDATED — No role check — any logged-in user can submit */
 window.handleSubmitGame = function(){
-    if(window.__submissionsDisabled){ alert("New game submissions are temporarily paused. Please check back soon."); return; }
-    if(!currentUser){ openLogin(); return; }
-    const role = window.__userRole || "player";
-    if(role !== "developer" && role !== "admin" && role !== "moderator"){
-        alert("You need a Developer account to submit games.\n\nContact support to request developer access.");
+    if(window.__submissionsDisabled){
+        alert("New game submissions are temporarily paused. Please check back soon.");
+        return;
+    }
+    if(!currentUser){
+        openLogin();
         return;
     }
     window.location.href = "submit.html";
