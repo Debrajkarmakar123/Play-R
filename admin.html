@@ -1659,18 +1659,44 @@ document.getElementById("usersList").addEventListener("change", async e => {
    REPORTS
 ========================= */
 
-let allReports = [];
-let reportFilter = "open";
-
 async function loadReports(){
     const box = document.getElementById("reportsList");
-    box.innerHTML = `<div class="loading">Loading reports...</div>`;
+    box.innerHTML = `<div class="loading">Loading reports & messages...</div>`;
+
     try{
-        const snap = await getDocs(collection(db, "reports"));
-        allReports = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        /* 1. Reports collection */
+        const reportsSnap = await getDocs(collection(db, "reports"));
+        const reports = reportsSnap.docs.map(d => ({
+            id: d.id,
+            _type: "report",
+            _collection: "reports",
+            ...d.data()
+        }));
+
+        /* 2. Contact messages collection */
+        let messages = [];
+        try{
+            const msgSnap = await getDocs(collection(db, "contact_messages"));
+            messages = msgSnap.docs.map(d => ({
+                id: d.id,
+                _type: "message",
+                _collection: "contact_messages",
+                ...d.data()
+            }));
+            console.log(`✉️ Loaded ${messages.length} contact messages`);
+        }catch(e){
+            console.warn("contact_messages load failed:", e);
+        }
+
+        /* 3. Merge both */
+        allReports = [...reports, ...messages];
         allReports.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+        console.log(`📊 Total: ${reports.length} reports + ${messages.length} messages`);
+
         renderReports();
     }catch(err){
+        console.error(err);
         box.innerHTML = `<div class="empty">Failed to load: ${escapeHTML(err.message)}</div>`;
     }
 }
