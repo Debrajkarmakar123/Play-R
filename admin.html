@@ -1,432 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PLAYR</title>
-
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='12' y='12' width='40' height='40' rx='10' fill='%23ff5a2d' transform='rotate(45 32 32)'/%3E%3Crect x='26' y='26' width='12' height='12' rx='2.5' fill='%23070707'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='12' y='12' width='40' height='40' rx='10' fill='%23ff5a2d' transform='rotate(45 32 32)'/%3E%3Crect x='26' y='26' width='12' height='12' rx='2.5' fill='%23070707'/%3E%3C/svg%3E">
-
-<script>
-(function(){
-    try{
-        var saved = localStorage.getItem("playr_theme") || "dark";
-        document.documentElement.setAttribute("data-theme", saved);
-    }catch(e){
-        document.documentElement.setAttribute("data-theme", "dark");
-    }
-})();
-</script>
-<script src="theme.js"></script>
+<title>PLAYR — Admin</title>
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
-
-:root,
-[data-theme="dark"]{
-    --bg:#070707;--bg-soft:#101010;--bg-card:#101010;--bg-card2:#141414;--bg-elev:#191919;--bg-input:#111;
-    --border:#292929;--border-soft:#222;--border-strong:#3a3a3a;
-    --text:#f7f7f5;--text-soft:#aaa;--text-muted:#777;--text-faint:#555;
-    --accent:#ff6b35;--accent-soft:#ff7845;
-    --overlay:rgba(0,0,0,.78);--menu-overlay:rgba(0,0,0,.65);--grad-1:#202020;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-[data-theme="light"]{
-    --bg:#f4f4f1;--bg-soft:#ffffff;--bg-card:#ffffff;--bg-card2:#f9f9f7;--bg-elev:#f0f0ed;--bg-input:#f0f0ed;
-    --border:#e3e3e0;--border-soft:#e8e8e5;--border-strong:#c8c8c5;
-    --text:#0a0a08;--text-soft:#3a3a38;--text-muted:#777;--text-faint:#999;
-    --accent:#ff5a1f;--accent-soft:#ff7a45;
-    --overlay:rgba(0,0,0,.5);--menu-overlay:rgba(0,0,0,.4);--grad-1:#ffffff;
+:root{
+    --bg:#070707;
+    --panel:#101010;
+    --panel2:#141414;
+    --line:#292929;
+    --muted:#777;
+    --soft:#aaa;
+    --white:#f5f5f3;
+    --orange:#ff7845;
 }
-
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
 
 body{
-    background:radial-gradient(circle at 50% -10%,var(--grad-1) 0,transparent 32%),var(--bg);
-    color:var(--text);font-family:Inter,sans-serif;min-height:100vh;overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;transition:background .3s ease,color .3s ease;
+    min-height:100vh;
+    background:radial-gradient(1100px 520px at 50% -180px,rgba(255,100,45,.20),transparent 70%),var(--bg);
+    color:var(--white);
+    font-family:Inter,Arial,sans-serif;
+    font-size:15px;
 }
 
-img{max-width:100%;display:block;}
-button{font-family:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer;}
-input,textarea,select{font-family:inherit;}
-
-/* BANNED */
-.banned-screen{position:fixed;inset:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% -10%,#202020 0,transparent 32%),#070707;color:#fff;font-family:Inter,sans-serif;padding:24px;text-align:center;z-index:999999;}
-.banned-box{max-width:480px;}
-.banned-icon{font-size:72px;margin-bottom:28px;filter:drop-shadow(0 0 40px rgba(255,50,50,.5));animation:bannedPulse 2s ease-in-out infinite;}
-@keyframes bannedPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
-.banned-box h1{font-family:"Space Grotesk";font-size:34px;margin-bottom:18px;letter-spacing:-1.5px;}
-.banned-box p{color:#888;font-size:15px;line-height:1.7;margin-bottom:28px;}
-.banned-box a{display:inline-block;padding:13px 26px;background:linear-gradient(135deg,#ff7a45,#ff542f);color:#fff;text-decoration:none;border-radius:9px;font-weight:700;font-size:14px;}
-
-/* MAINTENANCE */
-.maintenance-overlay{position:fixed;inset:0;background:radial-gradient(circle at 50% -10%,var(--grad-1) 0,transparent 32%),var(--bg);display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:40px 24px;z-index:99999;}
-.maintenance-overlay.visible{display:flex !important;}
-.maintenance-box{max-width:600px;width:100%;}
-.maintenance-mark{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#ff914d,#ff4f2d);transform:rotate(45deg);box-shadow:0 0 50px rgba(255,100,50,.4);margin:0 auto;animation:pulse 2.4s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:rotate(45deg) scale(1);}50%{opacity:.85;transform:rotate(45deg) scale(.94);}}
-.maintenance-box h1{font-family:"Space Grotesk";font-size:52px;letter-spacing:-2.4px;margin-top:36px;line-height:1.05;color:var(--text);}
-.maintenance-box p{color:var(--text-muted);font-size:15px;margin-top:18px;line-height:1.7;}
-.maintenance-box .muted{color:var(--text-faint);font-size:12px;margin-top:34px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;}
-
-/* ORIGINAL OVERLAY */
-.playr-original-overlay{position:fixed;inset:0;z-index:99999;background:radial-gradient(circle at center,rgba(255,113,62,.22) 0%,rgba(0,0,0,.96) 70%);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:none;align-items:center;justify-content:center;opacity:0;padding:20px;}
-.playr-original-inner{text-align:center;transform:scale(.85);transition:transform .55s cubic-bezier(.22,1,.36,1);padding:20px;}
-.playr-original-overlay.show .playr-original-inner{transform:scale(1);}
-.playr-original-crown{font-size:72px;line-height:1;filter:drop-shadow(0 0 50px rgba(255,113,62,.8));animation:crownPop .7s cubic-bezier(.34,1.56,.64,1);}
-@keyframes crownPop{0%{transform:scale(.3) rotate(-30deg);opacity:0;}60%{transform:scale(1.18) rotate(8deg);opacity:1;}100%{transform:scale(1) rotate(0);opacity:1;}}
-.playr-original-text{font-family:"Space Grotesk";font-size:64px;font-weight:700;letter-spacing:-3px;margin-top:18px;background:linear-gradient(135deg,#ffcf9e 0%,#ff8a55 40%,#ff4f2d 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 12px 40px rgba(255,100,50,.4));line-height:1;}
-.playr-original-sub{color:#8a8a8a;font-size:12px;letter-spacing:4px;text-transform:uppercase;font-weight:800;margin-top:16px;}
-.playr-original-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,#ff6b35,transparent);margin:20px auto 0;}
-
-/* BANNERS */
-.announcement-bar{display:none;padding:11px 20px;text-align:center;font-size:12px;line-height:1.5;background:var(--bg-card2);border-bottom:1px solid var(--border);color:var(--text-soft);}
-.emergency-banner{display:none;padding:13px 20px;text-align:center;font-size:13px;line-height:1.5;font-weight:700;background:linear-gradient(135deg,#ff4040,#c80000);color:#fff;box-shadow:0 4px 20px rgba(255,0,0,.25);position:relative;z-index:60;}
-
-/* TOPBAR */
-.topbar{height:76px;display:flex;align-items:center;gap:14px;padding:0 28px;padding-left:calc(28px + env(safe-area-inset-left, 0px));padding-right:calc(28px + env(safe-area-inset-right, 0px));background:var(--bg);border-bottom:1px solid var(--border-soft);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);position:sticky;top:0;z-index:50;}
-.menu-btn{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid var(--border);border-radius:10px;background:var(--bg-input);color:var(--text-soft);font-size:20px;cursor:pointer;flex:0 0 42px;padding:0;transition:.2s;}
-.menu-btn:hover{background:var(--bg-elev);border-color:var(--border-strong);color:var(--text);}
-.logo{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-family:"Space Grotesk";font-weight:700;font-size:24px;letter-spacing:-1px;flex:0 0 auto;}
-.logo-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,#ff914d,#ff4f2d);transform:rotate(45deg);box-shadow:0 0 25px rgba(255,100,50,.3);position:relative;flex:0 0 26px;}
-.logo-mark:after{content:"";position:absolute;width:8px;height:8px;background:var(--bg);border-radius:2px;left:9px;top:9px;}
-.nav{display:flex;gap:4px;margin-left:8px;flex:0 1 auto;}
-.nav button{border:0;background:transparent;color:var(--text-muted);padding:10px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:600;white-space:nowrap;transition:.15s;}
-.nav button:hover,.nav button.active{background:var(--bg-elev);color:var(--text);}
-.submit-btn{padding:11px 18px;border-radius:9px;background:linear-gradient(135deg,#ff7a45,#ff542f);color:#fff;font-size:12px;font-weight:700;box-shadow:0 7px 25px rgba(255,90,45,.2);transition:.2s;cursor:pointer;border:0;white-space:nowrap;flex:0 0 auto;margin-left:auto;}
-.submit-btn:hover{transform:translateY(-1px);}
-.submit-btn .short-text{display:none;}
-
-/* SEARCH */
-.search{width:270px;position:relative;flex:0 1 270px;min-width:0;}
-.search input{width:100%;height:42px;background:var(--bg-input);border:1px solid var(--border);border-radius:9px;outline:none;color:var(--text);padding:0 14px 0 40px;font-size:13px;transition:.15s;}
-.search input::placeholder{color:var(--text-muted);}
-.search input:focus{border-color:var(--border-strong);background:var(--bg-card2);}
-.search-icon{position:absolute;left:14px;top:11px;color:var(--text-muted);font-size:16px;pointer-events:none;}
-
-/* SEARCH DROPDOWN */
-.search-results{position:absolute;top:50px;left:0;right:0;background:var(--bg-card);border:1px solid var(--border-strong);border-radius:12px;max-height:400px;overflow-y:auto;z-index:300;display:none;box-shadow:0 20px 50px rgba(0,0,0,.5);}
-.search-results.show{display:block;}
-.search-result-item{padding:12px 14px;display:flex;gap:12px;align-items:center;cursor:pointer;border-bottom:1px solid var(--border-soft);transition:.15s;}
-.search-result-item:last-child{border-bottom:0;}
-.search-result-item:hover{background:var(--bg-elev);}
-.search-result-thumb{width:44px;height:44px;border-radius:8px;background-size:cover;background-position:center;background-color:var(--bg-card2);flex:none;border:1px solid var(--border);}
-.search-result-info{min-width:0;flex:1;}
-.search-result-info strong{display:block;font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.search-result-info span{display:block;font-size:10px;color:var(--text-muted);margin-top:3px;}
-.search-no-match{padding:20px;text-align:center;color:var(--text-muted);font-size:12px;}
-
-/* NOTIFICATIONS */
-.notif-btn{position:relative;width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--bg-card2);color:var(--text-soft);cursor:pointer;flex:0 0 38px;display:flex;align-items:center;justify-content:center;font-size:17px;transition:.2s;padding:0;}
-.notif-btn:hover{background:var(--bg-elev);border-color:var(--accent);color:var(--text);}
-.notif-btn.active{background:var(--bg-elev);border-color:var(--accent);color:var(--text);}
-.notif-badge{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;padding:0 5px;border-radius:10px;background:linear-gradient(135deg,#ff4040,#c80000);color:#fff;font-size:9px;font-weight:900;display:none;align-items:center;justify-content:center;border:2px solid var(--bg);line-height:1;}
-.notif-badge.show{display:flex;}
-.notif-panel{position:fixed;top:70px;right:calc(78px + env(safe-area-inset-right, 0px));width:380px;max-width:calc(100vw - 28px);max-height:min(560px,calc(100vh - 100px));overflow-y:auto;background:var(--bg-card);border:1px solid var(--border-strong);border-radius:14px;box-shadow:0 25px 70px rgba(0,0,0,.35);z-index:100;display:none;}
-.notif-panel.show{display:block;}
-.notif-header{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg-card);z-index:2;}
-.notif-header h3{font-family:"Space Grotesk";font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.3px;}
-.notif-clear{border:0;background:transparent;color:var(--text-muted);font-size:11px;font-weight:700;cursor:pointer;padding:6px 10px;border-radius:7px;}
-.notif-clear:hover{color:var(--accent-soft);background:var(--bg-elev);}
-.notif-list{padding:8px;}
-.notif-item{padding:14px 16px;border-radius:10px;margin-bottom:6px;background:var(--bg-card2);border:1px solid var(--border);transition:.15s;cursor:pointer;position:relative;}
-.notif-item:hover{background:var(--bg-elev);}
-.notif-item.unread{border-left:3px solid var(--accent);background:linear-gradient(90deg,rgba(255,107,53,.08),var(--bg-card2));}
-.notif-item.unread:after{content:"";position:absolute;top:14px;right:14px;width:8px;height:8px;background:var(--accent);border-radius:50%;}
-.notif-item-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;padding-right:20px;line-height:1.3;}
-.notif-item-msg{font-size:12px;color:var(--text-soft);line-height:1.55;margin-bottom:8px;word-wrap:break-word;}
-.notif-item-time{font-size:10px;color:var(--text-muted);font-weight:600;}
-.notif-empty{padding:50px 20px;text-align:center;color:var(--text-muted);font-size:13px;}
-.notif-empty:before{content:"🔔";display:block;font-size:36px;margin-bottom:12px;opacity:.35;}
-
-/* ACCOUNT MENU */
-.account-menu{position:fixed;top:70px;right:calc(28px + env(safe-area-inset-right, 0px));width:250px;background:var(--bg-card);border:1px solid var(--border-strong);border-radius:14px;padding:15px;box-shadow:0 25px 70px rgba(0,0,0,.35);z-index:100;display:none;}
-.account-menu.show{display:block;}
-.account-user{padding:4px 4px 13px;border-bottom:1px solid var(--border);margin-bottom:12px;}
-.account-user strong{display:block;color:var(--text);font-size:13px;overflow:hidden;text-overflow:ellipsis;}
-.account-user span{display:block;color:var(--text-muted);font-size:11px;margin-top:5px;overflow:hidden;text-overflow:ellipsis;}
-.role-badge{display:inline-block;margin-top:8px;padding:3px 8px;border-radius:5px;background:rgba(255,107,53,.15);color:#ff8754;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;}
-.role-badge.admin{background:rgba(255,120,69,.25);color:#ffb28d;}
-.role-badge.developer{background:rgba(120,214,139,.15);color:#78d68b;}
-.role-badge.moderator{background:rgba(255,217,160,.15);color:#ffd9a0;}
-.account-menu button{width:100%;border:0;background:var(--bg-elev);color:var(--text-soft);padding:12px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;text-align:left;margin-bottom:6px;}
-.account-menu button:last-child{margin-bottom:0;}
-.account-menu button:hover{background:var(--bg-card2);color:var(--text);}
-
-/* AVATAR */
-.avatar{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--bg-card2);color:var(--text-soft);cursor:pointer;font-size:13px;font-weight:700;transition:.2s;padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;flex:0 0 38px;}
-.avatar:hover{background:var(--bg-elev);border-color:var(--accent);color:var(--text);}
-.avatar img{width:100%;height:100%;object-fit:cover;}
-.avatar svg{width:17px;height:17px;fill:currentColor;}
-
-/* LOGIN */
-.login-overlay{position:fixed;inset:0;background:var(--overlay);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:200;padding:20px;}
-.login-overlay.show{display:flex;}
-.login-box{width:min(420px,100%);background:var(--bg-card);border:1px solid var(--border-strong);border-radius:16px;padding:26px;box-shadow:0 30px 100px rgba(0,0,0,.5);max-height:90vh;overflow-y:auto;}
-.login-header{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;}
-.login-header h2{font-family:"Space Grotesk";font-size:25px;letter-spacing:-1px;color:var(--text);}
-.login-header p{color:var(--text-muted);font-size:11px;line-height:1.5;margin-top:7px;}
-.close-login{width:36px;height:36px;border:1px solid var(--border);background:var(--bg-elev);color:var(--text-muted);border-radius:8px;cursor:pointer;flex:none;font-size:18px;}
-.login-form{margin-top:23px;}
-.login-field{margin-bottom:14px;}
-.login-field label{display:block;color:var(--text-soft);font-size:11px;margin-bottom:7px;font-weight:600;}
-.login-field input{width:100%;height:46px;background:var(--bg-input);border:1px solid var(--border);border-radius:8px;outline:none;color:var(--text);padding:0 14px;font-size:16px;}
-.login-main-btn{width:100%;height:48px;border:0;border-radius:9px;background:linear-gradient(135deg,#fff,#ddd);color:#090909;font-size:13px;font-weight:800;cursor:pointer;margin-top:8px;}
-[data-theme="light"] .login-main-btn{background:linear-gradient(135deg,#0a0a08,#1a1a18);color:#fff;}
-.google-btn{width:100%;height:48px;border:1px solid var(--border-strong);border-radius:9px;background:var(--bg-elev);color:var(--text);font-size:13px;font-weight:600;cursor:pointer;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:10px;}
-.google-btn svg{width:16px;height:16px;}
-.login-divider{display:flex;align-items:center;gap:10px;color:var(--text-faint);font-size:10px;margin:16px 0;font-weight:700;}
-.login-divider:before,.login-divider:after{content:"";height:1px;background:var(--border);flex:1;}
-.login-switch{text-align:center;color:var(--text-muted);font-size:11px;margin-top:17px;}
-.login-switch button{border:0;background:none;color:var(--accent-soft);cursor:pointer;font-size:11px;font-weight:600;}
-.login-error{display:none;margin-top:12px;padding:11px;background:#1b100e;border:1px solid #48231c;color:#e99a88;border-radius:8px;font-size:11px;line-height:1.5;}
-
-/* MAIN */
-.container{width:min(1420px,94%);margin:auto;padding-left:env(safe-area-inset-left, 0px);padding-right:env(safe-area-inset-right, 0px);}
-
-/* HERO SLIDER */
-.feature{height:380px;margin-top:25px;position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;background:var(--bg-card2);touch-action:pan-y;}
-.slide-track{position:absolute;inset:0;z-index:1;}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity .9s ease,transform .9s ease;transform:scale(1.05);background-size:cover;background-position:center;background-color:#14100e;}
-.slide.active{opacity:1;transform:scale(1);z-index:2;}
-.slide:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(10,8,8,.96) 0%,rgba(10,8,8,.78) 45%,rgba(10,8,8,.35) 100%);}
-.slide.no-image{background:radial-gradient(circle at 78% 22%,rgba(255,148,80,.22) 0,transparent 40%),linear-gradient(135deg,#3a1c0f 0%,#0d0b0a 60%,#0a0808 100%);}
-.feature-content{position:absolute;left:44px;bottom:44px;z-index:5;max-width:640px;transition:transform .45s ease,opacity .45s ease;}
-.feature-content.switching{opacity:0;transform:translateY(14px);}
-.feature-label{display:flex;align-items:center;gap:8px;color:#ff8a55;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;}
-.feature-label span.dot{width:6px;height:6px;background:#ff713e;border-radius:50%;box-shadow:0 0 12px #ff713e;}
-.feature h1{font-family:"Space Grotesk";font-size:48px;letter-spacing:-2.2px;margin-top:12px;line-height:1.02;color:#fff;}
-.feature p{color:#c8c8c8;font-size:14px;margin-top:12px;line-height:1.6;max-width:520px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.feature-btn{margin-top:22px;padding:14px 26px;border:0;border-radius:9px;background:linear-gradient(135deg,#fff,#ddd);color:#090909;font-size:13px;font-weight:800;cursor:pointer;transition:.2s;letter-spacing:.3px;min-height:48px;}
-.feature-btn:hover{transform:translateY(-2px);}
-.slider-dots{position:absolute;right:36px;bottom:28px;z-index:6;display:flex;gap:8px;}
-.slider-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.28);border:0;cursor:pointer;transition:.3s;padding:0;}
-.slider-dot.active{background:#ff713e;width:30px;border-radius:6px;box-shadow:0 0 14px rgba(255,113,62,.7);}
-.slider-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.15);color:#fff;cursor:pointer;font-size:20px;transition:.25s;backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;}
-.feature:hover .slider-arrow{opacity:1;}
-.slider-arrow.prev{left:22px;}
-.slider-arrow.next{right:22px;}
-.slider-thumbs{position:absolute;right:36px;bottom:64px;z-index:6;display:flex;gap:9px;}
-.slider-thumb{width:58px;height:40px;border-radius:7px;background-size:cover;background-position:center;background-color:#1a1410;border:2px solid rgba(255,255,255,.15);cursor:pointer;transition:.25s;overflow:hidden;}
-.slider-thumb.active{border-color:#ff713e;box-shadow:0 0 16px rgba(255,113,62,.7);transform:translateY(-4px);}
-.slider-progress{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,#ff713e,#ff8a55);z-index:7;width:0%;}
-
-/* BANNER STRIP */
-.banner-strip{display:none;margin-top:32px;gap:14px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none;}
-.banner-strip::-webkit-scrollbar{display:none;}
-.banner{flex:none;width:340px;height:160px;border-radius:14px;border:1px solid var(--border);background:var(--bg-card2);background-size:cover;background-position:center;position:relative;cursor:pointer;overflow:hidden;transition:.25s;}
-.banner:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 35%,rgba(0,0,0,.88));}
-.banner-title{position:absolute;left:18px;bottom:16px;right:18px;z-index:2;font-family:"Space Grotesk";font-size:17px;font-weight:700;color:#fff;letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-
-/* SECTION */
-.section{margin-top:42px;}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px;gap:14px;}
-.section-head h2{font-family:"Space Grotesk";font-size:23px;letter-spacing:-.8px;display:flex;align-items:center;gap:10px;color:var(--text);}
-.section-head a{color:var(--text-muted);text-decoration:none;font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;}
-.section-head a:hover{color:var(--text);}
-.section-eyebrow{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:8px;}
-
-/* CATEGORIES */
-.categories{display:flex;gap:9px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
-.categories::-webkit-scrollbar{display:none;}
-.category{flex:none;padding:12px 18px;border-radius:9px;background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;transition:.2s;cursor:pointer;white-space:nowrap;min-height:42px;}
-.category:hover,.category.active{color:var(--text);border-color:var(--border-strong);background:var(--bg-elev);}
-
-/* ============ GAMES — CRAZYGAMES-STYLE COMPACT ============ */
-.games{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
-
-.game{background:var(--bg-card);border:1px solid var(--border);border-radius:11px;overflow:hidden;transition:.22s;position:relative;cursor:pointer;}
-.game:hover{transform:translateY(-4px);border-color:var(--border-strong);box-shadow:0 14px 30px rgba(0,0,0,.4);}
-.game:active{transform:scale(.97);}
-
-.thumb{height:130px;position:relative;overflow:hidden;background:radial-gradient(circle at 75% 25%,#ffbd75 0 3%,transparent 4%),linear-gradient(135deg,#422216,#12100e);}
-.thumb:before{content:"";position:absolute;width:100px;height:100px;right:10px;top:12px;border-radius:24px;transform:rotate(26deg);background:rgba(255,255,255,.06);box-shadow:inset 0 0 20px rgba(255,255,255,.04),0 18px 30px rgba(0,0,0,.32);}
-.thumb:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.7));}
-
-.game-letter{position:absolute;left:10px;bottom:8px;z-index:3;font-family:"Space Grotesk";font-size:19px;font-weight:700;letter-spacing:-.7px;text-shadow:0 4px 14px #000;color:#fff;}
-
-.play{position:absolute;right:8px;top:8px;z-index:5;width:34px;height:34px;border:0;border-radius:50%;background:#fff;color:#111;opacity:0;transform:scale(.75);transition:.2s;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;}
-.game:hover .play{opacity:1;transform:scale(1);}
-
-.fav-btn{position:absolute;top:8px;right:48px;z-index:6;width:30px;height:30px;border-radius:50%;border:0;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;opacity:0;transform:scale(.75);transition:.2s;padding:0;}
-.game:hover .fav-btn{opacity:1;transform:scale(1);}
-.fav-btn:hover{background:rgba(0,0,0,.85);}
-.fav-btn.active{color:#ff4d6d;background:rgba(255,77,109,.22);}
-.fav-btn.active:hover{background:rgba(255,77,109,.35);}
-
-.game-info{padding:9px 10px 11px;}
-.game-title{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);line-height:1.3;}
-.game-meta{display:flex;justify-content:space-between;margin-top:4px;color:var(--text-muted);font-size:10px;}
-
-.game-badge{position:absolute;top:8px;left:8px;z-index:6;padding:4px 7px;border-radius:5px;font-size:8px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;}
-.game-badge.pinned{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;}
-.game-badge.original{background:linear-gradient(135deg,#ff7a45,#ff542f);color:#fff;}
-.game-badge.frozen{background:linear-gradient(135deg,#f43f5e,#be123c);color:#fff;}
-.game.frozen .play,.game.frozen .fav-btn{opacity:0 !important;}
-
-/* LOADING */
-.loading,.empty,.error{grid-column:1/-1;text-align:center;padding:55px 10px;color:var(--text-muted);font-size:13px;}
-.error{color:#ff8a55;}
-
-/* QUICK PICKS */
-.quick{margin-top:52px;}
-.quick h2{font-family:"Space Grotesk";font-size:21px;margin-bottom:17px;color:var(--text);}
-.quick-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:17px;}
-.quick-card{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--border);background:var(--bg-card);border-radius:10px;transition:.2s;cursor:pointer;min-height:84px;}
-.quick-card:hover{background:var(--bg-elev);border-color:var(--border-strong);transform:translateY(-2px);}
-.quick-cover{width:60px;height:60px;flex:none;border-radius:8px;background:linear-gradient(135deg,#454545,#171717);overflow:hidden;position:relative;background-size:cover;background-position:center;}
-.quick-info{min-width:0;}
-.quick-info strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);}
-.quick-info span{display:block;color:var(--text-muted);font-size:10px;margin-top:5px;}
-
-/* FOOTER */
-footer{margin-top:75px;padding:28px 3%;padding-bottom:calc(28px + env(safe-area-inset-bottom, 0px));border-top:1px solid var(--border-soft);display:flex;justify-content:space-between;color:var(--text-faint);font-size:11px;}
-
-/* SIDE MENU */
-.menu-overlay{position:fixed;inset:0;background:var(--menu-overlay);backdrop-filter:blur(3px);opacity:0;visibility:hidden;z-index:250;transition:.25s;}
-.menu-overlay.open{opacity:1;visibility:visible;}
-.side-menu{position:fixed;top:0;left:-360px;width:340px;max-width:88vw;height:100vh;overflow-y:auto;padding:22px;padding-top:calc(22px + env(safe-area-inset-top, 0px));padding-bottom:calc(22px + env(safe-area-inset-bottom, 0px));background:var(--bg-card2);border-right:1px solid var(--border);box-shadow:25px 0 80px rgba(0,0,0,.4);z-index:300;transition:left .28s cubic-bezier(.22,1,.36,1);}
-.side-menu.open{left:0;}
-.menu-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--border);}
-.menu-header strong{font-family:"Space Grotesk";font-size:22px;color:var(--text);}
-.menu-close{width:38px;height:38px;border:1px solid var(--border);border-radius:9px;background:var(--bg-elev);color:var(--text-soft);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.menu-section{padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--border-soft);}
-.menu-title{color:var(--accent);font-size:10px;font-weight:800;letter-spacing:1.5px;margin-bottom:8px;}
-.menu-subtitle{color:var(--text-faint);font-size:10px;margin:14px 8px 6px;text-transform:uppercase;letter-spacing:1px;font-weight:700;}
-.menu-link{display:flex;align-items:center;padding:13px 12px;border-radius:8px;color:var(--text-muted);text-decoration:none;font-size:13px;transition:.15s;font-weight:500;min-height:44px;}
-.menu-link:hover{background:var(--bg-elev);color:var(--text);}
-.menu-link.highlight{color:var(--accent-soft);font-weight:700;}
-.menu-logout{width:100%;padding:14px;border:1px solid #382020;border-radius:9px;background:#151010;color:#ff9999;font-size:13px;cursor:pointer;font-weight:600;min-height:48px;}
-
-/* ============ RESPONSIVE ============ */
-
-@media(max-width:1024px){
-    .topbar{height:70px;padding:0 22px;}
-    .nav{display:none;}
-    .search{width:220px;flex:0 1 220px;}
-    .submit-btn .long-text{display:inline;}
-    .submit-btn .short-text{display:none;}
-    .feature{height:340px;}
-    .feature h1{font-size:40px;}
-    .feature-content{left:34px;bottom:34px;}
-    .games{grid-template-columns:repeat(4,1fr);gap:12px;}
-    .quick-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-    .slider-thumbs{display:none;}
-    .slider-arrow{opacity:1;}
-    .banner{width:300px;height:150px;}
+.topbar{
+    height:100px;border-bottom:1px solid #202020;
+    background:rgba(7,7,7,.9);backdrop-filter:blur(18px);
+    display:flex;align-items:center;padding:0 60px;
+    position:sticky;top:0;z-index:50;
 }
 
-@media(max-width:600px){
-    .topbar{height:60px;gap:8px;padding:0 12px;}
-    .menu-btn{width:38px;height:38px;flex:0 0 38px;font-size:17px;}
-    .logo{font-size:18px;gap:7px;}
-    .logo-mark{width:22px;height:22px;flex:0 0 22px;}
-    .logo-mark:after{width:6px;height:6px;left:8px;top:8px;}
-    .nav{display:none;}
-    .submit-btn{padding:9px 13px;font-size:11px;min-height:38px;}
-    .submit-btn .long-text{display:none;}
-    .submit-btn .short-text{display:inline;}
-    .search{display:none;}
-    .notif-btn{width:36px;height:36px;flex:0 0 36px;font-size:16px;}
-    .notif-panel{top:62px;left:14px;right:14px;width:auto;max-width:none;}
-    .avatar{width:36px;height:36px;flex:0 0 36px;}
-    .avatar svg{width:16px;height:16px;}
-    .account-menu{right:14px;top:66px;width:calc(100vw - 28px);max-width:280px;}
-    .feature{height:290px;margin-top:15px;border-radius:13px;}
-    .feature-content{left:20px;bottom:22px;right:20px;max-width:100%;}
-    .feature h1{font-size:26px;letter-spacing:-1.2px;margin-top:8px;}
-    .feature p{font-size:12px;}
-    .feature-btn{padding:12px 20px;font-size:12px;min-height:44px;}
-    .slider-thumbs,.slider-arrow{display:none;}
-    .slider-dots{right:16px;bottom:16px;}
-    .banner{width:280px;height:140px;}
+.logo{display:flex;align-items:center;gap:16px;font-size:28px;font-weight:900;letter-spacing:-.9px;}
 
-    /* SLIDABLE MOBILE GAME ROW */
-    .section{margin-top:32px;}
-    .section-head{margin-bottom:14px;}
-    .section-head h2{font-size:19px;letter-spacing:-.5px;}
-    .section-head a{font-size:11px;}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,#ff9a63,#ff4926);border-radius:9px;transform:rotate(45deg);}
 
-    .categories{gap:7px;}
-    .category{padding:10px 15px;font-size:11px;min-height:40px;}
+.admin-pill{margin-left:auto;display:flex;align-items:center;gap:11px;color:#888;font-size:11px;font-weight:800;letter-spacing:1.8px;}
 
-    .games{
-        display:flex;
-        gap:10px;
-        overflow-x:auto;
-        overflow-y:hidden;
-        scroll-snap-type:x mandatory;
-        -webkit-overflow-scrolling:touch;
-        padding:4px 4px 12px;
-        margin:-4px -4px 0;
-        scrollbar-width:none;
-    }
-    .games::-webkit-scrollbar{display:none;}
-    .games > .loading,
-    .games > .empty,
-    .games > .error{display:block;width:100%;text-align:center;}
+.admin-dot{width:9px;height:9px;border-radius:50%;background:#78d68b;box-shadow:0 0 16px rgba(120,214,139,.6);}
 
-    .game{
-        flex:0 0 46%;
-        max-width:200px;
-        scroll-snap-align:start;
-    }
-
-    .thumb{height:118px;}
-    .game-letter{font-size:18px;left:9px;bottom:7px;}
-    .play{width:30px;height:30px;font-size:11px;right:7px;top:7px;opacity:1;transform:scale(1);}
-    .fav-btn{width:26px;height:26px;font-size:12px;top:7px;right:44px;opacity:1;transform:scale(1);}
-    .game-info{padding:8px 9px 10px;}
-    .game-title{font-size:11.5px;}
-    .game-meta{font-size:9px;margin-top:3px;}
-    .game-badge{padding:3px 6px;font-size:7px;top:7px;left:7px;}
-
-    .quick{margin-top:36px;}
-    .quick h2{font-size:18px;}
-    .quick-grid{grid-template-columns:1fr 1fr;gap:10px;}
-    .quick-cover{width:52px;height:52px;}
-    footer{flex-direction:column;gap:8px;margin-top:55px;}
-    .maintenance-box h1{font-size:32px;}
-    .maintenance-mark{width:52px;height:52px;}
-    .playr-original-text{font-size:34px;letter-spacing:-1.5px;}
-    .playr-original-crown{font-size:48px;}
-    .playr-original-sub{font-size:9px;letter-spacing:2px;}
-    .search-results{position:fixed;top:60px;left:14px;right:14px;}
+.admin-nav{
+    display:flex;gap:4px;padding:0 50px;
+    border-bottom:1px solid #1c1c1c;background:rgba(7,7,7,.85);
+    backdrop-filter:blur(18px);overflow-x:auto;scrollbar-width:none;
+    position:sticky;top:100px;z-index:49;
 }
 
-@media(max-width:380px){
-    .topbar{height:56px;gap:6px;padding:0 10px;}
-    .menu-btn{width:36px;height:36px;flex:0 0 36px;font-size:16px;}
-    .notif-btn{width:34px;height:34px;flex:0 0 34px;font-size:15px;}
-    .logo{font-size:16px;}
-    .logo-mark{width:20px;height:20px;flex:0 0 20px;}
-    .submit-btn{padding:8px 10px;font-size:10px;}
-    .avatar{width:34px;height:34px;flex:0 0 34px;}
-    .game{flex:0 0 55%;max-width:180px;}
-    .thumb{height:110px;}
-    .quick-grid{grid-template-columns:1fr;}
-    .feature h1{font-size:22px;}
-    .feature{height:250px;}
+.admin-nav::-webkit-scrollbar{display:none;}
+
+.admin-nav button{
+    padding:22px 18px;background:transparent;border:none;
+    border-bottom:3px solid transparent;color:#666;
+    font-size:11px;font-weight:800;letter-spacing:1.5px;
+    text-transform:uppercase;cursor:pointer;white-space:nowrap;font-family:inherit;
 }
 
-body.is-touch .game:hover{transform:none;box-shadow:none;}
-body.is-touch .game:active{transform:scale(.97);}
-body.is-touch .play,body.is-touch .fav-btn{opacity:1;transform:scale(1);}
-body.is-touch .quick-card:hover{transform:none;}
-body.is-touch .category:hover{color:var(--text-muted);background:var(--bg-card);border-color:var(--border);}
-body.is-touch .category.active{color:var(--text);background:var(--bg-elev);border-color:var(--border-strong);}
+.admin-nav button:hover{color:#bbb;}
+.admin-nav button.active{color:#fff;border-bottom-color:var(--orange);}
+.admin-nav button.danger{color:#c77;}
+.admin-nav button.danger.active{color:#ff9b9b;border-bottom-color:#ff5252;}
 
-@media(max-width:900px) and (orientation:landscape){
-    .feature{height:260px;}
-    .feature h1{font-size:30px;}
-    .feature-content{bottom:20px;}
+.container{width:min(1650px,94%);margin:65px auto 120px;}
+
+.header{display:flex;justify-content:space-between;align-items:flex-end;gap:36px;margin-bottom:46px;}
+
+.eyebrow{color:var(--orange);font-size:12px;font-weight:900;letter-spacing:2.4px;text-transform:uppercase;}
+
+h1{margin-top:14px;font-size:58px;line-height:1;letter-spacing:-3.2px;}
+
+.header p{margin-top:18px;color:#7a7a7a;font-size:14px;line-height:1.7;}
+
+.refresh{min-width:150px;padding:16px 24px;border-radius:9px;border:1px solid #303030;background:#121212;color:#c8c8c8;font-size:12px;font-weight:800;cursor:pointer;}
+
+.refresh:hover{background:#1a1a1a;border-color:#444;color:white;}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-bottom:40px;}
+
+.stat{min-height:180px;padding:32px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#141414,#0d0d0d);box-shadow:0 20px 50px rgba(0,0,0,.18);}
+
+.stat-label{color:#787878;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;}
+
+.stat-number{margin-top:22px;font-size:50px;font-weight:900;letter-spacing:-2px;}
+
+.stat-sub{margin-top:9px;color:#5a5a5a;font-size:11px;}
+
+.panel{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#0e0e0e;box-shadow:0 30px 90px rgba(0,0,0,.25);}
+
+.toolbar{min-height:96px;padding:20px 26px;border-bottom:1px solid #242424;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+
+.tab{padding:15px 22px;border:1px solid transparent;border-radius:9px;background:transparent;color:#6d6d6d;font-size:12px;font-weight:800;cursor:pointer;font-family:inherit;}
+
+.tab:hover{background:#171717;color:#aaa;}
+.tab.active{background:#1c1c1c;color:white;border-color:#303030;}
+
+.search{margin-left:auto;width:340px;padding:16px 18px;border-radius:9px;background:#080808;border:1px solid #292929;color:white;outline:none;font-size:12px;font-family:inherit;}
+
+.search:focus{border-color:#484848;}
+
+.content{padding:28px;}
+
+.submissions{display:grid;gap:22px;}
+
+.submission{padding:32px;border-radius:17px;background:linear-gradient(145deg,#151515,#111);border:1px solid #292929;transition:transform .18s,border-color .18s;}
+
+.submission:hover{transform:translateY(-2px);border-color:#3a3a3a;}
+
+.card-top{display:flex;gap:30px;align-items:flex-start;}
+
+.thumbnail{width:260px;height:170px;flex:none;border-radius:13px;overflow:hidden;border:1px solid #303030;background:radial-gradient(circle at 30% 20%,#3b2117,#15100e 60%,#0b0b0b);display:flex;align-items:center;justify-content:center;}
+
+.thumbnail img{width:100%;height:100%;object-fit:cover;}
+
+.thumbnail-placeholder{color:#4d4d4d;font-size:11px;font-weight:800;letter-spacing:1.2px;}
+
+.info{min-width:0;flex:1;padding-top:4px;}
+
+.title-line{display:flex;align-items:center;flex-wrap:wrap;gap:14px;}
+
+.game-name{font-size:30px;font-weight:900;letter-spacing:-1px;}
+
+.status{padding:8px 12px;border-radius:7px;font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;}
+
+.status.pending{color:#ffad7c;background:#28170f;border:1px solid #493021;}
+.status.approved{color:#91dda0;background:#102016;border:1px solid #29442f;}
+.status.rejected{color:#ff9b9b;background:#241212;border:1px solid #452424;}
+
+.developer{margin-top:14px;color:#999;font-size:14px;}
+
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+
+.meta span{padding:9px 13px;border-radius:7px;border:1px solid #292929;background:#1a1a1a;color:#888;font-size:11px;}
+
+.description{margin-top:28px;padding-top:24px;border-top:1px solid #272727;color:#8b8b8b;font-size:13px;line-height:1.8;max-width:1100px;}
+
+.game-url{margin-top:14px;color:#666;font-size:11px;word-break:break-all;}
+
+.game-url a{color:#aaa;text-decoration:none;}
+.game-url a:hover{color:white;}
+
+.actions{display:flex;align-items:center;gap:12px;margin-top:26px;padding-top:24px;border-top:1px solid #272727;flex-wrap:wrap;}
+
+.action{
+    min-width:120px;padding:14px 20px;border-radius:9px;
+    border:1px solid #343434;background:#191919;color:#c4c4c4;
+    font-size:11px;font-weight:800;cursor:pointer;font-family:inherit;
+}
+
+.action:hover{background:#222;color:white;}
+
+.action.approve{background:#e7ffd9;color:#101610;border-color:#e7ffd9;}
+.action.approve:hover{background:#d0f7bd;}
+
+.action.reject{color:#ff9d9d;border-color:#462525;}
+.action.reject:hover{background:#251414;}
+
+.action.delete{color:#ff9b9b;border-color:#542727;}
+.action.delete:hover{background:#2a1313;color:#fff;}
+
+.action.orange{color:#ffb28d;border-color:#4a2c1c;}
+.action.orange:hover{background:#2a1a10;color:#fff;}
+
+/* HERO BUTTON */
+.action.hero{
+    color:#ffd9a0;
+    border-color:#6a4a1f;
+    background:#241a0e;
+}
+
+.action.hero:hover{
+    background:#332211;
+    color:#fff;
+    border-color:#8a6330;
+}
+
+.action.hero.active{
+    background:linear-gradient(135deg,#ff9a63,#ff4926);
+    color:#fff;
+    border-color:#ff7a45;
+    box-shadow:0 6px 20px rgba(255,113,62,.35);
+}
+
+/* SLIDER TOGGLE */
+.action.slider-off{
+    color:#ffb0b0;
+    border-color:#5a2525;
+    background:#241010;
+}
+
+.action.slider-off:hover{
+    background:#331414;
+    color:#fff;
+    border-color:#7a3535;
+}
+
+.action.slider-on{
+    color:#a8e9b8;
+    border-color:#2a4a34;
+    background:#0f1f16;
+}
+
+.action.slider-on:hover{
+    background:#152a1d;
+    color:#fff;
+    border-color:#3a6a44;
+}
+
+/* ORIGINAL BUTTON */
+.action.original{
+    color:#ffd9a0;
+    border-color:#7a4a1f;
+    background:#2a1a0e;
+}
+
+.action.original:hover{
+    background:#3a2211;
+    color:#fff;
+}
+
+.action.original.active{
+    background:linear-gradient(135deg,#ffb04a,#ff7a2f);
+    color:#fff;
+    border-color:#ff9a45;
+    box-shadow:0 6px 20px rgba(255,150,50,.4);
+}
+
+.action:disabled{opacity:.4;cursor:not-allowed;}
+
+.review-info{margin-left:auto;color:#5a5a5a;font-size:11px;}
+
+.reason{display:none;margin-top:18px;padding:20px;border-radius:11px;background:#0a0a0a;border:1px solid #292929;}
+
+.reason textarea{width:100%;min-height:110px;padding:16px;resize:vertical;border-radius:9px;background:#070707;border:1px solid #292929;outline:none;color:white;font-size:12px;font-family:inherit;}
+
+.reason-actions{display:flex;gap:10px;margin-top:12px;}
+
+.reason-actions button{padding:12px 18px;border-radius:8px;background:#181818;border:1px solid #333;color:#bbb;font-size:11px;cursor:pointer;font-family:inherit;}
+
+.reason-actions .confirm{color:#ff9b9b;border-color:#472424;}
+
+.loading,.empty{padding:120px 20px;text-align:center;color:#666;font-size:13px;}
+
+.error{margin:24px;padding:20px;border-radius:10px;background:#1c0e0e;border:1px solid #442121;color:#ff9d9d;font-size:12px;line-height:1.7;}
+
+.view.hidden{display:none !important;}
+
+.field{margin-bottom:18px;}
+
+.field label{display:block;color:#787878;font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:9px;}
+
+.field input,
+.field textarea,
+.field select{width:100%;padding:15px 18px;border-radius:9px;background:#080808;border:1px solid #292929;color:white;outline:none;font-size:12px;font-family:inherit;}
+
+.field textarea{min-height:120px;resize:vertical;}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{border-color:#484848;}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+
+.form-block{padding:30px;border-bottom:1px solid #242424;background:#0b0b0b;}
+
+.form-block h3{font-size:18px;font-weight:900;letter-spacing:-.4px;margin-bottom:16px;}
+
+.form-block .hint{color:#666;font-size:12px;margin-bottom:18px;line-height:1.7;}
+
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+
+.chip{padding:11px 17px;border-radius:8px;border:1px solid #292929;background:#141414;color:#999;font-size:11px;font-weight:800;letter-spacing:1.2px;cursor:pointer;font-family:inherit;}
+
+.chip:hover{color:#ccc;}
+.chip.active{background:#1c1c1c;color:#fff;border-color:#3a3a3a;}
+
+.row-card{padding:26px;border-radius:16px;background:linear-gradient(145deg,#151515,#111);border:1px solid #292929;display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;}
+
+.row-card + .row-card{margin-top:18px;}
+
+.row-card .main{flex:1;min-width:260px;}
+
+.row-card .main h4{font-size:20px;font-weight:900;letter-spacing:-.5px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+
+.row-card .main .sub{color:#777;font-size:12px;margin-top:8px;line-height:1.7;}
+
+.row-card .side{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+
+.badge{padding:6px 10px;border-radius:6px;font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;display:inline-block;}
+
+.badge.green{color:#91dda0;background:#102016;border:1px solid #29442f;}
+.badge.orange{color:#ffad7c;background:#28170f;border:1px solid #493021;}
+.badge.red{color:#ff9b9b;background:#241212;border:1px solid #452424;}
+.badge.grey{color:#999;background:#161616;border:1px solid #2b2b2b;}
+.badge.gold{color:#ffd9a0;background:#2a1e0e;border:1px solid #6a4a1f;}
+.badge.blue{color:#8ec5ff;background:#0c1a2a;border:1px solid #2a4260;}
+
+.toast-container{position:fixed;bottom:30px;right:30px;z-index:999;display:flex;flex-direction:column;gap:12px;pointer-events:none;}
+
+.toast{padding:18px 24px;border-radius:11px;background:#141414;border:1px solid #292929;color:#ccc;font-size:12px;line-height:1.6;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:400px;animation:toastIn .2s ease;}
+
+.toast.success{border-color:#29442f;color:#91dda0;}
+.toast.error{border-color:#452424;color:#ff9b9b;}
+.toast.warn{border-color:#493021;color:#ffad7c;}
+
+@keyframes toastIn{from{opacity:0;transform:translateX(20px);}to{opacity:1;transform:translateX(0);}}
+
+.toggle-row{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:20px 0;border-bottom:1px solid #1e1e1e;}
+
+.toggle-row:last-child{border-bottom:none;}
+
+.toggle-row .label-block{flex:1;min-width:0;}
+
+.toggle-row .label-block strong{display:block;font-size:15px;font-weight:800;color:#ddd;}
+
+.toggle-row .label-block span{display:block;color:#777;font-size:12px;margin-top:6px;line-height:1.6;}
+
+.switch{position:relative;display:inline-block;width:54px;height:30px;flex:none;}
+
+.switch input{opacity:0;width:0;height:0;}
+
+.switch .slider{position:absolute;inset:0;cursor:pointer;background:#1c1c1c;border:1px solid #303030;border-radius:30px;transition:.2s;}
+
+.switch .slider:before{content:"";position:absolute;height:20px;width:20px;left:4px;top:4px;background:#888;border-radius:50%;transition:.2s;}
+
+.switch input:checked + .slider{background:#2a1a10;border-color:#5a3520;}
+
+.switch input:checked + .slider:before{transform:translateX(24px);background:var(--orange);}
+
+.danger-block{border:1px solid #452424;background:#130909;padding:26px;border-radius:16px;margin-bottom:18px;}
+
+.danger-block h3{color:#ff9b9b;font-size:18px;margin-bottom:10px;font-weight:900;}
+
+.danger-block p{color:#b77;font-size:12px;line-height:1.7;margin-bottom:18px;}
+
+.kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+
+.kv .cell{padding:20px;border:1px solid #292929;border-radius:12px;background:#101010;}
+
+.kv .cell .k{color:#777;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;}
+
+.kv .cell .v{margin-top:10px;font-size:26px;font-weight:900;letter-spacing:-1.2px;}
+
+@media(max-width:1000px){
+    .topbar{height:88px;padding:0 30px;}
+    .logo{font-size:24px;}
+    .admin-nav{padding:0 24px;top:88px;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .header{align-items:flex-start;flex-direction:column;}
+    h1{font-size:44px;}
+    .grid-2,.grid-3{grid-template-columns:1fr;}
+}
+
+@media(max-width:700px){
+    .topbar{padding:0 18px;height:76px;}
+    .logo{font-size:22px;}
+    .logo-mark{width:26px;height:26px;}
+    .container{width:94%;margin-top:40px;}
+    h1{font-size:38px;}
+    .stats{gap:12px;}
+    .stat{padding:22px;min-height:140px;}
+    .stat-number{font-size:36px;}
+    .toolbar{flex-wrap:wrap;padding:16px;}
+    .tab{padding:11px 14px;font-size:11px;}
+    .search{width:100%;margin-left:0;margin-top:6px;}
+    .content{padding:16px;}
+    .submission{padding:20px;}
+    .card-top{flex-direction:column;}
+    .thumbnail{width:100%;height:220px;}
+    .game-name{font-size:24px;}
+    .actions{flex-wrap:wrap;}
+    .review-info{width:100%;margin-left:0;margin-top:8px;}
 }
 
 </style>
@@ -434,1261 +387,117 @@ body.is-touch .category.active{color:var(--text);background:var(--bg-elev);borde
 
 <body>
 
-<script>
-(function(){
-    try{
-        if(localStorage.getItem("playr_banned") === "1"){
-            document.documentElement.style.overflow = "hidden";
-            document.documentElement.innerHTML =
-                '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Account Suspended — PLAYR</title><style>' +
-                'body{margin:0;padding:0;font-family:Inter,Arial,sans-serif}' +
-                '.banned-screen{position:fixed;inset:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% -10%,#202020 0,transparent 32%),#070707;color:#fff;padding:24px;text-align:center;box-sizing:border-box}' +
-                '.banned-box{max-width:480px}' +
-                '.banned-icon{font-size:72px;margin-bottom:28px;filter:drop-shadow(0 0 40px rgba(255,50,50,.5));animation:bp 2s ease-in-out infinite}' +
-                '@keyframes bp{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}' +
-                '.banned-box h1{font-family:"Space Grotesk",sans-serif;font-size:34px;margin:0 0 18px;letter-spacing:-1.5px}' +
-                '.banned-box p{color:#888;font-size:15px;line-height:1.7;margin:0 0 28px}' +
-                '.banned-box a{display:inline-block;padding:13px 26px;background:linear-gradient(135deg,#ff7a45,#ff542f);color:#fff;text-decoration:none;border-radius:9px;font-weight:700;font-size:14px}' +
-                '</style></head><body>' +
-                '<div class="banned-screen"><div class="banned-box">' +
-                '<div class="banned-icon">🚫</div>' +
-                '<h1>Account Suspended</h1>' +
-                '<p>Your account has been suspended by PLAYR administrators.<br>If you believe this is a mistake, please contact support.</p>' +
-                '<a href="contact.html">Contact Support</a>' +
-                '</div></div></body>';
-        }
-    }catch(e){}
-})();
-</script>
-
-<div class="maintenance-overlay" id="maintenanceOverlay">
-    <div class="maintenance-box">
-        <div class="maintenance-mark"></div>
-        <h1 id="maintenanceTitle">We'll be right back.</h1>
-        <p id="maintenanceMessage">We're doing a quick update. Thanks for your patience.</p>
-        <div class="muted">PLAYR</div>
-    </div>
-</div>
-
-<div class="playr-original-overlay" id="playrOriginalOverlay">
-    <div class="playr-original-inner">
-        <div class="playr-original-crown">👑</div>
-        <div class="playr-original-text">PLAYR Original</div>
-        <div class="playr-original-line"></div>
-        <div class="playr-original-sub">Hand-picked by PLAYR</div>
-    </div>
-</div>
-
-<script>
-(function(){
-    var body = document.body || document.documentElement;
-    var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-    function applyClasses(){
-        var w = window.innerWidth;
-        body.classList.remove('is-mobile', 'is-tablet', 'is-desktop');
-        if(w <= 600){ body.classList.add('is-mobile'); }
-        else if(w <= 1024){ body.classList.add('is-tablet'); }
-        else { body.classList.add('is-desktop'); }
-        if(isTouch){ body.classList.add('is-touch'); }
-    }
-    if(document.body){ applyClasses(); }
-    else { document.addEventListener('DOMContentLoaded', applyClasses); }
-    var timer;
-    window.addEventListener('resize', function(){ clearTimeout(timer); timer = setTimeout(applyClasses, 120); });
-    window.addEventListener('orientationchange', function(){ setTimeout(applyClasses, 200); });
-})();
-
-(function(){
-    try{
-        var raw = localStorage.getItem("playr_maintenance_state");
-        if(!raw) return;
-        var cache = JSON.parse(raw);
-        if(cache && cache.maintenance === true){
-            var overlay = document.getElementById("maintenanceOverlay");
-            if(overlay){
-                overlay.classList.add("visible");
-                overlay.style.display = "flex";
-                if(cache.message){
-                    var msgEl = document.getElementById("maintenanceMessage");
-                    if(msgEl) msgEl.textContent = cache.message;
-                }
-                document.documentElement.style.overflow = "hidden";
-                document.body && (document.body.style.overflow = "hidden");
-            }
-        }
-    }catch(e){}
-})();
-</script>
-
-<div class="emergency-banner" id="emergencyBanner"><span id="emergencyBannerText"></span></div>
-<div class="announcement-bar" id="announcementBar"><span id="announcementText"></span></div>
-
 <header class="topbar">
-    <button class="menu-btn" id="menuBtn" aria-label="Open PLAYR menu" type="button">☰</button>
-    <a class="logo" href="#"><span class="logo-mark"></span>PLAYR</a>
-    <nav class="nav">
-        <button class="active" type="button">Home</button>
-        <button type="button">New</button>
-        <button type="button">Popular</button>
-    </nav>
-    <button class="submit-btn" onclick="handleSubmitGame()" type="button">
-        <span class="long-text">+ Submit Game</span>
-        <span class="short-text">+ Submit</span>
-    </button>
-    <div class="search">
-        <span class="search-icon">⌕</span>
-        <input id="search" type="text" placeholder="Search games..." oninput="handleSearchInput()" autocomplete="off">
-        <div class="search-results" id="searchResults"></div>
-    </div>
-    <button class="notif-btn" id="notifBtn" aria-label="Notifications" type="button">
-        🔔
-        <span class="notif-badge" id="notifBadge">0</span>
-    </button>
-    <button class="avatar" id="avatarButton" onclick="handleProfileClick()" type="button">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-    </button>
+    <div class="logo"><span class="logo-mark"></span>PLAYR</div>
+    <div class="admin-pill"><span class="admin-dot"></span>PRIVATE ADMIN</div>
 </header>
 
-<div class="notif-panel" id="notifPanel">
-    <div class="notif-header">
-        <h3>Notifications</h3>
-        <button class="notif-clear" id="notifClear" type="button">Mark all read</button>
-    </div>
-    <div class="notif-list" id="notifList">
-        <div class="notif-empty">No notifications yet</div>
-    </div>
-</div>
-
-<div class="account-menu" id="accountMenu">
-    <div class="account-user" id="accountUser">
-        <strong>Not logged in</strong>
-        <span>Login to your PLAYR account</span>
-    </div>
-    <button id="profileBtn" onclick="goToProfile()" style="display:none;" type="button">My Profile</button>
-    <button id="settingsBtn" onclick="goToSettings()" type="button">⚙️ Settings</button>
-    <button id="accountAction" onclick="handleAccountAction()" type="button">Login</button>
-</div>
-
-<div class="menu-overlay" id="menuOverlay"></div>
-<aside class="side-menu" id="sideMenu">
-    <div class="menu-header"><strong>PLAYR</strong><button class="menu-close" id="menuClose" type="button">×</button></div>
-    <div class="menu-section">
-        <div class="menu-title">GAMES</div>
-        <a class="menu-link" href="index.html">Home</a>
-        <a class="menu-link" href="#games">All Games</a>
-        <a class="menu-link" href="#favoritesSection" id="menuFavLink">Favorites</a>
-        <a class="menu-link" href="#recentSection" id="menuRecentLink">Recently Played</a>
-        <div class="menu-subtitle">Categories</div>
-        <a class="menu-link" href="#games" data-menu-category="all">All Categories</a>
-        <a class="menu-link" href="#games" data-menu-category="racing">Racing</a>
-        <a class="menu-link" href="#games" data-menu-category="action">Action</a>
-        <a class="menu-link" href="#games" data-menu-category="shooting">Shooting</a>
-        <a class="menu-link" href="#games" data-menu-category="sports">Sports</a>
-        <a class="menu-link" href="#games" data-menu-category="puzzle">Puzzle</a>
-        <a class="menu-link" href="#games" data-menu-category="strategy">Strategy</a>
-    </div>
-    <div class="menu-section">
-        <div class="menu-title">ACCOUNT</div>
-        <a class="menu-link" href="profile.html">My Profile</a>
-        <a class="menu-link" href="settings.html">Settings</a>
-    </div>
-    <div class="menu-section">
-        <div class="menu-title">FOR DEVELOPERS</div>
-        <a class="menu-link highlight" href="submit.html">+ Submit Your Game</a>
-        <a class="menu-link" href="submit.html">My Submissions</a>
-        <a class="menu-link" href="how-to-upload.html" id="howToUploadLink">How to Upload</a>
-    </div>
-    <div class="menu-section">
-        <div class="menu-title">HELP &amp; INFORMATION</div>
-        <a class="menu-link" href="faq.html">FAQ</a>
-        <a class="menu-link" href="contact.html">Contact / Support</a>
-        <a class="menu-link" href="terms.html">Terms of Service</a>
-        <a class="menu-link" href="privacy.html">Privacy Policy</a>
-    </div>
-    <button class="menu-logout" id="menuLogout" type="button">Logout</button>
-</aside>
-
-<div class="login-overlay" id="loginOverlay">
-    <div class="login-box">
-        <div class="login-header">
-            <div>
-                <h2 id="loginTitle">Welcome back.</h2>
-                <p id="loginSubtitle">Login to submit games and interact with PLAYR.</p>
-            </div>
-            <button class="close-login" onclick="closeLogin()" type="button">×</button>
-        </div>
-        <form class="login-form" id="loginForm">
-            <div class="login-field">
-                <label>Email</label>
-                <input id="authEmail" type="email" placeholder="you@example.com" required>
-            </div>
-            <div class="login-field">
-                <label>Password</label>
-                <input id="authPassword" type="password" placeholder="••••••••" minlength="6" required>
-            </div>
-            <button class="login-main-btn" id="loginMainButton" type="submit">LOGIN</button>
-            <div class="login-divider">OR</div>
-            <button type="button" class="google-btn" onclick="loginWithGoogle()">
-                <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
-                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.15C3.26 21.3 7.31 24 12 24z"/>
-                    <path fill="#FBBC05" d="M5.28 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.39l3.99-3.15z"/>
-                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.61l3.99 3.15c.95-2.85 3.6-4.96 6.72-4.96z"/>
-                </svg>
-                Continue with Google
-            </button>
-            <div class="login-error" id="loginError"></div>
-            <div class="login-switch">
-                <span id="switchText">Don't have an account?</span>
-                <button type="button" id="switchButton" onclick="switchAuthMode()">Create account</button>
-            </div>
-        </form>
-    </div>
-</div>
+<nav class="admin-nav" id="adminNav">
+    <button data-view="submissions" class="active">Submissions</button>
+    <button data-view="games">Games</button>
+    <button data-view="users">Users</button>
+    <button data-view="reports">Reports</button>
+    <button data-view="analytics">Analytics</button>
+    <button data-view="homepage">Homepage</button>
+    <button data-view="categories">Categories</button>
+    <button data-view="notifications">Notifications</button>
+    <button data-view="originals">Originals</button>
+    <button data-view="emergency" class="danger">Emergency</button>
+    <button data-view="settings">Settings</button>
+    <button data-view="audit">Audit</button>
+</nav>
 
 <main class="container">
 
-<section class="feature" id="featureSection">
-    <div class="slide-track" id="slideTrack"></div>
-    <div class="feature-content" id="featureContent">
-        <div class="feature-label">
-            <span class="dot"></span>
-            <span id="featureLabelText">Featured game</span>
-        </div>
-        <h1 id="featureTitle">Loading...</h1>
-        <p id="featureDesc">Please wait</p>
-        <button class="feature-btn" onclick="playGame()" type="button">PLAY NOW</button>
+<!-- SUBMISSIONS -->
+<section id="view-submissions" class="view">
+<section class="header">
+    <div>
+        <div class="eyebrow">Developer Portal</div>
+        <h1>Game submissions</h1>
+        <p>Review and manage every game submitted to PLAYR.</p>
     </div>
-    <button class="slider-arrow prev" onclick="slidePrev()" aria-label="Previous" type="button">‹</button>
-    <button class="slider-arrow next" onclick="slideNext()" aria-label="Next" type="button">›</button>
-    <div class="slider-thumbs" id="sliderThumbs"></div>
-    <div class="slider-dots" id="sliderDots"></div>
-    <div class="slider-progress" id="sliderProgress"></div>
+    <button class="refresh" id="refreshButton">↻ &nbsp; Refresh</button>
 </section>
 
-<section class="banner-strip" id="bannerStrip"></section>
-
-<section class="section" id="recentSection" style="display:none;">
-    <div class="section-head">
-        <h2>🕒 Continue Playing</h2>
-        <a onclick="clearRecent(event)">Clear</a>
-    </div>
-    <div class="games" id="recentGrid"></div>
+<section class="stats">
+    <div class="stat"><div class="stat-label">Total submissions</div><div class="stat-number" id="totalCount">0</div><div class="stat-sub">All submissions</div></div>
+    <div class="stat"><div class="stat-label">Pending review</div><div class="stat-number" id="pendingCount">0</div><div class="stat-sub">Waiting for decision</div></div>
+    <div class="stat"><div class="stat-label">Approved</div><div class="stat-number" id="approvedCount">0</div><div class="stat-sub">Currently approved</div></div>
+    <div class="stat"><div class="stat-label">Rejected</div><div class="stat-number" id="rejectedCount">0</div><div class="stat-sub">Declined submissions</div></div>
 </section>
 
-<section class="section" id="favoritesSection" style="display:none;">
-    <div class="section-head">
-        <h2>❤️ Your Favorites</h2>
-        <a onclick="clearFavorites(event)">Clear</a>
-    </div>
-    <div class="games" id="favoritesGrid"></div>
+<section class="panel">
+<div class="toolbar">
+    <button class="tab active" data-tab="all">ALL</button>
+    <button class="tab" data-tab="pending">PENDING</button>
+    <button class="tab" data-tab="approved">APPROVED</button>
+    <button class="tab" data-tab="rejected">REJECTED</button>
+    <button class="action approve" id="bulkApproveBtn" disabled>✓ Bulk approve</button>
+    <button class="action reject" id="bulkRejectBtn" disabled>✕ Bulk reject</button>
+    <button class="action delete" id="bulkDeleteBtn" disabled>🗑 Bulk delete</button>
+    <input class="search" id="search" type="search" placeholder="Search games, developers or categories...">
+</div>
+<div id="errorBox"></div>
+<div class="content">
+    <div class="submissions" id="submissions"><div class="loading">Loading submissions...</div></div>
+</div>
+</section>
 </section>
 
-<section class="section" id="originalsSection" style="display:none;">
-    <div class="section-head">
-        <div>
-            <div class="section-eyebrow">First-party games</div>
-            <h2>PLAYR Originals</h2>
-        </div>
-        <a href="#games">See all →</a>
-    </div>
-    <div class="games" id="originalsGrid"></div>
-</section>
-
-<section class="section">
-    <div class="section-head">
-        <h2>Browse games</h2>
-        <a href="#games">View all →</a>
-    </div>
-    <div class="categories">
-        <button class="category active" onclick="filterCategory('all',this)" type="button">All</button>
-        <button class="category" onclick="filterCategory('racing',this)" type="button">Racing</button>
-        <button class="category" onclick="filterCategory('action',this)" type="button">Action</button>
-        <button class="category" onclick="filterCategory('shooting',this)" type="button">Shooting</button>
-        <button class="category" onclick="filterCategory('sports',this)" type="button">Sports</button>
-        <button class="category" onclick="filterCategory('puzzle',this)" type="button">Puzzle</button>
-        <button class="category" onclick="filterCategory('strategy',this)" type="button">Strategy</button>
+<!-- GAMES -->
+<section id="view-games" class="view hidden">
+<section class="header">
+    <div>
+        <div class="eyebrow">Control Center</div>
+        <h1>Game management</h1>
+        <p>Make hero, remove from slider, feature, pin, freeze, mark original or takedown.</p>
     </div>
 </section>
-
-<section class="section">
-    <div class="section-head">
-        <h2>Approved Games</h2>
-        <a href="#games">See more →</a>
+<section class="panel">
+<div class="toolbar">
+    <div class="chip-row" style="margin:0;">
+        <button class="chip active" data-gamefilter="all">ALL</button>
+        <button class="chip" data-gamefilter="slider">IN SLIDER</button>
+        <button class="chip" data-gamefilter="hidden-slider">REMOVED FROM SLIDER</button>
+        <button class="chip" data-gamefilter="hero">HERO</button>
+        <button class="chip" data-gamefilter="original">ORIGINAL</button>
+        <button class="chip" data-gamefilter="featured">FEATURED</button>
+        <button class="chip" data-gamefilter="pinned">PINNED</button>
+        <button class="chip" data-gamefilter="frozen">FROZEN</button>
+        <button class="chip" data-gamefilter="takedown">TAKEDOWN</button>
     </div>
-    <div class="games" id="games">
-        <div class="loading">Loading games...</div>
-    </div>
+    <input class="search" id="gamesSearch" type="search" placeholder="Search games...">
+</div>
+<div class="content">
+    <div id="gamesList"><div class="loading">Loading games...</div></div>
+</div>
+</section>
 </section>
 
-<section class="quick">
-    <h2>Quick Picks</h2>
-    <div class="quick-grid" id="quickPicks">
-        <div class="quick-card"><div class="quick-cover"></div><div class="quick-info"><strong>Drift Line</strong><span>Racing · 4.6 ★</span></div></div>
-        <div class="quick-card"><div class="quick-cover"></div><div class="quick-info"><strong>Pixel Forge</strong><span>Arcade · 4.7 ★</span></div></div>
-        <div class="quick-card"><div class="quick-cover"></div><div class="quick-info"><strong>Last Stand</strong><span>Action · 4.8 ★</span></div></div>
-        <div class="quick-card"><div class="quick-cover"></div><div class="quick-info"><strong>Goal Rush</strong><span>Sports · 4.5 ★</span></div></div>
-        <div class="quick-card"><div class="quick-cover"></div><div class="quick-info"><strong>Block Lab</strong><span>Puzzle · 4.9 ★</span></div></div>
-    </div>
+<!-- USERS -->
+<section id="view-users" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Community</div><h1>User control</h1><p>Manage roles, bans, shadow-bans and passwords.</p></div>
+</section>
+<section class="panel">
+<div class="toolbar">
+    <input class="search" id="usersSearch" type="search" placeholder="Search users by name or email..." style="margin-left:0;width:100%;max-width:520px;">
+</div>
+<div class="content">
+    <div id="usersList"><div class="loading">Loading users...</div></div>
+</div>
+</section>
 </section>
 
-</main>
-
-<footer>
-    <span>© 2026 PLAYR</span>
-    <span>Games worth playing.</span>
-</footer>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, getDoc, setDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2q6Yfhz8",
-    authDomain: "playr-bebbf.firebaseapp.com",
-    databaseURL: "https://playr-bebbf-default-rtdb.firebaseio.com",
-    projectId: "playr-bebbf",
-    storageBucket: "playr-bebbf.firebasestorage.app",
-    messagingSenderId: "35506561862",
-    appId: "1:35506561862:web:f7b27c1191637cf36abb47",
-    measurementId: "G-C9RGJYKTP9"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-const googleProvider = new GoogleAuthProvider();
-
-let currentUser = null;
-let authMode = "login";
-let siteSettings = {};
-let currentHeroGameId = "";
-let allGames = [];
-let currentCategory = "all";
-window.__submissionsDisabled = false;
-window.__heroGame = null;
-window.__userRole = "player";
-
-let userFavorites = [];
-let userRecent = [];
-
-const MAINT_KEY = "playr_maintenance_state";
-const BAN_KEY = "playr_banned";
-
-function showMaintenance(msg){
-    const mo = document.getElementById("maintenanceOverlay");
-    if(!mo) return;
-    mo.classList.add("visible");
-    mo.style.display = "flex";
-    if(msg){ const m = document.getElementById("maintenanceMessage"); if(m) m.textContent = msg; }
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-}
-function hideMaintenance(){
-    const mo = document.getElementById("maintenanceOverlay");
-    if(!mo) return;
-    mo.classList.remove("visible");
-    mo.style.display = "none";
-    document.body.style.overflow = "";
-    document.documentElement.style.overflow = "";
-}
-(function(){
-    try{
-        const raw = localStorage.getItem(MAINT_KEY);
-        if(!raw) return;
-        const cache = JSON.parse(raw);
-        if(cache && cache.maintenance === true){
-            if(document.readyState === "loading"){
-                document.addEventListener("DOMContentLoaded", () => showMaintenance(cache.message));
-            } else { showMaintenance(cache.message); }
-        }
-    }catch(e){}
-})();
-
-function setBanFlag(){ try{ localStorage.setItem(BAN_KEY, "1"); }catch(e){} }
-function clearBanFlag(){ try{ localStorage.removeItem(BAN_KEY); }catch(e){} }
-function showBannedScreen(){
-    setBanFlag();
-    function paint(){
-        document.documentElement.style.overflow = "hidden";
-        document.body.innerHTML = `<div class="banned-screen"><div class="banned-box"><div class="banned-icon">🚫</div><h1>Account Suspended</h1><p>Your account has been suspended by PLAYR administrators.<br>If you believe this is a mistake, please contact support.</p><a href="contact.html">Contact Support</a></div></div>`;
-    }
-    if(document.body){ paint(); } else { document.addEventListener("DOMContentLoaded", paint); }
-}
-
-window.getCurrentPLAYRUser = function(){ return currentUser; };
-
-async function createUserProfile(user){
-    if(!user) return;
-    const userRef = doc(db, "users", user.uid);
-    const snap = await getDoc(userRef);
-    if(snap.exists()) return;
-    const name = user.displayName || user.email?.split("@")[0] || "PLAYR User";
-    await setDoc(userRef, {
-        uid: user.uid,
-        email: user.email || "",
-        displayName: name,
-        photoURL: user.photoURL || "",
-        role: "player",
-        banned: false,
-        favorites: [],
-        recent: [],
-        createdAt: serverTimestamp()
-    });
-}
-
-onAuthStateChanged(auth, async function(user){
-    currentUser = user || null;
-
-    if(user){
-        try { await createUserProfile(user); }
-        catch(e){ console.error("profile create failed", e); }
-
-        try{
-            const userSnap = await getDoc(doc(db, "users", user.uid));
-            if(userSnap.exists()){
-                const data = userSnap.data();
-                if(data.banned === true){
-                    setBanFlag();
-                    await signOut(auth);
-                    showBannedScreen();
-                    return;
-                }
-                clearBanFlag();
-                window.__userRole = data.role || "player";
-                userFavorites = Array.isArray(data.favorites) ? data.favorites : [];
-                userRecent = Array.isArray(data.recent) ? data.recent : [];
-
-                onSnapshot(doc(db, "users", user.uid), (snap) => {
-                    if(!snap.exists()) return;
-                    const fresh = snap.data();
-                    if(fresh.banned === true){
-                        setBanFlag();
-                        signOut(auth).then(() => showBannedScreen());
-                        return;
-                    }
-                    clearBanFlag();
-                    window.__userRole = fresh.role || "player";
-                    userFavorites = Array.isArray(fresh.favorites) ? fresh.favorites : [];
-                    userRecent = Array.isArray(fresh.recent) ? fresh.recent : [];
-                    if(typeof updateAccountUI === "function") updateAccountUI();
-                    renderNotifications();
-                    renderFavorites();
-                    renderRecent();
-                    renderGames();
-                    renderQuickPicks();
-                });
-            } else {
-                clearBanFlag();
-                await setDoc(doc(db, "users", user.uid), {
-                    uid: user.uid,
-                    email: user.email || "",
-                    displayName: user.displayName || user.email?.split("@")[0] || "PLAYR User",
-                    role: "player",
-                    banned: false,
-                    favorites: [],
-                    recent: [],
-                    createdAt: serverTimestamp()
-                }, { merge: true });
-                window.__userRole = "player";
-                userFavorites = []; userRecent = [];
-            }
-        }catch(e){ console.warn("ban check failed", e); }
-    } else {
-        userFavorites = []; userRecent = [];
-        renderFavorites();
-        renderRecent();
-    }
-
-    updateAccountUI();
-    renderNotifications();
-    renderGames();
-    renderQuickPicks();
-});
-
-let allNotifications = [];
-const NOTIF_READ_KEY = "playr_read_notifs";
-function getReadIds(){ try{ return JSON.parse(localStorage.getItem(NOTIF_READ_KEY) || "[]"); }catch(e){ return []; } }
-function saveReadIds(ids){ try{ localStorage.setItem(NOTIF_READ_KEY, JSON.stringify(ids)); }catch(e){} }
-
-function isNotificationForMe(n){
-    const role = window.__userRole || "player";
-    const uid = currentUser?.uid || null;
-    if(!n.audience) return true;
-    if(n.audience === "all") return true;
-    if(n.audience === "developers") return role === "developer" || role === "admin" || role === "moderator";
-    if(n.audience === "players") return role === "player";
-    if(n.audience === "single") return n.userId && uid && n.userId === uid;
-    return false;
-}
-function fmtNotifTime(ts){
-    if(!ts) return "just now";
-    let d;
-    if(ts.toDate) d = ts.toDate();
-    else if(ts.seconds) d = new Date(ts.seconds * 1000);
-    else return "just now";
-    const diff = Date.now() - d.getTime();
-    const min = Math.floor(diff / 60000), hr = Math.floor(diff / 3600000), day = Math.floor(diff / 86400000);
-    if(min < 1) return "just now";
-    if(min < 60) return min + "m ago";
-    if(hr < 24) return hr + "h ago";
-    if(day < 7) return day + "d ago";
-    return d.toLocaleDateString();
-}
-function renderNotifications(){
-    const list = document.getElementById("notifList");
-    const badge = document.getElementById("notifBadge");
-    if(!list || !badge) return;
-    const mine = allNotifications.filter(isNotificationForMe).sort((a,b) => (b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)).slice(0,50);
-    const readIds = getReadIds();
-    const unread = mine.filter(n => !readIds.includes(n.id)).length;
-    if(unread > 0){ badge.textContent = unread > 99 ? "99+" : String(unread); badge.classList.add("show"); }
-    else { badge.classList.remove("show"); }
-    if(!mine.length){ list.innerHTML = `<div class="notif-empty">No notifications yet</div>`; return; }
-    list.innerHTML = mine.map(n => `
-        <div class="notif-item ${!readIds.includes(n.id) ? "unread" : ""}" data-nid="${n.id}">
-            <div class="notif-item-title">${escapeHTML(n.title || "Notification")}</div>
-            <div class="notif-item-msg">${escapeHTML(n.message || "")}</div>
-            <div class="notif-item-time">${escapeHTML(fmtNotifTime(n.createdAt))}</div>
-        </div>`).join("");
-}
-function markNotifRead(id){
-    const ids = getReadIds();
-    if(!ids.includes(id)){ ids.push(id); if(ids.length > 500) ids.splice(0, ids.length - 500); saveReadIds(ids); renderNotifications(); }
-}
-function markAllNotifRead(){
-    const ids = getReadIds();
-    allNotifications.filter(isNotificationForMe).forEach(n => { if(!ids.includes(n.id)) ids.push(n.id); });
-    if(ids.length > 500) ids.splice(0, ids.length - 500);
-    saveReadIds(ids);
-    renderNotifications();
-}
-function listenToNotifications(){
-    try{
-        onSnapshot(collection(db, "notifications"), (snap) => {
-            allNotifications = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-            renderNotifications();
-        }, (err) => { console.warn("notifications listen failed", err); });
-    }catch(e){ console.warn("notif init failed", e); }
-}
-
-window.handleProfileClick = function(){
-    const menu = document.getElementById("accountMenu");
-    const np = document.getElementById("notifPanel");
-    if(np) np.classList.remove("show");
-    if(menu) menu.classList.toggle("show");
-};
-window.goToProfile = function(){ if(currentUser){ window.location.href = "profile.html"; } else { openLogin(); } };
-window.goToSettings = function(){ window.location.href = "settings.html"; };
-
-function updateAccountUI(){
-    const avatarButton = document.getElementById("avatarButton");
-    const accountUser = document.getElementById("accountUser");
-    const accountAction = document.getElementById("accountAction");
-    const profileBtn = document.getElementById("profileBtn");
-    if(!avatarButton) return;
-
-    if(currentUser){
-        const name = currentUser.displayName || currentUser.email?.split("@")[0] || "PLAYR User";
-        const photoURL = currentUser.photoURL;
-        const role = window.__userRole || "player";
-        if(photoURL){ avatarButton.innerHTML = `<img src="${escapeAttribute(photoURL)}" alt="User" referrerpolicy="no-referrer">`; }
-        else { avatarButton.textContent = name.charAt(0).toUpperCase(); }
-        accountUser.innerHTML = `
-            <strong>${escapeHTML(name)}</strong>
-            <span>${escapeHTML(currentUser.email || "")}</span>
-            <span class="role-badge ${role}">${escapeHTML(role)}</span>
-        `;
-        accountAction.textContent = "Logout";
-        if(profileBtn) profileBtn.style.display = "block";
-    } else {
-        avatarButton.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
-        accountUser.innerHTML = `<strong>Not logged in</strong><span>Login to your PLAYR account</span>`;
-        accountAction.textContent = "Login";
-        if(profileBtn) profileBtn.style.display = "none";
-    }
-}
-window.toggleAccountMenu = function(){ const m = document.getElementById("accountMenu"); if(m) m.classList.toggle("show"); };
-window.handleAccountAction = function(){
-    const menu = document.getElementById("accountMenu");
-    if(menu) menu.classList.remove("show");
-    if(currentUser){ logout(); } else { openLogin(); }
-};
-window.openLogin = function(){ document.getElementById("loginOverlay").classList.add("show"); authMode = "login"; updateAuthModal(); };
-window.closeLogin = function(){ document.getElementById("loginOverlay").classList.remove("show"); clearLoginError(); };
-function updateAuthModal(){
-    const t = document.getElementById("loginTitle"), s = document.getElementById("loginSubtitle");
-    const b = document.getElementById("loginMainButton"), st = document.getElementById("switchText"), sb = document.getElementById("switchButton");
-    if(authMode === "login"){
-        t.textContent = "Welcome back."; s.textContent = "Login to submit games and interact with PLAYR.";
-        b.textContent = "LOGIN"; st.textContent = "Don't have an account?"; sb.textContent = "Create account";
-    } else {
-        t.textContent = "Create your account."; s.textContent = "Create a PLAYR account to submit and comment.";
-        b.textContent = "CREATE ACCOUNT"; st.textContent = "Already have an account?"; sb.textContent = "Login";
-    }
-}
-window.switchAuthMode = function(){ authMode = authMode === "login" ? "register" : "login"; clearLoginError(); updateAuthModal(); };
-
-document.getElementById("loginForm").addEventListener("submit", async function(event){
-    event.preventDefault();
-    clearLoginError();
-    const email = document.getElementById("authEmail").value.trim();
-    const password = document.getElementById("authPassword").value;
-    const button = document.getElementById("loginMainButton");
-    button.disabled = true;
-    button.textContent = authMode === "login" ? "LOGGING IN..." : "CREATING ACCOUNT...";
-    try{
-        if(authMode === "login") await signInWithEmailAndPassword(auth, email, password);
-        else await createUserWithEmailAndPassword(auth, email, password);
-        closeLogin();
-        document.getElementById("loginForm").reset();
-    } catch(error){
-        console.error("Auth error:", error);
-        showLoginError(getAuthErrorMessage(error));
-    } finally {
-        button.disabled = false;
-        updateAuthModal();
-    }
-});
-
-window.loginWithGoogle = async function(){
-    clearLoginError();
-    try{ await signInWithPopup(auth, googleProvider); closeLogin(); }
-    catch(error){ console.error("Google login error:", error); showLoginError(getAuthErrorMessage(error)); }
-};
-async function logout(){ try { await signOut(auth); } catch(e){ console.error("Logout error:", e); } }
-function getAuthErrorMessage(error){
-    const code = error?.code || "";
-    switch(code){
-        case "auth/invalid-credential": return "Email or password is incorrect.";
-        case "auth/invalid-email": return "Please enter a valid email address.";
-        case "auth/email-already-in-use": return "An account with this email already exists.";
-        case "auth/weak-password": return "Password must contain at least 6 characters.";
-        case "auth/popup-closed-by-user": return "Google login was cancelled.";
-        case "auth/popup-blocked": return "Your browser blocked the Google login popup.";
-        case "auth/network-request-failed": return "Network error. Please try again.";
-        default: return error?.message || "Authentication failed. Please try again.";
-    }
-}
-function showLoginError(m){ const b = document.getElementById("loginError"); b.textContent = m; b.style.display = "block"; }
-function clearLoginError(){ const b = document.getElementById("loginError"); b.textContent = ""; b.style.display = "none"; }
-
-window.handleSubmitGame = function(){
-    if(window.__submissionsDisabled){ alert("New game submissions are temporarily paused. Please check back soon."); return; }
-    if(!currentUser){ openLogin(); return; }
-    const role = window.__userRole || "player";
-    if(role !== "developer" && role !== "admin" && role !== "moderator"){
-        alert("You need a Developer account to submit games.\n\nContact support to request developer access.");
-        return;
-    }
-    window.location.href = "submit.html";
-};
-
-function listenToGames(){
-    const container = document.getElementById("games");
-    if(!container) return;
-    onSnapshot(collection(db, "game_submissions"), (snapshot) => {
-        allGames = [];
-        snapshot.forEach(gameDoc => {
-            const data = gameDoc.data();
-            const status = String(data.status || "").toLowerCase();
-            if(status !== "approved") return;
-            if(data.disabled === true) return;
-            allGames.push({ id: gameDoc.id, ...data });
-        });
-        renderGames();
-        renderQuickPicks();
-        buildHeroSlides();
-        renderFavorites();
-        renderRecent();
-    }, (err) => {
-        console.error("Firestore error:", err);
-        container.innerHTML = `<div class="error">Unable to load games.<br><br>${escapeHTML(err.message)}</div>`;
-    });
-}
-
-function renderGameCard(game){
-    const name = game.gameName || game.name || game.title || "Untitled Game";
-    const category = game.category || "Game";
-    const rating = game.rating || "New";
-    const gameUrl = game.githubUrl || game.gameUrl || game.url || game.link || "";
-    const initials = name.split(" ").slice(0,2).map(x => x[0]).join("").toUpperCase();
-    const thumbnail = game.thumbnailData || game.thumbnailUrl || "";
-    const isPinned = game.pinned === true;
-    const isFrozen = game.frozen === true;
-    const isOriginal = game.isOriginal === true;
-    const isFav = userFavorites.includes(game.id);
-
-    const badges = `
-        ${isOriginal ? `<span class="game-badge original">PLAYR Original</span>` : ""}
-        ${isPinned && !isOriginal ? `<span class="game-badge pinned">Pinned</span>` : ""}
-        ${isFrozen ? `<span class="game-badge frozen">Frozen</span>` : ""}
-    `;
-
-    return `
-    <article class="game ${isFrozen ? "frozen" : ""}">
-        <div class="thumb" ${thumbnail ? `style="background-image:url('${escapeAttribute(thumbnail)}');background-size:cover;background-position:center;"` : ""}>
-            ${badges}
-            <span class="game-letter">${escapeHTML(initials)}</span>
-            <button class="fav-btn ${isFav ? "active" : ""}" onclick="toggleFavorite(event,'${escapeJS(game.id)}')" aria-label="Favorite" title="${isFav ? "Remove from favorites" : "Add to favorites"}">♥</button>
-            <button class="play" onclick="playApprovedGame('${escapeJS(gameUrl)}','${escapeJS(name)}',${isOriginal},'${escapeJS(game.id)}')" type="button">▶</button>
-        </div>
-        <div class="game-info">
-            <div class="game-title">${escapeHTML(name)}</div>
-            <div class="game-meta">
-                <span>${escapeHTML(category)}</span>
-                <span>${escapeHTML(String(rating))}${rating !== "New" ? " ★" : ""}</span>
-            </div>
-        </div>
-    </article>
-    `;
-}
-
-function renderGames(){
-    const container = document.getElementById("games");
-    if(!container) return;
-    let games = [...allGames];
-    if(currentCategory !== "all"){
-        games = games.filter(game => String(game.category || "").toLowerCase() === currentCategory);
-    }
-    const searchEl = document.getElementById("search");
-    const search = searchEl ? searchEl.value.toLowerCase().trim() : "";
-    if(search){
-        games = games.filter(game => {
-            const name = String(game.gameName || game.name || game.title || "").toLowerCase();
-            const dev = String(game.developer || game.developerName || "").toLowerCase();
-            const cat = String(game.category || "").toLowerCase();
-            return name.includes(search) || dev.includes(search) || cat.includes(search);
-        });
-    }
-    if(!games.length){
-        container.innerHTML = `<div class="empty">No approved games found.</div>`;
-        return;
-    }
-    container.innerHTML = games.map(renderGameCard).join("");
-}
-
-function renderQuickPicks(){
-    const container = document.getElementById("quickPicks");
-    if(!container) return;
-    const featured = allGames.filter(g => (g.featured === true || g.id === currentHeroGameId) && g.frozen !== true).slice(0, 5);
-    if(!featured.length) return;
-    container.innerHTML = featured.map(game => {
-        const name = game.gameName || game.name || game.title || "Untitled";
-        const category = game.category || "Game";
-        const thumb = game.thumbnailData || game.thumbnailUrl || "";
-        const url = game.githubUrl || game.gameUrl || game.url || game.link || "";
-        const isOriginal = game.isOriginal === true;
-        return `
-        <div class="quick-card" onclick="playApprovedGame('${escapeJS(url)}','${escapeJS(name)}',${isOriginal},'${escapeJS(game.id)}')">
-            <div class="quick-cover" ${thumb ? `style="background-image:url('${escapeAttribute(thumb)}');background-size:cover;background-position:center;"` : ""}></div>
-            <div class="quick-info">
-                <strong>${escapeHTML(name)}</strong>
-                <span>${escapeHTML(category)}</span>
-            </div>
-        </div>
-        `;
-    }).join("");
-}
-
-function renderFavorites(){
-    const sec = document.getElementById("favoritesSection");
-    const grid = document.getElementById("favoritesGrid");
-    if(!sec || !grid) return;
-    if(!currentUser || !userFavorites.length){ sec.style.display = "none"; return; }
-    const games = userFavorites.map(id => allGames.find(g => g.id === id)).filter(Boolean);
-    if(!games.length){ sec.style.display = "none"; return; }
-    sec.style.display = "block";
-    grid.innerHTML = games.map(renderGameCard).join("");
-}
-
-function renderRecent(){
-    const sec = document.getElementById("recentSection");
-    const grid = document.getElementById("recentGrid");
-    if(!sec || !grid) return;
-    if(!currentUser || !userRecent.length){ sec.style.display = "none"; return; }
-    const games = userRecent.map(id => allGames.find(g => g.id === id)).filter(Boolean);
-    if(!games.length){ sec.style.display = "none"; return; }
-    sec.style.display = "block";
-    grid.innerHTML = games.map(renderGameCard).join("");
-}
-
-window.toggleFavorite = async function(event, gameId){
-    event.stopPropagation();
-    event.preventDefault();
-    if(!currentUser){ openLogin(); return; }
-    const idx = userFavorites.indexOf(gameId);
-    if(idx >= 0) userFavorites.splice(idx, 1);
-    else userFavorites.push(gameId);
-    try{
-        await setDoc(doc(db, "users", currentUser.uid), { favorites: userFavorites }, { merge: true });
-        renderGames();
-        renderQuickPicks();
-        renderFavorites();
-        renderRecent();
-    }catch(e){ console.error("favorite toggle failed", e); }
-};
-
-window.clearFavorites = async function(event){
-    event.preventDefault();
-    if(!currentUser) return;
-    if(!confirm("Clear all your favorites?")) return;
-    userFavorites = [];
-    try{
-        await setDoc(doc(db, "users", currentUser.uid), { favorites: [] }, { merge: true });
-        renderFavorites(); renderGames(); renderQuickPicks();
-    }catch(e){ console.error(e); }
-};
-
-window.clearRecent = async function(event){
-    event.preventDefault();
-    if(!currentUser) return;
-    if(!confirm("Clear your recently played list?")) return;
-    userRecent = [];
-    try{
-        await setDoc(doc(db, "users", currentUser.uid), { recent: [] }, { merge: true });
-        renderRecent();
-    }catch(e){ console.error(e); }
-};
-
-async function saveRecent(gameId){
-    if(!currentUser || !gameId) return;
-    const filtered = userRecent.filter(id => id !== gameId);
-    filtered.unshift(gameId);
-    userRecent = filtered.slice(0, 20);
-    try{
-        await setDoc(doc(db, "users", currentUser.uid), { recent: userRecent }, { merge: true });
-        renderRecent();
-    }catch(e){ console.warn("saveRecent failed", e); }
-}
-
-let slideGames = [];
-let slideIndex = 0;
-let slideTimer = null;
-const SLIDE_DURATION = 5500;
-
-function buildHeroSlides(){
-    let picks = [];
-    if(currentHeroGameId){
-        const heroGame = allGames.find(g => g.id === currentHeroGameId);
-        if(heroGame) picks.push(heroGame);
-    }
-    const rest = allGames.filter(g => {
-        if(g.id === currentHeroGameId) return false;
-        if(g.hideFromSlider === true) return false;
-        if(g.frozen === true) return false;
-        return true;
-    });
-    rest.sort((a, b) => {
-        if(a.pinned && !b.pinned) return -1;
-        if(!a.pinned && b.pinned) return 1;
-        if(a.featured && !b.featured) return -1;
-        if(!a.featured && b.featured) return 1;
-        return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
-    });
-    picks = [...picks, ...rest].slice(0, 6);
-    if(!picks.length) return;
-    buildSlides(picks);
-}
-
-function buildSlides(games){
-    const track = document.getElementById("slideTrack");
-    const dots = document.getElementById("sliderDots");
-    const thumbs = document.getElementById("sliderThumbs");
-    if(!track) return;
-    track.innerHTML = games.map((g, i) => {
-        const thumb = g.thumbnailData || g.thumbnailUrl || "";
-        const cls = thumb ? "slide" : "slide no-image";
-        return `<div class="${cls} ${i===0?'active':''}" data-index="${i}" ${thumb ? `style="background-image:url('${escapeAttribute(thumb)}');"` : ""}></div>`;
-    }).join("");
-    dots.innerHTML = games.map((g,i) => `<button class="slider-dot ${i===0?'active':''}" onclick="goToSlide(${i})" aria-label="Slide ${i+1}" type="button"></button>`).join("");
-    thumbs.innerHTML = games.map((g,i) => {
-        const thumb = g.thumbnailData || g.thumbnailUrl || "";
-        return `<div class="slider-thumb ${i===0?'active':''}" ${thumb ? `style="background-image:url('${escapeAttribute(thumb)}');"` : ""} onclick="goToSlide(${i})"></div>`;
-    }).join("");
-    slideGames = games;
-    slideIndex = 0;
-    updateFeatureText(0);
-    startAutoSlide();
-    startProgress();
-}
-
-function updateFeatureText(index){
-    const g = slideGames[index];
-    if(!g) return;
-    const content = document.getElementById("featureContent");
-    content.classList.add("switching");
-    setTimeout(() => {
-        const t = document.getElementById("featureTitle");
-        const d = document.getElementById("featureDesc");
-        if(t) t.textContent = g.gameName || g.name || g.title || "Featured Game";
-        if(d) d.textContent = g.description || (g.category ? g.category + " game · Play now on PLAYR" : "Play now on PLAYR");
-        content.classList.remove("switching");
-    }, 220);
-}
-
-window.goToSlide = function(index){
-    if(!slideGames.length) return;
-    if(index < 0) index = slideGames.length - 1;
-    if(index >= slideGames.length) index = 0;
-    slideIndex = index;
-    document.querySelectorAll(".slide").forEach((el, i) => el.classList.toggle("active", i === index));
-    document.querySelectorAll(".slider-dot").forEach((el, i) => el.classList.toggle("active", i === index));
-    document.querySelectorAll(".slider-thumb").forEach((el, i) => el.classList.toggle("active", i === index));
-    updateFeatureText(index);
-    startAutoSlide();
-    startProgress();
-};
-window.slideNext = function(){ goToSlide(slideIndex + 1); };
-window.slidePrev = function(){ goToSlide(slideIndex - 1); };
-
-function startAutoSlide(){
-    if(slideTimer) clearInterval(slideTimer);
-    if(slideGames.length < 2) return;
-    slideTimer = setInterval(() => { goToSlide(slideIndex + 1); }, SLIDE_DURATION);
-}
-function startProgress(){
-    const bar = document.getElementById("sliderProgress");
-    if(!bar) return;
-    bar.style.transition = "none";
-    bar.style.width = "0%";
-    if(slideGames.length < 2){ bar.style.width = "100%"; return; }
-    void bar.offsetWidth;
-    bar.style.transition = `width ${SLIDE_DURATION}ms linear`;
-    bar.style.width = "100%";
-}
-const featureEl = document.getElementById("featureSection");
-if(featureEl){
-    featureEl.addEventListener("mouseenter", () => { if(slideTimer) clearInterval(slideTimer); });
-    featureEl.addEventListener("mouseleave", () => { if(slideGames.length >= 2){ startAutoSlide(); startProgress(); } });
-}
-let touchStartX = 0;
-if(featureEl){
-    featureEl.addEventListener("touchstart", e => { touchStartX = e.changedTouches[0].screenX; }, { passive:true });
-    featureEl.addEventListener("touchend", e => {
-        const dx = e.changedTouches[0].screenX - touchStartX;
-        if(Math.abs(dx) > 50){ dx < 0 ? slideNext() : slidePrev(); }
-    }, { passive:true });
-}
-
-function showPlayrOriginalOverlay(callback){
-    const overlay = document.getElementById("playrOriginalOverlay");
-    if(!overlay){ callback(); return; }
-    overlay.style.display = "flex";
-    overlay.style.opacity = "0";
-    overlay.style.transition = "none";
-    void overlay.offsetWidth;
-    overlay.style.transition = "opacity .4s ease";
-    overlay.style.opacity = "1";
-    overlay.classList.add("show");
-    setTimeout(() => {
-        overlay.style.opacity = "0";
-        setTimeout(() => {
-            overlay.style.display = "none";
-            overlay.classList.remove("show");
-            callback();
-        }, 400);
-    }, 1800);
-}
-
-window.playApprovedGame = function(url, name, isOriginal, gameId){
-    const game = gameId ? allGames.find(g => g.id === gameId) : allGames.find(g => {
-        const n = g.gameName || g.name || g.title || "";
-        return n === name;
-    });
-
-    if(game && game.frozen === true){
-        alert("This game is temporarily frozen by the admin. Please try again later.");
-        return;
-    }
-    if(!url || url === "#"){
-        alert("This game does not have a playable link yet.");
-        return;
-    }
-
-    if(game && game.id) saveRecent(game.id);
-    else if(gameId) saveRecent(gameId);
-
-    const originalFlag = isOriginal === true || (game && game.isOriginal === true);
-
-    const goToPlayer = () => {
-        window.location.href = "player.html?url=" +
-            encodeURIComponent(url) +
-            "&name=" + encodeURIComponent(name || "PLAYR Game") +
-            (originalFlag ? "&original=1" : "");
-    };
-
-    if(originalFlag) showPlayrOriginalOverlay(goToPlayer);
-    else goToPlayer();
-};
-
-window.playGame = function(){
-    const current = slideGames[slideIndex];
-    if(current && current.frozen !== true){
-        const url = current.githubUrl || current.gameUrl || current.url || current.link || "";
-        if(url){
-            if(current.id) saveRecent(current.id);
-            const isOrig = current.isOriginal === true;
-            const goToPlayer = () => {
-                window.location.href = "player.html?url=" +
-                    encodeURIComponent(url) + "&name=" +
-                    encodeURIComponent(current.gameName || current.name || current.title || "Featured Game") +
-                    (isOrig ? "&original=1" : "");
-            };
-            if(isOrig) showPlayrOriginalOverlay(goToPlayer);
-            else goToPlayer();
-            return;
-        }
-    }
-    alert("Featured game is not available yet.");
-};
-
-window.filterCategory = function(category, button){
-    currentCategory = category;
-    document.querySelectorAll(".category").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
-    renderGames();
-};
-
-window.handleSearchInput = function(){
-    const term = document.getElementById("search").value.trim().toLowerCase();
-    const dd = document.getElementById("searchResults");
-    renderGames();
-
-    if(!term){ dd.classList.remove("show"); dd.innerHTML = ""; return; }
-
-    const matches = allGames.filter(g => {
-        const name = (g.gameName || g.name || g.title || "").toLowerCase();
-        const cat = (g.category || "").toLowerCase();
-        const dev = (g.developer || g.developerName || "").toLowerCase();
-        return name.includes(term) || cat.includes(term) || dev.includes(term);
-    }).slice(0, 6);
-
-    if(!matches.length){
-        dd.innerHTML = `<div class="search-no-match">No games match "${escapeHTML(term)}"</div>`;
-    } else {
-        dd.innerHTML = matches.map(g => {
-            const name = g.gameName || g.name || g.title || "Untitled";
-            const thumb = g.thumbnailData || g.thumbnailUrl || "";
-            const cat = g.category || "Game";
-            const url = g.githubUrl || g.gameUrl || g.url || g.link || "";
-            const isOrig = g.isOriginal === true;
-            return `<div class="search-result-item" onclick="pickSearchResult('${escapeJS(url)}','${escapeJS(name)}',${isOrig},'${escapeJS(g.id)}')">
-                <div class="search-result-thumb" ${thumb ? `style="background-image:url('${escapeAttribute(thumb)}');"` : ""}></div>
-                <div class="search-result-info">
-                    <strong>${escapeHTML(name)}</strong>
-                    <span>${escapeHTML(cat)}</span>
-                </div>
-            </div>`;
-        }).join("");
-    }
-    dd.classList.add("show");
-};
-
-window.pickSearchResult = function(url, name, isOrig, id){
-    const dd = document.getElementById("searchResults");
-    if(dd){ dd.classList.remove("show"); dd.innerHTML = ""; }
-    playApprovedGame(url, name, isOrig, id);
-};
-
-document.addEventListener("click", function(e){
-    const dd = document.getElementById("searchResults");
-    const s = document.querySelector(".search");
-    if(dd && s && !s.contains(e.target)) dd.classList.remove("show");
-});
-
-window.searchGames = function(){ renderGames(); };
-
-function listenToSiteSettings(){
-    try{
-        const ref = doc(db, "site_settings", "global");
-        onSnapshot(ref, snap => {
-            siteSettings = snap.exists() ? snap.data() : {};
-            try{
-                localStorage.setItem(MAINT_KEY, JSON.stringify({
-                    maintenance: siteSettings.maintenance === true,
-                    message: siteSettings.maintenanceMessage || ""
-                }));
-            }catch(e){}
-            applySiteSettings(siteSettings);
-        }, err => { console.warn("site_settings listen failed:", err); });
-    }catch(e){ console.warn("settings init failed", e); }
-}
-
-async function applySiteSettings(d){
-    const eb = document.getElementById("emergencyBanner");
-    const ebText = document.getElementById("emergencyBannerText");
-    if(eb && ebText){
-        if(d.emergencyActive && d.emergencyText){ ebText.textContent = d.emergencyText; eb.style.display = "block"; }
-        else { eb.style.display = "none"; }
-    }
-    const ab = document.getElementById("announcementBar");
-    const abText = document.getElementById("announcementText");
-    if(ab && abText){
-        if(d.announcement && String(d.announcement).trim()){ abText.textContent = d.announcement; ab.style.display = "block"; }
-        else { ab.style.display = "none"; }
-    }
-    if(d.maintenance === true) showMaintenance(d.maintenanceMessage || "We're doing a quick update. Thanks for your patience.");
-    else hideMaintenance();
-
-    window.__submissionsDisabled = d.submissionsDisabled === true;
-
-    const newHeroId = d.heroGameId || "";
-    if(newHeroId !== currentHeroGameId){
-        currentHeroGameId = newHeroId;
-        if(allGames.length) buildHeroSlides();
-    }
-}
-
-async function loadOriginals(){
-    const section = document.getElementById("originalsSection");
-    const grid = document.getElementById("originalsGrid");
-    if(!section || !grid) return;
-    try{
-        const snap = await getDocs(collection(db, "playr_originals"));
-        const items = snap.docs.map(d => ({ id:d.id, ...d.data() })).filter(o => o.active !== false).sort((a,b) => (a.order || 0) - (b.order || 0));
-        if(!items.length){ section.style.display = "none"; return; }
-        section.style.display = "block";
-        grid.innerHTML = items.map(o => {
-            const name = o.title || "Untitled Original";
-            const url = o.url || "";
-            const category = o.category || "Original";
-            const thumb = o.thumbnail || "";
-            const initials = name.split(" ").slice(0,2).map(x => x[0]).join("").toUpperCase();
-            return `
-            <article class="game">
-                <div class="thumb" ${thumb ? `style="background-image:url('${escapeAttribute(thumb)}');background-size:cover;background-position:center;"` : ""}>
-                    <span class="game-badge original">PLAYR Original</span>
-                    <span class="game-letter">${escapeHTML(initials)}</span>
-                    <button class="play" onclick="playApprovedGame('${escapeJS(url)}','${escapeJS(name)}',true,'')" type="button">▶</button>
-                </div>
-                <div class="game-info">
-                    <div class="game-title">${escapeHTML(name)}</div>
-                    <div class="game-meta"><span>${escapeHTML(category)}</span><span>★</span></div>
-                </div>
-            </article>
-            `;
-        }).join("");
-    } catch(e){ console.warn("originals load failed", e); section.style.display = "none"; }
-}
-
-async function loadBanners(){
-    const strip = document.getElementById("bannerStrip");
-    if(!strip) return;
-    try{
-        const snap = await getDocs(collection(db, "banners"));
-        const items = snap.docs.map(d => ({ id:d.id, ...d.data() })).filter(b => b.active !== false);
-        if(!items.length){ strip.style.display = "none"; return; }
-        strip.style.display = "flex";
-        strip.innerHTML = items.map(b => {
-            const title = b.title || "", image = b.image || "", link = b.link || "";
-            return `<div class="banner" ${image ? `style="background-image:url('${escapeAttribute(image)}');"` : ""} onclick="handleBannerClick('${escapeJS(link)}')"><span class="banner-title">${escapeHTML(title)}</span></div>`;
-        }).join("");
-    } catch(e){ console.warn("banners load failed", e); strip.style.display = "none"; }
-}
-window.handleBannerClick = function(link){
-    if(!link) return;
-    if(link.startsWith("http")){ window.open(link, "_blank", "noopener,noreferrer"); }
-    else { window.location.href = link; }
-};
-
-function escapeHTML(value){
-    if(value === null || value === undefined) return "";
-    return String(value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
-function escapeAttribute(value){
-    return String(value || "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;");
-}
-function escapeJS(value){
-    return String(value || "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;").replace(/\n/g,"\\n").replace(/\r/g,"\\r");
-}
-
-document.addEventListener("click", function(event){
-    const menu = document.getElementById("accountMenu");
-    const avatar = document.getElementById("avatarButton");
-    const notifPanel = document.getElementById("notifPanel");
-    const notifBtn = document.getElementById("notifBtn");
-    if(menu && avatar && !menu.contains(event.target) && !avatar.contains(event.target)){
-        menu.classList.remove("show");
-    }
-    if(notifPanel && notifBtn && !notifPanel.contains(event.target) && !notifBtn.contains(event.target)){
-        notifPanel.classList.remove("show");
-    }
-});
-
-document.addEventListener("keydown", function(event){
-    if(event.key === "Escape"){
-        closeLogin();
-        closeSideMenu();
-        const np = document.getElementById("notifPanel"); if(np) np.classList.remove("show");
-        const am = document.getElementById("accountMenu"); if(am) am.classList.remove("show");
-        const dd = document.getElementById("searchResults"); if(dd) dd.classList.remove("show");
-    }
-});
-
-const notifBtn = document.getElementById("notifBtn");
-const notifPanel = document.getElementById("notifPanel");
-const notifList = document.getElementById("notifList");
-const notifClear = document.getElementById("notifClear");
-
-if(notifBtn && notifPanel){
-    notifBtn.addEventListener("click", function(e){
-        e.stopPropagation();
-        const isOpen = notifPanel.classList.toggle("show");
-        notifBtn.classList.toggle("active", isOpen);
-        const am = document.getElementById("accountMenu"); if(am) am.classList.remove("show");
-    });
-}
-if(notifClear){ notifClear.addEventListener("click", function(e){ e.stopPropagation(); markAllNotifRead(); }); }
-if(notifList){
-    notifList.addEventListener("click", function(e){
-        const item = e.target.closest(".notif-item");
-        if(!item) return;
-        const nid = item.dataset.nid;
-        if(nid) markNotifRead(nid);
-    });
-}
-
-const menuBtn = document.getElementById("menuBtn");
-const sideMenu = document.getElementById("sideMenu");
-const menuClose = document.getElementById("menuClose");
-const menuOverlay = document.getElementById("menuOverlay");
-const menuLogout = document.getElementById("menuLogout");
-
-function openSideMenu(){ sideMenu.classList.add("open"); menuOverlay.classList.add("open"); document.body.style.overflow = "hidden"; }
-function closeSideMenu(){ sideMenu.classList.remove("open"); menuOverlay.classList.remove("open"); document.body.style.overflow = ""; }
-
-if(menuBtn) menuBtn.addEventListener("click", openSideMenu);
-if(menuClose) menuClose.addEventListener("click", closeSideMenu);
-if(menuOverlay) menuOverlay.addEventListener("click", closeSideMenu);
-if(menuLogout){
-    menuLogout.addEventListener("click", function(){
-        closeSideMenu();
-        if(currentUser) logout(); else openLogin();
-    });
-}
-
-document.querySelectorAll("[data-menu-category]").forEach(link => {
-    link.addEventListener("click", function(){
-        const c = this.dataset.menuCategory;
-        const b = document.querySelector(`.category[onclick*="'${c}'"]`);
-        if(b) filterCategory(c, b);
-        closeSideMenu();
-    });
-});
-const howToUploadLink = document.getElementById("howToUploadLink");
-if(howToUploadLink){ howToUploadLink.addEventListener("click", closeSideMenu); }
-
-listenToSiteSettings();
-listenToGames();
-loadOriginals();
-loadBanners();
-listenToNotifications();
-
-</script>
-
-</body>
-
-</html>
+<!-- REPORTS -->
+<section id="view-reports" class="view hidden">
+<section class="header">
+    <div><div class="eyebrow">Moderation</div><h1>Reports & messages</h1><p>Review player reports and contact messages.</p></div>
+</section>
+<section class="panel">
+<div class="toolbar">
+    <div class="chip-row" style="margin:0;">
+        <button class="chip active" data-reportfilter="open">OPEN</button>
+        <button class="chip" data-reportfilter="resolved">RESOLVED</button>
+        <button class="chip" dat
