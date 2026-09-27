@@ -1,667 +1,609 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>PLAYR — Loading Game</title>
+<title>Submit Your Game — PLAYR</title>
 
-<meta name="description" id="metaDescription" content="Play games on PLAYR.">
-<meta name="keywords" content="online games, browser games, free games, PLAYR, web games">
-<meta name="robots" content="index, follow">
-
-<meta property="og:type" content="website">
-<meta property="og:title" id="ogTitle" content="PLAYR — Game">
-<meta property="og:description" id="ogDescription" content="Play this game on PLAYR.">
-<meta property="og:url" id="ogUrl" content="">
-<meta property="og:image" id="ogImage" content="">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" id="twitterTitle" content="PLAYR — Game">
-<meta name="twitter:description" id="twitterDescription" content="Play this game on PLAYR.">
-<meta name="twitter:image" id="twitterImage" content="">
-
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='12' y='12' width='40' height='40' rx='10' fill='%23ff5a2d' transform='rotate(45 32 32)'/%3E%3Crect x='26' y='26' width='12' height='12' rx='2.5' fill='%23070707'/%3E%3C/svg%3E">
-
-<link rel="canonical" id="canonicalUrl" href="">
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 
-:root{
-    --bg:#070707;--panel:#101010;--panel2:#141414;
-    --border:#292929;--border2:#343434;
-    --text:#f7f7f5;--muted:#777;--muted2:#999;
-    --accent:#ff6b35;--accent2:#ff914d;--green:#8ed89d;
-}
-
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
-
 body{
     min-height:100vh;
-    background:radial-gradient(circle at 50% -10%,#21130e 0,transparent 32%),#070707;
-    color:var(--text);
+    background:radial-gradient(circle at 50% 0%,#24150f 0%,transparent 35%),#080808;
+    color:#f5f5f3;
     font-family:Inter,-apple-system,BlinkMacSystemFont,Arial,sans-serif;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
+    padding:30px 16px;
+    padding-bottom:calc(30px + env(safe-area-inset-bottom,0px));
 }
 
-body.no-scroll{overflow:hidden;}
-img{max-width:100%;display:block;}
-button{font-family:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation;cursor:pointer;}
-input,textarea{font-family:inherit;}
+.page{width:min(720px,100%);margin:auto;}
+.logo{display:inline-flex;align-items:center;gap:10px;color:white;text-decoration:none;font-size:20px;font-weight:800;margin-bottom:32px;}
+.logo-mark{width:22px;height:22px;background:linear-gradient(135deg,#ff914d,#ff4f2d);border-radius:6px;transform:rotate(45deg);}
 
-/* TOPBAR */
-.topbar{
-    min-height:60px;padding:0 20px;
-    padding-left:calc(20px + env(safe-area-inset-left,0px));
-    padding-right:calc(20px + env(safe-area-inset-right,0px));
-    display:flex;align-items:center;gap:16px;
-    position:sticky;top:0;z-index:100;
-    background:rgba(7,7,7,.94);border-bottom:1px solid #242424;
-    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+.header{margin-bottom:24px;}
+.header small{color:#ff8754;font-size:10px;text-transform:uppercase;letter-spacing:1.7px;font-weight:700;}
+.header h1{font-size:32px;margin-top:9px;letter-spacing:-1.4px;line-height:1.1;}
+.header p{color:#777;font-size:13px;line-height:1.65;margin-top:9px;}
+
+.card{background:#111;border:1px solid #282828;border-radius:14px;padding:24px;box-shadow:0 25px 70px rgba(0,0,0,.35);}
+
+.section{padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid #222;}
+.section:last-of-type{border-bottom:0;}
+
+.section-title{color:#fff;font-size:13px;font-weight:800;margin-bottom:16px;letter-spacing:-.2px;}
+.section-title span{color:#ff8754;margin-right:7px;}
+
+.field{margin-bottom:18px;}
+label{display:block;color:#cfcfcd;font-size:12px;font-weight:600;margin-bottom:8px;}
+.required{color:#ff7045;}
+
+input,textarea,select{
+    width:100%;background:#090909;border:1px solid #292929;
+    color:white;outline:none;border-radius:8px;padding:13px;
+    font-family:inherit;font-size:13px;transition:.2s;
+}
+input:focus,textarea:focus,select:focus{border-color:#555;}
+select{cursor:pointer;}
+
+input[type="file"]{padding:11px;cursor:pointer;font-size:12px;}
+input[type="file"]::file-selector-button{
+    background:#202020;border:1px solid #333;color:#fff;
+    border-radius:6px;padding:8px 12px;margin-right:10px;
+    cursor:pointer;font-family:inherit;font-size:12px;
 }
 
-.logo{display:flex;align-items:center;gap:9px;color:white;text-decoration:none;font-size:19px;font-weight:900;letter-spacing:-.7px;flex:0 0 auto;}
-.logo-mark{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#ff9a63,#ff4926);transform:rotate(45deg);box-shadow:0 0 22px rgba(255,100,50,.22);flex:0 0 22px;}
-.nav{display:flex;gap:2px;}
-.nav a{color:#777;text-decoration:none;padding:8px 12px;border-radius:7px;font-size:12px;font-weight:600;transition:.15s;}
-.nav a:hover{color:#fff;background:#181818;}
+textarea{min-height:100px;resize:vertical;}
+.help{color:#666;font-size:11px;margin-top:7px;line-height:1.55;}
 
-.back{
-    margin-left:auto;padding:9px 14px;
-    border:1px solid #303030;border-radius:8px;
-    background:#151515;color:#aaa;text-decoration:none;
-    font-size:11px;font-weight:800;transition:.15s;flex:0 0 auto;
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.choice-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+.choice{position:relative;}
+.choice input{position:absolute;opacity:0;pointer-events:none;}
+.choice label{
+    display:flex;align-items:center;justify-content:center;
+    min-height:46px;margin:0;padding:11px;
+    background:#090909;border:1px solid #292929;border-radius:8px;
+    color:#777;cursor:pointer;text-align:center;
+    font-size:12px;font-weight:600;transition:.2s;
 }
-.back:hover{color:#fff;background:#202020;border-color:#444;}
-
-/* PAGE */
-.page{width:min(1400px,95%);margin:0 auto;padding:20px 0 60px;}
-
-/* GAME HEADER */
-.game-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
-
-.game-cover{
-    width:68px;height:68px;flex:0 0 68px;border-radius:12px;overflow:hidden;
-    background:linear-gradient(135deg,#432417,#15100e);border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;position:relative;
+.choice input:checked + label{
+    color:#fff;border-color:#ff7045;background:#17100d;
+    box-shadow:0 0 0 1px rgba(255,112,69,.12);
 }
-.game-cover img{width:100%;height:100%;object-fit:cover;display:none;}
-.cover-letter{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:900;color:#ff9a63;}
+.choice.yes-no label{min-height:52px;font-size:13px;font-weight:800;}
 
-.game-heading{min-width:0;flex:1;}
+.thumbnail-preview{display:none;margin-top:12px;border:1px solid #292929;border-radius:8px;overflow:hidden;background:#090909;}
+.thumbnail-preview img{display:block;width:100%;max-height:260px;object-fit:cover;}
+.thumbnail-info{padding:8px 12px;color:#888;font-size:10px;border-top:1px solid #222;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.thumbnail-info .size{color:#ff9a63;font-weight:700;}
 
-.game-heading h1{font-size:22px;line-height:1.15;font-weight:900;letter-spacing:-.9px;word-break:break-word;overflow-wrap:break-word;}
-
-.game-subtitle{color:#777;font-size:12px;margin-top:6px;word-break:break-word;}
-
-.header-rating{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;}
-.stars{display:flex;gap:1px;color:#ffb35c;font-size:14px;letter-spacing:.5px;}
-.rating-number{color:#bbb;font-size:12px;font-weight:700;}
-.rating-count{color:#666;font-size:11px;}
-
-/* GAME PLAYER */
-.game-container{
-    width:100%;position:relative;overflow:hidden;
-    border:1px solid var(--border);border-radius:14px;
-    background:#000;box-shadow:0 30px 80px rgba(0,0,0,.35);
-    transition:border-radius .2s;
+/* HOSTING INFO BOX */
+.hosting-info{
+    background:linear-gradient(145deg,#17120f,#100f0e);
+    border:1px solid #34251d;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
 }
-
-.game-container:fullscreen,
-.game-container:-webkit-full-screen,
-.game-container:-moz-full-screen,
-.game-container:-ms-fullscreen{
-    width:100vw !important;height:100vh !important;
-    max-width:none !important;border-radius:0 !important;border:none !important;
-    display:flex !important;flex-direction:column !important;box-shadow:none !important;
+.hosting-info h3{
+    color:#ffb17c;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:10px;
 }
-
-.game-container:fullscreen #gameFrame,
-.game-container:-webkit-full-screen #gameFrame{
-    flex:1 1 auto !important;height:auto !important;min-height:0 !important;max-height:none !important;
+.hosting-info p{
+    color:#888;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:10px;
 }
-
-.game-container:fullscreen .player-controls,
-.game-container:-webkit-full-screen .player-controls{flex:0 0 auto !important;}
-
-.game-container:fullscreen .loading,
-.game-container:-webkit-full-screen .loading,
-.game-container:fullscreen .error,
-.game-container:-webkit-full-screen .error{flex:1 1 auto !important;min-height:0 !important;}
-
-#gameFrame{
-    display:none;width:100%;height:70vh;
-    min-height:500px;max-height:900px;border:0;background:#000;
+.hosting-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+    gap:8px;
+    margin-top:12px;
+}
+.hosting-item{
+    padding:10px 12px;
+    background:#0a0a0a;
+    border:1px solid #292929;
+    border-radius:8px;
+    text-align:center;
+}
+.hosting-item .name{
+    color:#ffb17c;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:3px;
+}
+.hosting-item .desc{
+    color:#666;
+    font-size:9px;
+    line-height:1.4;
 }
 
-.loading{
-    min-height:520px;display:flex;align-items:center;justify-content:center;
-    flex-direction:column;gap:14px;color:#777;font-size:13px;
-    padding:30px 20px;text-align:center;
+/* SERVER NOTE */
+.server-note{
+    background:linear-gradient(145deg,#1a1208,#0f0d09);
+    border:1px solid #4a3520;border-radius:10px;
+    padding:15px;margin-bottom:18px;
+    display:flex;gap:12px;align-items:flex-start;
 }
+.server-note .icon{font-size:22px;line-height:1;flex:0 0 auto;filter:drop-shadow(0 0 12px rgba(255,140,60,.4));}
+.server-note .text{color:#c9b79f;font-size:11px;line-height:1.65;}
+.server-note .text strong{display:block;color:#ffb17c;font-size:12px;margin-bottom:4px;letter-spacing:-.2px;}
 
-.spinner{width:34px;height:34px;border:3px solid #292929;border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
+/* MULTIPLAYER */
+.multiplayer-fields{display:none;margin-top:14px;padding-top:16px;border-top:1px dashed #2a2a2a;}
+.multiplayer-fields.show{display:block;}
 
-.player-controls{
-    height:54px;display:flex;align-items:center;gap:8px;
-    padding:0 12px;padding-bottom:env(safe-area-inset-bottom,0px);
-    background:#101010;border-top:1px solid #222;
-    flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+/* CHECKBOX */
+.checkbox{display:flex;align-items:flex-start;gap:10px;margin:18px 0;}
+.checkbox input[type="checkbox"]{
+    -webkit-appearance:auto !important;appearance:auto !important;
+    width:18px !important;height:18px !important;min-width:18px !important;
+    margin:3px 0 0 0 !important;padding:0 !important;
+    background:transparent !important;border:0 !important;
+    border-radius:3px !important;accent-color:#ff7045;cursor:pointer;
+    flex:0 0 18px;transform:scale(1.15);
 }
-.player-controls::-webkit-scrollbar{display:none;}
+.checkbox label{color:#777;line-height:1.55;margin:0;font-size:12px;font-weight:500;cursor:pointer;user-select:none;flex:1;}
+.checkbox label strong{color:#ffb17c;}
 
-.control-btn{
-    border:1px solid #2d2d2d;background:#171717;color:#aaa;
-    border-radius:8px;padding:9px 14px;cursor:pointer;
-    font-size:11px;font-weight:800;white-space:nowrap;flex:0 0 auto;
-    transition:.15s;font-family:inherit;
-}
-.control-btn:hover{color:white;background:#222;border-color:#444;}
-.control-btn:active{transform:scale(.96);}
+/* SUBMIT */
+.submit{width:100%;border:0;border-radius:9px;padding:15px;background:linear-gradient(135deg,#fff,#d9d9d9);color:#090909;font-size:13px;font-weight:900;cursor:pointer;transition:.2s;font-family:inherit;letter-spacing:.3px;}
+.submit:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.1);}
+.submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 
-.control-btn.primary{background:linear-gradient(135deg,#ff7a45,#ff4926);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(255,90,45,.3);}
-.control-btn.primary:hover{background:linear-gradient(135deg,#ff8a55,#ff5a36);color:#fff;}
+.progress{display:none;margin-top:14px;color:#aaa;font-size:12px;text-align:center;padding:14px;background:#0d0d0d;border:1px solid #222;border-radius:8px;line-height:1.5;}
+.progress .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff8754;margin-right:8px;animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 
-.control-spacer{flex:1;min-width:8px;}
+.message{display:none;margin-top:18px;padding:15px;border-radius:9px;font-size:12px;line-height:1.65;word-break:break-word;}
+.success{background:#101b13;border:1px solid #263c2b;color:#8dc398;}
+.error{background:#1b100e;border:1px solid #48231c;color:#e99a88;}
+.error strong{display:block;margin-bottom:6px;color:#ffb3a3;font-size:13px;}
+.error-detail{margin-top:10px;padding:10px;background:#0b0706;border-radius:6px;font-size:10px;font-family:monospace;color:#a68;word-break:break-all;line-height:1.5;}
+.warning{background:#1a1408;border:1px solid #4a3a1a;color:#d9b878;}
+.warning strong{display:block;margin-bottom:6px;color:#ffd28a;font-size:13px;}
 
-.player-status{
-    color:#666;font-size:10px;font-weight:800;letter-spacing:1.2px;
-    padding:6px 10px;border-radius:6px;
-    background:#0d0d0d;border:1px solid #222;flex:0 0 auto;
-}
-.player-status.playing{color:#91dda0;border-color:#1e3325;background:#0d1510;}
-.player-status.error{color:#ff9b9b;border-color:#452424;background:#160909;}
+.note{margin-top:18px;padding:13px;background:#17120f;border:1px solid #302018;border-radius:8px;color:#8c776c;font-size:11px;line-height:1.65;}
 
-/* ERROR */
-.error{min-height:520px;display:none;align-items:center;justify-content:center;padding:30px 20px;text-align:center;}
-.error-box{max-width:600px;width:100%;padding:28px 24px;border:1px solid #442121;border-radius:14px;background:#160b0b;}
-.error-icon{font-size:48px;margin-bottom:16px;filter:drop-shadow(0 0 30px rgba(255,80,80,.4));}
-.error-title{color:#ff8c8c;font-size:19px;font-weight:900;margin-bottom:12px;letter-spacing:-.4px;}
-.error-text{color:#888;font-size:13px;line-height:1.7;margin-bottom:18px;}
-.error-url{padding:10px 12px;background:#0b0b0b;border:1px solid #292929;border-radius:8px;color:#666;font-size:10px;font-family:monospace;word-break:break-all;margin-bottom:18px;}
-.error-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
-.error-btn{padding:11px 20px;border-radius:9px;font-size:12px;font-weight:800;border:1px solid #333;background:#181818;color:#bbb;cursor:pointer;font-family:inherit;transition:.15s;text-decoration:none;display:inline-block;}
-.error-btn:hover{background:#222;color:#fff;}
-.error-btn.primary{background:linear-gradient(135deg,#ff7a45,#ff4926);color:#fff;border-color:transparent;}
+footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-bottom:env(safe-area-inset-bottom,0px);}
 
-/* CONTENT GRID */
-.content-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;margin-top:20px;}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-.panel-head{padding:15px 18px;border-bottom:1px solid #242424;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.panel-head h2{font-size:15px;font-weight:800;letter-spacing:-.3px;}
-.panel-body{padding:18px;}
-
-.description{color:#999;font-size:13px;line-height:1.75;white-space:pre-line;word-break:break-word;}
-.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;}
-.tag{padding:7px 11px;border:1px solid #292929;border-radius:7px;color:#888;background:#0c0c0c;font-size:10px;font-weight:700;letter-spacing:.4px;}
-
-.info-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#262626;border:1px solid #262626;border-radius:9px;overflow:hidden;}
-.info-item{padding:14px;background:#111;}
-.info-label{color:#666;font-size:10px;text-transform:uppercase;letter-spacing:.9px;font-weight:800;}
-.info-value{color:#ddd;font-size:12px;font-weight:700;margin-top:6px;word-break:break-word;}
-
-.developer-box{display:flex;align-items:center;gap:12px;}
-.developer-avatar{width:46px;height:46px;flex:0 0 46px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:linear-gradient(135deg,#272727,#111);border:1px solid #333;color:#ff8d5d;font-weight:900;font-size:17px;}
-.developer-name{font-size:13px;font-weight:800;word-break:break-word;}
-.developer-email{color:#666;font-size:11px;margin-top:4px;word-break:break-word;}
-
-.rating-summary{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;}
-.big-rating{text-align:center;padding-right:20px;border-right:1px solid #282828;}
-.big-rating-number{font-size:38px;font-weight:900;letter-spacing:-2px;}
-.big-stars{color:#ffb35c;font-size:16px;margin-top:4px;letter-spacing:1px;}
-.big-rating-text{color:#666;font-size:10px;margin-top:5px;}
-.rating-bars{display:flex;flex-direction:column;gap:7px;}
-.rating-row{display:grid;grid-template-columns:35px 1fr 32px;align-items:center;gap:8px;}
-.rating-row span{color:#777;font-size:10px;font-weight:700;}
-.rating-row span:last-child{text-align:right;}
-.bar{height:7px;border-radius:10px;background:#242424;overflow:hidden;}
-.bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#ff9b51,#ff6b35);border-radius:10px;transition:width .35s ease;}
-
-.review-form{margin-top:20px;padding-top:20px;border-top:1px solid #252525;}
-.review-form h3{font-size:13px;margin-bottom:12px;}
-.star-picker{display:flex;gap:4px;margin-bottom:12px;}
-.star-picker button{border:0;background:transparent;color:#444;font-size:28px;cursor:pointer;padding:0;line-height:1;transition:.15s;}
-.star-picker button:hover{color:#ffb35c;transform:scale(1.1);}
-.star-picker button.active{color:#ffb35c;}
-.review-input{width:100%;min-height:90px;resize:vertical;background:#090909;border:1px solid #292929;border-radius:9px;color:white;outline:none;padding:13px;font-family:inherit;font-size:13px;transition:.15s;}
-.review-input:focus{border-color:#444;}
-.review-submit{margin-top:10px;padding:12px 20px;border:0;border-radius:9px;background:linear-gradient(135deg,#ff7b45,#ff512f);color:white;cursor:pointer;font-size:12px;font-weight:800;transition:.15s;font-family:inherit;}
-.review-submit:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,90,45,.3);}
-.review-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-.review-list{display:flex;flex-direction:column;gap:1px;background:#252525;border:1px solid #252525;border-radius:9px;overflow:hidden;}
-.review{padding:15px;background:#111;}
-.review-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.reviewer{font-size:12px;font-weight:800;color:#ddd;}
-.review-date{color:#555;font-size:10px;}
-.review-stars{color:#ffb35c;font-size:13px;margin-top:6px;letter-spacing:1px;}
-.review-text{color:#888;font-size:12px;line-height:1.65;margin-top:8px;word-break:break-word;}
-.no-reviews{padding:28px 20px;color:#666;text-align:center;font-size:12px;background:#111;}
-
-.comment-form{display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;}
-.comment-input{flex:1;min-width:150px;height:44px;background:#090909;border:1px solid #292929;border-radius:9px;padding:0 13px;color:white;outline:none;font-size:13px;transition:.15s;}
-.comment-input:focus{border-color:#444;}
-.comment-btn{border:0;border-radius:9px;padding:0 18px;background:linear-gradient(135deg,#ff7b45,#ff512f);color:#fff;font-size:11px;font-weight:900;cursor:pointer;transition:.15s;font-family:inherit;height:44px;}
-.comment-btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,90,45,.3);}
-.comment-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
-.comments{display:flex;flex-direction:column;gap:1px;background:#252525;border:1px solid #252525;border-radius:9px;overflow:hidden;}
-.comment{padding:14px;background:#111;}
-.comment-user{color:#ddd;font-size:12px;font-weight:800;}
-.comment-text{color:#888;font-size:12px;line-height:1.6;margin-top:6px;word-break:break-word;}
-.comment-date{color:#4f4f4f;font-size:10px;margin-top:8px;}
-
-.sidebar{display:flex;flex-direction:column;gap:14px;}
-.side-title{font-size:13px;font-weight:800;margin-bottom:13px;letter-spacing:-.2px;}
-.share-buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
-.share-btn{padding:11px;border:1px solid #292929;border-radius:8px;background:#111;color:#aaa;cursor:pointer;font-size:11px;font-weight:700;transition:.15s;font-family:inherit;}
-.share-btn:hover{color:#fff;background:#1b1b1b;border-color:#3a3a3a;}
-.share-btn:active{transform:scale(.96);}
-
-.related-list{display:flex;flex-direction:column;gap:8px;}
-.related-card{display:flex;gap:11px;padding:9px;border:1px solid #272727;border-radius:9px;background:#0e0e0e;cursor:pointer;transition:.15s;align-items:center;}
-.related-card:hover{background:#171717;border-color:#3b3b3b;transform:translateX(3px);}
-.related-card:active{transform:scale(.98);}
-.related-cover{width:50px;height:50px;flex:0 0 50px;border-radius:7px;overflow:hidden;background:linear-gradient(135deg,#432417,#17110e);display:flex;align-items:center;justify-content:center;color:#ff9865;font-size:17px;font-weight:900;}
-.related-cover img{width:100%;height:100%;object-fit:cover;}
-.related-info{min-width:0;flex:1;}
-.related-name{font-size:12px;font-weight:800;word-break:break-word;line-height:1.3;}
-.related-category{color:#666;font-size:10px;margin-top:5px;}
-
-.seo-text{color:#777;font-size:11px;line-height:1.7;word-break:break-word;}
-
-footer{
-    margin-top:50px;padding:22px 3%;
-    padding-bottom:calc(22px + env(safe-area-inset-bottom,0px));
-    border-top:1px solid #202020;
-    display:flex;justify-content:space-between;color:#555;font-size:11px;
-    gap:12px;flex-wrap:wrap;
-}
-
-.mobile-hint{
-    position:fixed;inset:0;background:rgba(0,0,0,.92);
-    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-    z-index:9999;display:none;align-items:center;justify-content:center;
-    flex-direction:column;gap:20px;padding:30px;text-align:center;color:#fff;
-}
-.mobile-hint.show{display:flex;}
-.mobile-hint .rotate-icon{font-size:64px;animation:rotateHint 2s ease-in-out infinite;filter:drop-shadow(0 0 40px rgba(255,113,62,.5));}
-@keyframes rotateHint{0%,100%{transform:rotate(0deg);}50%{transform:rotate(90deg);}}
-.mobile-hint h3{font-size:20px;font-weight:900;letter-spacing:-.6px;}
-.mobile-hint p{color:#999;font-size:13px;line-height:1.6;max-width:320px;}
-.mobile-hint .hint-btn{padding:12px 24px;border-radius:9px;background:linear-gradient(135deg,#ff7a45,#ff4926);color:#fff;border:0;font-size:13px;font-weight:800;cursor:pointer;font-family:inherit;}
-
-@media(max-width:1000px){
-    .content-grid{grid-template-columns:1fr;}
-    .sidebar{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-}
-
-@media(max-width:700px){
-    .topbar{min-height:56px;padding:0 14px;gap:12px;}
-    .nav{display:none;}
-    .logo{font-size:17px;gap:8px;}
-    .logo-mark{width:20px;height:20px;flex:0 0 20px;}
-    .back{padding:8px 12px;font-size:10px;}
-    .page{width:100%;padding-top:10px;}
-    .game-header{padding:0 14px;gap:11px;}
-    .game-cover{width:56px;height:56px;flex:0 0 56px;border-radius:10px;}
-    .cover-letter{font-size:19px;}
-    .game-heading h1{font-size:17px;letter-spacing:-.5px;}
-    .game-subtitle{font-size:11px;margin-top:4px;}
-    .header-rating{gap:6px;margin-top:6px;}
-    .stars{font-size:12px;}
-    .rating-number{font-size:11px;}
-    .rating-count{font-size:10px;}
-    .game-container{border-radius:0;border-left:0;border-right:0;margin-top:4px;}
-    #gameFrame{height:60vh;min-height:380px;max-height:80vh;}
-    .loading,.error{min-height:380px;}
-    .spinner{width:30px;height:30px;}
-    .loading{font-size:12px;}
-    .player-controls{height:auto;min-height:52px;padding:8px 10px;gap:6px;flex-wrap:wrap;}
-    .control-btn{flex:1 1 auto;min-width:0;padding:10px 12px;font-size:11px;text-align:center;}
-    .control-spacer{display:none;}
-    .player-status{width:100%;text-align:center;order:99;margin-top:2px;}
-    .content-grid{padding:0 14px;margin-top:16px;gap:14px;}
-    .sidebar{display:flex;}
-    .panel-body{padding:16px;}
-    .rating-summary{grid-template-columns:100px 1fr;gap:14px;}
-    .big-rating{padding-right:14px;}
-    .big-rating-number{font-size:30px;}
-    .big-stars{font-size:14px;}
-    .info-list{grid-template-columns:1fr;}
-    .error-box{padding:22px 18px;border-radius:12px;}
-    .error-icon{font-size:40px;margin-bottom:12px;}
-    .error-title{font-size:16px;}
-    .error-actions{flex-direction:column;}
-    .error-btn{width:100%;text-align:center;}
-    footer{margin-left:14px;margin-right:14px;flex-direction:column;gap:8px;margin-top:40px;}
-    .comment-form{flex-direction:column;}
-    .comment-input{width:100%;}
-    .comment-btn{width:100%;height:44px;}
+@media(max-width:600px){
+    body{padding:20px 12px;}
+    .card{padding:18px;border-radius:12px;}
+    .header h1{font-size:26px;letter-spacing:-1px;}
+    .header p{font-size:12px;}
+    .row{grid-template-columns:1fr;gap:0;}
+    .choice-grid{grid-template-columns:1fr;}
+    .section-title{font-size:12px;}
+    .server-note{padding:12px;gap:10px;}
+    .server-note .text{font-size:10.5px;}
+    label{font-size:11px;}
+    input,textarea,select{font-size:14px;}
+    .hosting-grid{grid-template-columns:1fr 1fr;}
 }
 
 @media(max-width:380px){
-    .logo{font-size:15px;}
-    .game-heading h1{font-size:15px;}
-    .game-cover{width:50px;height:50px;flex:0 0 50px;}
-    #gameFrame{height:55vh;min-height:320px;}
-    .loading,.error{min-height:320px;}
-    .control-btn{flex:1 1 100%;padding:11px 10px;font-size:11px;}
-    .rating-summary{grid-template-columns:1fr;gap:14px;}
-    .big-rating{padding-right:0;padding-bottom:14px;border-right:0;border-bottom:1px solid #282828;}
-}
-
-@media(max-width:900px) and (orientation:landscape){
-    .game-header{display:none;}
-    #gameFrame{height:calc(100vh - 130px);min-height:0;max-height:none;}
-    .page{padding-top:6px;}
-    .topbar{min-height:48px;}
-    .player-controls{min-height:44px;padding:6px 10px;}
+    .header h1{font-size:22px;}
+    .card{padding:15px;}
+    .choice.yes-no label{min-height:46px;font-size:12px;}
 }
 
 </style>
-
 </head>
 
 <body>
 
-<header class="topbar">
-    <a href="index.html" class="logo">
-        <span class="logo-mark"></span>
-        PLAYR
-    </a>
-    <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="index.html#games">Games</a>
-        <a href="submit.html">Submit Game</a>
-    </nav>
-    <a href="index.html" class="back">← BACK</a>
-</header>
+<div class="page">
 
-<main class="page">
+<a class="logo" href="index.html">
+    <span class="logo-mark"></span>
+    <span>PLAYR</span>
+</a>
 
-<section class="game-header">
-    <div class="game-cover">
-        <img id="gameCoverImage" alt="Game thumbnail">
-        <div class="cover-letter" id="coverLetter">?</div>
-    </div>
-    <div class="game-heading">
-        <h1 id="gameTitle">Loading game...</h1>
-        <div class="game-subtitle" id="gameSubtitle">Finding game information...</div>
-        <div class="header-rating">
-            <div class="stars" id="headerStars">★★★★★</div>
-            <span class="rating-number" id="headerRating">0.0</span>
-            <span class="rating-count" id="headerReviewCount">0 reviews</span>
-        </div>
-    </div>
-</section>
+<div class="header">
+    <small>Developer Portal</small>
+    <h1>Submit your game.</h1>
+    <p>Host your game on any platform and submit the link. We'll review and publish it on PLAYR.</p>
+</div>
 
-<section class="game-container" id="gameContainer">
+<div class="card">
 
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <div id="loadingText">Finding game...</div>
+<form id="gameForm" novalidate>
+
+<!-- HOSTING INFO -->
+<div class="section">
+    <div class="section-title">
+        <span>01</span>
+        Host Your Game
     </div>
 
-    <!-- ✅ SANDBOX iframe — No top navigation allowed -->
-    <iframe
-        id="gameFrame"
-        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-pointer-lock allow-orientation-lock allow-modals allow-presentation allow-downloads allow-storage-access-by-user-activation"
-        allowfullscreen
-        allow="fullscreen; autoplay; gamepad; pointer-lock; accelerometer; gyroscope; clipboard-write"
-        tabindex="0"
-        referrerpolicy="no-referrer-when-downgrade"
-    ></iframe>
+    <div class="hosting-info">
+        <h3>🌐 Any of these platforms work</h3>
+        <p>Your game must be publicly accessible via HTTPS and playable directly in a browser. Upload to any of these (free) platforms and paste the live URL below.</p>
 
-    <div class="error" id="error">
-        <div class="error-box">
-            <div class="error-icon">⚠️</div>
-            <div class="error-title" id="errorTitle">Unable to load game</div>
-            <div class="error-text" id="errorText"></div>
-            <div class="error-url" id="errorUrl"></div>
-            <div class="error-actions">
-                <button class="error-btn primary" id="errorRetryBtn">↻ Retry</button>
-                <button class="error-btn primary" id="errorOpenBtn">↗ Open Direct</button>
-                <a class="error-btn" href="index.html">← Back to Home</a>
+        <div class="hosting-grid">
+            <div class="hosting-item">
+                <div class="name">itch.io</div>
+                <div class="desc">HTML5 games<br>Easiest</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">Vercel</div>
+                <div class="desc">GitHub connect<br>Auto-deploy</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">Netlify</div>
+                <div class="desc">Drag-drop<br>Instant</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">GitHub Pages</div>
+                <div class="desc">Settings → Pages<br>Free</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">Cloudflare</div>
+                <div class="desc">Pages<br>Fast CDN</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">Custom</div>
+                <div class="desc">Your own host<br>Any HTTPS</div>
             </div>
         </div>
     </div>
 
-    <div class="player-controls">
-        <button class="control-btn primary" id="fullscreenBtn" type="button">
-            ⛶ FULLSCREEN
-        </button>
-        <button class="control-btn" id="reloadBtn" type="button">
-            ↻ RELOAD
-        </button>
-        <button class="control-btn" id="openNewBtn" type="button">
-            ↗ OPEN DIRECT
-        </button>
-        <div class="control-spacer"></div>
-        <span class="player-status" id="playerStatus">READY</span>
-    </div>
-
-</section>
-
-<div class="content-grid">
-
-<div>
-
-<section class="panel">
-    <div class="panel-head"><h2>About this game</h2></div>
-    <div class="panel-body">
-        <div class="description" id="gameDescription">Loading game description...</div>
-        <div class="tags" id="gameTags"></div>
-    </div>
-</section>
-
-<section class="panel" style="margin-top:14px;">
-    <div class="panel-head"><h2>Game Information</h2></div>
-    <div class="panel-body">
-        <div class="info-list">
-            <div class="info-item"><div class="info-label">Category</div><div class="info-value" id="infoCategory">—</div></div>
-            <div class="info-item"><div class="info-label">Developer</div><div class="info-value" id="infoDeveloper">—</div></div>
-            <div class="info-item"><div class="info-label">Device</div><div class="info-value" id="infoDevice">—</div></div>
-            <div class="info-item"><div class="info-label">Orientation</div><div class="info-value" id="infoOrientation">—</div></div>
-            <div class="info-item"><div class="info-label">Language</div><div class="info-value" id="infoLanguage">—</div></div>
-            <div class="info-item"><div class="info-label">Hosted On</div><div class="info-value" id="infoHost">—</div></div>
+    <div class="field">
+        <label>Live Game URL <span class="required">*</span></label>
+        <input
+            type="url"
+            name="gameUrl"
+            id="gameUrl"
+            placeholder="https://your-game.vercel.app  or  https://itch.io/embed-upload/..."
+            pattern="https://.*"
+            required
+        >
+        <div class="help">
+            Paste the <strong>live URL</strong> that directly plays your game.<br>
+            ✅ Good: <code>https://mygame.vercel.app</code> · <code>https://itch.io/embed-upload/123</code><br>
+            ❌ Bad: GitHub repo link · GitHub raw file · ZIP file link
         </div>
     </div>
-</section>
 
-<section class="panel" style="margin-top:14px;">
-    <div class="panel-head"><h2>How to play</h2></div>
-    <div class="panel-body">
-        <div class="description" id="gameControls">Game controls will appear here.</div>
+    <div class="field">
+        <label>Hosting Platform <span class="required">*</span></label>
+        <select name="hostingPlatform" id="hostingPlatform" required>
+            <option value="">Where is your game hosted?</option>
+            <option value="itch.io">itch.io</option>
+            <option value="Vercel">Vercel</option>
+            <option value="Netlify">Netlify</option>
+            <option value="GitHub Pages">GitHub Pages</option>
+            <option value="Cloudflare Pages">Cloudflare Pages</option>
+            <option value="Custom Domain">Custom Domain / Own Host</option>
+            <option value="Other">Other</option>
+        </select>
     </div>
-</section>
 
-<section class="panel" style="margin-top:14px;">
-    <div class="panel-head">
-        <h2>Ratings & Reviews</h2>
-        <span class="rating-count" id="reviewCountTop">0 reviews</span>
+    <div class="field" id="sourceUrlField" style="display:none;">
+        <label>Source / Repository URL (optional)</label>
+        <input
+            type="url"
+            name="sourceUrl"
+            id="sourceUrl"
+            placeholder="https://github.com/username/game  or  https://itch.io/profile/username"
+        >
+        <div class="help">Optional — helps us verify ownership if needed.</div>
     </div>
-    <div class="panel-body">
-        <div class="rating-summary">
-            <div class="big-rating">
-                <div class="big-rating-number" id="bigRating">0.0</div>
-                <div class="big-stars" id="bigStars">★★★★★</div>
-                <div class="big-rating-text">Overall rating</div>
-            </div>
-            <div class="rating-bars">
-                <div class="rating-row"><span>5 ★</span><div class="bar"><div class="bar-fill" id="bar5"></div></div><span id="count5">0</span></div>
-                <div class="rating-row"><span>4 ★</span><div class="bar"><div class="bar-fill" id="bar4"></div></div><span id="count4">0</span></div>
-                <div class="rating-row"><span>3 ★</span><div class="bar"><div class="bar-fill" id="bar3"></div></div><span id="count3">0</span></div>
-                <div class="rating-row"><span>2 ★</span><div class="bar"><div class="bar-fill" id="bar2"></div></div><span id="count2">0</span></div>
-                <div class="rating-row"><span>1 ★</span><div class="bar"><div class="bar-fill" id="bar1"></div></div><span id="count1">0</span></div>
-            </div>
-        </div>
-
-        <div class="review-form">
-            <h3>Rate this game</h3>
-            <div class="star-picker" id="starPicker">
-                <button data-rating="1" type="button">★</button>
-                <button data-rating="2" type="button">★</button>
-                <button data-rating="3" type="button">★</button>
-                <button data-rating="4" type="button">★</button>
-                <button data-rating="5" type="button">★</button>
-            </div>
-            <textarea class="review-input" id="reviewText" placeholder="Write your review..." maxlength="1000"></textarea>
-            <button class="review-submit" id="reviewSubmit" type="button">SUBMIT REVIEW</button>
-        </div>
-
-        <div class="review-list" id="reviewList" style="margin-top:18px;">
-            <div class="no-reviews">No reviews yet.</div>
-        </div>
-    </div>
-</section>
-
-<section class="panel" style="margin-top:14px;">
-    <div class="panel-head"><h2>Comments</h2></div>
-    <div class="panel-body">
-        <div class="comment-form">
-            <input class="comment-input" id="commentInput" maxlength="500" placeholder="Write a comment...">
-            <button class="comment-btn" id="commentBtn" type="button">POST</button>
-        </div>
-        <div class="comments" id="comments">
-            <div class="no-reviews">No comments yet.</div>
-        </div>
-    </div>
-</section>
 
 </div>
 
-<aside class="sidebar">
+<!-- DEVELOPER INFO -->
+<div class="section">
+    <div class="section-title">
+        <span>02</span>
+        Developer Information
+    </div>
 
-<section class="panel">
-    <div class="panel-head"><h2>Developer</h2></div>
-    <div class="panel-body">
-        <div class="developer-box">
-            <div class="developer-avatar" id="developerAvatar">D</div>
-            <div style="min-width:0;flex:1;">
-                <div class="developer-name" id="developerName">Developer</div>
-                <div class="developer-email" id="developerEmail">—</div>
+    <div class="row">
+        <div class="field">
+            <label>Developer / Studio Name <span class="required">*</span></label>
+            <input type="text" name="developer" placeholder="Your name or studio" required>
+        </div>
+        <div class="field">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" name="email" placeholder="you@example.com" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="field">
+            <label>Country <span class="required">*</span></label>
+            <select name="country" required>
+                <option value="">Select country</option>
+                <option>Afghanistan</option>
+                <option>Argentina</option>
+                <option>Australia</option>
+                <option>Bangladesh</option>
+                <option>Brazil</option>
+                <option>Canada</option>
+                <option>China</option>
+                <option>France</option>
+                <option>Germany</option>
+                <option>India</option>
+                <option>Indonesia</option>
+                <option>Italy</option>
+                <option>Japan</option>
+                <option>Malaysia</option>
+                <option>Mexico</option>
+                <option>Nepal</option>
+                <option>Netherlands</option>
+                <option>New Zealand</option>
+                <option>Pakistan</option>
+                <option>Philippines</option>
+                <option>Russia</option>
+                <option>Singapore</option>
+                <option>South Africa</option>
+                <option>South Korea</option>
+                <option>Spain</option>
+                <option>Sri Lanka</option>
+                <option>Sweden</option>
+                <option>Switzerland</option>
+                <option>Thailand</option>
+                <option>Turkey</option>
+                <option>United Arab Emirates</option>
+                <option>United Kingdom</option>
+                <option>United States</option>
+                <option>Vietnam</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label>Developer Type <span class="required">*</span></label>
+            <select name="developerType" required>
+                <option value="">Choose type</option>
+                <option>Individual</option>
+                <option>Studio</option>
+                <option>Team</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- GAME INFO -->
+<div class="section">
+    <div class="section-title">
+        <span>03</span>
+        Game Information
+    </div>
+
+    <div class="field">
+        <label>Game Title <span class="required">*</span></label>
+        <input type="text" name="gameName" minlength="3" maxlength="80" placeholder="Example: Velocity Rush" required>
+    </div>
+
+    <div class="field">
+        <label>Category <span class="required">*</span></label>
+        <select name="category" required>
+            <option value="">Choose category</option>
+            <option>Action</option>
+            <option>Adventure</option>
+            <option>Arcade</option>
+            <option>Racing</option>
+            <option>Shooting</option>
+            <option>Sports</option>
+            <option>Puzzle</option>
+            <option>Strategy</option>
+            <option>Simulation</option>
+            <option>Multiplayer</option>
+            <option>Other</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label>Description <span class="required">*</span></label>
+        <textarea name="description" minlength="100" maxlength="1500" placeholder="Tell us about your game..." required></textarea>
+        <div class="help">Minimum 100 characters.</div>
+    </div>
+
+    <div class="field">
+        <label>Controls / Instructions <span class="required">*</span></label>
+        <textarea name="controls" minlength="20" maxlength="800" placeholder="Example: WASD to move, Space to jump..." required></textarea>
+    </div>
+
+    <div class="field">
+        <label>Supported Devices <span class="required">*</span></label>
+        <div class="choice-grid">
+            <div class="choice">
+                <input type="radio" name="supportedDevices" id="desktop" value="Desktop" required>
+                <label for="desktop">Desktop</label>
+            </div>
+            <div class="choice">
+                <input type="radio" name="supportedDevices" id="mobile" value="Mobile">
+                <label for="mobile">Mobile</label>
+            </div>
+            <div class="choice">
+                <input type="radio" name="supportedDevices" id="bothDevices" value="Both">
+                <label for="bothDevices">Both</label>
             </div>
         </div>
     </div>
-</section>
 
-<section class="panel">
-    <div class="panel-body">
-        <div class="side-title">Share this game</div>
-        <div class="share-buttons">
-            <button class="share-btn" id="copyLink" type="button">🔗 Copy Link</button>
-            <button class="share-btn" id="nativeShare" type="button">↗ Share</button>
+    <div class="field">
+        <label>Orientation <span class="required">*</span></label>
+        <div class="choice-grid">
+            <div class="choice">
+                <input type="radio" name="orientation" id="landscape" value="Landscape" required>
+                <label for="landscape">Landscape</label>
+            </div>
+            <div class="choice">
+                <input type="radio" name="orientation" id="portrait" value="Portrait">
+                <label for="portrait">Portrait</label>
+            </div>
+            <div class="choice">
+                <input type="radio" name="orientation" id="bothOrientation" value="Both">
+                <label for="bothOrientation">Both</label>
+            </div>
         </div>
     </div>
-</section>
 
-<section class="panel">
-    <div class="panel-body">
-        <div class="side-title">More Games</div>
-        <div class="related-list" id="relatedGames">
-            <div class="no-reviews">Loading...</div>
+    <div class="field">
+        <label>Language <span class="required">*</span></label>
+        <select name="language" required>
+            <option value="">Choose language</option>
+            <option value="English">English</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label>Game Thumbnail <span class="required">*</span></label>
+        <input type="file" id="thumbnail" name="thumbnail" accept="image/png,image/jpeg,image/webp" required>
+        <div class="help">Upload a JPG, PNG or WebP. Max 5 MB (auto-compressed).</div>
+
+        <div class="thumbnail-preview" id="thumbnailPreview">
+            <img id="thumbnailImage" alt="Thumbnail preview">
+            <div class="thumbnail-info">
+                <span>Thumbnail preview</span>
+                <span class="size" id="thumbnailSize"></span>
+            </div>
         </div>
     </div>
-</section>
-
-<section class="panel">
-    <div class="panel-body">
-        <div class="side-title">About PLAYR</div>
-        <div class="seo-text" id="seoText">Discover browser games on PLAYR.</div>
-    </div>
-</section>
-
-</aside>
 
 </div>
 
-</main>
+<!-- MULTIPLAYER -->
+<div class="section">
+    <div class="section-title">
+        <span>04</span>
+        Multiplayer & Server
+    </div>
 
-<footer>
-    <span>© 2026 PLAYR</span>
-    <span>Games worth playing.</span>
-</footer>
+    <div class="field">
+        <label>Is this a multiplayer game? <span class="required">*</span></label>
+        <div class="choice-grid" style="grid-template-columns:1fr 1fr;">
+            <div class="choice yes-no">
+                <input type="radio" name="multiplayer" id="mpNo" value="No" required checked>
+                <label for="mpNo">❌ No — Single Player</label>
+            </div>
+            <div class="choice yes-no">
+                <input type="radio" name="multiplayer" id="mpYes" value="Yes">
+                <label for="mpYes">✅ Yes — Multiplayer</label>
+            </div>
+        </div>
+    </div>
 
-<div class="mobile-hint" id="mobileHint">
-    <div class="rotate-icon">📱</div>
-    <h3>Rotate your device</h3>
-    <p>For a better gaming experience, hold your phone horizontally.</p>
-    <button class="hint-btn" id="hintCloseBtn" type="button">Got it</button>
+    <div class="multiplayer-fields" id="multiplayerFields">
+        <div class="server-note">
+            <div class="icon">⚠️</div>
+            <div class="text">
+                <strong>Important — Server Requirement</strong>
+                PLAYR does NOT provide game servers. The developer must provide their own server (VPS, cloud hosting, etc.). Your game will not work without a server if it is multiplayer.
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Server Information <span class="required">*</span></label>
+            <textarea name="serverInfo" id="serverInfo" maxlength="800" placeholder="Describe your server setup..."></textarea>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label>Max Players Per Room <span class="required">*</span></label>
+                <input type="number" name="maxPlayers" id="maxPlayers" min="2" max="1000" placeholder="e.g. 8">
+            </div>
+            <div class="field">
+                <label>Server Region</label>
+                <select name="serverRegion" id="serverRegion">
+                    <option value="">Optional</option>
+                    <option value="Global">Global</option>
+                    <option value="Asia">Asia</option>
+                    <option value="India">India</option>
+                    <option value="Europe">Europe</option>
+                    <option value="North America">North America</option>
+                    <option value="South America">South America</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Africa">Africa</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- RIGHTS -->
+<div class="section">
+    <div class="section-title">
+        <span>05</span>
+        Rights & Confirmation
+    </div>
+
+    <div class="checkbox">
+        <input type="checkbox" id="rights">
+        <label for="rights">I confirm that I have the rights or permission to submit this game and its content.</label>
+    </div>
+
+    <div class="checkbox">
+        <input type="checkbox" id="assets">
+        <label for="assets">I confirm that I have the necessary rights or licenses for the assets used in this game.</label>
+    </div>
+
+    <div class="checkbox">
+        <input type="checkbox" id="rules">
+        <label for="rules">I understand that PLAYR can approve, reject or later remove a submitted game.</label>
+    </div>
+
+    <div class="checkbox">
+        <input type="checkbox" id="urlAgree">
+        <label for="urlAgree">I confirm my game URL is publicly accessible and works in a browser.</label>
+    </div>
+
+    <div class="checkbox">
+        <input type="checkbox" id="serverAgree">
+        <label for="serverAgree">I understand that if my game is multiplayer, <strong>I am responsible for providing my own server</strong>.</label>
+    </div>
+</div>
+
+<button class="submit" id="submitButton" type="submit">
+    SUBMIT FOR REVIEW
+</button>
+
+<div class="progress" id="progress">
+    <span class="dot"></span><span id="progressText">Submitting...</span>
+</div>
+
+<div class="message success" id="success">
+    ✓ Submission received.
+    <br><br>
+    Your game has been submitted for review. Our team will verify the URL and publish it if approved.
+</div>
+
+<div class="message warning" id="warning"></div>
+<div class="message error" id="error"></div>
+
+<div class="note">
+    Every submission is reviewed before appearing on PLAYR. Approval is not automatic.
+</div>
+
+</form>
+
+</div>
+
+<footer>PLAYR Developer Portal · 2026</footer>
+
 </div>
 
 <script>
-/* ============================================================
-   ANTI-REDIRECT PROTECTION
-   Yeh script iframe load hone se PEHLE chalti hai
-   Koi bhi game parent page ko redirect nahi kar sakta
-   ============================================================ */
 
-(function(){
-    /* Save current URL — this is where we stay */
-    var LOCKED_URL = window.location.href;
-    var allowNavigation = false;
-
-    /* Freeze window.top object to prevent location changes */
-    try{
-        var frozenLocation = window.location;
-        Object.defineProperty(window, "top", {
-            get: function(){ return window; },
-            set: function(){ return false; }
-        });
-    }catch(e){}
-
-    /* Block attempts to change parent location from iframe context */
-    window.addEventListener("beforeunload", function(e){
-        if(!allowNavigation){
-            /* If URL changed unexpectedly, block it */
-            if(window.location.href !== LOCKED_URL){
-                e.preventDefault();
-                e.returnValue = "";
-                /* Force back to locked URL */
-                setTimeout(function(){
-                    try{
-                        window.location.replace(LOCKED_URL);
-                    }catch(err){}
-                }, 0);
-                return "";
-            }
-        }
-    });
-
-    /* Monitor URL every 300ms — if changed unexpectedly, reload back */
-    setInterval(function(){
-        if(!allowNavigation && window.location.href !== LOCKED_URL){
-            console.warn("🛡️ Redirect blocked! Going back to game...");
-            try{
-                window.location.replace(LOCKED_URL);
-            }catch(err){}
-        }
-    }, 300);
-
-    /* Expose function to allow safe navigation when needed */
-    window.__playrAllowNav = function(){
-        allowNavigation = true;
-    };
-    window.__playrLockedUrl = LOCKED_URL;
-
-})();
-</script>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-
-import {
-    getFirestore, doc, getDoc, collection, getDocs, addDoc,
-    query, where, orderBy, limit, serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
-
-/* ============ FIREBASE ============ */
+/* =================================
+   FIREBASE CONFIG
+================================= */
 
 const firebaseConfig = {
     apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2q6Yfhz8",
@@ -670,811 +612,428 @@ const firebaseConfig = {
     projectId: "playr-bebbf",
     storageBucket: "playr-bebbf.firebasestorage.app",
     messagingSenderId: "35506561862",
-    appId: "1:35506561862:web:f7b27c1191637cf36abb47"
+    appId: "1:35506561862:web:f7b27c1191637cf36abb47",
+    measurementId: "G-C9RGJYKTP9"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-/* ============ ELEMENTS ============ */
+console.log("🔥 Firebase initialized");
 
-const loading = document.getElementById("loading");
-const loadingText = document.getElementById("loadingText");
-const frame = document.getElementById("gameFrame");
-const gameContainer = document.getElementById("gameContainer");
-const error = document.getElementById("error");
-const errorText = document.getElementById("errorText");
-const errorTitle = document.getElementById("errorTitle");
-const errorUrl = document.getElementById("errorUrl");
-const playerStatus = document.getElementById("playerStatus");
-const fullscreenBtn = document.getElementById("fullscreenBtn");
-const reloadBtn = document.getElementById("reloadBtn");
-const openNewBtn = document.getElementById("openNewBtn");
-const errorRetryBtn = document.getElementById("errorRetryBtn");
-const errorOpenBtn = document.getElementById("errorOpenBtn");
+/* =================================
+   ELEMENTS
+================================= */
 
-/* ============ STATE ============ */
+const form = document.getElementById("gameForm");
+const submitButton = document.getElementById("submitButton");
+const thumbnail = document.getElementById("thumbnail");
+const thumbnailPreview = document.getElementById("thumbnailPreview");
+const thumbnailImage = document.getElementById("thumbnailImage");
+const thumbnailSize = document.getElementById("thumbnailSize");
+const progress = document.getElementById("progress");
+const progressText = document.getElementById("progressText");
+const success = document.getElementById("success");
+const warning = document.getElementById("warning");
+const errorBox = document.getElementById("error");
 
-let currentGame = null;
-let selectedRating = 0;
-let reviews = [];
-let comments = [];
-let currentGameUrl = "";
+const mpYes = document.getElementById("mpYes");
+const mpNo = document.getElementById("mpNo");
+const multiplayerFields = document.getElementById("multiplayerFields");
 
-/* ============ URL PARAMS ============ */
+const hostingPlatform = document.getElementById("hostingPlatform");
+const sourceUrlField = document.getElementById("sourceUrlField");
 
-const params = new URLSearchParams(window.location.search);
-const gameId = params.get("id");
-const directUrl = params.get("url");
-const directName = params.get("name");
+let currentBase64Image = "";
 
-console.log("PLAYR → gameId:", gameId);
-console.log("PLAYR → directUrl:", directUrl);
+/* =================================
+   MULTIPLAYER TOGGLE
+================================= */
 
-/* ============ START ============ */
-
-startPlayer();
-
-async function startPlayer(){
-    try{
-        let game = null;
-
-        if(gameId){
-            loadingText.textContent = "Loading game information...";
-            game = await getGameById(gameId);
-        }
-
-        if(directUrl){
-            if(!game){
-                game = await findGameByUrl(directUrl);
-            }
-
-            if(!game){
-                game = {
-                    id: null,
-                    name: directName || "Game",
-                    gameName: directName || "Game",
-                    title: directName || "Game",
-                    developer: "Unknown Developer",
-                    category: "Game",
-                    description: "No description has been added for this game yet.",
-                    controls: "No controls information has been added yet.",
-                    supportedDevices: "—",
-                    orientation: "—",
-                    language: "—",
-                    status: "approved",
-                    gameUrl: directUrl,
-                    thumbnailUrl: ""
-                };
-            }
-
-            game.gameUrl = directUrl;
-        }
-
-        if(!game){
-            showError(
-                "Game not found",
-                gameId
-                    ? `Game with id "${gameId}" was not found.`
-                    : "No game id or URL was provided."
-            );
-            return;
-        }
-
-        currentGame = game;
-        console.log("PLAYR FINAL GAME:", currentGame);
-
-        renderGameInformation(game);
-        setupSEO(game);
-
-        if(game.id){
-            loadReviews(game.id);
-            loadComments(game.id);
-        }
-
-        loadRelatedGames(game);
-
-        const gameUrl = firstValue(
-            game.gameUrl,
-            game.playableUrl,
-            game.playUrl,
-            game.url
-        );
-
-        if(!gameUrl){
-            showError("No URL", "This game does not have a playable URL.");
-            return;
-        }
-
-        console.log("🎯 Loading game URL:", gameUrl);
-        currentGameUrl = gameUrl;
-
-        loadGame(gameUrl);
-
-    }
-    catch(err){
-        console.error("PLAYER LOAD ERROR:", err);
-        showError("Load failed", "Something went wrong while loading this game.");
+function updateMultiplayerFields(){
+    if(mpYes.checked){
+        multiplayerFields.classList.add("show");
+        document.getElementById("serverInfo").setAttribute("required", "required");
+        document.getElementById("maxPlayers").setAttribute("required", "required");
+    }else{
+        multiplayerFields.classList.remove("show");
+        document.getElementById("serverInfo").removeAttribute("required");
+        document.getElementById("maxPlayers").removeAttribute("required");
+        document.getElementById("serverInfo").value = "";
+        document.getElementById("maxPlayers").value = "";
+        document.getElementById("serverRegion").value = "";
     }
 }
 
-/* ============ GET GAME BY ID ============ */
+mpYes.addEventListener("change", updateMultiplayerFields);
+mpNo.addEventListener("change", updateMultiplayerFields);
+updateMultiplayerFields();
 
-async function getGameById(id){
-    try{
-        const ref = doc(db, "game_submissions", id);
-        const snapshot = await getDoc(ref);
-        if(snapshot.exists()){
-            return normalizeGame(id, snapshot.data());
-        }
-    }catch(err){
-        console.error("game_submissions ID error:", err);
+/* =================================
+   HOSTING PLATFORM TOGGLE
+================================= */
+
+hostingPlatform.addEventListener("change", function(){
+    /* Show source URL field for non-itch platforms (helps verify) */
+    if(this.value && this.value !== "itch.io"){
+        sourceUrlField.style.display = "block";
+    }else{
+        sourceUrlField.style.display = "none";
     }
-    return null;
-}
+});
 
-/* ============ FIND GAME BY URL ============ */
+/* =================================
+   IMAGE COMPRESS
+================================= */
 
-async function findGameByUrl(url){
-    try{
-        const q = query(
-            collection(db, "game_submissions"),
-            where("gameUrl", "==", url),
-            limit(1)
-        );
-        const snapshot = await getDocs(q);
-        if(!snapshot.empty){
-            const gameDoc = snapshot.docs[0];
-            return normalizeGame(gameDoc.id, gameDoc.data());
-        }
-    }catch(err){
-        console.error("gameUrl query failed:", err);
-    }
-    return null;
-}
-
-/* ============ NORMALIZE GAME ============ */
-
-function normalizeGame(id, data){
-    const game = {
-        id: id,
-        name: firstValue(data.gameName, data.name, data.title, "Untitled Game"),
-        gameName: firstValue(data.gameName, data.name, data.title, "Untitled Game"),
-        title: firstValue(data.gameName, data.name, data.title, "Untitled Game"),
-        developer: firstValue(data.developer, data.developerName, data.studio, data.studioName, "Unknown Developer"),
-        email: firstValue(data.email, data.developerEmail, ""),
-        country: firstValue(data.country, ""),
-        developerType: firstValue(data.developerType, ""),
-        category: firstValue(data.category, data.genre, "Game"),
-        description: firstValue(data.description, data.gameDescription, data.about, "No description has been added for this game yet."),
-        controls: firstValue(data.controls, data.instructions, data.controlInstructions, data.howToPlay, "No controls information has been added yet."),
-        supportedDevices: firstValue(data.supportedDevices, data.device, data.devices, data.platform, "—"),
-        orientation: firstValue(data.orientation, data.gameOrientation, "—"),
-        language: firstValue(data.language, data.gameLanguage, "—"),
-        status: firstValue(data.status, "approved"),
-        gameUrl: firstValue(data.gameUrl, data.playableUrl, data.playUrl, data.url, ""),
-        playableUrl: firstValue(data.playableUrl, data.gameUrl, ""),
-        playUrl: firstValue(data.playUrl, data.gameUrl, ""),
-        url: firstValue(data.url, data.gameUrl, ""),
-        hostingPlatform: firstValue(data.hostingPlatform, ""),
-        sourceUrl: firstValue(data.sourceUrl, data.githubUrl, ""),
-        thumbnailUrl: firstValue(data.thumbnailData, data.thumbnailUrl, data.thumbnail, data.imageUrl, data.coverUrl, ""),
-        thumbnail: firstValue(data.thumbnailData, data.thumbnailUrl, data.thumbnail, data.imageUrl, data.coverUrl, ""),
-        createdAt: data.createdAt || null
-    };
-    return { ...data, ...game };
-}
-
-function firstValue(...values){
-    for(const value of values){
-        if(value !== undefined && value !== null && String(value).trim() !== ""){
-            return value;
-        }
-    }
-    return "";
-}
-
-/* ============ RENDER GAME INFO ============ */
-
-function renderGameInformation(game){
-    const name = firstValue(game.name, game.gameName, game.title, "Untitled Game");
-    const developer = firstValue(game.developer, "Unknown Developer");
-    const category = firstValue(game.category, "Game");
-    const description = firstValue(game.description, "No description yet.");
-    const controls = firstValue(game.controls, "No controls information yet.");
-    const device = firstValue(game.supportedDevices, "—");
-    const orientation = firstValue(game.orientation, "—");
-    const language = firstValue(game.language, "—");
-    const host = firstValue(game.hostingPlatform, "External");
-    const thumbnail = firstValue(game.thumbnailUrl, game.thumbnail, "");
-
-    document.title = `${name} — Play on PLAYR`;
-
-    setText("gameTitle", name);
-    setText("gameSubtitle", `${category} · ${developer}`);
-    setText("gameDescription", description);
-    setText("gameControls", controls);
-    setText("infoCategory", category);
-    setText("infoDeveloper", developer);
-    setText("infoDevice", device);
-    setText("infoOrientation", orientation);
-    setText("infoLanguage", language);
-    setText("infoHost", host);
-    setText("developerName", developer);
-    setText("developerEmail", game.email || "PLAYR Developer");
-    setText("developerAvatar", getInitials(developer));
-
-    const image = document.getElementById("gameCoverImage");
-    const coverLetter = document.getElementById("coverLetter");
-
-    if(image && thumbnail){
-        image.src = thumbnail;
-        image.style.display = "block";
-        if(coverLetter) coverLetter.style.display = "none";
-        image.onerror = function(){
-            image.style.display = "none";
-            if(coverLetter){
-                coverLetter.style.display = "flex";
-                coverLetter.textContent = getInitials(name);
-            }
+function compressToBase64(file, maxWidth = 800, quality = 0.75){
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e){
+            const img = new Image();
+            img.onload = function(){
+                try{
+                    const canvas = document.createElement("canvas");
+                    let { width, height } = img;
+                    if(width > maxWidth){
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.fillStyle = "#0a0a0a";
+                    ctx.fillRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+                    resolve(canvas.toDataURL("image/jpeg", quality));
+                }catch(err){ reject(err); }
+            };
+            img.onerror = () => reject(new Error("Failed to load image"));
+            img.src = e.target.result;
         };
-    }else if(coverLetter){
-        coverLetter.style.display = "flex";
-        coverLetter.textContent = getInitials(name);
-    }
-
-    const tags = document.getElementById("gameTags");
-    if(tags){
-        tags.innerHTML = "";
-        [category, device, orientation, language]
-            .filter(v => v && v !== "—")
-            .forEach(value => {
-                const el = document.createElement("span");
-                el.className = "tag";
-                el.textContent = value;
-                tags.appendChild(el);
-            });
-    }
-}
-
-function setText(id, value){
-    const el = document.getElementById(id);
-    if(el) el.textContent = value ?? "";
-}
-
-/* ============ SEO ============ */
-
-function setupSEO(game){
-    const name = firstValue(game.name, game.gameName, game.title, "Game");
-    const category = firstValue(game.category, "browser game");
-    const description = firstValue(game.description, `Play ${name} online on PLAYR.`);
-    const shortDescription = String(description).replace(/\s+/g, " ").slice(0, 155);
-    const pageUrl = window.location.href;
-    const image = firstValue(game.thumbnailUrl, game.thumbnail, "");
-
-    setMeta("metaDescription", "content", shortDescription);
-    setMeta("ogTitle", "content", `${name} — PLAYR`);
-    setMeta("ogDescription", "content", shortDescription);
-    setMeta("ogUrl", "content", pageUrl);
-    setMeta("ogImage", "content", image);
-    setMeta("twitterTitle", "content", `${name} — PLAYR`);
-    setMeta("twitterDescription", "content", shortDescription);
-    setMeta("twitterImage", "content", image);
-
-    const canonical = document.getElementById("canonicalUrl");
-    if(canonical) canonical.href = pageUrl;
-
-    setText("seoText", `Play ${name} online on PLAYR. Explore this ${category} game, read player reviews, and discover more games worth playing.`);
-}
-
-function setMeta(id, attribute, value){
-    const el = document.getElementById(id);
-    if(el) el.setAttribute(attribute, value || "");
-}
-
-/* ============ LOAD GAME ============ */
-
-function loadGame(url){
-    loading.style.display = "none";
-    error.style.display = "none";
-    frame.style.display = "block";
-    playerStatus.textContent = "LOADING";
-    playerStatus.className = "player-status";
-
-    /* Set iframe src — sandbox prevents any redirect */
-    frame.src = url;
-
-    let loaded = false;
-    let finished = false;
-
-    frame.onload = function(){
-        if(finished) return;
-        loaded = true;
-        finished = true;
-        playerStatus.textContent = "PLAYING";
-        playerStatus.className = "player-status playing";
-        focusGameFrame();
-    };
-
-    /* 12 sec timeout — if nothing loads */
-    setTimeout(function(){
-        if(!loaded && !finished){
-            finished = true;
-            playerStatus.textContent = "SLOW";
-            playerStatus.className = "player-status";
-            loadingText.textContent = "Taking longer than expected...";
-        }
-    }, 12000);
-}
-
-/* ============ FOCUS ============ */
-
-function focusGameFrame(){
-    if(frame && frame.style.display !== "none"){
-        try{
-            frame.focus();
-            if(frame.contentWindow) frame.contentWindow.focus();
-        }catch{}
-    }
-}
-
-gameContainer.addEventListener("click", focusGameFrame);
-
-/* ============ FULLSCREEN ============ */
-
-async function toggleFullscreen(){
-    try{
-        const fsElement =
-            document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            document.mozFullScreenElement ||
-            document.msFullscreenElement;
-
-        if(!fsElement){
-            const container = gameContainer;
-
-            if(container.requestFullscreen){
-                await container.requestFullscreen();
-            }else if(container.webkitRequestFullscreen){
-                await container.webkitRequestFullscreen();
-            }else if(container.mozRequestFullScreen){
-                await container.mozRequestFullScreen();
-            }else if(container.msRequestFullscreen){
-                await container.msRequestFullscreen();
-            }
-
-            try{
-                if(screen.orientation && screen.orientation.lock){
-                    await screen.orientation.lock("landscape").catch(()=>{});
-                }
-            }catch{}
-
-        }else{
-            if(document.exitFullscreen) await document.exitFullscreen();
-            else if(document.webkitExitFullscreen) await document.webkitExitFullscreen();
-            else if(document.mozCancelFullScreen) await document.mozCancelFullScreen();
-            else if(document.msExitFullscreen) await document.msExitFullscreen();
-        }
-
-        setTimeout(focusGameFrame, 200);
-
-    }catch(err){
-        console.error("Fullscreen error:", err);
-        if(currentGameUrl && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){
-            window.open(currentGameUrl, "_blank", "noopener");
-        }
-    }
-}
-
-fullscreenBtn.addEventListener("click", toggleFullscreen);
-
-["fullscreenchange", "webkitfullscreenchange", "mozfullscreenchange", "MSFullscreenChange"].forEach(evt => {
-    document.addEventListener(evt, function(){
-        const fsElement =
-            document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            document.mozFullScreenElement ||
-            document.msFullscreenElement;
-
-        if(fsElement){
-            fullscreenBtn.innerHTML = "⛶ EXIT FULLSCREEN";
-            document.body.classList.add("no-scroll");
-        }else{
-            fullscreenBtn.innerHTML = "⛶ FULLSCREEN";
-            document.body.classList.remove("no-scroll");
-            setTimeout(focusGameFrame, 150);
-        }
+        reader.onerror = () => reject(new Error("Failed to read file"));
+        reader.readAsDataURL(file);
     });
-});
-
-document.addEventListener("keydown", function(e){
-    if(e.key === "Escape"){
-        const fsElement =
-            document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            document.mozFullScreenElement;
-        if(fsElement){
-            if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
-            else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
-        }
-    }
-});
-
-/* ============ RELOAD ============ */
-
-reloadBtn.addEventListener("click", function(){
-    if(frame.src){
-        playerStatus.textContent = "RELOADING";
-        playerStatus.className = "player-status";
-        frame.src = frame.src;
-    }
-});
-
-/* ============ OPEN DIRECT ============ */
-
-openNewBtn.addEventListener("click", function(){
-    if(currentGameUrl){
-        if(window.__playrAllowNav) window.__playrAllowNav();
-        window.open(currentGameUrl, "_blank", "noopener,noreferrer");
-    }
-});
-
-errorOpenBtn.addEventListener("click", function(){
-    if(currentGameUrl){
-        if(window.__playrAllowNav) window.__playrAllowNav();
-        window.open(currentGameUrl, "_blank", "noopener,noreferrer");
-    }
-});
-
-/* ============ ERROR RETRY ============ */
-
-errorRetryBtn.addEventListener("click", function(){
-    if(currentGameUrl){
-        error.style.display = "none";
-        loading.style.display = "flex";
-        loadingText.textContent = "Retrying...";
-        loadGame(currentGameUrl);
-    }else{
-        window.location.reload();
-    }
-});
-
-/* ============ REVIEWS ============ */
-
-async function loadReviews(id){
-    if(!id) return;
-    try{
-        const reviewQuery = query(
-            collection(db, "reviews"),
-            where("gameId", "==", id),
-            orderBy("createdAt", "desc"),
-            limit(50)
-        );
-        const snapshot = await getDocs(reviewQuery);
-        reviews = [];
-        snapshot.forEach(d => reviews.push({ id: d.id, ...d.data() }));
-        renderReviews();
-    }catch(err){
-        console.error("Review query error:", err);
-        try{
-            const fallback = query(
-                collection(db, "reviews"),
-                where("gameId", "==", id),
-                limit(50)
-            );
-            const snapshot = await getDocs(fallback);
-            reviews = [];
-            snapshot.forEach(d => reviews.push({ id: d.id, ...d.data() }));
-            renderReviews();
-        }catch(e){ console.error(e); }
-    }
 }
 
-function renderReviews(){
-    const list = document.getElementById("reviewList");
-    const total = reviews.length;
+function getBase64SizeKB(dataUrl){
+    const base64 = dataUrl.split(",")[1] || "";
+    const bytes = base64.length * 0.75;
+    return (bytes / 1024).toFixed(1);
+}
 
-    setText("headerReviewCount", `${total} reviews`);
-    setText("reviewCountTop", `${total} reviews`);
+/* =================================
+   THUMBNAIL PREVIEW
+================================= */
 
-    if(!total){
-        list.innerHTML = `<div class="no-reviews">No reviews yet. Be the first!</div>`;
-        updateRating([]);
+thumbnail.addEventListener("change", async function(){
+    const file = thumbnail.files[0];
+    if(!file){
+        thumbnailPreview.style.display = "none";
+        currentBase64Image = "";
         return;
     }
 
-    list.innerHTML = reviews.map(r => {
-        const rating = Math.max(0, Math.min(5, Number(r.rating || 0)));
-        const stars = "★".repeat(rating) + "☆".repeat(5 - rating);
-        return `
-        <div class="review">
-            <div class="review-top">
-                <div class="reviewer">${escapeHTML(r.userName || "PLAYR Player")}</div>
-                <div class="review-date">${formatDate(r.createdAt)}</div>
-            </div>
-            <div class="review-stars">${stars}</div>
-            <div class="review-text">${escapeHTML(r.text || r.review || "")}</div>
-        </div>`;
-    }).join("");
-
-    updateRating(reviews);
-}
-
-function updateRating(items){
-    if(!items.length){
-        setRatingUI(0, 0, [0,0,0,0,0]);
+    if(file.size > 5 * 1024 * 1024){
+        thumbnail.value = "";
+        thumbnailPreview.style.display = "none";
+        currentBase64Image = "";
+        showError("Thumbnail must be smaller than 5 MB.");
         return;
     }
-    const counts = [0,0,0,0,0];
-    let total = 0;
-    items.forEach(r => {
-        const rating = Math.max(1, Math.min(5, Number(r.rating || 0)));
-        counts[rating - 1]++;
-        total += rating;
-    });
-    setRatingUI(total / items.length, items.length, counts);
-}
 
-function setRatingUI(average, total, counts){
-    const rounded = Number(average.toFixed(1));
-    setText("headerRating", rounded.toFixed(1));
-    setText("bigRating", rounded.toFixed(1));
-    const stars = getStars(average);
-    setText("headerStars", stars);
-    setText("bigStars", stars);
-
-    for(let i = 1; i <= 5; i++){
-        const count = counts[i - 1] || 0;
-        const percent = total ? (count / total) * 100 : 0;
-        const bar = document.getElementById(`bar${i}`);
-        const countEl = document.getElementById(`count${i}`);
-        if(bar) bar.style.width = `${percent}%`;
-        if(countEl) countEl.textContent = count;
+    if(file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/webp"){
+        thumbnail.value = "";
+        thumbnailPreview.style.display = "none";
+        currentBase64Image = "";
+        showError("Only JPG, PNG and WebP images are allowed.");
+        return;
     }
-}
-
-document.querySelectorAll("#starPicker button").forEach(button => {
-    button.addEventListener("click", function(){
-        selectedRating = Number(this.dataset.rating);
-        document.querySelectorAll("#starPicker button").forEach(item => {
-            item.classList.toggle("active", Number(item.dataset.rating) <= selectedRating);
-        });
-    });
-});
-
-document.getElementById("reviewSubmit").addEventListener("click", async function(){
-    if(!currentGame) return alert("Game is still loading.");
-    if(!selectedRating) return alert("Please select a star rating.");
-
-    const input = document.getElementById("reviewText");
-    const text = input.value.trim();
-    if(!text) return alert("Please write a review.");
-    if(!currentGame.id) return alert("Reviews are available for published PLAYR games only.");
-
-    const button = this;
-    button.disabled = true;
-    button.textContent = "POSTING...";
 
     try{
-        await addDoc(collection(db, "reviews"), {
-            gameId: currentGame.id,
-            gameName: currentGame.name || "Game",
-            rating: selectedRating,
-            text: text,
-            userName: "PLAYR Player",
-            createdAt: serverTimestamp()
-        });
-        input.value = "";
-        selectedRating = 0;
-        document.querySelectorAll("#starPicker button").forEach(item => item.classList.remove("active"));
-        await loadReviews(currentGame.id);
-        alert("Review submitted!");
+        let dataUrl = await compressToBase64(file, 800, 0.75);
+        if(parseFloat(getBase64SizeKB(dataUrl)) > 900){
+            dataUrl = await compressToBase64(file, 600, 0.6);
+        }
+        if(parseFloat(getBase64SizeKB(dataUrl)) > 900){
+            dataUrl = await compressToBase64(file, 400, 0.5);
+        }
+
+        currentBase64Image = dataUrl;
+        thumbnailImage.src = dataUrl;
+        thumbnailPreview.style.display = "block";
+        thumbnailSize.textContent = getBase64SizeKB(dataUrl) + " KB";
     }catch(err){
         console.error(err);
-        alert("Unable to submit review. Check Firestore rules.");
-    }finally{
-        button.disabled = false;
-        button.textContent = "SUBMIT REVIEW";
+        showError("Failed to process image.");
+        thumbnail.value = "";
+        thumbnailPreview.style.display = "none";
+        currentBase64Image = "";
     }
 });
 
-/* ============ COMMENTS ============ */
+/* =================================
+   SUBMIT
+================================= */
 
-async function loadComments(id){
-    if(!id) return;
-    try{
-        const q = query(
-            collection(db, "comments"),
-            where("gameId", "==", id),
-            limit(50)
-        );
-        const snapshot = await getDocs(q);
-        comments = [];
-        snapshot.forEach(d => comments.push({ id: d.id, ...d.data() }));
-        comments.sort((a,b) => getTimestamp(b.createdAt) - getTimestamp(a.createdAt));
-        renderComments();
-    }catch(err){ console.error("Comments error:", err); }
-}
+form.addEventListener("submit", async function(e){
+    e.preventDefault();
 
-function renderComments(){
-    const container = document.getElementById("comments");
-    if(!comments.length){
-        container.innerHTML = `<div class="no-reviews">No comments yet.</div>`;
+    success.style.display = "none";
+    warning.style.display = "none";
+    errorBox.style.display = "none";
+
+    const file = thumbnail.files[0];
+    if(!file){ showError("Please upload a game thumbnail."); return; }
+    if(!currentBase64Image){ showError("Thumbnail is still processing."); return; }
+
+    const data = new FormData(form);
+
+    const gameName = (data.get("gameName") || "").trim();
+    const developer = (data.get("developer") || "").trim();
+    const email = (data.get("email") || "").trim();
+    const country = data.get("country") || "";
+    const developerType = data.get("developerType") || "";
+    const category = data.get("category") || "";
+    const description = (data.get("description") || "").trim();
+    const controls = (data.get("controls") || "").trim();
+    const supportedDevices = data.get("supportedDevices") || "";
+    const orientation = data.get("orientation") || "";
+    const language = data.get("language") || "";
+    const gameUrl = (data.get("gameUrl") || "").trim();
+    const platform = (data.get("hostingPlatform") || "").trim();
+    const sourceUrl = (data.get("sourceUrl") || "").trim();
+
+    const multiplayer = data.get("multiplayer") || "No";
+    const isMultiplayer = multiplayer === "Yes";
+    const serverInfo = isMultiplayer ? (data.get("serverInfo") || "").trim() : "";
+    const maxPlayers = isMultiplayer ? parseInt(data.get("maxPlayers") || "0", 10) : 0;
+    const serverRegion = isMultiplayer ? (data.get("serverRegion") || "") : "";
+
+    /* =================================
+       VALIDATION
+    ================================= */
+
+    if(!developer){ showError("Please enter developer name."); return; }
+    if(!email || !email.includes("@")){ showError("Please enter valid email."); return; }
+    if(!country){ showError("Please select country."); return; }
+    if(!developerType){ showError("Please select developer type."); return; }
+
+    if(gameName.length < 3){ showError("Title must be 3+ characters."); return; }
+    if(!category){ showError("Please select category."); return; }
+    if(description.length < 100){ showError("Description must be 100+ characters."); return; }
+    if(controls.length < 20){ showError("Controls must be 20+ characters."); return; }
+    if(!supportedDevices){ showError("Select supported devices."); return; }
+    if(!orientation){ showError("Select orientation."); return; }
+    if(!language){ showError("Select language."); return; }
+
+    if(isMultiplayer){
+        if(!serverInfo || serverInfo.length < 20){
+            showError("Provide server info (20+ characters).");
+            return;
+        }
+        if(!maxPlayers || maxPlayers < 2){
+            showError("Max players must be 2+.");
+            return;
+        }
+    }
+
+    /* URL VALIDATION */
+    if(!gameUrl){ showError("Please enter your game URL."); return; }
+
+    if(!gameUrl.startsWith("https://")){
+        showError("URL must use HTTPS.");
         return;
     }
-    container.innerHTML = comments.map(c => `
-        <div class="comment">
-            <div class="comment-user">${escapeHTML(c.userName || "PLAYR Player")}</div>
-            <div class="comment-text">${escapeHTML(c.text || "")}</div>
-            <div class="comment-date">${formatDate(c.createdAt)}</div>
-        </div>`).join("");
-}
 
-document.getElementById("commentBtn").addEventListener("click", async function(){
-    if(!currentGame || !currentGame.id) return alert("Comments are for published games only.");
-    const input = document.getElementById("commentInput");
-    const text = input.value.trim();
-    if(!text) return;
-
-    this.disabled = true;
     try{
-        await addDoc(collection(db, "comments"), {
-            gameId: currentGame.id,
-            gameName: currentGame.name || "Game",
-            text: text,
-            userName: "PLAYR Player",
-            createdAt: serverTimestamp()
-        });
-        input.value = "";
-        await loadComments(currentGame.id);
-    }catch(err){
-        console.error(err);
-        alert("Unable to post comment.");
-    }finally{
-        this.disabled = false;
-    }
-});
+        const parsed = new URL(gameUrl);
+        const hostname = parsed.hostname.toLowerCase();
 
-/* ============ RELATED ============ */
+        /* Block GitHub raw URLs and known non-game hosts */
+        if(hostname === "github.com" || hostname === "www.github.com"){
+            showError("GitHub repo URL won't work. Use a live hosted URL (Vercel, Netlify, GitHub Pages, itch.io).");
+            return;
+        }
 
-async function loadRelatedGames(game){
-    try{
-        const snapshot = await getDocs(collection(db, "game_submissions"));
-        const games = [];
-        snapshot.forEach(d => {
-            const data = d.data();
-            const status = String(data.status || "").toLowerCase();
-            if(d.id !== game.id && status === "approved"){
-                games.push(normalizeGame(d.id, data));
+        if(hostname.includes("raw.githubusercontent.com")){
+            showError("Raw GitHub files won't render as HTML. Host it on Vercel/Netlify/itch.io first.");
+            return;
+        }
+
+        /* Block common file extensions that aren't playable HTML */
+        const path = parsed.pathname.toLowerCase();
+        const badExts = [".zip", ".rar", ".7z", ".tar", ".gz", ".pdf", ".doc", ".docx", ".txt", ".md"];
+        for(const ext of badExts){
+            if(path.endsWith(ext)){
+                showError(`.${ext.replace(".","")} files aren't playable. Upload your game first and paste the live URL.`);
+                return;
             }
-        });
-        renderRelatedGames(games.slice(0, 6));
-    }catch(err){
-        console.error("Related error:", err);
-        const r = document.getElementById("relatedGames");
-        if(r) r.innerHTML = `<div class="no-reviews">No other games found.</div>`;
-    }
-}
+        }
 
-function renderRelatedGames(games){
-    const container = document.getElementById("relatedGames");
-    if(!games.length){
-        container.innerHTML = `<div class="no-reviews">No other games found.</div>`;
+    }catch(err){
+        showError("Invalid URL format.");
         return;
     }
-    container.innerHTML = games.map(game => {
-        const name = game.name || "Untitled";
-        const category = game.category || "Game";
-        const thumbnail = game.thumbnailUrl || "";
-        const initials = getInitials(name);
-        return `
-        <div class="related-card" onclick="openRelatedGame('${escapeJS(game.id)}')">
-            <div class="related-cover">
-                ${thumbnail
-                    ? `<img src="${escapeHTML(thumbnail)}" alt="${escapeHTML(name)}" onerror="this.style.display='none';this.parentElement.textContent='${escapeJS(initials)}';">`
-                    : escapeHTML(initials)}
-            </div>
-            <div class="related-info">
-                <div class="related-name">${escapeHTML(name)}</div>
-                <div class="related-category">${escapeHTML(category)}</div>
-            </div>
-        </div>`;
-    }).join("");
-}
 
-window.openRelatedGame = function(id){
-    if(window.__playrAllowNav) window.__playrAllowNav();
-    window.location.href = `player.html?id=${encodeURIComponent(id)}`;
-};
+    if(!platform){ showError("Please select hosting platform."); return; }
 
-/* ============ SHARE ============ */
+    /* CHECKBOXES */
+    if(!document.getElementById("rights").checked){ showError("Confirm game rights."); return; }
+    if(!document.getElementById("assets").checked){ showError("Confirm asset rights."); return; }
+    if(!document.getElementById("rules").checked){ showError("Accept review policy."); return; }
+    if(!document.getElementById("urlAgree").checked){ showError("Confirm URL accessibility."); return; }
+    if(!document.getElementById("serverAgree").checked){ showError("Accept server responsibility."); return; }
 
-document.getElementById("copyLink").addEventListener("click", async function(){
+    /* IMAGE SIZE */
+    const imageSizeKB = parseFloat(getBase64SizeKB(currentBase64Image));
+    if(imageSizeKB > 900){
+        showError(`Thumbnail too large (${imageSizeKB}KB). Try smaller image.`);
+        return;
+    }
+
+    /* =================================
+       SUBMIT
+    ================================= */
+
+    submitButton.disabled = true;
+    submitButton.textContent = "SUBMITTING...";
+    progress.style.display = "block";
+    progressText.textContent = "Checking for duplicates...";
+
     try{
-        await navigator.clipboard.writeText(window.location.href);
-        this.textContent = "✓ Copied";
-        setTimeout(() => { this.textContent = "🔗 Copy Link"; }, 1500);
-    }catch{ alert(window.location.href); }
-});
-
-document.getElementById("nativeShare").addEventListener("click", async function(){
-    if(navigator.share){
+        /* Duplicate check */
+        let duplicateFound = false;
         try{
-            await navigator.share({
-                title: document.title,
-                text: `Play ${currentGame?.name || "this game"} on PLAYR.`,
-                url: window.location.href
-            });
-        }catch{}
-    }else{
-        document.getElementById("copyLink").click();
+            const dup = await Promise.race([
+                db.collection("game_submissions").where("gameUrl", "==", gameUrl).limit(1).get(),
+                new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), 10000))
+            ]);
+            if(!dup.empty) duplicateFound = true;
+        }catch(e){ console.warn("Dup check failed:", e.message); }
+
+        if(duplicateFound){
+            showError("This game URL has already been submitted.");
+            return;
+        }
+
+        progressText.textContent = "Saving submission...";
+
+        const docData = {
+            gameName: gameName,
+            developer: developer,
+            email: email,
+            country: country,
+            developerType: developerType,
+            category: category,
+            description: description,
+            controls: controls,
+            supportedDevices: supportedDevices,
+            orientation: orientation,
+            language: language,
+
+            /* Game URL */
+            gameUrl: gameUrl,
+            hostingPlatform: platform,
+            sourceUrl: sourceUrl,
+
+            /* No GitHub required */
+            githubUrl: sourceUrl || "",
+
+            /* Base64 thumbnail */
+            thumbnailData: currentBase64Image,
+            thumbnailUrl: currentBase64Image,
+            thumbnailSizeKB: imageSizeKB,
+
+            status: "pending",
+
+            multiplayer: multiplayer,
+            isMultiplayer: isMultiplayer,
+            serverInfo: serverInfo,
+            maxPlayers: maxPlayers,
+            serverRegion: serverRegion,
+
+            rightsConfirmed: document.getElementById("rights").checked,
+            assetsConfirmed: document.getElementById("assets").checked,
+            rulesAccepted: document.getElementById("rules").checked,
+            urlConfirmed: document.getElementById("urlAgree").checked,
+            serverAgreement: document.getElementById("serverAgree").checked,
+
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            reviewedAt: null,
+            rejectionReason: ""
+        };
+
+        await Promise.race([
+            db.collection("game_submissions").add(docData),
+            new Promise((_, rej) => setTimeout(() => rej(new Error("Save timed out. Check Firestore rules.")), 20000))
+        ]);
+
+        console.log("✅ Submitted successfully");
+
+        form.reset();
+        thumbnailPreview.style.display = "none";
+        progress.style.display = "none";
+        success.style.display = "block";
+        submitButton.disabled = false;
+        submitButton.textContent = "SUBMIT FOR REVIEW";
+        currentBase64Image = "";
+        updateMultiplayerFields();
+        sourceUrlField.style.display = "none";
+
+        window.scrollTo({ top:0, behavior:"smooth" });
+
+    }catch(err){
+        console.error("❌ Error:", err);
+        progress.style.display = "none";
+
+        let errorMsg = "Submission failed.";
+        let errorDetail = "";
+
+        if(err.code === "permission-denied"){
+            errorMsg = "Firestore permission denied.";
+            errorDetail = "Allow write for game_submissions in Firebase rules.";
+        }else if(err.message){
+            errorMsg = err.message;
+        }
+
+        showError(errorMsg, errorDetail);
     }
 });
 
-/* ============ MOBILE HINT ============ */
+/* =================================
+   ERROR
+================================= */
 
-const mobileHint = document.getElementById("mobileHint");
-if(mobileHint){
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
-    const hasShown = sessionStorage.getItem("playr_rotate_hint_shown");
-    if(isMobile && isPortrait && !hasShown){
-        setTimeout(() => {
-            if(frame && frame.style.display === "block" && playerStatus.textContent === "PLAYING"){
-                mobileHint.classList.add("show");
-                sessionStorage.setItem("playr_rotate_hint_shown", "1");
-            }
-        }, 4000);
+function showError(message, detail){
+    errorBox.innerHTML =
+        "<strong>✕ Submission error</strong>" +
+        escapeHTML(message) +
+        (detail ? `<div class="error-detail">${escapeHTML(detail)}</div>` : "");
+    errorBox.style.display = "block";
+    progress.style.display = "none";
+    submitButton.disabled = false;
+    submitButton.textContent = "SUBMIT FOR REVIEW";
+    setTimeout(() => {
+        errorBox.scrollIntoView({ behavior:"smooth", block:"center" });
+    }, 100);
+}
+
+function escapeHTML(str){
+    return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+window.addEventListener("beforeunload", function(e){
+    if(submitButton.disabled && progress.style.display === "block"){
+        e.preventDefault();
+        e.returnValue = "";
     }
-    document.getElementById("hintCloseBtn").addEventListener("click", () => {
-        mobileHint.classList.remove("show");
-    });
-}
-
-/* ============ HELPERS ============ */
-
-function getStars(number){
-    const rounded = Math.round(Number(number || 0));
-    const safe = Math.max(0, Math.min(5, rounded));
-    return "★".repeat(safe) + "☆".repeat(5 - safe);
-}
-
-function getInitials(name){
-    return String(name || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w.charAt(0)).join("").toUpperCase() || "?";
-}
-
-function escapeHTML(value){
-    return String(value ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
-
-function escapeJS(value){
-    return String(value ?? "").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/\n/g,"\\n").replace(/\r/g,"\\r");
-}
-
-function getTimestamp(ts){
-    if(ts && typeof ts.toMillis === "function") return ts.toMillis();
-    return 0;
-}
-
-function formatDate(ts){
-    if(!ts || typeof ts.toDate !== "function") return "Recently";
-    try{ return ts.toDate().toLocaleDateString(); }
-    catch{ return "Recently"; }
-}
-
-/* ============ ERROR ============ */
-
-function showError(title, message){
-    loading.style.display = "none";
-    frame.style.display = "none";
-    error.style.display = "flex";
-    playerStatus.textContent = "ERROR";
-    playerStatus.className = "player-status error";
-
-    if(title) errorTitle.textContent = title;
-    errorText.textContent = message || "";
-    errorUrl.textContent = currentGameUrl || window.location.href;
-}
+});
 
 </script>
 
