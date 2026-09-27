@@ -1703,26 +1703,85 @@ async function loadReports(){
 
 function renderReports(){
     const box = document.getElementById("reportsList");
-    const list = allReports.filter(r => reportFilter==="all" || (r.status||"open") === reportFilter);
+
+    const list = allReports.filter(r => {
+        /* Show if filter is "all" */
+        if(reportFilter === "all") return true;
+
+        /* For "open" filter */
+        if(reportFilter === "open"){
+            const st = r.status || "open";
+            return st === "open" || st === "unread" || !st;
+        }
+
+        /* For "resolved" filter */
+        if(reportFilter === "resolved"){
+            return r.status === "resolved" || r.status === "read" || r.status === "dismissed";
+        }
+
+        return true;
+    });
+
     if(!list.length){
-        box.innerHTML = `<div class="empty">No reports.</div>`;
+        box.innerHTML = `<div class="empty">No reports or messages.</div>`;
         return;
     }
-    box.innerHTML = list.map(r => `
+
+    box.innerHTML = list.map(r => {
+
+        const isMessage = r._type === "message";
+        const icon = isMessage ? "✉️" : "🚨";
+        const badgeLabel = isMessage ? "MESSAGE" : "REPORT";
+        const badgeClass = isMessage ? "blue" : "red";
+
+        /* Title */
+        const title = isMessage
+            ? (r.subject || r.name || r.fullName || "Contact Message")
+            : (r.reason || "Report");
+
+        /* From / target */
+        const name  = r.name || r.fullName || r.username || "";
+        const email = r.email || "";
+
+        /* Body text */
+        const details = isMessage
+            ? (r.message || r.details || r.body || r.text || "No message body")
+            : (r.details || r.description || "No details");
+
+        /* Resolved state */
+        const st = r.status || "open";
+        const isResolved = st === "resolved" || st === "read" || st === "dismissed";
+
+        return `
         <div class="row-card">
             <div class="main">
-                <h4>${escapeHTML(r.reason || "Report")}</h4>
+                <h4>
+                    ${icon} ${escapeHTML(title)}
+                    <span class="badge ${badgeClass}" style="margin-left:8px;font-size:9px;">${badgeLabel}</span>
+                    ${isResolved ? `<span class="badge green" style="margin-left:6px;font-size:9px;">RESOLVED</span>` : ""}
+                </h4>
                 <div class="sub">
-                    target: ${escapeHTML(r.targetType || "—")} · ${escapeHTML(r.targetId || "—")}<br>
-                    ${escapeHTML(r.details || "No details")}
+                    ${isMessage && (name || email)
+                        ? `<strong style="color:#ddd;">From:</strong> ${escapeHTML(name)} ${email ? "· " + escapeHTML(email) : ""}<br>`
+                        : ""}
+                    ${!isMessage
+                        ? `target: ${escapeHTML(r.targetType || "—")} · ${escapeHTML(r.targetId || "—")}<br>`
+                        : ""}
+                    <div style="margin-top:8px;color:#aaa;line-height:1.7;white-space:pre-wrap;word-wrap:break-word;">${escapeHTML(details)}</div>
+                    ${r.createdAt ? `<br><small style="color:#555;">${fmtDate(r.createdAt)}</small>` : ""}
                 </div>
             </div>
             <div class="side">
-                <button class="action approve" data-ract="dismiss" data-id="${safe(r.id)}">Dismiss</button>
-                <button class="action reject"  data-ract="action"  data-id="${safe(r.id)}">Action</button>
+                <button class="action approve" data-ract="dismiss" data-id="${safe(r.id)}" data-col="${safe(r._collection || "reports")}">
+                    ${isResolved ? "Reopen" : "Dismiss"}
+                </button>
+                <button class="action reject" data-ract="action" data-id="${safe(r.id)}" data-col="${safe(r._collection || "reports")}">
+                    Mark Actioned
+                </button>
             </div>
         </div>
-    `).join("");
+        `;
+    }).join("");
 }
 
 document.querySelectorAll("[data-reportfilter]").forEach(chip => {
