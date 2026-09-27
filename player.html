@@ -191,10 +191,7 @@ input,textarea{font-family:inherit;}
     width:min(1400px,95%);
     margin:0 auto;
     padding:20px 0 60px;
-    padding-left:calc(0px + env(safe-area-inset-left,0px));
-    padding-right:calc(0px + env(safe-area-inset-right,0px));
 }
-
 
 /* =========================
    GAME HEADER
@@ -290,7 +287,6 @@ input,textarea{font-family:inherit;}
     font-size:11px;
 }
 
-
 /* =========================
    GAME PLAYER
 ========================= */
@@ -309,8 +305,6 @@ input,textarea{font-family:inherit;}
 
     transition:border-radius .2s;
 }
-
-/* ===== FULLSCREEN STATE ===== */
 
 .game-container:fullscreen,
 .game-container:-webkit-full-screen,
@@ -357,7 +351,6 @@ input,textarea{font-family:inherit;}
     max-height:900px;
     border:0;
     background:#000;
-    display:none;
 }
 
 .loading{
@@ -479,21 +472,16 @@ input,textarea{font-family:inherit;}
     background:#160909;
 }
 
-
 /* =========================
    ERROR
 ========================= */
 
 .error{
     min-height:520px;
-
     display:none;
-
     align-items:center;
     justify-content:center;
-
     padding:30px 20px;
-
     text-align:center;
 }
 
@@ -531,16 +519,12 @@ input,textarea{font-family:inherit;}
 
 .error-url{
     padding:10px 12px;
-
     background:#0b0b0b;
     border:1px solid #292929;
     border-radius:8px;
-
     color:#666;
-
     font-size:10px;
     font-family:monospace;
-
     word-break:break-all;
     margin-bottom:18px;
 }
@@ -563,6 +547,8 @@ input,textarea{font-family:inherit;}
     cursor:pointer;
     font-family:inherit;
     transition:.15s;
+    text-decoration:none;
+    display:inline-block;
 }
 
 .error-btn:hover{
@@ -576,7 +562,6 @@ input,textarea{font-family:inherit;}
     border-color:transparent;
 }
 
-
 /* =========================
    MAIN CONTENT GRID
 ========================= */
@@ -587,7 +572,6 @@ input,textarea{font-family:inherit;}
     gap:20px;
     margin-top:20px;
 }
-
 
 /* =========================
    PANELS
@@ -616,13 +600,10 @@ input,textarea{font-family:inherit;}
     letter-spacing:-.3px;
 }
 
-.panel-body{
-    padding:18px;
-}
-
+.panel-body{padding:18px;}
 
 /* =========================
-   GAME DESCRIPTION
+   DESCRIPTION
 ========================= */
 
 .description{
@@ -650,7 +631,6 @@ input,textarea{font-family:inherit;}
     font-weight:700;
     letter-spacing:.4px;
 }
-
 
 /* =========================
    GAME INFO
@@ -686,7 +666,6 @@ input,textarea{font-family:inherit;}
     margin-top:6px;
     word-break:break-word;
 }
-
 
 /* =========================
    DEVELOPER
@@ -729,7 +708,6 @@ input,textarea{font-family:inherit;}
     margin-top:4px;
     word-break:break-word;
 }
-
 
 /* =========================
    RATING
@@ -786,9 +764,7 @@ input,textarea{font-family:inherit;}
     font-weight:700;
 }
 
-.rating-row span:last-child{
-    text-align:right;
-}
+.rating-row span:last-child{text-align:right;}
 
 .bar{
     height:7px;
@@ -804,7 +780,6 @@ input,textarea{font-family:inherit;}
     border-radius:10px;
     transition:width .35s ease;
 }
-
 
 /* =========================
    REVIEW
@@ -843,9 +818,7 @@ input,textarea{font-family:inherit;}
     transform:scale(1.1);
 }
 
-.star-picker button.active{
-    color:#ffb35c;
-}
+.star-picker button.active{color:#ffb35c;}
 
 .review-input{
     width:100%;
@@ -867,26 +840,18 @@ input,textarea{font-family:inherit;}
     transition:.15s;
 }
 
-.review-input:focus{
-    border-color:#444;
-}
+.review-input:focus{border-color:#444;}
 
 .review-submit{
     margin-top:10px;
-
     padding:12px 20px;
-
     border:0;
     border-radius:9px;
-
     background:linear-gradient(135deg,#ff7b45,#ff512f);
     color:white;
-
     cursor:pointer;
-
     font-size:12px;
     font-weight:800;
-
     transition:.15s;
     font-family:inherit;
 }
@@ -958,7 +923,6 @@ input,textarea{font-family:inherit;}
     background:#111;
 }
 
-
 /* =========================
    COMMENTS
 ========================= */
@@ -974,40 +938,29 @@ input,textarea{font-family:inherit;}
     flex:1;
     min-width:150px;
     height:44px;
-
     background:#090909;
     border:1px solid #292929;
     border-radius:9px;
-
     padding:0 13px;
     color:white;
     outline:none;
-
     font-size:13px;
     transition:.15s;
 }
 
-.comment-input:focus{
-    border-color:#444;
-}
+.comment-input:focus{border-color:#444;}
 
 .comment-btn{
     border:0;
     border-radius:9px;
-
     padding:0 18px;
-
     background:linear-gradient(135deg,#ff7b45,#ff512f);
     color:#fff;
-
     font-size:11px;
     font-weight:900;
-
     cursor:pointer;
     transition:.15s;
-
     font-family:inherit;
-
     height:44px;
 }
 
@@ -1057,7 +1010,6 @@ input,textarea{font-family:inherit;}
     margin-top:8px;
 }
 
-
 /* =========================
    SIDEBAR
 ========================= */
@@ -1083,18 +1035,13 @@ input,textarea{font-family:inherit;}
 
 .share-btn{
     padding:11px;
-
     border:1px solid #292929;
     border-radius:8px;
-
     background:#111;
     color:#aaa;
-
     cursor:pointer;
-
     font-size:11px;
     font-weight:700;
-
     transition:.15s;
     font-family:inherit;
 }
@@ -1105,10 +1052,7 @@ input,textarea{font-family:inherit;}
     border-color:#3a3a3a;
 }
 
-.share-btn:active{
-    transform:scale(.96);
-}
-
+.share-btn:active{transform:scale(.96);}
 
 /* =========================
    RELATED
@@ -1124,12 +1068,9 @@ input,textarea{font-family:inherit;}
     display:flex;
     gap:11px;
     padding:9px;
-
     border:1px solid #272727;
     border-radius:9px;
-
     background:#0e0e0e;
-
     cursor:pointer;
     transition:.15s;
     align-items:center;
@@ -1141,24 +1082,18 @@ input,textarea{font-family:inherit;}
     transform:translateX(3px);
 }
 
-.related-card:active{
-    transform:scale(.98);
-}
+.related-card:active{transform:scale(.98);}
 
 .related-cover{
     width:50px;
     height:50px;
     flex:0 0 50px;
-
     border-radius:7px;
     overflow:hidden;
-
     background:linear-gradient(135deg,#432417,#17110e);
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     color:#ff9865;
     font-size:17px;
     font-weight:900;
@@ -1188,7 +1123,6 @@ input,textarea{font-family:inherit;}
     margin-top:5px;
 }
 
-
 /* =========================
    SEO
 ========================= */
@@ -1200,7 +1134,6 @@ input,textarea{font-family:inherit;}
     word-break:break-word;
 }
 
-
 /* =========================
    FOOTER
 ========================= */
@@ -1210,7 +1143,6 @@ footer{
     padding:22px 3%;
     padding-bottom:calc(22px + env(safe-area-inset-bottom,0px));
     border-top:1px solid #202020;
-
     display:flex;
     justify-content:space-between;
     color:#555;
@@ -1219,9 +1151,8 @@ footer{
     flex-wrap:wrap;
 }
 
-
 /* =========================
-   MOBILE FULLSCREEN HINT
+   MOBILE HINT
 ========================= */
 
 .mobile-hint{
@@ -1231,16 +1162,13 @@ footer{
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
     z-index:9999;
-
     display:none;
     align-items:center;
     justify-content:center;
     flex-direction:column;
     gap:20px;
-
     padding:30px;
     text-align:center;
-
     color:#fff;
 }
 
@@ -1282,17 +1210,12 @@ footer{
     font-family:inherit;
 }
 
-
 /* =========================
    RESPONSIVE
 ========================= */
 
 @media(max-width:1000px){
-
-    .content-grid{
-        grid-template-columns:1fr;
-    }
-
+    .content-grid{grid-template-columns:1fr;}
     .sidebar{
         display:grid;
         grid-template-columns:1fr 1fr;
@@ -1301,7 +1224,6 @@ footer{
 }
 
 @media(max-width:700px){
-
     .topbar{
         min-height:56px;
         padding:0 14px;
@@ -1313,16 +1235,11 @@ footer{
     .logo{font-size:17px;gap:8px;}
     .logo-mark{width:20px;height:20px;flex:0 0 20px;}
 
-    .back{
-        padding:8px 12px;
-        font-size:10px;
-    }
+    .back{padding:8px 12px;font-size:10px;}
 
     .page{
         width:100%;
         padding-top:10px;
-        padding-left:0;
-        padding-right:0;
     }
 
     .game-header{
@@ -1339,10 +1256,7 @@ footer{
 
     .cover-letter{font-size:19px;}
 
-    .game-heading h1{
-        font-size:17px;
-        letter-spacing:-.5px;
-    }
+    .game-heading h1{font-size:17px;letter-spacing:-.5px;}
 
     .game-subtitle{font-size:11px;margin-top:4px;}
 
@@ -1399,7 +1313,6 @@ footer{
 
     .sidebar{
         display:flex;
-        grid-template-columns:none;
     }
 
     .panel-body{padding:16px;}
@@ -1413,16 +1326,14 @@ footer{
     .big-rating-number{font-size:30px;}
     .big-stars{font-size:14px;}
 
-    .info-list{
-        grid-template-columns:1fr;
-    }
+    .info-list{grid-template-columns:1fr;}
 
     .error-box{padding:22px 18px;border-radius:12px;}
     .error-icon{font-size:40px;margin-bottom:12px;}
     .error-title{font-size:16px;}
 
     .error-actions{flex-direction:column;}
-    .error-btn{width:100%;}
+    .error-btn{width:100%;text-align:center;}
 
     footer{
         margin-left:14px;
@@ -1438,7 +1349,6 @@ footer{
 }
 
 @media(max-width:380px){
-
     .logo{font-size:15px;}
     .game-heading h1{font-size:15px;}
     .game-cover{width:50px;height:50px;flex:0 0 50px;}
@@ -1472,16 +1382,8 @@ footer{
     }
 }
 
-
-/* =========================
-   LANDSCAPE MOBILE
-========================= */
-
 @media(max-width:900px) and (orientation:landscape){
-
-    .game-header{
-        display:none;
-    }
+    .game-header{display:none;}
 
     #gameFrame{
         height:calc(100vh - 130px);
@@ -1489,13 +1391,8 @@ footer{
         max-height:none;
     }
 
-    .page{
-        padding-top:6px;
-    }
-
-    .topbar{
-        min-height:48px;
-    }
+    .page{padding-top:6px;}
+    .topbar{min-height:48px;}
 
     .player-controls{
         min-height:44px;
@@ -1820,7 +1717,7 @@ import {
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-/* ============ FIREBASE CONFIG (FIXED API KEY) ============ */
+/* ============ FIREBASE CONFIG ============ */
 
 const firebaseConfig = {
     apiKey: "AIzaSyDo-HuNAg5riiSDm-vqbtlrq1E2q6Yfhz8",
@@ -1858,8 +1755,6 @@ let selectedRating = 0;
 let reviews = [];
 let comments = [];
 let currentGameUrl = "";
-let loadAttempts = 0;
-const MAX_ATTEMPTS = 3;
 
 /* ============ URL PARAMS ============ */
 
@@ -1933,34 +1828,59 @@ async function startPlayer(){
 
         loadRelatedGames(game);
 
+        /* ✅ PRIORITIZE gameUrl (Live URL) FIRST */
+        const liveUrl = firstValue(
+            game.gameUrl,
+            game.playableUrl,
+            game.playUrl
+        );
+
         const repository = firstValue(
             game.githubUrl,
             game.repositoryUrl,
-            game.repoUrl,
-            game.gameUrl,
-            game.url,
-            ""
+            game.repoUrl
         );
 
-        if(!repository){
-            showError("No playable URL", "This game does not have a GitHub repository or playable URL.");
-            return;
-        }
-
-        if(isPlayableWebUrl(repository)){
-            currentGameUrl = repository;
+        /* 1. Try Live URL first (developer's submitted URL) */
+        if(liveUrl && isPlayableWebUrl(liveUrl)){
+            console.log("🎯 Using submitted Live URL:", liveUrl);
+            currentGameUrl = liveUrl;
             openNewBtn.style.display = "inline-block";
-            loadGame(repository);
+
+            loadGame(liveUrl, function(){
+                console.warn("Live URL failed, falling back to GitHub...");
+                if(repository){
+                    const repo = parseGitHubRepository(repository);
+                    if(repo) findGitHubGame(repo.owner, repo.name);
+                    else showError("Load failed", "Could not load game from submitted URL.");
+                }else{
+                    showError("Load failed", "The submitted Live URL did not work.");
+                }
+            });
             return;
         }
 
-        const repo = parseGitHubRepository(repository);
-        if(!repo){
-            showError("Invalid URL", "Invalid GitHub repository URL.");
+        /* 2. Fallback to GitHub */
+        if(repository){
+            if(isPlayableWebUrl(repository)){
+                currentGameUrl = repository;
+                openNewBtn.style.display = "inline-block";
+                loadGame(repository);
+                return;
+            }
+
+            const repo = parseGitHubRepository(repository);
+            if(!repo){
+                showError("Invalid URL", "Invalid GitHub repository URL.");
+                return;
+            }
+
+            await findGitHubGame(repo.owner, repo.name);
             return;
         }
 
-        await findGitHubGame(repo.owner, repo.name);
+        showError("No URL", "This game does not have a playable URL or GitHub repository.");
+
     }
     catch(err){
         console.error("PLAYER LOAD ERROR:", err);
@@ -2075,9 +1995,12 @@ function normalizeGame(id, data){
         status: firstValue(data.status, "approved"),
         githubUrl: firstValue(data.githubUrl, data.githubURL, data.github, data.repositoryUrl, data.repoUrl, ""),
         gameUrl: firstValue(data.gameUrl, data.playableUrl, data.playUrl, data.url, ""),
+        playableUrl: firstValue(data.playableUrl, data.gameUrl, ""),
+        playUrl: firstValue(data.playUrl, data.gameUrl, ""),
         repositoryUrl: firstValue(data.repositoryUrl, data.githubUrl, ""),
-        thumbnailUrl: firstValue(data.thumbnailUrl, data.thumbnail, data.imageUrl, data.coverUrl, ""),
-        thumbnail: firstValue(data.thumbnailUrl, data.thumbnail, data.imageUrl, data.coverUrl, ""),
+        repoUrl: firstValue(data.repoUrl, data.githubUrl, ""),
+        thumbnailUrl: firstValue(data.thumbnailData, data.thumbnailUrl, data.thumbnail, data.imageUrl, data.coverUrl, ""),
+        thumbnail: firstValue(data.thumbnailData, data.thumbnailUrl, data.thumbnail, data.imageUrl, data.coverUrl, ""),
         createdAt: data.createdAt || null
     };
     return { ...data, ...game };
@@ -2304,7 +2227,8 @@ async function findGitHubGame(owner, repo){
         const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${selected}`;
         const githackUrl = `https://raw.githack.com/${owner}/${repo}/${encodeURIComponent(branch)}/${selected}`;
 
-        loadGameWithFallbacks([pagesUrl, githackUrl, rawUrl]);
+        /* ✅ GITHACK FIRST — works without GitHub Pages setup */
+        loadGameWithFallbacks([githackUrl, pagesUrl, rawUrl]);
     }
     catch(err){
         console.error("GitHub repo error:", err);
@@ -2352,19 +2276,19 @@ async function getRepositoryFiles(owner, repo, branch){
 
 function loadGameWithFallbacks(urls){
     const validUrls = urls.filter(Boolean);
+
     if(!validUrls.length){
         showError("No URL", "No playable game URL was found.");
         return;
     }
 
     let index = 0;
-    loadAttempts = 0;
 
     function tryNext(){
         if(index >= validUrls.length){
             showError(
                 "Could not load game",
-                "The repository was found, but the game could not be loaded. The game may require GitHub Pages or another web hosting service."
+                "The repository was found, but the game could not be loaded. Make sure GitHub Pages is enabled or your repository has an index.html at the root."
             );
             return;
         }
@@ -2372,14 +2296,18 @@ function loadGameWithFallbacks(urls){
         const url = validUrls[index++];
         currentGameUrl = url;
         openNewBtn.style.display = "inline-block";
-        loadingText.textContent = `Loading game... (${index}/${validUrls.length})`;
+
+        loading.style.display = "flex";
+        loadingText.textContent = `Trying source ${index}/${validUrls.length}...`;
+
+        console.log(`🎮 Trying: ${url}`);
 
         loadGame(url, function(){
             if(index < validUrls.length){
-                console.warn("Trying next URL...");
+                console.warn(`❌ Failed, trying next...`);
                 tryNext();
             }else{
-                showError("Load failed", "The game could not be loaded from the repository.");
+                showError("Load failed", "The game could not be loaded from any source.");
             }
         });
     }
@@ -2410,6 +2338,7 @@ function loadGame(url, onFailure = null){
         focusGameFrame();
     };
 
+    /* ✅ 4 sec timeout for faster fallback */
     setTimeout(function(){
         if(!loaded && !finished){
             finished = true;
@@ -2417,7 +2346,7 @@ function loadGame(url, onFailure = null){
             if(onFailure) onFailure();
             else showError("Load failed", "The game page could not be loaded.");
         }
-    }, 7000);
+    }, 4000);
 }
 
 /* ============ PLAYABLE URL CHECK ============ */
@@ -2448,7 +2377,7 @@ function focusGameFrame(){
 
 gameContainer.addEventListener("click", focusGameFrame);
 
-/* ============ FULLSCREEN (FIXED) ============ */
+/* ============ FULLSCREEN ============ */
 
 async function toggleFullscreen(){
     try{
@@ -2459,7 +2388,6 @@ async function toggleFullscreen(){
             document.msFullscreenElement;
 
         if(!fsElement){
-            /* Enter fullscreen */
             const container = gameContainer;
 
             if(container.requestFullscreen){
@@ -2472,7 +2400,6 @@ async function toggleFullscreen(){
                 await container.msRequestFullscreen();
             }
 
-            /* Try landscape lock on mobile */
             try{
                 if(screen.orientation && screen.orientation.lock){
                     await screen.orientation.lock("landscape").catch(()=>{});
@@ -2480,7 +2407,6 @@ async function toggleFullscreen(){
             }catch{}
 
         }else{
-            /* Exit fullscreen */
             if(document.exitFullscreen){
                 await document.exitFullscreen();
             }else if(document.webkitExitFullscreen){
@@ -2496,7 +2422,6 @@ async function toggleFullscreen(){
 
     }catch(err){
         console.error("Fullscreen error:", err);
-        /* On mobile if fullscreen API fails, try opening in new tab */
         if(currentGameUrl && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)){
             window.open(currentGameUrl, "_blank", "noopener");
         }
@@ -2505,7 +2430,6 @@ async function toggleFullscreen(){
 
 fullscreenBtn.addEventListener("click", toggleFullscreen);
 
-/* Fullscreen state listener */
 ["fullscreenchange", "webkitfullscreenchange", "mozfullscreenchange", "MSFullscreenChange"].forEach(evt => {
     document.addEventListener(evt, function(){
         const fsElement =
@@ -2525,7 +2449,6 @@ fullscreenBtn.addEventListener("click", toggleFullscreen);
     });
 });
 
-/* ESC key to exit */
 document.addEventListener("keydown", function(e){
     if(e.key === "Escape"){
         const fsElement =
@@ -2562,7 +2485,6 @@ openNewBtn.addEventListener("click", function(){
 
 errorRetryBtn.addEventListener("click", function(){
     if(currentGameUrl){
-        loadAttempts = 0;
         error.style.display = "none";
         loading.style.display = "flex";
         loadingText.textContent = "Retrying...";
@@ -2647,8 +2569,6 @@ function renderReviews(){
     updateRating(reviews);
 }
 
-/* ============ RATING ============ */
-
 function updateRating(items){
     if(!items.length){
         setRatingUI(0, 0, [0,0,0,0,0]);
@@ -2678,7 +2598,6 @@ function setRatingUI(average, total, counts){
     setText("headerStars", stars);
     setText("bigStars", stars);
 
-    /* i=1 (1 star) uses counts[0]; i=5 (5 star) uses counts[4] */
     for(let i = 1; i <= 5; i++){
         const count = counts[i - 1] || 0;
         const percent = total ? (count / total) * 100 : 0;
@@ -2810,8 +2729,6 @@ function renderComments(){
         `;
     }).join("");
 }
-
-/* ============ POST COMMENT ============ */
 
 document.getElementById("commentBtn").addEventListener("click", async function(){
     if(!currentGame || !currentGame.id){
@@ -2946,10 +2863,8 @@ if(mobileHint){
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const hasShown = sessionStorage.getItem("playr_rotate_hint_shown");
 
-    if(isMobile && isPortrait && !hasShown && currentGameUrl){
-        /* Delay to let game load first */
+    if(isMobile && isPortrait && !hasShown){
         setTimeout(() => {
-            /* Only show if game is loaded successfully */
             if(frame && frame.style.display === "block" && playerStatus.textContent === "PLAYING"){
                 mobileHint.classList.add("show");
                 sessionStorage.setItem("playr_rotate_hint_shown", "1");
