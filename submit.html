@@ -84,51 +84,50 @@ textarea{min-height:100px;resize:vertical;}
 .thumbnail-info{padding:8px 12px;color:#888;font-size:10px;border-top:1px solid #222;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .thumbnail-info .size{color:#ff9a63;font-weight:700;}
 
-/* ITCH.IO INSTRUCTIONS */
-.itch-hero{
+/* HOSTING INFO BOX */
+.hosting-info{
     background:linear-gradient(145deg,#17120f,#100f0e);
     border:1px solid #34251d;
     border-radius:12px;
-    padding:20px;
+    padding:18px;
     margin-bottom:20px;
+}
+.hosting-info h3{
+    color:#ffb17c;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+.hosting-info p{
+    color:#888;
+    font-size:11px;
+    line-height:1.7;
+    margin-bottom:10px;
+}
+.hosting-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+    gap:8px;
+    margin-top:12px;
+}
+.hosting-item{
+    padding:10px 12px;
+    background:#0a0a0a;
+    border:1px solid #292929;
+    border-radius:8px;
     text-align:center;
 }
-.itch-hero .itch-logo{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 18px;
-    background:#fa5c5c;
-    border-radius:9px;
-    color:#fff;
-    font-size:15px;
-    font-weight:900;
-    letter-spacing:-.2px;
-    margin-bottom:14px;
-    text-decoration:none;
+.hosting-item .name{
+    color:#ffb17c;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:3px;
 }
-.itch-hero .itch-logo svg{width:22px;height:22px;}
-.itch-hero h3{color:#ffb17c;font-size:14px;margin-bottom:8px;font-weight:800;}
-.itch-hero p{color:#888;font-size:11px;line-height:1.65;}
-
-.instructions{
-    background:linear-gradient(145deg,#17120f,#100f0e);
-    border:1px solid #34251d;border-radius:10px;
-    padding:17px;margin-bottom:18px;
+.hosting-item .desc{
+    color:#666;
+    font-size:9px;
+    line-height:1.4;
 }
-.instructions-title{color:#ff9568;font-size:12px;font-weight:800;margin-bottom:12px;}
-.instructions p{color:#888;font-size:11px;line-height:1.7;margin-bottom:12px;}
-.instructions ol{padding-left:20px;margin-bottom:10px;}
-.instructions li{color:#999;font-size:11px;line-height:1.75;margin-bottom:6px;}
-.instructions strong{color:#ddd;}
-
-.code-box{
-    margin-top:12px;padding:12px;
-    background:#080808;border:1px solid #292929;border-radius:7px;
-    color:#aaa;font-family:monospace;font-size:10px;
-    line-height:1.7;word-break:break-all;
-}
-.code-box .highlight{color:#ffb17c;font-weight:700;}
 
 /* SERVER NOTE */
 .server-note{
@@ -159,24 +158,12 @@ textarea{min-height:100px;resize:vertical;}
 .checkbox label strong{color:#ffb17c;}
 
 /* SUBMIT */
-.submit{
-    width:100%;border:0;border-radius:9px;padding:15px;
-    background:linear-gradient(135deg,#fff,#d9d9d9);
-    color:#090909;font-size:13px;font-weight:900;
-    cursor:pointer;transition:.2s;font-family:inherit;letter-spacing:.3px;
-}
+.submit{width:100%;border:0;border-radius:9px;padding:15px;background:linear-gradient(135deg,#fff,#d9d9d9);color:#090909;font-size:13px;font-weight:900;cursor:pointer;transition:.2s;font-family:inherit;letter-spacing:.3px;}
 .submit:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,255,255,.1);}
 .submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 
-.progress{
-    display:none;margin-top:14px;color:#aaa;font-size:12px;
-    text-align:center;padding:14px;background:#0d0d0d;
-    border:1px solid #222;border-radius:8px;line-height:1.5;
-}
-.progress .dot{
-    display:inline-block;width:8px;height:8px;border-radius:50%;
-    background:#ff8754;margin-right:8px;animation:blink 1s infinite;
-}
+.progress{display:none;margin-top:14px;color:#aaa;font-size:12px;text-align:center;padding:14px;background:#0d0d0d;border:1px solid #222;border-radius:8px;line-height:1.5;}
+.progress .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#ff8754;margin-right:8px;animation:blink 1s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
 
 .message{display:none;margin-top:18px;padding:15px;border-radius:9px;font-size:12px;line-height:1.65;word-break:break-word;}
@@ -203,6 +190,7 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
     .server-note .text{font-size:10.5px;}
     label{font-size:11px;}
     input,textarea,select{font-size:14px;}
+    .hosting-grid{grid-template-columns:1fr 1fr;}
 }
 
 @media(max-width:380px){
@@ -226,88 +214,97 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
 <div class="header">
     <small>Developer Portal</small>
     <h1>Submit your game.</h1>
-    <p>Host your game on itch.io and submit the embed link. We'll review and publish it on PLAYR.</p>
+    <p>Host your game on any platform and submit the link. We'll review and publish it on PLAYR.</p>
 </div>
 
 <div class="card">
 
 <form id="gameForm" novalidate>
 
-<!-- ============================================
-     SECTION 0 — ITCH.IO HOSTING GUIDE
-     ============================================ -->
+<!-- HOSTING INFO -->
 <div class="section">
     <div class="section-title">
         <span>01</span>
-        Host your game on itch.io
+        Host Your Game
     </div>
 
-    <div class="itch-hero">
-        <a class="itch-logo" href="https://itch.io/register" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.13 1.34C2.07 1.34 1.21 2.2 1.21 3.26v10.47c0 4.5 3.65 8.15 8.15 8.15h5.28c4.5 0 8.15-3.65 8.15-8.15V3.26c0-1.06-.86-1.92-1.92-1.92H3.13zm6.48 5.84c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5zm.01 2c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zm7.01-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/></svg>
-            itch.io
-        </a>
-        <h3>Free game hosting — no code needed</h3>
-        <p>Upload your HTML5 game, get an embed link, and paste it below.</p>
-    </div>
+    <div class="hosting-info">
+        <h3>🌐 Any of these platforms work</h3>
+        <p>Your game must be publicly accessible via HTTPS and playable directly in a browser. Upload to any of these (free) platforms and paste the live URL below.</p>
 
-    <div class="instructions">
-        <div class="instructions-title">📋 HOW TO PUBLISH YOUR GAME ON ITCH.IO</div>
-
-        <ol>
-            <li>Create a free account on <strong>itch.io</strong></li>
-            <li>Click <strong>"Upload new project"</strong></li>
-            <li>Fill in game title, description, and cover image</li>
-            <li>Under <strong>"Kind of project"</strong> select <strong>HTML</strong></li>
-            <li>Zip your game files (must include <strong>index.html</strong> at the root)</li>
-            <li>Upload the ZIP file to itch.io</li>
-            <li>Tick <strong>"This file will be played in the browser"</strong></li>
-            <li>Set viewport size and enable fullscreen (optional)</li>
-            <li>Click <strong>"Save & view page"</strong></li>
-            <li>On your game page, click <strong>"Embed"</strong> or <strong>"Run game"</strong></li>
-            <li>Copy the embed URL from the address bar — it will look like:</li>
-        </ol>
-
-        <div class="code-box">
-            <span class="highlight">https://itch.io/embed-upload/1234567?color=000000</span>
+        <div class="hosting-grid">
+            <div class="hosting-item">
+                <div class="name">itch.io</div>
+                <div class="desc">HTML5 games<br>Easiest</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">Vercel</div>
+                <div class="desc">GitHub connect<br>Auto-deploy</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">Netlify</div>
+                <div class="desc">Drag-drop<br>Instant</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">GitHub Pages</div>
+                <div class="desc">Settings → Pages<br>Free</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">Cloudflare</div>
+                <div class="desc">Pages<br>Fast CDN</div>
+            </div>
+            <div class="hosting-item">
+                <div class="name">Custom</div>
+                <div class="desc">Your own host<br>Any HTTPS</div>
+            </div>
         </div>
-
-        <p style="margin-top:14px;margin-bottom:0;">
-            <strong>Important:</strong> Copy the URL <strong>directly from the iframe src</strong> (right-click the game → "Inspect" → find <code>&lt;iframe src="..."&gt;</code>) OR use the "Run game" URL. It must start with <strong>https://itch.io/embed-upload/</strong>
-        </p>
     </div>
 
     <div class="field">
-        <label>itch.io Embed URL <span class="required">*</span></label>
+        <label>Live Game URL <span class="required">*</span></label>
         <input
             type="url"
             name="gameUrl"
             id="gameUrl"
-            placeholder="https://itch.io/embed-upload/1234567?color=000000"
-            pattern="https://itch\.io/.*"
+            placeholder="https://your-game.vercel.app  or  https://itch.io/embed-upload/..."
+            pattern="https://.*"
             required
         >
-        <div class="help">Example: https://itch.io/embed-upload/1234567?color=000000</div>
+        <div class="help">
+            Paste the <strong>live URL</strong> that directly plays your game.<br>
+            ✅ Good: <code>https://mygame.vercel.app</code> · <code>https://itch.io/embed-upload/123</code><br>
+            ❌ Bad: GitHub repo link · GitHub raw file · ZIP file link
+        </div>
     </div>
 
     <div class="field">
-        <label>itch.io Game Page URL <span class="required">*</span></label>
+        <label>Hosting Platform <span class="required">*</span></label>
+        <select name="hostingPlatform" id="hostingPlatform" required>
+            <option value="">Where is your game hosted?</option>
+            <option value="itch.io">itch.io</option>
+            <option value="Vercel">Vercel</option>
+            <option value="Netlify">Netlify</option>
+            <option value="GitHub Pages">GitHub Pages</option>
+            <option value="Cloudflare Pages">Cloudflare Pages</option>
+            <option value="Custom Domain">Custom Domain / Own Host</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <div class="field" id="sourceUrlField" style="display:none;">
+        <label>Source / Repository URL (optional)</label>
         <input
             type="url"
-            name="itchPageUrl"
-            id="itchPageUrl"
-            placeholder="https://yourname.itch.io/your-game"
-            pattern="https://.*\.itch\.io/.*"
-            required
+            name="sourceUrl"
+            id="sourceUrl"
+            placeholder="https://github.com/username/game  or  https://itch.io/profile/username"
         >
-        <div class="help">The public page URL where players can find your game on itch.io. This helps us verify.</div>
+        <div class="help">Optional — helps us verify ownership if needed.</div>
     </div>
 
 </div>
 
-<!-- ============================================
-     SECTION 1 — DEVELOPER INFO
-     ============================================ -->
+<!-- DEVELOPER INFO -->
 <div class="section">
     <div class="section-title">
         <span>02</span>
@@ -380,9 +377,7 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
     </div>
 </div>
 
-<!-- ============================================
-     SECTION 2 — GAME INFO
-     ============================================ -->
+<!-- GAME INFO -->
 <div class="section">
     <div class="section-title">
         <span>03</span>
@@ -414,13 +409,13 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
 
     <div class="field">
         <label>Description <span class="required">*</span></label>
-        <textarea name="description" minlength="100" maxlength="1500" placeholder="Tell us about your game, its objective and gameplay..." required></textarea>
+        <textarea name="description" minlength="100" maxlength="1500" placeholder="Tell us about your game..." required></textarea>
         <div class="help">Minimum 100 characters.</div>
     </div>
 
     <div class="field">
         <label>Controls / Instructions <span class="required">*</span></label>
-        <textarea name="controls" minlength="20" maxlength="800" placeholder="Example: WASD to move, Space to jump, Mouse to aim..." required></textarea>
+        <textarea name="controls" minlength="20" maxlength="800" placeholder="Example: WASD to move, Space to jump..." required></textarea>
     </div>
 
     <div class="field">
@@ -471,7 +466,7 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
     <div class="field">
         <label>Game Thumbnail <span class="required">*</span></label>
         <input type="file" id="thumbnail" name="thumbnail" accept="image/png,image/jpeg,image/webp" required>
-        <div class="help">Upload a JPG, PNG or WebP image. Max 5 MB (auto-compressed).</div>
+        <div class="help">Upload a JPG, PNG or WebP. Max 5 MB (auto-compressed).</div>
 
         <div class="thumbnail-preview" id="thumbnailPreview">
             <img id="thumbnailImage" alt="Thumbnail preview">
@@ -484,9 +479,7 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
 
 </div>
 
-<!-- ============================================
-     SECTION 3 — MULTIPLAYER
-     ============================================ -->
+<!-- MULTIPLAYER -->
 <div class="section">
     <div class="section-title">
         <span>04</span>
@@ -508,37 +501,28 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
     </div>
 
     <div class="multiplayer-fields" id="multiplayerFields">
-
         <div class="server-note">
             <div class="icon">⚠️</div>
             <div class="text">
                 <strong>Important — Server Requirement</strong>
-                PLAYR does NOT provide game servers. The developer must provide their own server (VPS, cloud hosting, or dedicated server). Your game will not work without a server if it is multiplayer.
+                PLAYR does NOT provide game servers. The developer must provide their own server (VPS, cloud hosting, etc.). Your game will not work without a server if it is multiplayer.
             </div>
         </div>
 
         <div class="field">
             <label>Server Information <span class="required">*</span></label>
-            <textarea
-                name="serverInfo"
-                id="serverInfo"
-                maxlength="800"
-                placeholder="Describe your server setup:&#10;• Hosting provider&#10;• Server region / location&#10;• WebSocket / API endpoint&#10;• How to connect to your server"
-            ></textarea>
-            <div class="help">Tell us how your multiplayer server works.</div>
+            <textarea name="serverInfo" id="serverInfo" maxlength="800" placeholder="Describe your server setup..."></textarea>
         </div>
 
         <div class="row">
             <div class="field">
                 <label>Max Players Per Room <span class="required">*</span></label>
                 <input type="number" name="maxPlayers" id="maxPlayers" min="2" max="1000" placeholder="e.g. 8">
-                <div class="help">Maximum players in a single match/room.</div>
             </div>
-
             <div class="field">
                 <label>Server Region</label>
                 <select name="serverRegion" id="serverRegion">
-                    <option value="">Select region (optional)</option>
+                    <option value="">Optional</option>
                     <option value="Global">Global</option>
                     <option value="Asia">Asia</option>
                     <option value="India">India</option>
@@ -550,13 +534,10 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
                 </select>
             </div>
         </div>
-
     </div>
 </div>
 
-<!-- ============================================
-     SECTION 4 — RIGHTS
-     ============================================ -->
+<!-- RIGHTS -->
 <div class="section">
     <div class="section-title">
         <span>05</span>
@@ -579,13 +560,13 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
     </div>
 
     <div class="checkbox">
-        <input type="checkbox" id="itchAgree">
-        <label for="itchAgree">I confirm my game is publicly accessible on itch.io and the embed URL works.</label>
+        <input type="checkbox" id="urlAgree">
+        <label for="urlAgree">I confirm my game URL is publicly accessible and works in a browser.</label>
     </div>
 
     <div class="checkbox">
         <input type="checkbox" id="serverAgree">
-        <label for="serverAgree">I understand that if my game is multiplayer, <strong>I am responsible for providing my own server</strong> — PLAYR does not provide game servers.</label>
+        <label for="serverAgree">I understand that if my game is multiplayer, <strong>I am responsible for providing my own server</strong>.</label>
     </div>
 </div>
 
@@ -600,7 +581,7 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
 <div class="message success" id="success">
     ✓ Submission received.
     <br><br>
-    Your game has been submitted for review. Our team will verify the itch.io embed and publish it if approved.
+    Your game has been submitted for review. Our team will verify the URL and publish it if approved.
 </div>
 
 <div class="message warning" id="warning"></div>
@@ -614,9 +595,7 @@ footer{text-align:center;color:#555;font-size:11px;margin-top:26px;padding-botto
 
 </div>
 
-<footer>
-    PLAYR Developer Portal · 2026
-</footer>
+<footer>PLAYR Developer Portal · 2026</footer>
 
 </div>
 
@@ -662,6 +641,9 @@ const mpYes = document.getElementById("mpYes");
 const mpNo = document.getElementById("mpNo");
 const multiplayerFields = document.getElementById("multiplayerFields");
 
+const hostingPlatform = document.getElementById("hostingPlatform");
+const sourceUrlField = document.getElementById("sourceUrlField");
+
 let currentBase64Image = "";
 
 /* =================================
@@ -686,6 +668,19 @@ function updateMultiplayerFields(){
 mpYes.addEventListener("change", updateMultiplayerFields);
 mpNo.addEventListener("change", updateMultiplayerFields);
 updateMultiplayerFields();
+
+/* =================================
+   HOSTING PLATFORM TOGGLE
+================================= */
+
+hostingPlatform.addEventListener("change", function(){
+    /* Show source URL field for non-itch platforms (helps verify) */
+    if(this.value && this.value !== "itch.io"){
+        sourceUrlField.style.display = "block";
+    }else{
+        sourceUrlField.style.display = "none";
+    }
+});
 
 /* =================================
    IMAGE COMPRESS
@@ -770,7 +765,7 @@ thumbnail.addEventListener("change", async function(){
         thumbnailSize.textContent = getBase64SizeKB(dataUrl) + " KB";
     }catch(err){
         console.error(err);
-        showError("Failed to process image. Try a different one.");
+        showError("Failed to process image.");
         thumbnail.value = "";
         thumbnailPreview.style.display = "none";
         currentBase64Image = "";
@@ -789,7 +784,6 @@ form.addEventListener("submit", async function(e){
     errorBox.style.display = "none";
 
     const file = thumbnail.files[0];
-
     if(!file){ showError("Please upload a game thumbnail."); return; }
     if(!currentBase64Image){ showError("Thumbnail is still processing."); return; }
 
@@ -807,7 +801,8 @@ form.addEventListener("submit", async function(e){
     const orientation = data.get("orientation") || "";
     const language = data.get("language") || "";
     const gameUrl = (data.get("gameUrl") || "").trim();
-    const itchPageUrl = (data.get("itchPageUrl") || "").trim();
+    const platform = (data.get("hostingPlatform") || "").trim();
+    const sourceUrl = (data.get("sourceUrl") || "").trim();
 
     const multiplayer = data.get("multiplayer") || "No";
     const isMultiplayer = multiplayer === "Yes";
@@ -815,62 +810,85 @@ form.addEventListener("submit", async function(e){
     const maxPlayers = isMultiplayer ? parseInt(data.get("maxPlayers") || "0", 10) : 0;
     const serverRegion = isMultiplayer ? (data.get("serverRegion") || "") : "";
 
-    /* VALIDATION */
+    /* =================================
+       VALIDATION
+    ================================= */
 
     if(!developer){ showError("Please enter developer name."); return; }
-    if(!email || !email.includes("@")){ showError("Please enter a valid email."); return; }
-    if(!country){ showError("Please select your country."); return; }
+    if(!email || !email.includes("@")){ showError("Please enter valid email."); return; }
+    if(!country){ showError("Please select country."); return; }
     if(!developerType){ showError("Please select developer type."); return; }
 
-    if(gameName.length < 3){ showError("Game title must be at least 3 characters."); return; }
-    if(!category){ showError("Please select a category."); return; }
-    if(description.length < 100){ showError("Description must be at least 100 characters."); return; }
-    if(controls.length < 20){ showError("Please provide proper controls."); return; }
-    if(!supportedDevices){ showError("Please select supported devices."); return; }
-    if(!orientation){ showError("Please select orientation."); return; }
-    if(!language){ showError("Please select language."); return; }
+    if(gameName.length < 3){ showError("Title must be 3+ characters."); return; }
+    if(!category){ showError("Please select category."); return; }
+    if(description.length < 100){ showError("Description must be 100+ characters."); return; }
+    if(controls.length < 20){ showError("Controls must be 20+ characters."); return; }
+    if(!supportedDevices){ showError("Select supported devices."); return; }
+    if(!orientation){ showError("Select orientation."); return; }
+    if(!language){ showError("Select language."); return; }
 
     if(isMultiplayer){
         if(!serverInfo || serverInfo.length < 20){
-            showError("Please provide detailed server info (min 20 characters).");
+            showError("Provide server info (20+ characters).");
             return;
         }
         if(!maxPlayers || maxPlayers < 2){
-            showError("Please enter max players (minimum 2).");
+            showError("Max players must be 2+.");
             return;
         }
     }
 
-    /* ITCH.IO URL VALIDATION */
-
-    if(!gameUrl || !gameUrl.includes("itch.io")){
-        showError("Please enter a valid itch.io embed URL.");
-        return;
-    }
+    /* URL VALIDATION */
+    if(!gameUrl){ showError("Please enter your game URL."); return; }
 
     if(!gameUrl.startsWith("https://")){
-        showError("Embed URL must use HTTPS.");
+        showError("URL must use HTTPS.");
         return;
     }
 
-    if(!itchPageUrl || !itchPageUrl.includes(".itch.io")){
-        showError("Please enter a valid itch.io game page URL.");
+    try{
+        const parsed = new URL(gameUrl);
+        const hostname = parsed.hostname.toLowerCase();
+
+        /* Block GitHub raw URLs and known non-game hosts */
+        if(hostname === "github.com" || hostname === "www.github.com"){
+            showError("GitHub repo URL won't work. Use a live hosted URL (Vercel, Netlify, GitHub Pages, itch.io).");
+            return;
+        }
+
+        if(hostname.includes("raw.githubusercontent.com")){
+            showError("Raw GitHub files won't render as HTML. Host it on Vercel/Netlify/itch.io first.");
+            return;
+        }
+
+        /* Block common file extensions that aren't playable HTML */
+        const path = parsed.pathname.toLowerCase();
+        const badExts = [".zip", ".rar", ".7z", ".tar", ".gz", ".pdf", ".doc", ".docx", ".txt", ".md"];
+        for(const ext of badExts){
+            if(path.endsWith(ext)){
+                showError(`.${ext.replace(".","")} files aren't playable. Upload your game first and paste the live URL.`);
+                return;
+            }
+        }
+
+    }catch(err){
+        showError("Invalid URL format.");
         return;
     }
+
+    if(!platform){ showError("Please select hosting platform."); return; }
 
     /* CHECKBOXES */
-
-    if(!document.getElementById("rights").checked){ showError("Please confirm you have rights."); return; }
-    if(!document.getElementById("assets").checked){ showError("Please confirm asset rights."); return; }
-    if(!document.getElementById("rules").checked){ showError("Please accept review policy."); return; }
-    if(!document.getElementById("itchAgree").checked){ showError("Please confirm itch.io accessibility."); return; }
-    if(!document.getElementById("serverAgree").checked){ showError("Please accept server responsibility."); return; }
+    if(!document.getElementById("rights").checked){ showError("Confirm game rights."); return; }
+    if(!document.getElementById("assets").checked){ showError("Confirm asset rights."); return; }
+    if(!document.getElementById("rules").checked){ showError("Accept review policy."); return; }
+    if(!document.getElementById("urlAgree").checked){ showError("Confirm URL accessibility."); return; }
+    if(!document.getElementById("serverAgree").checked){ showError("Accept server responsibility."); return; }
 
     /* IMAGE SIZE */
-
     const imageSizeKB = parseFloat(getBase64SizeKB(currentBase64Image));
     if(imageSizeKB > 900){
-        showError(`Thumbnail too large (${imageSizeKB}KB). Try a smaller image.`);
+        showError(`Thumbnail too large (${imageSizeKB}KB). Try smaller image.`);
         return;
     }
 
@@ -884,7 +902,7 @@ form.addEventListener("submit", async function(e){
     progressText.textContent = "Checking for duplicates...";
 
     try{
-        /* Duplicate check — same itch.io embed URL */
+        /* Duplicate check */
         let duplicateFound = false;
         try{
             const dup = await Promise.race([
@@ -895,7 +913,7 @@ form.addEventListener("submit", async function(e){
         }catch(e){ console.warn("Dup check failed:", e.message); }
 
         if(duplicateFound){
-            showError("This itch.io embed URL has already been submitted.");
+            showError("This game URL has already been submitted.");
             return;
         }
 
@@ -914,14 +932,13 @@ form.addEventListener("submit", async function(e){
             orientation: orientation,
             language: language,
 
-            /* itch.io URLs */
+            /* Game URL */
             gameUrl: gameUrl,
-            itchPageUrl: itchPageUrl,
-            hostingPlatform: "itch.io",
+            hostingPlatform: platform,
+            sourceUrl: sourceUrl,
 
-            /* No GitHub for itch.io */
-            githubUrl: "",
-            repositoryUrl: "",
+            /* No GitHub required */
+            githubUrl: sourceUrl || "",
 
             /* Base64 thumbnail */
             thumbnailData: currentBase64Image,
@@ -939,7 +956,7 @@ form.addEventListener("submit", async function(e){
             rightsConfirmed: document.getElementById("rights").checked,
             assetsConfirmed: document.getElementById("assets").checked,
             rulesAccepted: document.getElementById("rules").checked,
-            itchConfirmed: document.getElementById("itchAgree").checked,
+            urlConfirmed: document.getElementById("urlAgree").checked,
             serverAgreement: document.getElementById("serverAgree").checked,
 
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -949,7 +966,7 @@ form.addEventListener("submit", async function(e){
 
         await Promise.race([
             db.collection("game_submissions").add(docData),
-            new Promise((_, rej) => setTimeout(() => rej(new Error("Save timeout. Check Firestore rules.")), 20000))
+            new Promise((_, rej) => setTimeout(() => rej(new Error("Save timed out. Check Firestore rules.")), 20000))
         ]);
 
         console.log("✅ Submitted successfully");
@@ -962,6 +979,7 @@ form.addEventListener("submit", async function(e){
         submitButton.textContent = "SUBMIT FOR REVIEW";
         currentBase64Image = "";
         updateMultiplayerFields();
+        sourceUrlField.style.display = "none";
 
         window.scrollTo({ top:0, behavior:"smooth" });
 
@@ -992,12 +1010,10 @@ function showError(message, detail){
         "<strong>✕ Submission error</strong>" +
         escapeHTML(message) +
         (detail ? `<div class="error-detail">${escapeHTML(detail)}</div>` : "");
-
     errorBox.style.display = "block";
     progress.style.display = "none";
     submitButton.disabled = false;
     submitButton.textContent = "SUBMIT FOR REVIEW";
-
     setTimeout(() => {
         errorBox.scrollIntoView({ behavior:"smooth", block:"center" });
     }, 100);
